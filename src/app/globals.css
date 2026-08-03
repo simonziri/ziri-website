@@ -20,8 +20,8 @@ body {
   line-height: var(--line-height-default);
   -webkit-font-smoothing: antialiased;
   transition:
-    background-color 180ms ease,
-    color 180ms ease;
+    background-color 180ms var(--ease-global),
+    color 180ms var(--ease-global);
 }
 
 button,

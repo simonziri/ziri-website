@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { MobileLogoWall } from "./mobile-logo-wall";
 import { PixelHatchButton } from "./pixel-hatch-button";
 import styles from "./home-sections.module.css";
 
@@ -79,6 +80,7 @@ export function Hero() {
             />
           </div>
         </div>
+        <MobileLogoWall />
       </div>
     </section>
   );

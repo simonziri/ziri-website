@@ -5,8 +5,8 @@
   --ph-text-fill: #1c1b12;
   --settle-lag: 240ms;
   --settle-dur: 460ms;
-  --ph-ease: cubic-bezier(0.22, 1, 0.36, 1);
-  --label-ease: cubic-bezier(0.625, 0.05, 0, 1);
+  --ph-ease: var(--ease-global);
+  --label-ease: var(--ease-global);
   --ph-height: 2.6875rem;
   --ph-padding-x: 0.9375rem;
   --ph-font-size: 1.125rem;
@@ -65,7 +65,7 @@
   background: var(--px, var(--ph-final));
   opacity: 0;
   transition:
-    opacity 260ms cubic-bezier(0.66, 0, 0.34, 1) var(--ph-exit-delay),
+    opacity 260ms var(--ease-global) var(--ph-exit-delay),
     background-color 0ms linear 480ms;
 }
 
@@ -110,8 +110,8 @@
   background: var(--ph-final);
   opacity: 1;
   transition:
-    opacity 260ms cubic-bezier(0.66, 0, 0.34, 1) var(--ph-enter-delay),
-    background-color var(--settle-dur) ease
+    opacity 260ms var(--ease-global) var(--ph-enter-delay),
+    background-color var(--settle-dur) var(--ease-global)
       calc(var(--ph-enter-delay) + var(--settle-lag));
 }
 
@@ -137,8 +137,8 @@
     background: var(--ph-final);
     opacity: 1;
     transition:
-      opacity 260ms cubic-bezier(0.66, 0, 0.34, 1) var(--ph-enter-delay),
-      background-color var(--settle-dur) ease
+      opacity 260ms var(--ease-global) var(--ph-enter-delay),
+      background-color var(--settle-dur) var(--ease-global)
         calc(var(--ph-enter-delay) + var(--settle-lag));
   }
 

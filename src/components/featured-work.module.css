@@ -41,7 +41,7 @@
 }
 
 .track[data-animating="true"] {
-  transition: transform 620ms cubic-bezier(0.625, 0.05, 0, 1);
+  transition: transform 620ms var(--ease-global);
 }
 
 .slide {
@@ -223,14 +223,14 @@
   background: transparent;
   cursor: pointer;
   transition:
-    background-color 180ms ease,
-    transform 240ms cubic-bezier(0.22, 1, 0.36, 1);
+    background-color 240ms var(--ease-global),
+    transform 240ms var(--ease-global);
 }
 
 .arrowButton img {
   width: 2.6875rem;
   height: 2.6875rem;
-  transition: transform 240ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition: transform 240ms var(--ease-global);
 }
 
 .arrowButton:hover {

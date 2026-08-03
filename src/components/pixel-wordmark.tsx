@@ -46,6 +46,29 @@ type RuntimePixel = {
 
 const word = ["Z", "I", "R", "I"] as const;
 
+const totalPixelCount = word.reduce(
+  (total, character) =>
+    total + GLYPHS[character].reduce((count, row) => count + [...row].filter((cell) => cell === "1").length, 0),
+  0,
+);
+
+const revealRanks = (() => {
+  const order = Array.from({ length: totalPixelCount }, (_, index) => index);
+  let seed = 20260803;
+
+  for (let index = order.length - 1; index > 0; index -= 1) {
+    seed = (seed * 1664525 + 1013904223) >>> 0;
+    const randomIndex = seed % (index + 1);
+    [order[index], order[randomIndex]] = [order[randomIndex], order[index]];
+  }
+
+  const ranks = new Array<number>(order.length);
+  order.forEach((pixelIndex, rank) => {
+    ranks[pixelIndex] = rank;
+  });
+  return ranks;
+})();
+
 export function PixelWordmark() {
   const markRef = useRef<HTMLDivElement>(null);
 
@@ -64,7 +87,6 @@ export function PixelWordmark() {
         uy: 0,
       }));
     const active = new Set<RuntimePixel>();
-    const entryTimers: number[] = [];
     let pointer: { x: number; y: number } | null = null;
     let animationFrame = 0;
     let inView = false;
@@ -164,22 +186,14 @@ export function PixelWordmark() {
           inView = entry.isIntersecting;
           if (!entry.isIntersecting || mark.hasAttribute("data-visible")) return;
           mark.setAttribute("data-visible", "");
-          pixels.forEach((pixel, index) => {
-            const delay = Number(pixel.box.dataset.delay || index * 2);
-            entryTimers.push(
-              window.setTimeout(() => {
-                heat(pixel, 0.55, 0, 0);
-                wake();
-              }, delay + 60),
-            );
-          });
         });
       },
       { threshold: 0.18 },
     );
 
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const idleTimer = reducedMotion
+    const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+    const idleTimer = reducedMotion || !finePointer
       ? 0
       : window.setInterval(() => {
           if (!inView || pointer || !mark.hasAttribute("data-visible")) return;
@@ -193,17 +207,20 @@ export function PixelWordmark() {
     measure();
     observer.observe(mark);
     window.addEventListener("resize", measure, { passive: true });
-    mark.addEventListener("pointermove", handlePointerMove, { passive: true });
-    mark.addEventListener("pointerleave", handlePointerLeave);
-    mark.addEventListener("pointerdown", handlePointerDown);
+    if (finePointer) {
+      mark.addEventListener("pointermove", handlePointerMove, { passive: true });
+      mark.addEventListener("pointerleave", handlePointerLeave);
+      mark.addEventListener("pointerdown", handlePointerDown);
+    }
 
     return () => {
       observer.disconnect();
       window.removeEventListener("resize", measure);
-      mark.removeEventListener("pointermove", handlePointerMove);
-      mark.removeEventListener("pointerleave", handlePointerLeave);
-      mark.removeEventListener("pointerdown", handlePointerDown);
-      entryTimers.forEach((timer) => window.clearTimeout(timer));
+      if (finePointer) {
+        mark.removeEventListener("pointermove", handlePointerMove);
+        mark.removeEventListener("pointerleave", handlePointerLeave);
+        mark.removeEventListener("pointerdown", handlePointerDown);
+      }
       if (idleTimer) window.clearInterval(idleTimer);
       if (animationFrame) window.cancelAnimationFrame(animationFrame);
     };
@@ -237,9 +254,9 @@ export function PixelWordmark() {
                 const style: PixelStyle = {
                   "--pixel-color": palette[(pixelIndex * 7 + letterIndex * 3) % palette.length],
                   "--pixel-hot": HOT[(pixelIndex * 5 + rowIndex) % HOT.length],
-                  "--entry-delay": `${(pixelIndex * 73 + rowIndex * 29) % 1000}ms`,
+                  "--entry-delay": `${revealRanks[pixelIndex] * 4}ms`,
                 };
-                const delay = (pixelIndex * 73 + rowIndex * 29) % 1000;
+                const delay = revealRanks[pixelIndex] * 4;
                 pixelIndex += 1;
 
                 return (
