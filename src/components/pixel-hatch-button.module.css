@@ -1,0 +1,162 @@
+.button {
+  --ph-bg: #1c1b12;
+  --ph-final: #fac167;
+  --ph-text-rest: #fbfbf8;
+  --ph-text-fill: #1c1b12;
+  --settle-lag: 240ms;
+  --settle-dur: 460ms;
+  --ph-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --label-ease: cubic-bezier(0.625, 0.05, 0, 1);
+  --ph-height: 2.6875rem;
+  --ph-padding-x: 0.9375rem;
+  --ph-font-size: 1.125rem;
+
+  position: relative;
+  display: inline-grid;
+  height: var(--ph-height);
+  padding: 0;
+  border: 0;
+  border-radius: var(--ph-radius, 3px);
+  overflow: hidden;
+  background: var(--ph-bg);
+  color: var(--ph-text-rest);
+  cursor: pointer;
+  font: inherit;
+  font-size: var(--ph-font-size);
+  font-weight: 500;
+  line-height: 1;
+  text-decoration: none;
+  transform: scale(1);
+  transition: transform 420ms var(--ph-ease);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.secondary {
+  --ph-bg: #f5f4ee;
+  --ph-text-rest: #211f16;
+}
+
+.icon {
+  --ph-bg: #fbfbf8;
+  --ph-text-rest: #211f16;
+  --ph-height: 2.6875rem;
+  --ph-padding-x: 0;
+  --ph-font-size: 1rem;
+
+  width: 2.6875rem;
+  border: 0;
+  border-radius: 0;
+}
+
+.pixels {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(24, minmax(0, 1fr));
+  grid-template-rows: repeat(6, minmax(0, 1fr));
+  pointer-events: none;
+}
+
+.pixels i {
+  display: block;
+  width: calc(100% + 1px);
+  height: calc(100% + 1px);
+  background: var(--px, var(--ph-final));
+  opacity: 0;
+  transition:
+    opacity 260ms cubic-bezier(0.66, 0, 0.34, 1) var(--ph-exit-delay),
+    background-color 0ms linear 480ms;
+}
+
+.label {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  overflow: hidden;
+  padding-inline: var(--ph-padding-x);
+}
+
+.track {
+  display: grid;
+  width: 100%;
+  height: 200%;
+  grid-template-rows: repeat(2, 50%);
+  transform: translate3d(0, 0, 0);
+  transition: transform 525ms var(--label-ease);
+}
+
+.track > span {
+  display: grid;
+  place-items: center;
+  white-space: nowrap;
+}
+
+.track > span:first-child {
+  color: var(--ph-text-rest);
+}
+
+.track > span:nth-child(2) {
+  color: var(--ph-text-fill);
+}
+
+.button:focus-visible {
+  outline: 2px solid #211f16;
+  outline-offset: 3px;
+  transform: scale(0.97);
+}
+
+.button:focus-visible .pixels i {
+  background: var(--ph-final);
+  opacity: 1;
+  transition:
+    opacity 260ms cubic-bezier(0.66, 0, 0.34, 1) var(--ph-enter-delay),
+    background-color var(--settle-dur) ease
+      calc(var(--ph-enter-delay) + var(--settle-lag));
+}
+
+.button:focus-visible .track {
+  transform: translate3d(0, -50%, 0);
+}
+
+.button:active {
+  transform: scale(0.97);
+}
+
+.button:disabled {
+  cursor: not-allowed;
+  opacity: 0.38;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .button:not(:disabled):hover {
+    transform: scale(0.97);
+  }
+
+  .button:not(:disabled):hover .pixels i {
+    background: var(--ph-final);
+    opacity: 1;
+    transition:
+      opacity 260ms cubic-bezier(0.66, 0, 0.34, 1) var(--ph-enter-delay),
+      background-color var(--settle-dur) ease
+        calc(var(--ph-enter-delay) + var(--settle-lag));
+  }
+
+  .button:not(:disabled):hover .track {
+    transform: translate3d(0, -50%, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .button,
+  .button * {
+    transition-duration: 0ms !important;
+    transition-delay: 0ms !important;
+  }
+
+  .button:hover,
+  .button:focus-visible,
+  .button:active {
+    transform: none;
+  }
+}

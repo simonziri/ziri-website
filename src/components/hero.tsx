@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
+import { PixelHatchButton } from "./pixel-hatch-button";
 import styles from "./home-sections.module.css";
 
 export function Hero() {
@@ -24,12 +24,16 @@ export function Hero() {
 
       <div className={styles.heroFooter}>
         <div className={styles.heroActions}>
-          <Link className={styles.primaryButton} href="#contact">
+          <PixelHatchButton className={styles.heroButton} href="#contact">
             Work with us
-          </Link>
-          <Link className={styles.secondaryButton} href="#method">
+          </PixelHatchButton>
+          <PixelHatchButton
+            className={styles.heroButton}
+            href="#our-way"
+            variant="secondary"
+          >
             Explore our method
-          </Link>
+          </PixelHatchButton>
         </div>
 
         <div className={styles.logoStrip} aria-label="Selected ZIRI clients">

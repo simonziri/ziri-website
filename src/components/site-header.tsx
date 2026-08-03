@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { PixelHatchButton } from "./pixel-hatch-button";
 import styles from "./home-sections.module.css";
 
 const navigation = [
@@ -29,9 +30,9 @@ export function SiteHeader() {
             </Link>
           ))}
         </div>
-        <Link className={styles.headerCta} href="#contact">
+        <PixelHatchButton className={styles.headerCta} href="#contact">
           Work with us
-        </Link>
+        </PixelHatchButton>
       </nav>
     </header>
   );

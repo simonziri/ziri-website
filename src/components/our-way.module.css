@@ -1,0 +1,139 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  padding: 7.375rem 4.0625rem;
+  background: var(--color-light-neutral-300);
+  content-visibility: auto;
+  contain-intrinsic-size: 53.0625rem;
+}
+
+.title {
+  width: min(73.0625rem, 100%);
+  color: var(--text-heading);
+  font-size: 2.8125rem;
+  font-weight: 463;
+  letter-spacing: -0.09375rem;
+  line-height: 1.14;
+  text-wrap: pretty;
+}
+
+.title span {
+  display: block;
+  color: rgba(33, 31, 22, 0.46);
+}
+
+.cardGrid {
+  display: grid;
+  grid-template-columns: 30.9375rem minmax(0, 1fr);
+  gap: 1rem;
+}
+
+.card {
+  display: flex;
+  height: 28.9375rem;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  padding: 3.25rem 2.8125rem;
+  border-radius: 4px;
+  color: var(--text-heading);
+}
+
+.oldWay {
+  background: var(--color-light-neutral-500);
+}
+
+.ziriWay {
+  background: var(--color-light-neutral-100);
+}
+
+.cardHeading {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4375rem;
+}
+
+.cardLabel {
+  font-family: ui-monospace, "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: var(--font-size-medium);
+  font-weight: 500;
+  line-height: 1;
+}
+
+.cardHeading h3 {
+  max-width: 32rem;
+  font-size: var(--font-size-h5);
+  font-weight: 500;
+  line-height: 1.2;
+  text-wrap: pretty;
+}
+
+.cardBody {
+  max-width: 31rem;
+  color: var(--text-heading);
+  font-size: var(--font-size-regular);
+  line-height: 1.41;
+}
+
+.ziriWay .cardBody {
+  display: flex;
+  flex-direction: column;
+  gap: 2.75rem;
+  opacity: 0.8;
+}
+
+.cardBody strong {
+  font-weight: 500;
+}
+
+@media (max-width: 61.9375rem) {
+  .section {
+    padding: 6rem 2.5rem;
+  }
+
+  .cardGrid {
+    grid-template-columns: 2fr 3fr;
+  }
+
+  .card {
+    height: auto;
+    min-height: 29rem;
+    padding: 2.5rem 2rem;
+  }
+}
+
+@media (max-width: 47.9375rem) {
+  .section {
+    gap: 2.5rem;
+    padding: 5rem 1.5rem;
+  }
+
+  .title {
+    font-size: 2.25rem;
+    letter-spacing: -0.045rem;
+  }
+
+  .cardGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .card {
+    min-height: 26rem;
+  }
+}
+
+@media (max-width: 29.9375rem) {
+  .section {
+    padding-inline: 1rem;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+
+  .card {
+    min-height: 28rem;
+    padding: 2rem 1.5rem;
+  }
+}

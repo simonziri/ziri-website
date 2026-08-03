@@ -38,8 +38,7 @@
   gap: 0.25rem;
 }
 
-.navigationLink,
-.headerCta {
+.navigationLink {
   display: inline-flex;
   min-height: 2.125rem;
   align-items: center;
@@ -67,15 +66,13 @@
   opacity: 1;
 }
 
-.headerCta,
-.primaryButton {
-  background: var(--button-primary-bg);
-  color: var(--button-primary-text);
-}
+.headerCta {
+  --ph-height: 2.125rem;
+  --ph-font-size: var(--font-size-small);
+  --ph-padding-x: 0.75rem;
+  --ph-radius: 2px;
 
-.headerCta:hover,
-.primaryButton:hover {
-  background: var(--button-primary-bg-hover);
+  font-weight: 400;
 }
 
 .hero {
@@ -141,36 +138,10 @@
   flex: 0 0 auto;
 }
 
-.primaryButton,
-.secondaryButton {
-  display: inline-flex;
-  min-height: 2.6875rem;
-  align-items: center;
-  justify-content: center;
-  padding: 0.625rem 0.9375rem;
-  border-radius: 0.1875rem;
-  font-size: var(--font-size-medium);
-  font-weight: 500;
-  line-height: var(--line-height-default);
-  text-decoration: none;
-  white-space: nowrap;
-  transition:
-    background-color 160ms ease,
-    transform 160ms ease;
-}
-
-.secondaryButton {
-  background: var(--surface-raised);
-  color: var(--text-heading);
-}
-
-.secondaryButton:hover {
-  background: var(--surface-sunken);
-}
-
-.primaryButton:active,
-.secondaryButton:active {
-  transform: translateY(1px);
+.heroButton {
+  --ph-height: 2.6875rem;
+  --ph-font-size: var(--font-size-medium);
+  --ph-padding-x: 0.9375rem;
 }
 
 .logoStrip {
@@ -273,9 +244,8 @@
     flex-wrap: wrap;
   }
 
-  .primaryButton,
-  .secondaryButton {
-    min-height: 2.625rem;
+  .heroButton {
+    --ph-height: 2.625rem;
   }
 
   .logoStrip {
