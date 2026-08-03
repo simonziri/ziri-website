@@ -1,0 +1,200 @@
+.section {
+  min-height: 41.25rem;
+  padding: 3.8125rem var(--content-inset) 6.9375rem;
+  background: var(--surface-raised);
+  content-visibility: auto;
+  contain-intrinsic-size: 41.25rem;
+}
+
+.tabs {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.25rem;
+}
+
+.tab {
+  position: relative;
+  display: grid;
+  height: 3.75rem;
+  place-items: center;
+  padding: 0.75rem 1rem 0;
+  border: 0;
+  border-top: 1px solid var(--border-default);
+  background: transparent;
+  cursor: pointer;
+}
+
+.tabLogo {
+  display: grid;
+  height: 1.75rem;
+  place-items: center;
+  filter: grayscale(1);
+  opacity: 0.36;
+  transition:
+    opacity 220ms ease,
+    transform 260ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter 220ms ease;
+}
+
+.tabLogo img {
+  width: auto;
+  max-width: 9.5625rem;
+  height: auto;
+  max-height: 1.75rem;
+}
+
+.tab:hover .tabLogo,
+.tab:focus-visible .tabLogo {
+  opacity: 0.7;
+  transform: translateY(-0.125rem);
+}
+
+.tab[data-active="true"] .tabLogo {
+  filter: grayscale(0);
+  opacity: 1;
+}
+
+.progress {
+  position: absolute;
+  top: -1px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--text-heading);
+  animation: testimonial-progress linear both;
+  transform-origin: left center;
+}
+
+.panel {
+  position: relative;
+  display: flex;
+  width: min(51.125rem, 100%);
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2.1875rem;
+  margin-top: 7.1875rem;
+  overflow: hidden;
+  animation: testimonial-content-in 520ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.headshotFrame {
+  position: relative;
+  display: block;
+  width: 3.8125rem;
+  height: 3.6875rem;
+  overflow: hidden;
+}
+
+.headshot {
+  object-fit: cover;
+}
+
+.panel blockquote {
+  margin: 0;
+  color: var(--text-heading);
+  font-size: 2rem;
+  font-weight: 400;
+  letter-spacing: -0.03rem;
+  line-height: 1.14;
+}
+
+.panel a {
+  color: var(--text-heading);
+  font-size: 1.125rem;
+  line-height: 1.14;
+  text-decoration: none;
+}
+
+.panel a:hover,
+.panel a:focus-visible {
+  text-decoration: underline;
+}
+
+.author {
+  color: rgba(33, 31, 22, 0.56);
+  font-family: ui-monospace, "SFMono-Regular", Consolas, monospace;
+  font-size: 1.375rem;
+  line-height: 1;
+}
+
+.pixelTransition {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  pointer-events: none;
+}
+
+.pixelTransition i {
+  background: var(--surface-raised);
+  animation: pixel-reveal 520ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  transform-origin: center;
+}
+
+.pixelTransition i:nth-child(2n) { animation-delay: 35ms; }
+.pixelTransition i:nth-child(3n) { animation-delay: 70ms; }
+.pixelTransition i:nth-child(4n) { animation-delay: 105ms; }
+.pixelTransition i:nth-child(5n) { animation-delay: 140ms; }
+.pixelTransition i:nth-child(6n) { animation-delay: 175ms; }
+
+@keyframes testimonial-progress {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+@keyframes testimonial-content-in {
+  from { opacity: 0.5; transform: translateY(0.5rem); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pixel-reveal {
+  0%, 30% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(0.15); }
+}
+
+@media (max-width: 47.9375rem) {
+  .section {
+    min-height: 0;
+    padding-block: 3.5rem 5rem;
+  }
+
+  .tabs {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+
+  .tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .tab {
+    min-width: 9.5rem;
+    scroll-snap-align: start;
+  }
+
+  .panel {
+    gap: 1.75rem;
+    margin-top: 4.5rem;
+  }
+
+  .panel blockquote {
+    font-size: 1.5rem;
+  }
+
+  .author {
+    font-size: 1rem;
+    line-height: 1.3;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .progress,
+  .panel,
+  .pixelTransition i {
+    animation: none;
+  }
+}

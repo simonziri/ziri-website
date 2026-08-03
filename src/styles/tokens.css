@@ -7,6 +7,15 @@
 :root {
   color-scheme: light;
 
+  /* Global page geometry */
+  --content-max-width: 82.625rem;
+  --content-gutter: 4rem;
+  --content-inset: max(
+    var(--content-gutter),
+    calc((100vw - var(--content-max-width)) / 2)
+  );
+  --section-padding-block: 6.875rem;
+
   /* Font family */
   --font-family-sans: var(--font-tt-hoves), "TT Hoves Pro Trial", Arial,
     sans-serif;
@@ -286,6 +295,7 @@
 
 @media (max-width: 61.9375rem) {
   :root {
+    --content-gutter: 2.5rem;
     --space-xxhuge: 7.5rem;
     --space-xhuge: 6rem;
     --space-huge: 5rem;
@@ -320,6 +330,8 @@
 
 @media (max-width: 47.9375rem) {
   :root {
+    --content-gutter: 1.5rem;
+    --section-padding-block: 5rem;
     --space-xxhuge: 5rem;
     --space-xhuge: 4rem;
     --space-huge: 3.5rem;
@@ -354,6 +366,7 @@
 
 @media (max-width: 29.9375rem) {
   :root {
+    --content-gutter: 1rem;
     --space-xxhuge: 5rem;
     --space-xhuge: 4rem;
     --space-huge: 3.5rem;

@@ -3,7 +3,6 @@
 import Image from "next/image";
 import { useEffect, useRef, useState, type KeyboardEvent } from "react";
 import { BeforeAfterScrubber } from "./before-after-scrubber";
-import { PixelHatchButton } from "./pixel-hatch-button";
 import { SectionTag } from "./section-tag";
 import styles from "./featured-work.module.css";
 
@@ -83,39 +82,47 @@ export function FeaturedWork() {
       tabIndex={0}
       onKeyDown={handleKeyboard}
     >
-      <SectionTag>Featured Work</SectionTag>
-      <div className={styles.viewport} ref={viewportRef}>
+      <div className={styles.contentRow}>
+        <SectionTag>Featured Work</SectionTag>
+      </div>
+      <div className={styles.viewport} ref={viewportRef} id="featured-track">
         <div className={styles.track}>
           {Array.from({ length: SLIDE_COUNT }, (_, index) => (
             <FeaturedSlide index={index} key={index} />
           ))}
         </div>
       </div>
-      <div className={styles.controls}>
-        <PixelHatchButton
-          variant="icon"
-          ariaLabel="Show previous featured project"
-          onClick={showPrevious}
-        >
-          <Image
-            src="/assets/featured/carousel-previous.svg"
-            alt=""
-            width={43}
-            height={43}
-          />
-        </PixelHatchButton>
-        <PixelHatchButton
-          variant="icon"
-          ariaLabel="Show next featured project"
-          onClick={showNext}
-        >
-          <Image
-            src="/assets/featured/carousel-next.svg"
-            alt=""
-            width={43}
-            height={43}
-          />
-        </PixelHatchButton>
+      <div className={styles.contentRow}>
+        <div className={styles.controls}>
+          <button
+            className={styles.arrowButton}
+            type="button"
+            aria-label="Show previous featured project"
+            aria-controls="featured-track"
+            onClick={showPrevious}
+          >
+            <Image
+              src="/assets/featured/carousel-previous.svg"
+              alt=""
+              width={43}
+              height={43}
+            />
+          </button>
+          <button
+            className={styles.arrowButton}
+            type="button"
+            aria-label="Show next featured project"
+            aria-controls="featured-track"
+            onClick={showNext}
+          >
+            <Image
+              src="/assets/featured/carousel-next.svg"
+              alt=""
+              width={43}
+              height={43}
+            />
+          </button>
+        </div>
       </div>
       <p className={styles.liveStatus} aria-live="polite" aria-atomic="true">
         Featured project {current + 1} of {SLIDE_COUNT}

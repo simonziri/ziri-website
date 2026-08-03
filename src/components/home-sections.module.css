@@ -4,7 +4,7 @@
   min-height: 4.125rem;
   align-items: center;
   justify-content: space-between;
-  padding: 1rem 4rem;
+  padding: 1rem var(--content-inset);
 }
 
 .logoLink {
@@ -82,7 +82,7 @@
   flex-direction: column;
   gap: 2.1875rem;
   align-items: flex-start;
-  padding: 10rem 4rem 0;
+  padding: 10rem var(--content-inset) 0;
 }
 
 .heroCopy {
@@ -129,7 +129,7 @@
 .heroFooter {
   position: absolute;
   bottom: 0;
-  left: 4rem;
+  left: var(--content-inset);
   gap: 2.75rem;
 }
 
@@ -168,13 +168,9 @@
 }
 
 @media (max-width: 61.9375rem) {
-  .header {
-    padding-inline: 2.5rem;
-  }
-
   .hero {
     height: auto;
-    padding: 7.5rem 2.5rem 3rem;
+    padding-block: 7.5rem 3rem;
   }
 
   .heroFooter {
@@ -185,17 +181,13 @@
 }
 
 @media (max-width: 47.9375rem) {
-  .header {
-    padding-inline: 1.5rem;
-  }
-
   .navigationLinks {
     display: none;
   }
 
   .hero {
     gap: 2rem;
-    padding: 5rem 1.5rem 2rem;
+    padding-block: 5rem 2rem;
   }
 
   .heroIntro {
@@ -218,7 +210,7 @@
   }
 
   .logoStrip {
-    width: calc(100vw - 3rem);
+    width: calc(100vw - (var(--content-gutter) * 2));
     max-width: 33.25rem;
     overflow-x: auto;
     overscroll-behavior-inline: contain;
@@ -231,12 +223,8 @@
 }
 
 @media (max-width: 29.9375rem) {
-  .header {
-    padding-inline: 1rem;
-  }
-
   .hero {
-    padding: 5rem 1rem 1.5rem;
+    padding-block: 5rem 1.5rem;
   }
 
   .heroActions {
@@ -249,6 +237,6 @@
   }
 
   .logoStrip {
-    width: calc(100vw - 2rem);
+    width: calc(100vw - (var(--content-gutter) * 2));
   }
 }

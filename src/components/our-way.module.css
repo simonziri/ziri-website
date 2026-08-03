@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   gap: 3rem;
-  padding: 7.375rem 4.0625rem;
+  padding: 7.375rem var(--content-inset);
   background: var(--color-light-neutral-300);
   content-visibility: auto;
   contain-intrinsic-size: 53.0625rem;
@@ -88,10 +88,6 @@
 }
 
 @media (max-width: 61.9375rem) {
-  .section {
-    padding: 6rem 2.5rem;
-  }
-
   .cardGrid {
     grid-template-columns: 2fr 3fr;
   }
@@ -106,7 +102,7 @@
 @media (max-width: 47.9375rem) {
   .section {
     gap: 2.5rem;
-    padding: 5rem 1.5rem;
+    padding-block: 5rem;
   }
 
   .title {
@@ -124,10 +120,6 @@
 }
 
 @media (max-width: 29.9375rem) {
-  .section {
-    padding-inline: 1rem;
-  }
-
   .title {
     font-size: 2rem;
   }

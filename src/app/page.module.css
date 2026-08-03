@@ -6,6 +6,5 @@
 
 .shell {
   width: 100%;
-  max-width: 90rem;
-  margin-inline: auto;
+  overflow-x: clip;
 }
