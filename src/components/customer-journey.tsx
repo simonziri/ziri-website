@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import styles from "./customer-journey.module.css";
 
 type Phase = {
@@ -48,21 +48,25 @@ const phases: Phase[] = [
   { number: "03", label: "Iteration", accent: "#ff765a", cells: iterationCells },
 ];
 
-function PixelPattern({ phase, active }: { phase: Phase; active: boolean }) {
+type PixelCellStyle = CSSProperties & {
+  "--cell-color": string;
+  "--cell-delay": string;
+};
+
+function PixelPattern({ phase, animate = true }: { phase: Phase; animate?: boolean }) {
   return (
-    <div className={styles.pattern} data-active={active} aria-hidden="true">
+    <div className={styles.pattern} data-animate={animate} aria-hidden="true">
       {Array.from({ length: 169 }, (_, index) => {
         const row = Math.floor(index / 13);
         const column = index % 13;
         const isAccent = phase.cells.has(cellKey(row, column));
 
-        return (
-          <i
-            key={index}
-            className={styles.patternCell}
-            style={isAccent ? { backgroundColor: phase.accent } : undefined}
-          />
-        );
+        const style: PixelCellStyle = {
+          "--cell-color": isAccent ? phase.accent : "var(--surface-raised)",
+          "--cell-delay": `${((index * 47) % 169) * 1.15}ms`,
+        };
+
+        return <i key={index} className={styles.patternCell} style={style} />;
       })}
     </div>
   );
@@ -79,30 +83,42 @@ function PhaseTag({ phase }: { phase: Phase }) {
 
 export function CustomerJourney() {
   const [activeStep, setActiveStep] = useState(0);
-  const triggerRefs = useRef<Array<HTMLSpanElement | null>>([]);
+  const stepRefs = useRef<Array<HTMLElement | null>>([]);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-          const index = Number((entry.target as HTMLElement).dataset.step);
-          if (Number.isFinite(index)) setActiveStep(index);
-        });
-      },
-      { rootMargin: "-49.5% 0px -49.5% 0px", threshold: 0 },
-    );
+    let animationFrame = 0;
 
-    const triggers = triggerRefs.current;
-    triggers.forEach((trigger) => {
-      if (trigger) observer.observe(trigger);
+    const updateActiveStep = () => {
+      animationFrame = 0;
+      const center = window.innerHeight / 2;
+      let nextStep = 0;
+
+      stepRefs.current.forEach((step, index) => {
+        if (step && step.getBoundingClientRect().top <= center) nextStep = index;
+      });
+
+      setActiveStep((current) => (current === nextStep ? current : nextStep));
+    };
+
+    const requestUpdate = () => {
+      if (animationFrame) return;
+      animationFrame = window.requestAnimationFrame(updateActiveStep);
+    };
+
+    updateActiveStep();
+    window.addEventListener("scroll", requestUpdate, { passive: true });
+    window.addEventListener("resize", requestUpdate);
+
+    const resizeObserver = new ResizeObserver(requestUpdate);
+    stepRefs.current.forEach((step) => {
+      if (step) resizeObserver.observe(step);
     });
 
     return () => {
-      triggers.forEach((trigger) => {
-        if (trigger) observer.unobserve(trigger);
-      });
-      observer.disconnect();
+      window.removeEventListener("scroll", requestUpdate);
+      window.removeEventListener("resize", requestUpdate);
+      resizeObserver.disconnect();
+      if (animationFrame) window.cancelAnimationFrame(animationFrame);
     };
   }, []);
 
@@ -120,25 +136,23 @@ export function CustomerJourney() {
           aria-label={`Current phase: ${phases[activeStep].label}`}
         >
           <div className={styles.stickyVisual}>
-            {phases.map((phase, index) => (
-              <PixelPattern phase={phase} active={activeStep === index} key={phase.label} />
-            ))}
+            <PixelPattern phase={phases[activeStep]} key={phases[activeStep].label} />
           </div>
         </div>
 
         <div className={styles.steps}>
           {phases.map((phase, index) => (
-            <article className={styles.step} key={phase.label} data-active={activeStep === index}>
-              <span
-                className={styles.trigger}
-                data-step={index}
-                ref={(node) => {
-                  triggerRefs.current[index] = node;
-                }}
-                aria-hidden="true"
-              />
+            <article
+              className={styles.step}
+              key={phase.label}
+              data-active={activeStep === index}
+              data-step-index={index}
+              ref={(node) => {
+                stepRefs.current[index] = node;
+              }}
+            >
               <div className={styles.mobilePattern}>
-                <PixelPattern phase={phase} active />
+                <PixelPattern phase={phase} animate={false} />
               </div>
               <PhaseTag phase={phase} />
               <h3>

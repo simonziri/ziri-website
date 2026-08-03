@@ -122,22 +122,17 @@
   z-index: 2;
   inset: 0;
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  grid-template-rows: repeat(2, 1fr);
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(4, 1fr);
   pointer-events: none;
 }
 
 .pixelTransition i {
   background: var(--surface-raised);
-  animation: pixel-reveal 520ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: pixel-reveal 620ms cubic-bezier(0.625, 0.05, 0, 1) both;
+  animation-delay: var(--pixel-delay);
   transform-origin: center;
 }
-
-.pixelTransition i:nth-child(2n) { animation-delay: 35ms; }
-.pixelTransition i:nth-child(3n) { animation-delay: 70ms; }
-.pixelTransition i:nth-child(4n) { animation-delay: 105ms; }
-.pixelTransition i:nth-child(5n) { animation-delay: 140ms; }
-.pixelTransition i:nth-child(6n) { animation-delay: 175ms; }
 
 @keyframes testimonial-progress {
   from { transform: scaleX(0); }
@@ -150,8 +145,9 @@
 }
 
 @keyframes pixel-reveal {
-  0%, 30% { opacity: 1; transform: scale(1); }
-  100% { opacity: 0; transform: scale(0.15); }
+  0%, 22% { opacity: 1; transform: scale(1); }
+  68% { opacity: 0.82; transform: scale(0.42); }
+  100% { opacity: 0; transform: scale(0); }
 }
 
 @media (max-width: 47.9375rem) {

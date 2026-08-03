@@ -11,7 +11,13 @@ import styles from "./featured-work.module.css";
 
 type ScrubberStyle = CSSProperties & { "--position": string };
 
-export function BeforeAfterScrubber({ testId }: { testId: string }) {
+export function BeforeAfterScrubber({
+  testId,
+  interactive = true,
+}: {
+  testId: string;
+  interactive?: boolean;
+}) {
   const [position, setPosition] = useState(22);
   const scrubberStyle: ScrubberStyle = { "--position": `${position}%` };
 
@@ -83,6 +89,7 @@ export function BeforeAfterScrubber({ testId }: { testId: string }) {
         min="0"
         max="100"
         value={position}
+        tabIndex={interactive ? 0 : -1}
         aria-label="Compare the website before and after the redesign"
         onChange={(event) => setPosition(Number(event.currentTarget.value))}
         onKeyDown={handleKeyDown}

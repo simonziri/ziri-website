@@ -1,22 +1,37 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState, type KeyboardEvent } from "react";
+import {
+  useLayoutEffect,
+  useRef,
+  useState,
+  type CSSProperties,
+  type KeyboardEvent,
+  type PointerEvent,
+  type TransitionEvent,
+} from "react";
 import { BeforeAfterScrubber } from "./before-after-scrubber";
 import { SectionTag } from "./section-tag";
 import styles from "./featured-work.module.css";
 
 const SLIDE_COUNT = 3;
 
-function FeaturedSlide({ index }: { index: number }) {
+type TrackStyle = CSSProperties & { "--carousel-x": string };
+
+function FeaturedSlide({ index, clone = false }: { index: number; clone?: boolean }) {
   return (
     <article
       className={styles.slide}
       aria-roledescription="slide"
       aria-label={`${index + 1} of ${SLIDE_COUNT}`}
+      aria-hidden={clone || undefined}
+      data-clone={clone || undefined}
     >
       <div className={styles.slideMedia}>
-        <BeforeAfterScrubber testId={`before-after-${index + 1}`} />
+        <BeforeAfterScrubber
+          testId={`before-after-${index + 1}${clone ? "-clone" : ""}`}
+          interactive={!clone}
+        />
       </div>
       <div className={styles.slideContent}>
         <Image
@@ -38,28 +53,90 @@ function FeaturedSlide({ index }: { index: number }) {
 }
 
 export function FeaturedWork() {
-  const [current, setCurrent] = useState(0);
+  const [physicalIndex, setPhysicalIndex] = useState(1);
+  const [stepWidth, setStepWidth] = useState(0);
+  const [dragOffset, setDragOffset] = useState(0);
+  const [isAnimating, setIsAnimating] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
   const viewportRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const dragRef = useRef<{ pointerId: number; startX: number } | null>(null);
 
-  useEffect(() => {
-    const viewport = viewportRef.current;
-    const activeSlide = viewport?.querySelectorAll<HTMLElement>("article")[current];
-    if (!viewport || !activeSlide) return;
+  const current = (physicalIndex - 1 + SLIDE_COUNT) % SLIDE_COUNT;
+  const trackStyle: TrackStyle = {
+    "--carousel-x": `${-(physicalIndex * stepWidth) + dragOffset}px`,
+  };
 
-    viewport.scrollTo({
-      left: activeSlide.offsetLeft - viewport.offsetLeft,
-      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
-        ? "auto"
-        : "smooth",
-    });
-  }, [current]);
+  useLayoutEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
+
+    const measure = () => {
+      const slides = track.querySelectorAll<HTMLElement>("article");
+      if (slides.length < 2) return;
+      setStepWidth(slides[1].offsetLeft - slides[0].offsetLeft);
+    };
+
+    measure();
+    const resizeObserver = new ResizeObserver(measure);
+    resizeObserver.observe(track);
+    return () => resizeObserver.disconnect();
+  }, []);
 
   const showPrevious = () => {
-    setCurrent((active) => (active - 1 + SLIDE_COUNT) % SLIDE_COUNT);
+    if (isAnimating) return;
+    setIsAnimating(true);
+    setPhysicalIndex((active) => active - 1);
   };
 
   const showNext = () => {
-    setCurrent((active) => (active + 1) % SLIDE_COUNT);
+    if (isAnimating) return;
+    setIsAnimating(true);
+    setPhysicalIndex((active) => active + 1);
+  };
+
+  const finishLoop = (event: TransitionEvent<HTMLDivElement>) => {
+    if (event.target !== event.currentTarget || event.propertyName !== "transform") return;
+
+    if (physicalIndex === 0) setPhysicalIndex(SLIDE_COUNT);
+    if (physicalIndex === SLIDE_COUNT + 1) setPhysicalIndex(1);
+    setIsAnimating(false);
+  };
+
+  const handlePointerDown = (event: PointerEvent<HTMLDivElement>) => {
+    if (event.target instanceof HTMLInputElement) return;
+    event.currentTarget.setPointerCapture(event.pointerId);
+    dragRef.current = { pointerId: event.pointerId, startX: event.clientX };
+    setIsAnimating(false);
+    setIsDragging(true);
+  };
+
+  const handlePointerMove = (event: PointerEvent<HTMLDivElement>) => {
+    const drag = dragRef.current;
+    if (!drag || drag.pointerId !== event.pointerId) return;
+    setDragOffset(event.clientX - drag.startX);
+  };
+
+  const finishDrag = (event: PointerEvent<HTMLDivElement>) => {
+    const drag = dragRef.current;
+    if (!drag || drag.pointerId !== event.pointerId) return;
+
+    const distance = event.clientX - drag.startX;
+    const threshold = Math.min(stepWidth * 0.14, 120);
+    dragRef.current = null;
+    setIsDragging(false);
+
+    if (Math.abs(distance) < 2) {
+      setDragOffset(0);
+      setIsAnimating(false);
+      return;
+    }
+
+    setIsAnimating(true);
+    setDragOffset(0);
+
+    if (distance <= -threshold) setPhysicalIndex((active) => active + 1);
+    if (distance >= threshold) setPhysicalIndex((active) => active - 1);
   };
 
   const handleKeyboard = (event: KeyboardEvent<HTMLElement>) => {
@@ -85,11 +162,28 @@ export function FeaturedWork() {
       <div className={styles.contentRow}>
         <SectionTag>Featured Work</SectionTag>
       </div>
-      <div className={styles.viewport} ref={viewportRef} id="featured-track">
-        <div className={styles.track}>
+      <div
+        className={styles.viewport}
+        ref={viewportRef}
+        id="featured-track"
+        data-dragging={isDragging}
+        onPointerDown={handlePointerDown}
+        onPointerMove={handlePointerMove}
+        onPointerUp={finishDrag}
+        onPointerCancel={finishDrag}
+      >
+        <div
+          className={styles.track}
+          ref={trackRef}
+          style={trackStyle}
+          data-animating={isAnimating}
+          onTransitionEnd={finishLoop}
+        >
+          <FeaturedSlide index={SLIDE_COUNT - 1} clone />
           {Array.from({ length: SLIDE_COUNT }, (_, index) => (
             <FeaturedSlide index={index} key={index} />
           ))}
+          <FeaturedSlide index={0} clone />
         </div>
       </div>
       <div className={styles.contentRow}>

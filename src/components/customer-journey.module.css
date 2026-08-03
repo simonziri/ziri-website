@@ -41,24 +41,36 @@
   grid-template-columns: repeat(13, minmax(0, 1fr));
   grid-template-rows: repeat(13, minmax(0, 1fr));
   gap: 0.33125rem;
-  opacity: 0;
-  transition:
-    opacity 420ms cubic-bezier(0.22, 1, 0.36, 1),
-    transform 520ms cubic-bezier(0.22, 1, 0.36, 1);
-  transform: scale(0.985);
-}
-
-.pattern[data-active="true"] {
-  z-index: 1;
-  opacity: 1;
-  transform: scale(1);
 }
 
 .patternCell {
   display: block;
   min-width: 0;
   min-height: 0;
-  background: var(--surface-raised);
+  background: var(--cell-color);
+  transform-origin: center;
+}
+
+.pattern[data-animate="true"] .patternCell {
+  animation: pixel-state-change 380ms cubic-bezier(0.625, 0.05, 0, 1) both;
+  animation-delay: var(--cell-delay);
+}
+
+@keyframes pixel-state-change {
+  0% {
+    opacity: 0.18;
+    transform: scale(0.15);
+  }
+
+  58% {
+    opacity: 0.82;
+    transform: scale(1.13);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 .steps {
@@ -76,15 +88,6 @@
   gap: 1.8125rem;
   padding: 1.75rem 0 2rem;
   border-bottom: 1px solid var(--border-default);
-}
-
-.trigger {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 1px;
-  height: 1px;
-  pointer-events: none;
 }
 
 .phaseTag {
