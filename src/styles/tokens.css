@@ -1,0 +1,387 @@
+/*
+ * ZIRI Website 2026 design tokens
+ * Source: Figma node 97:4, “Design System Overview”
+ * Breakpoints mirror Figma's Base → Tablet → Mobile L → Mobile modes.
+ */
+
+:root {
+  color-scheme: light;
+
+  /* Font family */
+  --font-family-sans: var(--font-tt-hoves), "TT Hoves Pro Trial", Arial,
+    sans-serif;
+
+  /* Primitive colors: light neutral */
+  --color-light-neutral-100: #fbfbf8;
+  --color-light-neutral-200: #f8f8f3;
+  --color-light-neutral-300: #f5f4ee;
+  --color-light-neutral-400: #f1f0e8;
+  --color-light-neutral-500: #eeece2;
+  --color-light-neutral-600: #e1dfd5;
+  --color-light-neutral-700: #d3d2c8;
+  --color-light-neutral-800: #c6c5bb;
+  --color-light-neutral-900: #bab8ae;
+  --color-light-neutral-1000: #adaba2;
+
+  /* Primitive colors: dark neutral */
+  --color-dark-neutral-100: #888684;
+  --color-dark-neutral-200: #676563;
+  --color-dark-neutral-300: #5b5855;
+  --color-dark-neutral-400: #4f4c48;
+  --color-dark-neutral-500: #43403a;
+  --color-dark-neutral-600: #38352e;
+  --color-dark-neutral-700: #2c2a22;
+  --color-dark-neutral-800: #211f16;
+  --color-dark-neutral-900: #1c1b12;
+  --color-dark-neutral-1000: #18160e;
+
+  /* Primitive colors: purple */
+  --color-purple-100: #feebfd;
+  --color-purple-200: #eac3e9;
+  --color-purple-300: #d69cd5;
+  --color-purple-400: #c18ac0;
+  --color-purple-500: #a66aa5;
+  --color-purple-600: #8b4a8a;
+  --color-purple-700: #712970;
+  --color-purple-800: #5e1a5d;
+  --color-purple-900: #4b0a4b;
+  --color-purple-1000: #39003a;
+
+  /* Primitive colors: gold */
+  --color-gold-100: #ffefd6;
+  --color-gold-200: #fed8a2;
+  --color-gold-300: #fac167;
+  --color-gold-400: #ebaf4f;
+  --color-gold-500: #c9913b;
+  --color-gold-600: #a77426;
+  --color-gold-700: #875910;
+  --color-gold-800: #6f4500;
+  --color-gold-900: #583100;
+  --color-gold-1000: #421f00;
+
+  /* Primitive colors: coral */
+  --color-coral-100: #ffe8df;
+  --color-coral-200: #ffc4b3;
+  --color-coral-300: #ff9e87;
+  --color-coral-400: #ff765a;
+  --color-coral-500: #f17057;
+  --color-coral-600: #cd5942;
+  --color-coral-700: #aa422d;
+  --color-coral-800: #882c19;
+  --color-coral-900: #681403;
+  --color-coral-1000: #490000;
+
+  /* Primitive colors: alpha ramps */
+  --color-white-alpha-5: #ffffff0d;
+  --color-white-alpha-10: #ffffff1a;
+  --color-white-alpha-15: #ffffff26;
+  --color-white-alpha-20: #ffffff33;
+  --color-white-alpha-30: #ffffff4d;
+  --color-white-alpha-40: #ffffff66;
+  --color-white-alpha-50: #ffffff80;
+  --color-white-alpha-60: #ffffff99;
+  --color-black-alpha-5: #0000000d;
+  --color-black-alpha-10: #0000001a;
+  --color-black-alpha-15: #00000026;
+  --color-black-alpha-20: #00000033;
+  --color-black-alpha-30: #0000004d;
+  --color-black-alpha-40: #00000066;
+  --color-black-alpha-50: #00000080;
+  --color-black-alpha-60: #00000099;
+  --color-transparent: #ffffff00;
+
+  /* Primitive feedback colors */
+  --color-feedback-success: #2d8a4e;
+  --color-feedback-warning: #ebaf4f;
+  --color-feedback-error: #cd5942;
+  --color-feedback-info: #c18ac0;
+
+  /* Responsive spacing: Base */
+  --space-xxhuge: 10rem;
+  --space-xhuge: 7rem;
+  --space-huge: 6rem;
+  --space-xxlarge: 5rem;
+  --space-xlarge: 4rem;
+  --space-large: 3rem;
+  --space-medium: 2rem;
+  --space-small: 1.5rem;
+  --space-xsmall: 1rem;
+  --space-xxsmall: 0.5rem;
+  --space-tiny: 0.25rem;
+  --padding-global-inline: 5rem;
+  --padding-global-block: 5rem;
+  --padding-card-xs: 1rem;
+  --padding-card-sm: 1.5rem;
+  --padding-card-md: 2rem;
+  --padding-card-lg: 2.5rem;
+  --padding-card-xl: 3rem;
+
+  /* Responsive typography: Base */
+  --font-size-h1: 3.75rem;
+  --font-size-h2: 3.25rem;
+  --font-size-h3: 2.8125rem;
+  --font-size-h4: 2rem;
+  --font-size-h5: 1.5rem;
+  --font-size-h6: 1.375rem;
+  --font-size-large: 1.25rem;
+  --font-size-medium: 1.125rem;
+  --font-size-regular: 1rem;
+  --font-size-small: 0.875rem;
+  --font-size-tiny: 0.75rem;
+  --line-height-tight: 1;
+  --line-height-default: 1.3;
+  --line-height-relaxed: 1.5;
+}
+
+:root,
+[data-theme="light-primary"] {
+  color-scheme: light;
+  --surface-base: var(--color-light-neutral-100);
+  --surface-raised: var(--color-light-neutral-300);
+  --surface-overlay: var(--color-light-neutral-100);
+  --surface-sunken: var(--color-light-neutral-500);
+  --border-default: var(--color-light-neutral-700);
+  --border-strong: var(--color-light-neutral-1000);
+  --text-heading: var(--color-dark-neutral-800);
+  --text-highlight: var(--color-purple-600);
+  --text-body: var(--color-dark-neutral-800);
+  --text-secondary: var(--color-dark-neutral-200);
+  --text-link: var(--color-purple-600);
+  --button-primary-bg: var(--color-dark-neutral-900);
+  --button-primary-text: var(--color-light-neutral-100);
+  --button-primary-bg-hover: var(--color-dark-neutral-700);
+  --button-secondary-bg: var(--surface-sunken);
+  --button-secondary-text: var(--color-dark-neutral-700);
+  --button-secondary-border: var(--color-transparent);
+  --button-secondary-bg-hover: var(--surface-base);
+  --icon-default: var(--color-dark-neutral-800);
+  --icon-accent: var(--color-purple-600);
+  --accent-bg: var(--color-purple-400);
+  --accent-text: var(--color-purple-900);
+  --feedback-success: var(--color-feedback-success);
+  --feedback-warning: var(--color-feedback-warning);
+  --feedback-error: var(--color-feedback-error);
+  --feedback-info: var(--color-feedback-info);
+}
+
+[data-theme="light-secondary"] {
+  color-scheme: light;
+  --surface-base: var(--color-light-neutral-300);
+  --surface-raised: var(--color-light-neutral-100);
+  --surface-overlay: var(--color-light-neutral-100);
+  --surface-sunken: var(--color-light-neutral-500);
+  --border-default: var(--color-light-neutral-700);
+  --border-strong: var(--color-light-neutral-1000);
+  --text-heading: var(--color-dark-neutral-800);
+  --text-highlight: var(--color-purple-600);
+  --text-body: var(--color-dark-neutral-800);
+  --text-secondary: var(--color-dark-neutral-200);
+  --text-link: var(--color-purple-600);
+  --button-primary-bg: var(--color-dark-neutral-900);
+  --button-primary-text: var(--color-light-neutral-100);
+  --button-primary-bg-hover: var(--color-dark-neutral-700);
+  --button-secondary-bg: var(--surface-sunken);
+  --button-secondary-text: var(--color-dark-neutral-700);
+  --button-secondary-border: var(--color-transparent);
+  --button-secondary-bg-hover: var(--surface-base);
+  --icon-default: var(--color-dark-neutral-800);
+  --icon-accent: var(--color-purple-600);
+  --accent-bg: var(--color-purple-400);
+  --accent-text: var(--color-purple-900);
+  --feedback-success: var(--color-feedback-success);
+  --feedback-warning: var(--color-feedback-warning);
+  --feedback-error: var(--color-feedback-error);
+  --feedback-info: var(--color-feedback-info);
+}
+
+[data-theme="dark-primary"] {
+  color-scheme: dark;
+  --surface-base: var(--color-dark-neutral-800);
+  --surface-raised: var(--color-dark-neutral-500);
+  --surface-overlay: var(--color-dark-neutral-400);
+  --surface-sunken: var(--color-dark-neutral-1000);
+  --border-default: var(--color-dark-neutral-400);
+  --border-strong: var(--color-dark-neutral-200);
+  --text-heading: var(--color-light-neutral-100);
+  --text-highlight: var(--color-gold-300);
+  --text-body: var(--color-light-neutral-300);
+  --text-secondary: var(--color-light-neutral-1000);
+  --text-link: var(--color-gold-300);
+  --button-primary-bg: var(--color-light-neutral-100);
+  --button-primary-text: var(--color-dark-neutral-800);
+  --button-primary-bg-hover: var(--color-light-neutral-300);
+  --button-secondary-bg: var(--surface-raised);
+  --button-secondary-text: var(--color-light-neutral-600);
+  --button-secondary-border: var(--color-transparent);
+  --button-secondary-bg-hover: var(--surface-base);
+  --icon-default: var(--color-light-neutral-300);
+  --icon-accent: var(--color-gold-300);
+  --accent-bg: var(--color-gold-300);
+  --accent-text: var(--color-purple-900);
+  --feedback-success: var(--color-feedback-success);
+  --feedback-warning: var(--color-feedback-warning);
+  --feedback-error: var(--color-feedback-error);
+  --feedback-info: var(--color-feedback-info);
+}
+
+[data-theme="dark-secondary"] {
+  color-scheme: dark;
+  --surface-base: var(--color-dark-neutral-700);
+  --surface-raised: var(--color-dark-neutral-500);
+  --surface-overlay: var(--color-dark-neutral-400);
+  --surface-sunken: var(--color-dark-neutral-900);
+  --border-default: var(--color-dark-neutral-400);
+  --border-strong: var(--color-dark-neutral-200);
+  --text-heading: var(--color-light-neutral-100);
+  --text-highlight: var(--color-gold-300);
+  --text-body: var(--color-light-neutral-300);
+  --text-secondary: var(--color-light-neutral-1000);
+  --text-link: var(--color-gold-300);
+  --button-primary-bg: var(--color-light-neutral-100);
+  --button-primary-text: var(--color-dark-neutral-800);
+  --button-primary-bg-hover: var(--color-light-neutral-300);
+  --button-secondary-bg: var(--surface-raised);
+  --button-secondary-text: var(--color-light-neutral-600);
+  --button-secondary-border: var(--color-transparent);
+  --button-secondary-bg-hover: var(--surface-base);
+  --icon-default: var(--color-light-neutral-300);
+  --icon-accent: var(--color-gold-300);
+  --accent-bg: var(--color-gold-300);
+  --accent-text: var(--color-gold-1000);
+  --feedback-success: var(--color-feedback-success);
+  --feedback-warning: var(--color-feedback-warning);
+  --feedback-error: var(--color-feedback-error);
+  --feedback-info: var(--color-feedback-info);
+}
+
+[data-theme="brand"] {
+  color-scheme: light;
+  --surface-base: var(--color-gold-300);
+  --surface-raised: var(--color-gold-100);
+  --surface-overlay: var(--color-gold-200);
+  --surface-sunken: var(--color-gold-500);
+  --border-default: var(--color-gold-200);
+  --border-strong: var(--color-gold-100);
+  --text-heading: var(--color-dark-neutral-1000);
+  --text-highlight: var(--color-coral-900);
+  --text-body: var(--color-gold-1000);
+  --text-secondary: var(--color-gold-900);
+  --text-link: var(--color-gold-300);
+  --button-primary-bg: var(--color-dark-neutral-900);
+  --button-primary-text: var(--color-light-neutral-100);
+  --button-primary-bg-hover: var(--color-dark-neutral-700);
+  --button-secondary-bg: var(--surface-sunken);
+  --button-secondary-text: var(--color-dark-neutral-700);
+  --button-secondary-border: var(--color-transparent);
+  --button-secondary-bg-hover: var(--surface-base);
+  --icon-default: var(--color-purple-100);
+  --icon-accent: var(--color-gold-300);
+  --accent-bg: var(--color-gold-300);
+  --accent-text: var(--color-gold-1000);
+  --feedback-success: var(--color-feedback-success);
+  --feedback-warning: var(--color-feedback-warning);
+  --feedback-error: var(--color-feedback-error);
+  --feedback-info: var(--color-feedback-info);
+}
+
+@media (max-width: 61.9375rem) {
+  :root {
+    --space-xxhuge: 7.5rem;
+    --space-xhuge: 6rem;
+    --space-huge: 5rem;
+    --space-xxlarge: 4.5rem;
+    --space-xlarge: 3.5rem;
+    --space-large: 2.5rem;
+    --space-medium: 2rem;
+    --space-small: 1.5rem;
+    --space-xsmall: 1rem;
+    --space-xxsmall: 0.5rem;
+    --space-tiny: 0.25rem;
+    --padding-global-inline: 2.5rem;
+    --padding-global-block: 3rem;
+    --padding-card-xs: 1rem;
+    --padding-card-sm: 1.25rem;
+    --padding-card-md: 1.5rem;
+    --padding-card-lg: 2rem;
+    --padding-card-xl: 2.5rem;
+    --font-size-h1: 3.25rem;
+    --font-size-h2: 2.75rem;
+    --font-size-h3: 2.375rem;
+    --font-size-h4: 1.75rem;
+    --font-size-h5: 1.375rem;
+    --font-size-h6: 1.25rem;
+    --font-size-large: 1.25rem;
+    --font-size-medium: 1.125rem;
+    --font-size-regular: 1rem;
+    --font-size-small: 0.875rem;
+    --font-size-tiny: 0.75rem;
+  }
+}
+
+@media (max-width: 47.9375rem) {
+  :root {
+    --space-xxhuge: 5rem;
+    --space-xhuge: 4rem;
+    --space-huge: 3.5rem;
+    --space-xxlarge: 3rem;
+    --space-xlarge: 2.5rem;
+    --space-large: 2rem;
+    --space-medium: 1.5rem;
+    --space-small: 1.25rem;
+    --space-xsmall: 0.75rem;
+    --space-xxsmall: 0.5rem;
+    --space-tiny: 0.25rem;
+    --padding-global-inline: 1.5rem;
+    --padding-global-block: 2rem;
+    --padding-card-xs: 0.75rem;
+    --padding-card-sm: 1rem;
+    --padding-card-md: 1.25rem;
+    --padding-card-lg: 1.5rem;
+    --padding-card-xl: 2rem;
+    --font-size-h1: 2.75rem;
+    --font-size-h2: 2.25rem;
+    --font-size-h3: 2rem;
+    --font-size-h4: 1.5rem;
+    --font-size-h5: 1.25rem;
+    --font-size-h6: 1.125rem;
+    --font-size-large: 1.125rem;
+    --font-size-medium: 1rem;
+    --font-size-regular: 1rem;
+    --font-size-small: 0.875rem;
+    --font-size-tiny: 0.75rem;
+  }
+}
+
+@media (max-width: 29.9375rem) {
+  :root {
+    --space-xxhuge: 5rem;
+    --space-xhuge: 4rem;
+    --space-huge: 3.5rem;
+    --space-xxlarge: 3rem;
+    --space-xlarge: 2.5rem;
+    --space-large: 2rem;
+    --space-medium: 1.5rem;
+    --space-small: 1.25rem;
+    --space-xsmall: 0.75rem;
+    --space-xxsmall: 0.5rem;
+    --space-tiny: 0.25rem;
+    --padding-global-inline: 1rem;
+    --padding-global-block: 1.5rem;
+    --padding-card-xs: 0.75rem;
+    --padding-card-sm: 1rem;
+    --padding-card-md: 1rem;
+    --padding-card-lg: 1.25rem;
+    --padding-card-xl: 1.5rem;
+    --font-size-h1: 2.25rem;
+    --font-size-h2: 2rem;
+    --font-size-h3: 1.75rem;
+    --font-size-h4: 1.375rem;
+    --font-size-h5: 1.125rem;
+    --font-size-h6: 1rem;
+    --font-size-large: 1.125rem;
+    --font-size-medium: 1rem;
+    --font-size-regular: 0.875rem;
+    --font-size-small: 0.75rem;
+    --font-size-tiny: 0.75rem;
+  }
+}

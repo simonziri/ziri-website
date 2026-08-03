@@ -1,0 +1,11 @@
+.page {
+  min-height: 100vh;
+  overflow-x: clip;
+  background: var(--surface-base);
+}
+
+.shell {
+  width: 100%;
+  max-width: 90rem;
+  margin-inline: auto;
+}
