@@ -78,7 +78,7 @@
 .hero {
   display: flex;
   position: relative;
-  height: 30.875rem;
+  min-height: 30.875rem;
   flex-direction: column;
   gap: 2.1875rem;
   align-items: flex-start;
@@ -127,9 +127,7 @@
 }
 
 .heroFooter {
-  position: absolute;
-  bottom: 0;
-  left: var(--content-inset);
+  margin-top: auto;
   gap: 2.75rem;
 }
 
