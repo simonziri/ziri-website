@@ -13,29 +13,44 @@ import styles from "./testimonials.module.css";
 const AUTOPLAY_DURATION = 6500;
 
 const clients = [
-  { name: "Simplesense", src: "/assets/simplesense.svg", width: 153, height: 26 },
-  { name: "Leapsome", src: "/assets/leapsome.svg", width: 123, height: 28 },
-  { name: "HockeyStack", src: "/assets/hockeystack-wordmark.svg", width: 145, height: 19 },
-  { name: "Instaffo", src: "/assets/instaffo.svg", width: 107, height: 23 },
-  { name: "Circula", src: "/assets/circula-testimonial.svg", width: 111, height: 21 },
+  { name: "Simplesense", src: "/assets/tab-logos/Simplesense.svg" },
+  { name: "Leapsome", src: "/assets/tab-logos/Leapsome.svg" },
+  { name: "HockeyStack", src: "/assets/tab-logos/HockeyStack.svg" },
+  { name: "Instaffo", src: "/assets/tab-logos/Instaffo.svg" },
+  { name: "Circula", src: "/assets/tab-logos/Circula.svg" },
 ] as const;
 
 export function Testimonials() {
   const [active, setActive] = useState(0);
   const [cycle, setCycle] = useState(0);
   const [paused, setPaused] = useState(false);
+  const [mobile, setMobile] = useState(false);
   const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
+  const visibleClients = mobile ? clients.slice(0, 4) : clients;
+
+  useEffect(() => {
+    const media = window.matchMedia("(max-width: 47.9375rem)");
+    const update = () => setMobile(media.matches);
+
+    update();
+    media.addEventListener("change", update);
+    return () => media.removeEventListener("change", update);
+  }, []);
+
+  useEffect(() => {
+    if (active >= visibleClients.length) setActive(0);
+  }, [active, visibleClients.length]);
 
   useEffect(() => {
     if (paused || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const timer = window.setTimeout(() => {
-      setActive((current) => (current + 1) % clients.length);
+      setActive((current) => (current + 1) % visibleClients.length);
       setCycle((current) => current + 1);
     }, AUTOPLAY_DURATION);
 
     return () => window.clearTimeout(timer);
-  }, [active, cycle, paused]);
+  }, [active, cycle, paused, visibleClients.length]);
 
   const selectTab = (index: number) => {
     setActive(index);
@@ -45,10 +60,10 @@ export function Testimonials() {
   const handleTabKeyDown = (event: KeyboardEvent<HTMLButtonElement>, index: number) => {
     let nextIndex: number | null = null;
 
-    if (event.key === "ArrowRight") nextIndex = (index + 1) % clients.length;
-    if (event.key === "ArrowLeft") nextIndex = (index - 1 + clients.length) % clients.length;
+    if (event.key === "ArrowRight") nextIndex = (index + 1) % visibleClients.length;
+    if (event.key === "ArrowLeft") nextIndex = (index - 1 + visibleClients.length) % visibleClients.length;
     if (event.key === "Home") nextIndex = 0;
-    if (event.key === "End") nextIndex = clients.length - 1;
+    if (event.key === "End") nextIndex = visibleClients.length - 1;
     if (nextIndex === null) return;
 
     event.preventDefault();
@@ -69,7 +84,7 @@ export function Testimonials() {
       }}
     >
       <div className={styles.tabs} role="tablist" aria-label="Choose a client testimonial">
-        {clients.map((client, index) => (
+        {visibleClients.map((client, index) => (
           <button
             className={styles.tab}
             data-active={active === index}
@@ -97,8 +112,8 @@ export function Testimonials() {
               <Image
                 src={client.src}
                 alt={client.name}
-                width={client.width}
-                height={client.height}
+                width={262}
+                height={58}
               />
             </span>
           </button>
@@ -110,11 +125,11 @@ export function Testimonials() {
         id="testimonial-panel"
         role="tabpanel"
         aria-live="polite"
-        aria-label={`${clients[active].name} testimonial`}
+        aria-label={`${visibleClients[active]?.name ?? visibleClients[0].name} testimonial`}
         key={`${active}-${cycle}`}
       >
         <span className={styles.headshotFrame}>
-          <Image
+          <img
             className={styles.headshot}
             src="/assets/eric-kanagy.png"
             alt="Eric Kanagy"

@@ -39,45 +39,16 @@ export function Hero() {
 
         <div className={styles.logoStrip} aria-label="Selected ZIRI clients">
           <div className={styles.logoCell}>
-            <div className={styles.hockeyStackLogo}>
-              <Image
-                src="/assets/hockeystack.svg"
-                alt=""
-                width={10}
-                height={11}
-              />
-              <Image
-                src="/assets/hockeystack-wordmark.svg"
-                alt="HockeyStack"
-                width={89}
-                height={14}
-              />
-            </div>
+            <Image src="/assets/tab-logos/HockeyStack.svg" alt="HockeyStack" width={262} height={58} />
           </div>
           <div className={styles.logoCell}>
-            <Image
-              src="/assets/leapsome.svg"
-              alt="Leapsome"
-              width={75}
-              height={17}
-            />
+            <Image src="/assets/tab-logos/Leapsome.svg" alt="Leapsome" width={262} height={58} />
           </div>
           <div className={styles.logoCell}>
-            <Image
-              src="/assets/circula.svg"
-              alt="Circula"
-              width={267}
-              height={88}
-              style={{ width: "133.5px", height: "44px" }}
-            />
+            <Image src="/assets/tab-logos/Circula.svg" alt="Circula" width={262} height={58} />
           </div>
           <div className={styles.logoCell}>
-            <Image
-              src="/assets/instaffo.svg"
-              alt="Instaffo"
-              width={65}
-              height={14}
-            />
+            <Image src="/assets/tab-logos/Instaffo.svg" alt="Instaffo" width={262} height={58} />
           </div>
         </div>
         <MobileLogoWall />

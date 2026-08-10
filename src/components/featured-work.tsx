@@ -10,15 +10,31 @@ import {
   type PointerEvent,
   type TransitionEvent,
 } from "react";
-import { BeforeAfterScrubber } from "./before-after-scrubber";
 import { SectionTag } from "./section-tag";
 import styles from "./featured-work.module.css";
 
-const SLIDE_COUNT = 3;
+const slides = [
+  {
+    name: "Circula",
+    image: "/assets/featured/project-image-1.avif",
+    logo: "/assets/tab-logos/Circula.svg",
+    title: "Website relaunch for Circula",
+  },
+  {
+    name: "Simplesense",
+    image: "/assets/featured/project-image-2.avif",
+    logo: "/assets/tab-logos/Simplesense.svg",
+    title: "Website relaunch for Simplesense",
+  },
+] as const;
+
+const SLIDE_COUNT = slides.length;
 
 type TrackStyle = CSSProperties & { "--carousel-x": string };
 
 function FeaturedSlide({ index, clone = false }: { index: number; clone?: boolean }) {
+  const slide = slides[index];
+
   return (
     <article
       className={styles.slide}
@@ -28,20 +44,28 @@ function FeaturedSlide({ index, clone = false }: { index: number; clone?: boolea
       data-clone={clone || undefined}
     >
       <div className={styles.slideMedia}>
-        <BeforeAfterScrubber
-          testId={`before-after-${index + 1}${clone ? "-clone" : ""}`}
-          interactive={!clone}
-        />
+        <div className={styles.projectImage}>
+          <Image
+            src={slide.image}
+            alt={`${slide.name} website before and after the ZIRI redesign`}
+            fill
+            sizes="(max-width: 768px) calc(100vw - 64px), 353px"
+          />
+          <span className={styles.comparisonLabels} aria-hidden="true">
+            <span>Before</span>
+            <span>After</span>
+          </span>
+        </div>
       </div>
       <div className={styles.slideContent}>
         <Image
-          src="/assets/featured/before-after-logo.svg"
-          alt="Circula"
-          width={116}
-          height={22}
+          src={slide.logo}
+          alt={slide.name}
+          width={262}
+          height={58}
         />
         <div className={styles.slideCopy}>
-          <h2>Website relaunch for Circula</h2>
+          <h2>{slide.title}</h2>
           <p>
             We research your buyers, and test the message - then design the brand
             and site that converts.
@@ -53,7 +77,7 @@ function FeaturedSlide({ index, clone = false }: { index: number; clone?: boolea
 }
 
 export function FeaturedWork() {
-  const [physicalIndex, setPhysicalIndex] = useState(1);
+  const [physicalIndex, setPhysicalIndex] = useState<number>(SLIDE_COUNT);
   const [stepWidth, setStepWidth] = useState(0);
   const [dragOffset, setDragOffset] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
@@ -62,7 +86,7 @@ export function FeaturedWork() {
   const trackRef = useRef<HTMLDivElement>(null);
   const dragRef = useRef<{ pointerId: number; startX: number } | null>(null);
 
-  const current = (physicalIndex - 1 + SLIDE_COUNT) % SLIDE_COUNT;
+  const current = physicalIndex % SLIDE_COUNT;
   const trackStyle: TrackStyle = {
     "--carousel-x": `${-(physicalIndex * stepWidth) + dragOffset}px`,
   };
@@ -98,8 +122,8 @@ export function FeaturedWork() {
   const finishLoop = (event: TransitionEvent<HTMLDivElement>) => {
     if (event.target !== event.currentTarget || event.propertyName !== "transform") return;
 
-    if (physicalIndex === 0) setPhysicalIndex(SLIDE_COUNT);
-    if (physicalIndex === SLIDE_COUNT + 1) setPhysicalIndex(1);
+    if (physicalIndex === 1) setPhysicalIndex(SLIDE_COUNT + 1);
+    if (physicalIndex === SLIDE_COUNT * 2) setPhysicalIndex(SLIDE_COUNT);
     setIsAnimating(false);
   };
 
@@ -114,7 +138,9 @@ export function FeaturedWork() {
   const handlePointerMove = (event: PointerEvent<HTMLDivElement>) => {
     const drag = dragRef.current;
     if (!drag || drag.pointerId !== event.pointerId) return;
-    setDragOffset(event.clientX - drag.startX);
+    const nextOffset = event.clientX - drag.startX;
+    const limit = stepWidth || 1;
+    setDragOffset(Math.max(-limit, Math.min(limit, nextOffset)));
   };
 
   const finishDrag = (event: PointerEvent<HTMLDivElement>) => {
@@ -179,11 +205,17 @@ export function FeaturedWork() {
           data-animating={isAnimating}
           onTransitionEnd={finishLoop}
         >
-          <FeaturedSlide index={SLIDE_COUNT - 1} clone />
-          {Array.from({ length: SLIDE_COUNT }, (_, index) => (
-            <FeaturedSlide index={index} key={index} />
-          ))}
-          <FeaturedSlide index={0} clone />
+          {Array.from({ length: SLIDE_COUNT * 3 }, (_, physicalSlideIndex) => {
+            const slideIndex = physicalSlideIndex % SLIDE_COUNT;
+            const clone = physicalSlideIndex < SLIDE_COUNT || physicalSlideIndex >= SLIDE_COUNT * 2;
+            return (
+              <FeaturedSlide
+                index={slideIndex}
+                clone={clone}
+                key={physicalSlideIndex}
+              />
+            );
+          })}
         </div>
       </div>
       <div className={styles.contentRow}>
@@ -196,7 +228,7 @@ export function FeaturedWork() {
             onClick={showPrevious}
           >
             <Image
-              src="/assets/featured/carousel-previous.svg"
+              src="/assets/featured/carousel-previous-new.svg"
               alt=""
               width={43}
               height={43}
@@ -210,7 +242,7 @@ export function FeaturedWork() {
             onClick={showNext}
           >
             <Image
-              src="/assets/featured/carousel-next.svg"
+              src="/assets/featured/carousel-next-new.svg"
               alt=""
               width={43}
               height={43}

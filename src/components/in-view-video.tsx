@@ -18,20 +18,18 @@ export function InViewVideo({ className, src, label }: InViewVideoProps) {
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (!entry) return;
+        if (!entry || !entry.isIntersecting) return;
 
-        if (entry.isIntersecting) {
-          if (!video.getAttribute("src")) {
-            video.src = src;
-            video.load();
-          }
-
-          if (!reduceMotion.matches) {
-            void video.play().catch(() => undefined);
-          }
-        } else {
-          video.pause();
+        if (!video.getAttribute("src")) {
+          video.src = src;
+          video.load();
         }
+
+        if (!reduceMotion.matches) {
+          void video.play().catch(() => undefined);
+        }
+
+        observer.unobserve(video);
       },
       { rootMargin: "80px 0px", threshold: 0.35 },
     );
@@ -50,7 +48,6 @@ export function InViewVideo({ className, src, label }: InViewVideoProps) {
       className={className}
       aria-label={label}
       muted
-      loop
       playsInline
       preload="none"
     />

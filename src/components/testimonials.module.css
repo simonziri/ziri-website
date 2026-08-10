@@ -26,6 +26,7 @@
 
 .tabLogo {
   display: grid;
+  width: 100%;
   height: 1.75rem;
   place-items: center;
   filter: grayscale(1);
@@ -37,8 +38,8 @@
 }
 
 .tabLogo img {
-  width: auto;
-  max-width: 9.5625rem;
+  width: 100%;
+  max-width: 16.375rem;
   height: auto;
   max-height: 1.75rem;
 }
@@ -87,7 +88,8 @@
 
 .headshot {
   width: 100%;
-  height: 100%;
+  height: auto;
+  aspect-ratio: 61 / 59;
   object-fit: cover;
 }
 
@@ -137,7 +139,7 @@
 
   .tabs {
     display: grid;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     width: 100%;
     overflow: visible;
   }
@@ -153,8 +155,8 @@
   }
 
   .tabLogo img {
-    width: auto;
-    max-width: 82%;
+    width: 100%;
+    max-width: none;
     height: auto;
   }
 

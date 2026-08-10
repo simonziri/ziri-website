@@ -1,5 +1,8 @@
+"use client";
+
+import Image from "next/image";
+import { useEffect, useRef } from "react";
 import { PixelHatchButton } from "./pixel-hatch-button";
-import { PixelWordmark } from "./pixel-wordmark";
 import styles from "./site-footer.module.css";
 
 const footerLinks: ReadonlyArray<{
@@ -15,11 +18,44 @@ const footerLinks: ReadonlyArray<{
 ] as const;
 
 export function SiteFooter() {
+  const footerRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const footer = footerRef.current;
+    if (!footer || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    let frame = 0;
+    const updateParallax = () => {
+      frame = 0;
+      const bounds = footer.getBoundingClientRect();
+      if (bounds.bottom < 0 || bounds.top > window.innerHeight) return;
+
+      const progress = (window.innerHeight - bounds.top) / (window.innerHeight + bounds.height);
+      const offset = (Math.min(1, Math.max(0, progress)) - 0.5) * 24;
+      footer.style.setProperty("--footer-parallax-y", `${offset}px`);
+    };
+
+    const requestUpdate = () => {
+      if (!frame) frame = window.requestAnimationFrame(updateParallax);
+    };
+
+    updateParallax();
+    window.addEventListener("scroll", requestUpdate, { passive: true });
+    window.addEventListener("resize", requestUpdate);
+    return () => {
+      window.removeEventListener("scroll", requestUpdate);
+      window.removeEventListener("resize", requestUpdate);
+      if (frame) window.cancelAnimationFrame(frame);
+    };
+  }, []);
+
   return (
-    <footer className={styles.footer} data-theme="dark-primary">
-      <div className={styles.lattice} aria-hidden="true" />
+    <footer className={styles.footer} id="site-footer" ref={footerRef}>
       <div className={styles.head}>
-        <h2>Let’s make sure your website smokes the competition.</h2>
+        <h2>
+          <span>Let’s make sure your</span>{" "}
+          <span>website stands out.</span>
+        </h2>
         <nav className={styles.navigation} aria-label="Footer navigation">
           {footerLinks.map((link) => (
             <PixelHatchButton
@@ -33,7 +69,15 @@ export function SiteFooter() {
           ))}
         </nav>
       </div>
-      <PixelWordmark />
+      <div className={styles.footerArtwork}>
+        <Image
+          className={styles.footerImage}
+          src="/assets/footer-image.avif"
+          alt="ZIRI pixel wordmark"
+          fill
+          sizes="100vw"
+        />
+      </div>
     </footer>
   );
 }

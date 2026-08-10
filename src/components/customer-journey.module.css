@@ -48,29 +48,7 @@
   min-width: 0;
   min-height: 0;
   background: var(--cell-color);
-  transform-origin: center;
-}
-
-.pattern[data-animate="true"] .patternCell {
-  animation: pixel-state-change 380ms var(--ease-global) both;
-  animation-delay: var(--cell-delay);
-}
-
-@keyframes pixel-state-change {
-  0% {
-    opacity: 0.18;
-    transform: scale(0.15);
-  }
-
-  58% {
-    opacity: 0.82;
-    transform: scale(1.13);
-  }
-
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
+  transition: background-color 620ms var(--ease-global);
 }
 
 .steps {
@@ -185,5 +163,11 @@
 @media (max-width: 29.9375rem) {
   .title {
     font-size: 2rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .patternCell[data-changed="true"] {
+    animation: none;
   }
 }

@@ -19,19 +19,18 @@
 }
 
 .title span {
-  display: block;
   color: rgba(33, 31, 22, 0.46);
 }
 
 .cardGrid {
   display: grid;
-  grid-template-columns: 30.9375rem minmax(0, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 30rem), 1fr));
   gap: 1rem;
 }
 
 .card {
   display: flex;
-  height: 28.9375rem;
+  min-height: 28.9375rem;
   flex-direction: column;
   justify-content: space-between;
   overflow: hidden;
@@ -88,12 +87,7 @@
 }
 
 @media (max-width: 61.9375rem) {
-  .cardGrid {
-    grid-template-columns: 2fr 3fr;
-  }
-
   .card {
-    height: auto;
     min-height: 29rem;
     padding: 2.5rem 2rem;
   }

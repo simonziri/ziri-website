@@ -17,30 +17,27 @@ const foundationCells = new Set(
 );
 
 const executionCells = new Set([
-  ...Array.from({ length: 6 }, (_, index) => cellKey(1, index + 4)),
-  cellKey(2, 2), cellKey(2, 10), cellKey(3, 1), cellKey(3, 11),
-  cellKey(4, 0), cellKey(4, 12), cellKey(5, 0), cellKey(5, 12),
-  cellKey(6, 0), cellKey(6, 4), cellKey(6, 8), cellKey(6, 12),
-  cellKey(7, 0), cellKey(7, 12), cellKey(8, 0), cellKey(8, 3),
-  cellKey(8, 6), cellKey(8, 9), cellKey(8, 12), cellKey(9, 0),
-  cellKey(9, 3), cellKey(9, 6), cellKey(9, 9), cellKey(9, 12),
-  cellKey(10, 1), cellKey(10, 4), cellKey(10, 5), cellKey(10, 6),
-  cellKey(10, 7), cellKey(10, 8), cellKey(10, 11), cellKey(11, 2),
-  cellKey(11, 10), ...Array.from({ length: 6 }, (_, index) => cellKey(12, index + 4)),
+  ...Array.from({ length: 5 }, (_, index) => cellKey(1, index + 4)),
+  cellKey(2, 3), cellKey(2, 9), cellKey(3, 2), cellKey(3, 10),
+  cellKey(4, 1), cellKey(4, 6), cellKey(4, 11), cellKey(5, 1),
+  cellKey(5, 6), cellKey(5, 11), cellKey(6, 1), cellKey(6, 4),
+  cellKey(6, 5), cellKey(6, 6), cellKey(6, 7), cellKey(6, 8),
+  cellKey(6, 11), cellKey(7, 1), cellKey(7, 6), cellKey(7, 11),
+  cellKey(8, 1), cellKey(8, 6), cellKey(8, 11), cellKey(9, 2),
+  cellKey(9, 10), cellKey(10, 3), cellKey(10, 9),
+  ...Array.from({ length: 5 }, (_, index) => cellKey(11, index + 4)),
 ]);
 
-const iterationCells = new Set(
-  [
-    [1, 1],
-    [3, 3],
-    [5, 5],
-    [7, 7],
-    [9, 9],
-    [11, 11],
-  ].flatMap(([column, height]) =>
-    Array.from({ length: height }, (_, index) => cellKey(12 - index, column)),
-  ),
-);
+const iterationCells = new Set([
+  cellKey(1, 11), cellKey(2, 11), cellKey(3, 11), cellKey(4, 11),
+  cellKey(5, 9), cellKey(5, 11), cellKey(6, 9), cellKey(6, 11),
+  cellKey(7, 7), cellKey(7, 9), cellKey(7, 11), cellKey(8, 7),
+  cellKey(8, 9), cellKey(8, 11), cellKey(9, 5), cellKey(9, 7),
+  cellKey(9, 9), cellKey(9, 11), cellKey(10, 3), cellKey(10, 5),
+  cellKey(10, 7), cellKey(10, 9), cellKey(10, 11), cellKey(11, 1),
+  cellKey(11, 3), cellKey(11, 5), cellKey(11, 7), cellKey(11, 9),
+  cellKey(11, 11),
+]);
 
 const phases: Phase[] = [
   { number: "01", label: "Foundation", accent: "#fac167", cells: foundationCells },
@@ -50,23 +47,27 @@ const phases: Phase[] = [
 
 type PixelCellStyle = CSSProperties & {
   "--cell-color": string;
-  "--cell-delay": string;
 };
 
-function PixelPattern({ phase, animate = true }: { phase: Phase; animate?: boolean }) {
+function PixelPattern({ phase }: { phase: Phase }) {
   return (
-    <div className={styles.pattern} data-animate={animate} aria-hidden="true">
+    <div className={styles.pattern} aria-hidden="true">
       {Array.from({ length: 169 }, (_, index) => {
         const row = Math.floor(index / 13);
         const column = index % 13;
-        const isAccent = phase.cells.has(cellKey(row, column));
-
+        const key = cellKey(row, column);
+        const isAccent = phase.cells.has(key);
         const style: PixelCellStyle = {
           "--cell-color": isAccent ? phase.accent : "var(--surface-raised)",
-          "--cell-delay": `${((index * 47) % 169) * 1.15}ms`,
         };
 
-        return <i key={index} className={styles.patternCell} style={style} />;
+        return (
+          <i
+            key={index}
+            className={styles.patternCell}
+            style={style}
+          />
+        );
       })}
     </div>
   );
@@ -136,7 +137,7 @@ export function CustomerJourney() {
           aria-label={`Current phase: ${phases[activeStep].label}`}
         >
           <div className={styles.stickyVisual}>
-            <PixelPattern phase={phases[activeStep]} key={phases[activeStep].label} />
+            <PixelPattern phase={phases[activeStep]} />
           </div>
         </div>
 
@@ -152,7 +153,7 @@ export function CustomerJourney() {
               }}
             >
               <div className={styles.mobilePattern}>
-                <PixelPattern phase={phase} animate={false} />
+                <PixelPattern phase={phase} />
               </div>
               <PhaseTag phase={phase} />
               <h3>

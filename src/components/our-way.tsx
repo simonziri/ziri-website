@@ -4,7 +4,7 @@ export function OurWay() {
   return (
     <section className={styles.section} id="our-way" aria-labelledby="our-way-title">
       <h2 className={styles.title} id="our-way-title">
-        <span>The answer isn’t another redesign or blind A/B testing.</span>
+        <span>The answer isn’t another redesign or blind A/B testing.</span>{" "}
         You need a website built for multi-layered sales cycles.
       </h2>
 

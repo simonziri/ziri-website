@@ -21,7 +21,7 @@
   width: calc(100vw - var(--content-inset));
   margin-top: 2rem;
   margin-left: var(--content-inset);
-  overflow: visible;
+  overflow: hidden;
   overscroll-behavior-inline: contain;
   cursor: grab;
   touch-action: pan-y;
@@ -65,6 +65,46 @@
   min-width: 0;
   padding: 4.3125rem 2.75rem 2.75rem;
   background: linear-gradient(135deg, #f7f6f0 0%, #efeee8 100%);
+}
+
+.projectImage {
+  position: relative;
+  width: 100%;
+  max-width: 22.0625rem;
+  aspect-ratio: 1;
+  overflow: hidden;
+  border-radius: 4px;
+  box-shadow: 0 1.125rem 2.75rem rgba(33, 31, 22, 0.12);
+}
+
+.projectImage > img {
+  object-fit: cover;
+  user-select: none;
+}
+
+.comparisonLabels {
+  position: absolute;
+  z-index: 2;
+  top: 1rem;
+  left: 21.5%;
+  display: flex;
+  align-items: center;
+  transform: translateX(-50%);
+}
+
+.comparisonLabels span {
+  padding: 0.1875rem 0.375rem;
+  color: #211f16;
+  font-size: 0.75rem;
+  line-height: 1;
+}
+
+.comparisonLabels span:first-child {
+  background: #fbfbf8;
+}
+
+.comparisonLabels span:last-child {
+  background: var(--color-purple-300);
 }
 
 .scrubber {
@@ -179,8 +219,8 @@
 }
 
 .slideContent > img {
-  width: 7.25rem;
-  height: 1.375rem;
+  width: 8.1875rem;
+  height: auto;
 }
 
 .slideCopy {
@@ -244,15 +284,11 @@
 
 .arrowButton:last-child:hover img,
 .arrowButton:last-child:focus-visible img {
-  transform: rotate(180deg) translateX(-0.1875rem);
+  transform: translateX(0.1875rem);
 }
 
 .arrowButton:active {
   transform: scale(0.94);
-}
-
-.controls > *:last-child img {
-  transform: rotate(180deg);
 }
 
 .liveStatus {
