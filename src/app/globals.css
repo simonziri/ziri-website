@@ -187,10 +187,10 @@ h6 {
   }
 
   [data-reveal="fade"][data-inview="true"] {
-    animation: fade-blur-in 1100ms var(--ease-soft) var(--reveal-delay, 0ms) both;
+    animation: fade-blur-in var(--reveal-duration, 1100ms) var(--ease-soft) var(--reveal-delay, 0ms) both;
   }
 
-  [data-reveal="rise"] {
+  [data-reveal="rise"]:not([data-inview="true"]) {
     transform: translateY(115%);
   }
 
@@ -203,7 +203,7 @@ h6 {
   }
 
   [data-reveal="rise"][data-inview="true"] {
-    animation: rise-in 2000ms var(--ease-softer) var(--reveal-delay, 0ms) both;
+    animation: rise-in 2000ms var(--ease-softer) var(--reveal-delay, 0ms) backwards;
   }
 
   /* Lovable-Sweep: [Ruhefarbe 33%][ZIRI-Farbband][transparent 33%], 300% breit */

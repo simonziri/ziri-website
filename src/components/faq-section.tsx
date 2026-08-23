@@ -18,7 +18,12 @@ export function FaqSection() {
   const [openItem, setOpenItem] = useState<string | null>(null);
 
   return (
-    <section className={styles.section} id="faq" aria-labelledby="faq-title">
+    <section
+      className={styles.section}
+      id="faq"
+      aria-labelledby="faq-title"
+      data-theme="dark-primary"
+    >
       <aside className={styles.intro}>
         <div className={styles.introContent}>
           <SectionTag>FAQ</SectionTag>

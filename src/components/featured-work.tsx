@@ -49,7 +49,7 @@ function FeaturedSlide({ index, clone = false }: { index: number; clone?: boolea
       style={
         clone
           ? undefined
-          : ({ "--reveal-delay": `${index * 140}ms` } as CSSProperties)
+          : ({ "--reveal-delay": `${400 + index * 140}ms` } as CSSProperties)
       }
     >
       <Link
@@ -217,7 +217,7 @@ export function FeaturedWork() {
     >
       <div
         className={styles.contentRow}
-        style={{ "--reveal-delay": "2200ms" } as CSSProperties}
+        style={{ "--reveal-delay": "1500ms" } as CSSProperties}
       >
         <SectionTag>Featured Work</SectionTag>
       </div>
@@ -255,7 +255,7 @@ export function FeaturedWork() {
       <div
         className={styles.contentRow}
         data-reveal="fade"
-        style={{ "--reveal-delay": "2400ms" } as CSSProperties}
+        style={{ "--reveal-delay": "1700ms" } as CSSProperties}
       >
         <div className={styles.controls}>
           <button

@@ -39,6 +39,7 @@
 }
 
 .cardGrid {
+  overflow: hidden;
   display: grid;
   /* Old Way klein, ZIRI Way groß — Ratio ~500:800 */
   grid-template-columns: minmax(0, 5fr) minmax(0, 8fr);

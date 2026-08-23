@@ -33,8 +33,13 @@ export function Paradox() {
       </div>
 
       <div className={styles.cardGrid}>
-        {paradoxCards.map((card) => (
-          <article className={styles.card} key={card.title}>
+        {paradoxCards.map((card, index) => (
+          <article
+            className={styles.card}
+            data-reveal="rise"
+            style={{ "--reveal-delay": `${index * 140}ms` } as React.CSSProperties}
+            key={card.title}
+          >
             <InViewVideo
               className={styles.cardVideo}
               src={card.video}

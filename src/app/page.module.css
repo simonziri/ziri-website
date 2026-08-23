@@ -13,14 +13,21 @@
 
 /* Beim Scrollen in die nächste Section: vorherige fadet aus und hebt 5rem an */
 @supports (animation-timeline: view()) {
+  /* Eine Timeline pro Section: alle Kinder bewegen sich als Einheit */
+  .shell > :is(section, header) {
+    view-timeline: --section-tl block;
+  }
+
   .shell > :is(section, header) > * {
     animation:
-      section-enter linear both,
-      section-exit linear both;
-    animation-timeline: view(), view();
+      section-enter both,
+      section-exit both;
+    animation-timing-function: var(--ease-soft), var(--ease-soft);
+    animation-timeline: --section-tl, --section-tl;
+    /* Exit beginnt erst, wenn die naechste Section die Viewport-Mitte beruehrt */
     animation-range:
       entry 0% entry 45%,
-      exit 0% exit 90%;
+      cover calc(100% - 50vh) cover 100%;
   }
 }
 

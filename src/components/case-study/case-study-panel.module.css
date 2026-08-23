@@ -23,7 +23,7 @@
   background: var(--surface-base);
   box-shadow: -24px 0 80px -32px var(--color-black-alpha-40);
   transform: translateX(102%);
-  transition: transform 420ms var(--ease-global);
+  transition: transform 700ms var(--ease-softer);
   display: flex;
   flex-direction: column;
 }
@@ -38,6 +38,7 @@
 
 
 .scroller {
+  padding-top: 2rem;
   overflow-y: auto;
   overscroll-behavior: contain;
   flex: 1;

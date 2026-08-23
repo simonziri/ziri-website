@@ -30,9 +30,14 @@ export function SiteFooter() {
       const bounds = footer.getBoundingClientRect();
       if (bounds.bottom < 0 || bounds.top > window.innerHeight) return;
 
-      const progress = (window.innerHeight - bounds.top) / (window.innerHeight + bounds.height);
-      const offset = (Math.min(1, Math.max(0, progress)) - 0.5) * 24;
-      footer.style.setProperty("--footer-parallax-y", `${offset}px`);
+      const raw = (window.innerHeight - bounds.top) / (window.innerHeight + bounds.height);
+      const progress = Math.min(1, Math.max(0, raw));
+      // Parallax: Artwork startet tiefer und halbtransparent, slidet mit dem Scroll hoch
+      footer.style.setProperty("--footer-parallax-y", `${(1 - progress) * 130}px`);
+      footer.style.setProperty(
+        "--footer-artwork-opacity",
+        `${Math.min(1, 0.5 + progress * 0.9).toFixed(3)}`,
+      );
     };
 
     const requestUpdate = () => {

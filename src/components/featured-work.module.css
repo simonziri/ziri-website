@@ -53,11 +53,16 @@
   overflow: hidden;
   border-radius: 4px;
   background: var(--surface-raised);
-  transition: background-color 240ms var(--ease-global);
+  transition:
+    background-color 240ms var(--ease-global),
+    transform 420ms var(--ease-global);
 }
 
-.slide:hover {
-  background: var(--color-light-neutral-500);
+@media (hover: hover) and (pointer: fine) {
+  .slide:hover {
+    background: var(--color-light-neutral-500);
+    transform: scale(0.97);
+  }
 }
 
 .slide[data-clone="true"] {

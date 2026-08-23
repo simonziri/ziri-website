@@ -19,9 +19,12 @@
   left: 0;
   width: 100%;
   aspect-ratio: 6000 / 3440;
-  transform: translate3d(0, var(--footer-parallax-y), 0);
-  transition: transform 80ms linear;
-  will-change: transform;
+  transform: translate3d(0, var(--footer-parallax-y, 0px), 0);
+  opacity: var(--footer-artwork-opacity, 1);
+  transition:
+    transform 120ms linear,
+    opacity 120ms linear;
+  will-change: transform, opacity;
 }
 
 .footerImage {
@@ -29,26 +32,6 @@
   object-position: center bottom;
 }
 
-/* Parallax: startet halbtransparent und slidet beim Scrollen hoch */
-@supports (animation-timeline: view()) {
-  .footerImage {
-    animation: footer-parallax linear both;
-    animation-timeline: view();
-    animation-range: entry 0% cover 60%;
-  }
-}
-
-@keyframes footer-parallax {
-  from {
-    opacity: 0.5;
-    transform: translateY(18%);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
 
 .legacyFooter {
   --footer-cell: clamp(4px, 2.15vw, 24px);

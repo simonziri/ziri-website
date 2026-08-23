@@ -13,7 +13,7 @@ export function OurWay() {
       </div>
 
       <div className={styles.cardGrid}>
-        <article className={`${styles.card} ${styles.oldWay}`}>
+        <article className={`${styles.card} ${styles.oldWay}`} data-reveal="rise">
           <div className={styles.cardHeading}>
             <p className={styles.cardLabel}>OLD WAY</p>
             <h3>
@@ -32,7 +32,11 @@ export function OurWay() {
           </p>
         </article>
 
-        <article className={`${styles.card} ${styles.ziriWay}`}>
+        <article
+          className={`${styles.card} ${styles.ziriWay}`}
+          data-reveal="rise"
+          style={{ "--reveal-delay": "140ms" } as React.CSSProperties}
+        >
           <div className={styles.cardHeading}>
             <p className={styles.cardLabel}>ZIRI WAY</p>
             <h3>

@@ -44,7 +44,7 @@
 
 .anchorLinks a {
   padding: 0.8125rem 0;
-  border-top: 1px solid var(--color-black-alpha-10);
+  border-top: 1px solid var(--color-white-alpha-15);
   color: var(--text-heading);
   font-size: 1.125rem;
   line-height: 1.3;
@@ -55,7 +55,7 @@
 }
 
 .anchorLinks a:last-child {
-  border-bottom: 1px solid var(--color-black-alpha-10);
+  border-bottom: 1px solid var(--color-white-alpha-15);
 }
 
 .anchorLinks a:hover,
