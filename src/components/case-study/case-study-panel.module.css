@@ -4,7 +4,7 @@
   z-index: 90;
   background: var(--color-black-alpha-40);
   opacity: 0;
-  transition: opacity 320ms var(--ease-global);
+  transition: opacity 520ms var(--ease-global);
   border: 0;
   padding: 0;
   cursor: pointer;
@@ -23,7 +23,7 @@
   background: var(--surface-base);
   box-shadow: -24px 0 80px -32px var(--color-black-alpha-40);
   transform: translateX(102%);
-  transition: transform 700ms var(--ease-softer);
+  transition: transform 1050ms var(--ease-softer);
   display: flex;
   flex-direction: column;
 }

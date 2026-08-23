@@ -137,7 +137,7 @@ export function Testimonials() {
             height={59}
           />
         </span>
-        <blockquote data-reveal="sweep">
+        <blockquote>
           “They rapidly got up to speed on our problem and solution set and cut
           through the complexity to create a design that cleanly tells our story to
           an outside audience.”

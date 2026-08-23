@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 
 /**
  * "Back to Homepage" link. Inside the panel it closes via history.back() —
@@ -17,8 +16,6 @@ export function BackLink({
   className?: string;
   children: React.ReactNode;
 }) {
-  const router = useRouter();
-
   if (!inPanel) {
     return (
       <Link className={className} href="/">
@@ -27,15 +24,10 @@ export function BackLink({
     );
   }
 
+  // Das Panel fängt [data-panel-close]-Klicks ab und spielt erst die
+  // Slide-out-Animation, bevor es zurück navigiert.
   return (
-    <a
-      className={className}
-      href="/"
-      onClick={(event) => {
-        event.preventDefault();
-        router.back();
-      }}
-    >
+    <a className={className} href="/" data-panel-close="">
       {children}
     </a>
   );

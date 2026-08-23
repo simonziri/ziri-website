@@ -24,24 +24,31 @@
       section-exit both;
     animation-timing-function: var(--ease-soft), var(--ease-soft);
     animation-timeline: --section-tl, --section-tl;
-    /* Exit beginnt erst, wenn die naechste Section die Viewport-Mitte beruehrt */
+    /* Exit erst, wenn die Section wirklich den Viewport verlaesst;
+       die Keyframes halten zusaetzlich die ersten 30 % voll sichtbar */
     animation-range:
       entry 0% entry 45%,
-      cover calc(100% - 50vh) cover 100%;
+      exit 0% exit 100%;
   }
 }
 
 @keyframes section-enter {
   from {
     opacity: 0;
-    transform: translateY(2rem);
+    transform: translateY(0.2rem);
   }
 }
 
 @keyframes section-exit {
-  to {
+  0%,
+  30% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  100% {
     opacity: 0;
-    transform: translateY(-5rem);
+    transform: translateY(-0.5rem);
   }
 }
 

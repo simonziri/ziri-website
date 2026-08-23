@@ -123,6 +123,7 @@
   width: 2.1875rem;
   height: 2.1875rem;
   flex: 0 0 auto;
+  background: var(--surface-overlay);
   transition: transform 360ms var(--ease-global);
 }
 

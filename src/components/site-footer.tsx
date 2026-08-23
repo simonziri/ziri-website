@@ -33,10 +33,10 @@ export function SiteFooter() {
       const raw = (window.innerHeight - bounds.top) / (window.innerHeight + bounds.height);
       const progress = Math.min(1, Math.max(0, raw));
       // Parallax: Artwork startet tiefer und halbtransparent, slidet mit dem Scroll hoch
-      footer.style.setProperty("--footer-parallax-y", `${(1 - progress) * 130}px`);
+      footer.style.setProperty("--footer-parallax-y", `${(1 - progress) * 260}px`);
       footer.style.setProperty(
         "--footer-artwork-opacity",
-        `${Math.min(1, 0.5 + progress * 0.9).toFixed(3)}`,
+        `${Math.min(1, progress * 1.6).toFixed(3)}`,
       );
     };
 

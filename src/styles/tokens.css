@@ -206,11 +206,11 @@
 
 [data-theme="dark-primary"] {
   color-scheme: dark;
-  --surface-base: var(--color-dark-neutral-800);
-  --surface-raised: var(--color-dark-neutral-500);
-  --surface-overlay: var(--color-dark-neutral-400);
-  --surface-sunken: var(--color-dark-neutral-1000);
-  --border-default: var(--color-dark-neutral-400);
+  --surface-base: #050505;
+  --surface-raised: var(--color-dark-neutral-1000);
+  --surface-overlay: var(--color-dark-neutral-900);
+  --surface-sunken: #000;
+  --border-default: var(--color-dark-neutral-700);
   --border-strong: var(--color-dark-neutral-200);
   --text-heading: var(--color-light-neutral-100);
   --text-highlight: var(--color-gold-300);

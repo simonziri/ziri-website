@@ -64,7 +64,7 @@ export function FaqSection() {
                       >
                         <span>{question}</span>
                         <Image
-                          src="/assets/faq-arrow.svg"
+                          src="/assets/faq-arrow-white.svg"
                           alt=""
                           width={35}
                           height={35}
