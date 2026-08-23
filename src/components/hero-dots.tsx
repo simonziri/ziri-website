@@ -1,6 +1,6 @@
 "use client";
 
-import { Circle, DotGrid, Ellipse, Shader } from "shaders/react";
+import { Circle, DotGrid, Shader } from "shaders/react";
 import styles from "./home-sections.module.css";
 
 /**
@@ -16,36 +16,30 @@ export function HeroDots() {
   return (
     <div className={styles.heroDots} aria-hidden="true">
       <Shader style={{ width: "100%", height: "100%" }}>
-        <Ellipse
-          id="heroDotsFade"
-          visible={false}
-          color="#ffffff"
-          center={{ x: 0.5, y: 0.5 }}
-          radiusX={1.6}
-          radiusY={0.42}
-          softness={0.85}
-        />
+        {/* Unsichtbare Cursor-Zone: weicher Kreis folgt der Maus */}
         <Circle
           id="heroDotsCursor"
           visible={false}
           color="#ffffff"
-          radius={0.32}
-          softness={1}
+          radius={0.28}
+          softness={0.45}
           center={{ type: "mouse-position", smoothing: 0.2, momentum: 0.2 }}
         />
+        {/* Normale Dots — überall außer in der Cursor-Zone */}
         <DotGrid
-          color="#d3d2c8"
-          density={64}
-          dotSize={{
-            type: "map",
-            source: "heroDotsCursor",
-            channel: "luminance",
-            inputMin: 0,
-            inputMax: 1,
-            outputMin: 0.2,
-            outputMax: 0.05,
-          }}
-          maskSource="heroDotsFade"
+          color="#c6c5bb"
+          density={56}
+          dotSize={0.22}
+          maskSource="heroDotsCursor"
+          maskType="alphaInverted"
+        />
+        {/* Kleine Dots — nur in der Cursor-Zone */}
+        <DotGrid
+          color="#c6c5bb"
+          density={56}
+          dotSize={0.08}
+          maskSource="heroDotsCursor"
+          maskType="alpha"
         />
       </Shader>
     </div>

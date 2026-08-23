@@ -107,7 +107,21 @@
   position: absolute;
   inset: 0;
   z-index: 0;
-  pointer-events: none;
+  /* Punkte verlieren nach oben und unten nur Opacity */
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    #000 22%,
+    #000 78%,
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    #000 22%,
+    #000 78%,
+    transparent 100%
+  );
 }
 
 .hero {
