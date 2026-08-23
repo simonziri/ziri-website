@@ -27,7 +27,7 @@ GoDaddy-DNS, zwei Records ändern:
 Vorher: Domains im Vercel-Dashboard hinterlegen (simonziri.com + www),
 TTL runtersetzen. Danach Webflow unpublishen. Vorher prüfen: Redirects
 für alte Webflow-URLs? Sitemap + robots.txt + Metadata/JSON-LD stehen
-(23.08.); es fehlt noch ein OG-Image (1200×630) für Social Shares.
+inkl. OG-/Twitter-Image und Favicons (24.08.).
 
 ## Offene Punkte (TODO)
 

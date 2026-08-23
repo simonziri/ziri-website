@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     description: SITE_DESCRIPTION,
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: "ZIRI | B2B Websites Built on Buyer Research",
     description: SITE_DESCRIPTION,
   },
