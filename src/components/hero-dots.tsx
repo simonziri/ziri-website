@@ -17,14 +17,15 @@ const DOT_PITCH = 25;
  *   prop (the library's own mouse driver received no events here).
  * - density is derived from the measured canvas size so the dot pitch
  *   stays constant no matter how tall the canvas is.
- * - The wrapper fades in over 1.5s on mount; a CSS mask fades the
- *   dots' opacity toward the top and bottom edges.
+ * - The canvas fades in over 1.5s once the GPU pipeline is ready
+ *   (onReady); a CSS mask fades the dots' opacity toward the edges.
  */
 export function HeroDots() {
   const wrapRef = useRef<HTMLDivElement>(null);
   const targetRef = useRef({ x: 0.5, y: 0.3 });
   const [center, setCenter] = useState({ x: 0.5, y: 0.3 });
   const [density, setDensity] = useState(60);
+  const [ready, setReady] = useState(false);
 
   useEffect(() => {
     const wrap = wrapRef.current;
@@ -78,7 +79,15 @@ export function HeroDots() {
 
   return (
     <div className={styles.heroDots} ref={wrapRef} aria-hidden="true">
-      <Shader style={{ width: "100%", height: "100%" }}>
+      <Shader
+        onReady={() => setReady(true)}
+        style={{
+          width: "100%",
+          height: "100%",
+          opacity: ready ? 1 : 0,
+          transition: "opacity 1500ms cubic-bezier(0.22, 1, 0.36, 1)",
+        }}
+      >
         {/* Unsichtbare Cursor-Zone */}
         <Circle
           id="heroDotsCursor"

@@ -108,20 +108,18 @@
   inset: 0;
   z-index: 0;
   opacity: 0.5;
-  /* Sofort starten, aber weich einblenden */
-  animation: dots-appear 1500ms var(--ease-soft) both;
   /* Punkte verlieren nach oben und unten nur Opacity */
   mask-image: linear-gradient(
     to bottom,
     transparent 0%,
-    #000 12%,
+    #000 48%,
     #000 88%,
     transparent 100%
   );
   -webkit-mask-image: linear-gradient(
     to bottom,
     transparent 0%,
-    #000 12%,
+    #000 48%,
     #000 88%,
     transparent 100%
   );
@@ -485,14 +483,3 @@
 
 }
 
-@keyframes dots-appear {
-  from {
-    opacity: 0;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .heroDots {
-    animation: none;
-  }
-}
