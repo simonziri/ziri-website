@@ -16,8 +16,8 @@ export function Hero() {
             For B2B companies with high contract values.
           </p>
           <h1 className={styles.heroTitle} id="hero-title">
-            <span data-reveal="sweep">A website built on why you actually lost deals,</span>{" "}
-            <span data-reveal="sweep">driven by clear differentiation.</span>
+            <span data-reveal="sweep">We build your website on why buyers choose you,</span>{" "}
+            <span data-reveal="sweep">and why they don&rsquo;t.</span>
           </h1>
         </div>
 

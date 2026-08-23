@@ -33,6 +33,14 @@ h6 {
   text-wrap: pretty;
 }
 
+/* H3 und kleiner: einheitliche Leseluft */
+h3,
+h4,
+h5,
+h6 {
+  line-height: 1.3;
+}
+
 /* Theme-Flip (theme-scroll.tsx toggelt nur data-theme auf <html>):
    alle token-nutzenden Elemente tragen PERMANENT dieselbe Transition —
    eine Dauer, ein Easing, synchron, reine CSS-Animation. :where() hält

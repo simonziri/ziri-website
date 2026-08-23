@@ -71,7 +71,8 @@ für alte Webflow-URLs? Sitemap + robots.txt fehlen noch → vor Launch bauen.
 - **Bento-Galerie**: Spaltenbreiten = Seitenverhältnisse (fr), damit
   Reihenhöhen matchen. Bildmaße stehen in case-studies.ts (Layout-Shift).
 - **Fonts/Weights**: max 420 (nicht-mono), Regular 400, Mono 480/400.
-  H2s: 45px/1.14, H3s 1.18, Absätze line-height 1.55 (Token relaxed).
+  Hero-H1 1.2, H2s 45px/1.14 (Paradox 1.2), H3 und kleiner 1.3
+  (global + Module), Testimonial-Quote 1.3, Absätze 1.55 (relaxed).
 - **Dark-Sektionen**: FAQ + Footer hart via data-theme="dark-primary"
   (Basis #050505). CTA (#contact) hat KEIN eigenes Theme mehr: die
   ganze Seite flippt per Scroll-Trigger (theme-scroll.tsx toggelt nur
