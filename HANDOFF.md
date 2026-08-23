@@ -74,8 +74,9 @@ für alte Webflow-URLs? Sitemap + robots.txt fehlen noch → vor Launch bauen.
   H2s: 45px/1.14, H3s 1.18, Absätze line-height 1.55 (Token relaxed).
 - **Dark-Sektionen**: FAQ + Footer hart via data-theme="dark-primary"
   (Basis #050505). CTA (#contact) hat KEIN eigenes Theme mehr: die
-  ganze Seite flippt per Scroll-Trigger (theme-scroll.tsx) light↔dark,
-  synchron über html[data-theme-anim] in globals.css. Form-Insel im
+  ganze Seite flippt per Scroll-Trigger (theme-scroll.tsx toggelt nur
+  data-theme); die Überblendung machen permanente CSS-Transitions in
+  globals.css (--theme-flip-duration, :where()-Regel). Form-Insel im
   CTA bleibt immer light-primary.
 - **Kontaktformular**: siehe CLAUDE.md (GDPR-Invarianten!). Tracking nur
   über CustomEvent `ziri:contact:submitted` anhängen.

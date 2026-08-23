@@ -20,8 +20,8 @@ body {
   line-height: var(--line-height-default);
   -webkit-font-smoothing: antialiased;
   transition:
-    background-color 180ms var(--ease-global),
-    color 180ms var(--ease-global);
+    background-color var(--theme-flip-duration) var(--ease-global),
+    color var(--theme-flip-duration) var(--ease-global);
 }
 
 h1,
@@ -33,16 +33,21 @@ h6 {
   text-wrap: pretty;
 }
 
-/* Scroll-getriebener Theme-Wechsel (theme-scroll.tsx): data-theme-anim
-   liegt nur für die Dauer des Flips auf <html> und erzwingt für ALLE
-   Elemente dieselbe Transition — eine Dauer, ein Easing, synchron.
-   (!important überschreibt kurzzeitig auch Komponenten-Transitions.) */
-html[data-theme-anim],
-html[data-theme-anim] * {
+/* Theme-Flip (theme-scroll.tsx toggelt nur data-theme auf <html>):
+   alle token-nutzenden Elemente tragen PERMANENT dieselbe Transition —
+   eine Dauer, ein Easing, synchron, reine CSS-Animation. :where() hält
+   die Spezifität bei 0: Komponenten mit eigenen transition-Regeln
+   (Hover-Effekte etc.) behalten diese. */
+:root {
+  --theme-flip-duration: 450ms;
+}
+
+:where(main, section, header, footer, nav, article, aside, div, ul, ol,
+  li, p, h1, h2, h3, h4, h5, h6, span, a, blockquote, figure) {
   transition:
-    background-color 450ms var(--ease-global),
-    color 450ms var(--ease-global),
-    border-color 450ms var(--ease-global) !important;
+    background-color var(--theme-flip-duration) var(--ease-global),
+    color var(--theme-flip-duration) var(--ease-global),
+    border-color var(--theme-flip-duration) var(--ease-global);
 }
 
 button,
