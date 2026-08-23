@@ -5,8 +5,15 @@
   contain-intrinsic-size: 111.25rem;
 }
 
+.heading {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2.5rem;
+}
+
 .title {
-  width: min(55rem, 100%);
+  width: min(64rem, 100%);
   font-size: 2.8125rem;
   font-weight: 420;
   letter-spacing: -0.09375rem;
@@ -16,7 +23,7 @@
 
 .workflow {
   display: grid;
-  margin-top: 5rem;
+  margin-top: 4rem;
   grid-template-columns: 24.6875rem minmax(0, 1fr);
   gap: 5rem;
   align-items: start;
@@ -52,7 +59,7 @@
 
 /* Wechselnde Pixel skalieren runter (alte Farbe) und hoch (neue Farbe) */
 .patternCell[data-swap="true"] {
-  animation: cell-swap 620ms var(--ease-global) backwards;
+  animation: cell-swap 360ms var(--ease-global) backwards;
 }
 
 @keyframes cell-swap {
@@ -97,7 +104,6 @@
   justify-content: center;
   gap: 1.8125rem;
   padding: 1.75rem 0 2rem;
-  border-bottom: 1px solid var(--border-default);
 }
 
 .phaseTag {

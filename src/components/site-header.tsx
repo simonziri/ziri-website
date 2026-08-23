@@ -14,6 +14,14 @@ const navigation = [
 
 export function SiteHeader() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   useEffect(() => {
     if (!menuOpen) return;
@@ -35,41 +43,43 @@ export function SiteHeader() {
   const closeMenu = () => setMenuOpen(false);
 
   return (
-    <header className={styles.header}>
-      <Link className={styles.logoLink} href="/" aria-label="ZIRI home">
-        <Image
-          src="/assets/ziri-logo.svg"
-          alt="ZIRI"
-          width={77}
-          height={30}
-          priority
-        />
-      </Link>
+    <nav className={styles.header} aria-label="Primary navigation">
+      <div className={styles.navWrap} data-scrolled={scrolled}>
+        <Link className={styles.logoLink} href="/" aria-label="ZIRI home">
+          <Image
+            src="/assets/ziri-logo.svg"
+            alt="ZIRI"
+            width={77}
+            height={30}
+            priority
+          />
+        </Link>
 
-      <nav className={styles.navigation} aria-label="Primary navigation">
-        <div className={styles.navigationLinks}>
-          {navigation.map((item) => (
-            <Link className={styles.navigationLink} href={item.href} key={item.href}>
-              {item.label}
-            </Link>
-          ))}
+        <div className={styles.navigation}>
+          <div className={styles.navigationLinks}>
+            {navigation.map((item) => (
+              <Link className={styles.navigationLink} href={item.href} key={item.href}>
+                {item.label}
+              </Link>
+            ))}
+          </div>
+          <PixelHatchButton className={styles.headerCta} href="#contact">
+            Work with us
+          </PixelHatchButton>
+          <button
+            className={styles.menuButton}
+            type="button"
+            aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
+            aria-expanded={menuOpen}
+            aria-controls="mobile-navigation"
+            data-open={menuOpen}
+            onClick={() => setMenuOpen((open) => !open)}
+          >
+            <span />
+            <span />
+          </button>
         </div>
-        <PixelHatchButton className={styles.headerCta} href="#contact">
-          Work with us
-        </PixelHatchButton>
-        <button
-          className={styles.menuButton}
-          type="button"
-          aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
-          aria-expanded={menuOpen}
-          aria-controls="mobile-navigation"
-          data-open={menuOpen}
-          onClick={() => setMenuOpen((open) => !open)}
-        >
-          <span />
-          <span />
-        </button>
-      </nav>
+      </div>
 
       <div
         className={styles.mobileMenu}
@@ -100,6 +110,6 @@ export function SiteHeader() {
           </Link>
         </nav>
       </div>
-    </header>
+    </nav>
   );
 }

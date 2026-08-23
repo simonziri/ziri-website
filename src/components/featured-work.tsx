@@ -45,6 +45,12 @@ function FeaturedSlide({ index, clone = false }: { index: number; clone?: boolea
       aria-label={`${index + 1} of ${SLIDE_COUNT}`}
       aria-hidden={clone || undefined}
       data-clone={clone || undefined}
+      data-reveal={clone ? undefined : "rise"}
+      style={
+        clone
+          ? undefined
+          : ({ "--reveal-delay": `${index * 140}ms` } as CSSProperties)
+      }
     >
       <Link
         className={styles.slideLink}
@@ -209,13 +215,17 @@ export function FeaturedWork() {
       tabIndex={0}
       onKeyDown={handleKeyboard}
     >
-      <div className={styles.contentRow}>
+      <div
+        className={styles.contentRow}
+        style={{ "--reveal-delay": "2200ms" } as CSSProperties}
+      >
         <SectionTag>Featured Work</SectionTag>
       </div>
       <div
         className={styles.viewport}
         ref={viewportRef}
         id="featured-track"
+        data-reveal-scope=""
         data-dragging={isDragging}
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
@@ -242,7 +252,11 @@ export function FeaturedWork() {
           })}
         </div>
       </div>
-      <div className={styles.contentRow}>
+      <div
+        className={styles.contentRow}
+        data-reveal="fade"
+        style={{ "--reveal-delay": "2400ms" } as CSSProperties}
+      >
         <div className={styles.controls}>
           <button
             className={styles.arrowButton}

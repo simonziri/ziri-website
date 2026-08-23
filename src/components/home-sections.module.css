@@ -1,12 +1,29 @@
 .header {
-  position: relative;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
   z-index: 60;
   display: flex;
-  width: 100%;
   min-height: 4.125rem;
   align-items: center;
-  justify-content: space-between;
   padding: 1rem var(--content-inset);
+}
+
+.navWrap {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 4px;
+  transition:
+    padding 240ms var(--ease-global),
+    background-color 240ms var(--ease-global);
+}
+
+.navWrap[data-scrolled="true"] {
+  padding: 8px;
+  background: var(--surface-base);
 }
 
 .menuButton,

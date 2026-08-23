@@ -3,9 +3,9 @@ import { SectionTag } from "./section-tag";
 import styles from "./engagement-types.module.css";
 
 const engagements = [
-  { id: "minimum", tier: "Minimum", accent: "#fac167" },
-  { id: "core-one", tier: "Core", accent: "#d69cd5" },
-  { id: "core-two", tier: "Core", accent: "#ff765a" },
+  { id: "minimum", tier: "Minimum" },
+  { id: "core-one", tier: "Core" },
+  { id: "core-two", tier: "Core" },
 ] as const;
 
 const deliverables = [
@@ -21,21 +21,16 @@ export function EngagementTypes() {
       <div className={styles.heading}>
         <SectionTag>Engagement Types</SectionTag>
         <h2 id="engagement-title">
-          <span>CTRs are healthy and your customers love you.</span> Yet, CAC is
-          high and you keep losing deals.
+          <span data-reveal="sweep">CTRs are healthy and your customers love you.</span>{" "}
+          <span data-reveal="sweep">Yet, CAC is high and you keep losing deals.</span>
         </h2>
       </div>
 
       <div className={styles.list}>
         {engagements.map((engagement) => (
-          <article className={styles.item} key={engagement.id}>
+          <article className={styles.item} data-scroll-enter="fade" key={engagement.id}>
             <header className={styles.itemHeading}>
               <div className={styles.tier}>
-                <i
-                  className={styles.tierSwatch}
-                  style={{ backgroundColor: engagement.accent }}
-                  aria-hidden="true"
-                />
                 <span>{engagement.tier}</span>
               </div>
               <h3>We audit and refine what’s already there. Highest ROI first.</h3>

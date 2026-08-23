@@ -6,14 +6,18 @@ const paradoxCards = [
   {
     title: "Low conversion rates, long sales cycles",
     video: "/media/paradox-low-conversion.mp4",
+    freezeAtEnd: false,
   },
   {
     title: "Clients focus on price instead of your value",
     video: "/media/paradox-price-focus.mp4",
+    freezeAtEnd: false,
   },
   {
+    // Provisorisch: nur Standbild (letzter Frame), zwei laufende Videos reichen
     title: "You keep losing against worse competitors.",
     video: "/media/paradox-losing-deals.mp4",
+    freezeAtEnd: true,
   },
 ] as const;
 
@@ -23,8 +27,8 @@ export function Paradox() {
       <div className={styles.header}>
         <SectionTag>The paradox</SectionTag>
         <h2 className={styles.title} id="paradox-title">
-          <span>CTRs are healthy and your customers love you.</span>
-          Yet, CAC is high and you keep losing deals.
+          <span data-reveal="sweep">CTRs are healthy and your customers love you.</span>
+          <span data-reveal="sweep">Yet, CAC is high and you keep losing deals.</span>
         </h2>
       </div>
 
@@ -35,6 +39,7 @@ export function Paradox() {
               className={styles.cardVideo}
               src={card.video}
               label={`Animated illustration: ${card.title}`}
+              freezeAtEnd={card.freezeAtEnd}
             />
             <div className={styles.cardCopy}>
               <h3>{card.title}</h3>

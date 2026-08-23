@@ -21,7 +21,7 @@
 }
 
 .list {
-  margin-top: 2.4375rem;
+  margin-top: 4rem;
 }
 
 .item {
@@ -31,7 +31,6 @@
   gap: 5rem;
   /* Divider mittig: gleicher Abstand darüber und darunter, ~20 % mehr Luft */
   padding: 3.6rem 0;
-  border-bottom: 1px solid var(--border-default);
 }
 
 .item:first-child {
@@ -56,11 +55,7 @@
 .tier span {
   padding: 0.5625rem 0.875rem;
   background: var(--surface-raised);
-}
-
-.tierSwatch {
-  display: block;
-  width: 2.375rem;
+  text-transform: uppercase;
 }
 
 .item h3 {
@@ -149,7 +144,9 @@
 }
 
 /* Duo-Headline: erster Satz sekundär, zweiter primär; Desktop mit Zeilenumbruch */
-.heading h2 span {
+.heading h2 span:first-child {
+  --sweep-rest: var(--text-secondary);
+
   color: var(--text-secondary);
 }
 

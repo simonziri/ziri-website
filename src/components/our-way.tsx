@@ -1,12 +1,16 @@
+import { SectionTag } from "./section-tag";
 import styles from "./our-way.module.css";
 
 export function OurWay() {
   return (
     <section className={styles.section} id="our-way" aria-labelledby="our-way-title">
-      <h2 className={styles.title} id="our-way-title">
-        <span>The answer isn’t another redesign or blind A/B testing.</span>{" "}
-        You need a website built for multi-layered sales cycles.
-      </h2>
+      <div className={styles.heading}>
+        <SectionTag>Our Point of View</SectionTag>
+        <h2 className={styles.title} id="our-way-title">
+        <span data-reveal="sweep">The answer isn’t another redesign or blind A/B testing.</span>{" "}
+        <span data-reveal="sweep">You need a website built for multi-layered sales cycles.</span>
+        </h2>
+      </div>
 
       <div className={styles.cardGrid}>
         <article className={`${styles.card} ${styles.oldWay}`}>

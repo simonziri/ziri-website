@@ -121,3 +121,157 @@ h6 {
     animation-iteration-count: 1 !important;
   }
 }
+
+/* ============ Entry-Animationen (Reveal-System) ============ */
+/* Sehr softes Ease für alle Einblendungen */
+:root {
+  --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-softer: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes gradient-sweep {
+  0% {
+    filter: blur(1px);
+    background-position: 100% 0;
+  }
+
+  100% {
+    filter: blur(0);
+    background-position: 0 0;
+  }
+}
+
+@keyframes fade-blur-in {
+  from {
+    opacity: 0;
+    filter: blur(5px);
+  }
+
+  to {
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+@keyframes wipe-in {
+  from {
+    clip-path: inset(-0.5rem 100% -0.5rem -0.5rem);
+    transform: translateX(-1.5rem);
+  }
+
+  to {
+    clip-path: inset(-0.5rem);
+    transform: translateX(0);
+  }
+}
+
+@keyframes rise-in {
+  from {
+    transform: translateY(115%);
+  }
+
+  to {
+    transform: translateY(0);
+  }
+}
+
+/* Nur wenn JS läuft: Elemente verstecken, bis der Observer sie armiert */
+@media (scripting: enabled) {
+  [data-reveal="fade"] {
+    opacity: 0;
+  }
+
+  /* Kein Flash: Sweep-Texte sind bis zur Armierung unsichtbar */
+  [data-reveal="sweep"]:not([data-inview="true"]) {
+    opacity: 0;
+  }
+
+  [data-reveal="fade"][data-inview="true"] {
+    animation: fade-blur-in 1100ms var(--ease-soft) var(--reveal-delay, 0ms) both;
+  }
+
+  [data-reveal="rise"] {
+    transform: translateY(115%);
+  }
+
+  [data-reveal="wipe"] {
+    clip-path: inset(-0.5rem 100% -0.5rem -0.5rem);
+  }
+
+  [data-reveal="wipe"][data-inview="true"] {
+    animation: wipe-in 1.2s var(--ease-soft) var(--reveal-delay, 0ms) both;
+  }
+
+  [data-reveal="rise"][data-inview="true"] {
+    animation: rise-in 2000ms var(--ease-softer) var(--reveal-delay, 0ms) both;
+  }
+
+  /* Lovable-Sweep: [Ruhefarbe 33%][ZIRI-Farbband][transparent 33%], 300% breit */
+  [data-reveal="sweep"][data-inview="true"] {
+    background-image: linear-gradient(
+      90deg,
+      var(--sweep-rest, var(--text-heading)) 0,
+      var(--sweep-rest, var(--text-heading)) 33.33%,
+      #fac167 38%,
+      #ebaf4f 43%,
+      #d69cd5 48%,
+      #c18ac0 53%,
+      #f17057 58%,
+      #ff765a 62%,
+      transparent 66.67%,
+      transparent
+    );
+    background-size: 300% 100%;
+    background-position: 100% 0;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    animation: gradient-sweep 3.6s var(--ease-soft) calc(100ms + var(--reveal-delay, 0ms)) both;
+    /* Paint-Box erweitern, damit Unterlängen/Überhänge (g, G) nicht
+       vom background-clip abgeschnitten werden — layoutneutral. */
+    padding: 0.15em 0.1em;
+    margin: -0.15em -0.1em;
+  }
+}
+
+/* Scroll-getriebener Item-Eintritt: fadet + skaliert beim Reinscrollen */
+@supports (animation-timeline: view()) {
+  [data-scroll-enter] {
+    animation: item-enter both;
+    animation-timing-function: var(--ease-soft);
+    animation-timeline: view();
+    animation-range: entry 0% entry 60%;
+  }
+
+  [data-scroll-enter="fade"] {
+    animation-name: item-enter-fade;
+  }
+}
+
+@keyframes item-enter {
+  from {
+    opacity: 0;
+    transform: translateY(2rem) scale(0.94);
+  }
+}
+
+@keyframes item-enter-fade {
+  from {
+    opacity: 0;
+    transform: translateY(2rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-scroll-enter] {
+    animation: none !important;
+  }
+
+  [data-reveal] {
+    animation: none !important;
+    opacity: 1 !important;
+    filter: none !important;
+    transform: none !important;
+  }
+}

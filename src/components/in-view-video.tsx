@@ -6,9 +6,11 @@ type InViewVideoProps = {
   className?: string;
   src: string;
   label: string;
+  /** Lädt das Video, springt zum letzten Frame und spielt nie ab. */
+  freezeAtEnd?: boolean;
 };
 
-export function InViewVideo({ className, src, label }: InViewVideoProps) {
+export function InViewVideo({ className, src, label, freezeAtEnd = false }: InViewVideoProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
@@ -25,7 +27,15 @@ export function InViewVideo({ className, src, label }: InViewVideoProps) {
           video.load();
         }
 
-        if (!reduceMotion.matches) {
+        if (freezeAtEnd) {
+          const seekToEnd = () => {
+            if (Number.isFinite(video.duration)) {
+              video.currentTime = Math.max(video.duration - 0.05, 0);
+            }
+          };
+          if (video.readyState >= 1) seekToEnd();
+          else video.addEventListener("loadedmetadata", seekToEnd, { once: true });
+        } else if (!reduceMotion.matches) {
           void video.play().catch(() => undefined);
         }
 
@@ -40,7 +50,7 @@ export function InViewVideo({ className, src, label }: InViewVideoProps) {
       observer.disconnect();
       video.pause();
     };
-  }, [src]);
+  }, [src, freezeAtEnd]);
 
   return (
     <video

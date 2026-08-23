@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { RevealObserver } from "@/components/reveal-observer";
 import "./globals.css";
 
 const stackSans = localFont({
@@ -25,6 +26,7 @@ export default function RootLayout({
   return (
     <html className={stackSans.variable} lang="en" data-theme="light-primary">
       <body>
+        <RevealObserver />
         {children}
         {modal}
       </body>

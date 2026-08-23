@@ -9,10 +9,6 @@
   contain-intrinsic-size: 41.25rem;
 }
 
-.panel {
-  margin-top: auto;
-}
-
 .tabs {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
@@ -76,11 +72,12 @@
 .panel {
   position: relative;
   display: flex;
-  width: min(51.125rem, 100%);
+  width: 100%;
   flex-direction: column;
   align-items: flex-start;
   gap: 2.1875rem;
-  margin-top: 7.1875rem;
+  /* Bottom-aligned: Restraum wandert zwischen Tabs und Content */
+  margin-top: auto;
   overflow: hidden;
   animation: testimonial-content-in 620ms var(--ease-global) both;
 }
@@ -101,6 +98,7 @@
 }
 
 .panel blockquote {
+  max-width: 51.125rem;
   margin: 0;
   color: var(--text-heading);
   font-size: 2rem;
@@ -120,6 +118,7 @@
 
 .panelFooter {
   display: flex;
+  width: 100%;
   justify-content: space-between;
   align-items: baseline;
   gap: 1.5rem;

@@ -34,14 +34,14 @@
   .footerImage {
     animation: footer-parallax linear both;
     animation-timeline: view();
-    animation-range: entry 0% cover 45%;
+    animation-range: entry 0% cover 60%;
   }
 }
 
 @keyframes footer-parallax {
   from {
     opacity: 0.5;
-    transform: translateY(10%);
+    transform: translateY(18%);
   }
 
   to {

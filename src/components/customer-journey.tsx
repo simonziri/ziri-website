@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { SectionTag } from "./section-tag";
 import styles from "./customer-journey.module.css";
 
 type Phase = {
@@ -147,10 +148,13 @@ export function CustomerJourney() {
 
   return (
     <section className={styles.section} id="customer" aria-labelledby="customer-title">
-      <h2 className={styles.title} id="customer-title">
-        Differentiation and customer research first so that both your buyer and AI
-        will love you.
-      </h2>
+      <div className={styles.heading}>
+        <SectionTag>The Ziri Method</SectionTag>
+        <h2 className={styles.title} id="customer-title" data-reveal="sweep">
+          Differentiation and customer research first so that both your buyer and
+          AI will love you.
+        </h2>
+      </div>
 
       <div className={styles.workflow}>
         <div
@@ -169,6 +173,7 @@ export function CustomerJourney() {
               className={styles.step}
               key={phase.label}
               data-active={activeStep === index}
+              data-scroll-enter=""
               data-step-index={index}
               ref={(node) => {
                 stepRefs.current[index] = node;

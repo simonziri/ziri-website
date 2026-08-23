@@ -13,11 +13,13 @@
 .panel {
   outline: none;
   position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
+  top: 1rem;
+  right: 1rem;
+  bottom: 1rem;
   z-index: 91;
-  width: min(58rem, 94vw);
+  width: min(90rem, 94vw);
+  border-radius: 1rem;
+  overflow: hidden;
   background: var(--surface-base);
   box-shadow: -24px 0 80px -32px var(--color-black-alpha-40);
   transform: translateX(102%);

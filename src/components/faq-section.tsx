@@ -22,7 +22,7 @@ export function FaqSection() {
       <aside className={styles.intro}>
         <div className={styles.introContent}>
           <SectionTag>FAQ</SectionTag>
-          <h2 id="faq-title">You must have a ton of questions.</h2>
+          <h2 id="faq-title" data-reveal="sweep">You must have a ton of questions.</h2>
           <nav className={styles.anchorLinks} aria-label="FAQ categories">
             {groups.map((group) => (
               <a href={`#${group.id}`} key={group.id}>

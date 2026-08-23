@@ -3,7 +3,12 @@ import styles from "./book-call.module.css";
 
 export function BookCall() {
   return (
-    <section className={styles.section} id="contact" aria-labelledby="book-call-title">
+    <section
+      className={styles.section}
+      id="contact"
+      aria-labelledby="book-call-title"
+      data-theme="dark-primary"
+    >
       <div className={styles.inner}>
         <header className={styles.heading}>
           <Image
@@ -15,7 +20,7 @@ export function BookCall() {
             sizes="102px"
           />
           <div>
-            <h2 id="book-call-title">
+            <h2 id="book-call-title" data-reveal="sweep">
               “We’re stoked to have you here. If you’re ready to chat, please fill
               out the form below.”
             </h2>

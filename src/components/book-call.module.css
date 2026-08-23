@@ -1,7 +1,7 @@
 .section {
   min-height: 64.4375rem;
   padding: 9.625rem var(--content-inset) 9.875rem;
-  background: var(--surface-raised);
+  background: #050505;
   content-visibility: auto;
   contain-intrinsic-size: 64.4375rem;
 }

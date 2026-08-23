@@ -92,7 +92,7 @@ export function CaseStudyArticle({
               width={160}
               height={32}
             />
-            <h1 className={styles.title}>{caseStudy.title}</h1>
+            <h1 className={styles.title} data-reveal="sweep">{caseStudy.title}</h1>
           </div>
           {caseStudy.video ? (
             <div className={styles.video}>

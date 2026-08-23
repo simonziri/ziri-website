@@ -1,11 +1,18 @@
 .section {
   display: flex;
   flex-direction: column;
-  gap: 3rem;
+  gap: 4rem;
   padding: 7.375rem var(--content-inset);
-  background: var(--color-light-neutral-300);
+  background: var(--surface-base);
   content-visibility: auto;
   contain-intrinsic-size: 53.0625rem;
+}
+
+.heading {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2.5rem;
 }
 
 .title {
@@ -18,8 +25,10 @@
   text-wrap: pretty;
 }
 
-.title span {
-  color: rgba(33, 31, 22, 0.46);
+.title span:first-child {
+  --sweep-rest: var(--text-secondary);
+
+  color: var(--text-secondary);
 }
 
 /* Duo-Headline: zweiter Teil beginnt auf Desktop in neuer Zeile */
@@ -59,7 +68,7 @@
 }
 
 .ziriWay {
-  background: var(--color-light-neutral-100);
+  background: var(--color-light-neutral-300);
 }
 
 .cardHeading {

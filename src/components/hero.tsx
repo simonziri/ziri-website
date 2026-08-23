@@ -5,18 +5,22 @@ import styles from "./home-sections.module.css";
 
 export function Hero() {
   return (
-    <section className={styles.hero} aria-labelledby="hero-title">
+    <header className={styles.hero} aria-labelledby="hero-title">
       <div className={styles.heroCopy}>
         <div className={styles.heroIntro}>
-          <p className={styles.kicker}>
+          <p className={styles.kicker} data-reveal="fade">
             Fix your CAC &amp; CVR: Websites and Brands built to win long sales cycles.
           </p>
-          <h1 className={styles.heroTitle} id="hero-title">
+          <h1 className={styles.heroTitle} id="hero-title" data-reveal="sweep">
             In B2B Tech, your website can’t afford to be confusing and commoditized.
           </h1>
         </div>
 
-        <p className={styles.heroDescription}>
+        <p
+          className={styles.heroDescription}
+          data-reveal="fade"
+          style={{ "--reveal-delay": "200ms" } as React.CSSProperties}
+        >
           High CaC, low conversion rates, low , price fights and lost deals are
           expensive. We bet on customer-research, differentiation and clarity, so
           websites win during realistic sales cycles.
@@ -24,7 +28,11 @@ export function Hero() {
       </div>
 
       <div className={styles.heroFooter}>
-        <div className={styles.heroActions}>
+        <div
+          className={styles.heroActions}
+          data-reveal="fade"
+          style={{ "--reveal-delay": "350ms" } as React.CSSProperties}
+        >
           <PixelHatchButton className={styles.heroButton} href="#contact">
             Work with us
           </PixelHatchButton>
@@ -37,7 +45,7 @@ export function Hero() {
           </PixelHatchButton>
         </div>
 
-        <div className={styles.logoStrip} aria-label="Selected ZIRI clients">
+        <div data-reveal="fade" style={{ "--reveal-delay": "500ms" } as React.CSSProperties} className={styles.logoStrip} aria-label="Selected ZIRI clients">
           <div className={styles.logoCell}>
             <Image src="/assets/tab-logos/HockeyStack.svg" alt="HockeyStack" width={262} height={58} />
           </div>
@@ -53,6 +61,6 @@ export function Hero() {
         </div>
         <MobileLogoWall />
       </div>
-    </section>
+    </header>
   );
 }
