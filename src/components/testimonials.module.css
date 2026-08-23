@@ -9,12 +9,6 @@
   background: var(--surface-base);
   content-visibility: auto;
   contain-intrinsic-size: 47.5rem;
-  transition: opacity var(--theme-flip-duration) var(--ease-global);
-}
-
-/* Beim Theme-Flip Richtung Contact blendet die komplette Sektion aus */
-:global([data-theme="dark-primary"]) .section {
-  opacity: 0;
 }
 
 /* Tabs strecken sich immer über die volle Containerbreite */
