@@ -2,11 +2,19 @@
   display: flex;
   min-height: 41.25rem;
   flex-direction: column;
-  /* Tabs oben, Content unten — gleicher Abstand zu beiden Kanten */
-  padding: 3.8125rem var(--content-inset);
+  /* Gleiches Block-Padding wie die übrigen Sektionen */
+  padding: var(--section-padding-block) var(--content-inset);
+  border-top: 1px solid color-mix(in srgb, var(--border-default) 50%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--border-default) 50%, transparent);
   background: var(--surface-base);
   content-visibility: auto;
-  contain-intrinsic-size: 41.25rem;
+  contain-intrinsic-size: 47.5rem;
+  transition: opacity var(--theme-flip-duration) var(--ease-global);
+}
+
+/* Beim Theme-Flip Richtung Contact blendet die komplette Sektion aus */
+:global([data-theme="dark-primary"]) .section {
+  opacity: 0;
 }
 
 /* Tabs strecken sich immer über die volle Containerbreite */
@@ -154,7 +162,6 @@
 @media (max-width: 47.9375rem) {
   .section {
     min-height: 0;
-    padding-block: 3.5rem 5rem;
   }
 
   .tabs {
