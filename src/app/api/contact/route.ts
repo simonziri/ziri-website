@@ -1,29 +1,30 @@
 import { NextResponse } from "next/server";
 
 /**
- * Contact form endpoint — GDPR-minded by design:
+ * Contact/qualification form endpoint — GDPR-minded by design:
  *
  * - Stores nothing. Submissions are forwarded, never persisted here.
- * - Delivery is a pluggable seam: set CONTACT_WEBHOOK_URL (Vercel env)
- *   to forward submissions as JSON to any endpoint you control —
- *   Slack webhook, Make/Zapier, your CRM, an email service. Without
- *   it, submissions are logged to the server console only (dev mode).
- * - The honeypot field ("website") silently discards bot submissions.
+ * - Delivery seams, in priority order (all env-driven, see CLAUDE.md):
+ *     1. RESEND_API_KEY   → e-mail via Resend to CONTACT_EMAIL_TO
+ *                           (default: simon+contact@simonziri.com)
+ *     2. CONTACT_WEBHOOK_URL → JSON POST to any endpoint you control
+ *     3. neither set      → server console log (dev fallback)
+ * - The honeypot field ("company_website_2") silently discards bots.
  */
 
-type ContactPayload = {
-  name?: unknown;
-  email?: unknown;
-  message?: unknown;
-  consent?: unknown;
-  website?: unknown; // Honeypot — Menschen lassen das Feld leer.
-};
+const CONTACT_TO = process.env.CONTACT_EMAIL_TO ?? "simon+contact@simonziri.com";
+const CONTACT_FROM =
+  process.env.CONTACT_EMAIL_FROM ?? "ZIRI Website <onboarding@resend.dev>";
 
-const isNonEmptyString = (value: unknown, max: number): value is string =>
-  typeof value === "string" && value.trim().length > 0 && value.length <= max;
+type Payload = Record<string, unknown>;
+
+const asTrimmed = (value: unknown, max: number): string | null =>
+  typeof value === "string" && value.trim().length > 0 && value.length <= max
+    ? value.trim()
+    : null;
 
 export async function POST(request: Request) {
-  let payload: ContactPayload;
+  let payload: Payload;
   try {
     payload = await request.json();
   } catch {
@@ -31,15 +32,23 @@ export async function POST(request: Request) {
   }
 
   // Honeypot gefüllt → Bot. Stilles OK, kein Hinweis an den Absender.
-  if (isNonEmptyString(payload.website, 1000)) {
+  if (asTrimmed(payload.company_website_2, 1000)) {
     return NextResponse.json({ ok: true });
   }
 
+  const email = asTrimmed(payload.email, 320);
+  const bottleneck = asTrimmed(payload.bottleneck, 200);
+  const dealSize = asTrimmed(payload.dealSize, 100);
+  const timeline = asTrimmed(payload.timeline, 100);
+  const website = asTrimmed(payload.website, 320);
+  const message = asTrimmed(payload.message, 5000);
+
   const valid =
-    isNonEmptyString(payload.name, 200) &&
-    isNonEmptyString(payload.email, 320) &&
-    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(payload.email as string) &&
-    isNonEmptyString(payload.message, 5000) &&
+    email !== null &&
+    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) &&
+    bottleneck !== null &&
+    dealSize !== null &&
+    timeline !== null &&
     payload.consent === true;
 
   if (!valid) {
@@ -47,32 +56,62 @@ export async function POST(request: Request) {
   }
 
   const submission = {
-    name: (payload.name as string).trim(),
-    email: (payload.email as string).trim(),
-    message: (payload.message as string).trim(),
+    email,
+    bottleneck,
+    dealSize,
+    timeline,
+    website: website ?? "—",
+    message: message ?? "—",
     submittedAt: new Date().toISOString(),
     source: "ziri-website/contact",
   };
 
-  const webhook = process.env.CONTACT_WEBHOOK_URL;
-  if (webhook) {
-    try {
-      const response = await fetch(webhook, {
+  try {
+    if (process.env.RESEND_API_KEY) {
+      const text = [
+        `New inquiry via simonziri.com`,
+        ``,
+        `Email:        ${submission.email}`,
+        `Website:      ${submission.website}`,
+        `Bottleneck:   ${submission.bottleneck}`,
+        `Deal size:    ${submission.dealSize}`,
+        `Timeline:     ${submission.timeline}`,
+        ``,
+        `Message:`,
+        submission.message,
+        ``,
+        `Submitted at: ${submission.submittedAt}`,
+      ].join("\n");
+
+      const response = await fetch("https://api.resend.com/emails", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          from: CONTACT_FROM,
+          to: [CONTACT_TO],
+          reply_to: submission.email,
+          subject: `New inquiry — ${submission.email}`,
+          text,
+        }),
+      });
+      if (!response.ok) throw new Error(`resend ${response.status}`);
+    } else if (process.env.CONTACT_WEBHOOK_URL) {
+      const response = await fetch(process.env.CONTACT_WEBHOOK_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(submission),
       });
       if (!response.ok) throw new Error(`webhook ${response.status}`);
-    } catch (error) {
-      console.error("[contact] delivery failed", error);
-      return NextResponse.json(
-        { ok: false, error: "delivery" },
-        { status: 502 },
-      );
+    } else {
+      // Kein Ziel konfiguriert: nur Server-Log (Entwicklung).
+      console.log("[contact] submission", submission);
     }
-  } else {
-    // Kein Ziel konfiguriert: nur Server-Log (Entwicklung).
-    console.log("[contact] submission", submission);
+  } catch (error) {
+    console.error("[contact] delivery failed", error);
+    return NextResponse.json({ ok: false, error: "delivery" }, { status: 502 });
   }
 
   return NextResponse.json({ ok: true });

@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useRef } from "react";
 import { PixelHatchButton } from "./pixel-hatch-button";
 import styles from "./site-footer.module.css";
@@ -10,11 +11,11 @@ const footerLinks: ReadonlyArray<{
   href: string;
   active?: boolean;
 }> = [
-  { label: "Services", href: "#services" },
-  { label: "Method", href: "#our-way" },
-  { label: "Work with us", href: "#contact", active: true },
-  { label: "Testimonials", href: "#testimonials" },
-  { label: "Work", href: "#featured-work" },
+  { label: "Cases", href: "/#featured-work" },
+  { label: "Method", href: "/#customer" },
+  { label: "Work with us", href: "/#contact", active: true },
+  { label: "Service", href: "/#services" },
+  { label: "FAQ", href: "/#faq" },
 ] as const;
 
 export function SiteFooter() {
@@ -73,6 +74,10 @@ export function SiteFooter() {
             </PixelHatchButton>
           ))}
         </nav>
+        <div className={styles.legal}>
+          <Link href="/privacy">Privacy Policy</Link>
+          <Link href="/imprint">Imprint</Link>
+        </div>
       </div>
       <div className={styles.footerArtwork}>
         <Image

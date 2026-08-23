@@ -1,0 +1,79 @@
+.article {
+  max-width: 46rem;
+  margin-inline: auto;
+  padding: 8rem var(--content-gutter) 6rem;
+  color: var(--text-body);
+}
+
+.article h1 {
+  font-size: var(--font-size-h3);
+  font-weight: 420;
+  letter-spacing: -0.022em;
+  line-height: 1.1;
+  margin-bottom: 0.75rem;
+}
+
+.updated {
+  font-family: ui-monospace, "SFMono-Regular", Consolas, monospace;
+  font-size: var(--font-size-tiny);
+  font-weight: 480;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-secondary);
+  margin-bottom: 3rem;
+}
+
+.article h2 {
+  font-size: var(--font-size-h5);
+  font-weight: 420;
+  letter-spacing: -0.01em;
+  margin: 2.75rem 0 0.9rem;
+}
+
+.article h3 {
+  font-size: var(--font-size-medium);
+  font-weight: 420;
+  margin: 1.75rem 0 0.5rem;
+}
+
+.article p,
+.article li {
+  font-size: var(--font-size-regular);
+  line-height: 1.65;
+  color: var(--text-secondary);
+}
+
+.article p + p {
+  margin-top: 0.75rem;
+}
+
+.article ul {
+  margin: 0.75rem 0;
+  padding-left: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.article a {
+  color: var(--text-body);
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+.article strong {
+  font-weight: 420;
+  color: var(--text-body);
+}
+
+.placeholder {
+  background: var(--color-gold-100);
+  padding: 0.05em 0.3em;
+  border-radius: 2px;
+}
+
+@media (max-width: 767px) {
+  .article {
+    padding: 6.5rem var(--space-medium) 4rem;
+  }
+}

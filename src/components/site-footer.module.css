@@ -85,6 +85,27 @@
   display: block;
 }
 
+.legal {
+  display: flex;
+  gap: 1.75rem;
+  margin-top: 1.5rem;
+}
+
+.legal a {
+  font-family: ui-monospace, "SFMono-Regular", Consolas, monospace;
+  font-size: 0.6875rem;
+  font-weight: 480;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-white-alpha-50);
+  text-decoration: none;
+  transition: color 160ms var(--ease-global);
+}
+
+.legal a:hover {
+  color: #f6f4f0;
+}
+
 .navigation {
   display: flex;
   flex-wrap: wrap;
