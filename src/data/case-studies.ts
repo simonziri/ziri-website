@@ -101,29 +101,29 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     slug: "simplesense",
-    client: "simplesense",
-    title: "Rebrand, Visual Language & Website Relaunch for simplesense",
+    client: "Simplesense",
+    title: "Rebrand, Visual Language & Website Relaunch for Simplesense",
     sub: "A full rebrand and relaunch that make complex data infrastructure instantly understandable.",
     summary:
-      "simplesense connects systems that don't talk to each other, and their old site shared the category's problem: complexity nobody could parse quickly. We rebuilt the brand from the ground up, defined the visual direction for their platform, designed a visual language built from their core story, and relaunched the website, extended since into case study and whitepaper designs.",
+      "Simplesense connects systems that don't talk to each other, and their old site shared the category's problem: complexity nobody could parse quickly. We rebuilt the brand from the ground up, turned that core story into a visual language that carries through the platform, and relaunched the website. The same system has since extended into their case studies and whitepapers.",
     note: "In partnership with TRU VM and Marie Wilda.",
     logo: "/assets/tab-logos/Simplesense.svg",
     thumbnail: {
       src: "/assets/featured/project-image-2.avif",
-      alt: "simplesense website redesign",
+      alt: "Simplesense website redesign",
       width: 1412,
       height: 1412,
     },
     gallery: [
-      { layout: "full", image: img("simplesensetop.avif", "simplesense rebrand", 2517, 1833) },
-      { layout: "full", image: img("simplesensebottom.avif", "simplesense visual language", 2517, 963) },
+      { layout: "full", image: img("simplesensetop.avif", "Simplesense rebrand", 2517, 1833) },
+      { layout: "full", image: img("simplesensebottom.avif", "Simplesense visual language", 2517, 963) },
     ],
     testimonial: {
       quote: [
         "“They rapidly got up to speed on our problem and solution set and cut through the complexity to create a design that cleanly tells our story to an outside audience.”",
       ],
       name: "Eric Kanagy",
-      role: "CEO & Founder, simplesense",
+      role: "CEO & Founder, Simplesense",
       avatar: "/assets/eric-kanagy.png",
     },
   },

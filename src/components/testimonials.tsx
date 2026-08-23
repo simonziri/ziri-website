@@ -14,13 +14,13 @@ const AUTOPLAY_DURATION = 6500;
 
 const clients = [
   {
-    name: "simplesense",
+    name: "Simplesense",
     src: "/assets/tab-logos/Simplesense.svg",
     caseSlug: "simplesense",
     quote:
       "“They rapidly got up to speed on our problem and solution set and cut through the complexity to create a design that cleanly tells our story to an outside audience.”",
     author: "Eric Kanagy",
-    role: "CEO & Founder, simplesense",
+    role: "CEO & Founder, Simplesense",
     avatar: "/assets/eric-kanagy.png",
   },
   {

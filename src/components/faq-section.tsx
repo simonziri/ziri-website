@@ -17,7 +17,7 @@ const groups = [
       },
       {
         q: "What do you mean by committee-driven sales?",
-        a: "The motion where a committee decides: high contract values, long cycles, many stakeholders, and one internal champion carrying your case into rooms you never enter. Our method is built for exactly that: the site gets you considered in minutes, and it arms your champion with understanding, enthusiasm, ammunition, and presence for the months after.",
+        a: "The motion where a committee decides: high contract values, long cycles, and one internal champion carrying your case into rooms you never enter. Our method is built for that. The site gets you considered in minutes, and it gives your champion the rationale and the ammunition to keep making your case for months after.",
       },
       {
         q: "Are you an AEO or AI-search agency?",
@@ -25,7 +25,7 @@ const groups = [
       },
       {
         q: "Do you do SEO, ads, or demand gen?",
-        a: "No. We own the evaluation phase: everything after the buyer has found you and before they sign. We do have a partner agency we love to work with, that integrates cleanly with our approach, so you don’t need to worry about incompatible processes.",
+        a: "No. We own the evaluation phase: everything after the buyer has found you and before they sign. For demand gen we have a partner agency that plugs cleanly into our process, so nothing falls between two vendors.",
       },
       {
         q: "Why research instead of A/B testing?",
@@ -73,7 +73,7 @@ const groups = [
       },
       {
         q: "Where do you work?",
-        a: "Mostly Germany, Switzerland, Austria, and the United States, with other countries welcome. Everything is delivered remotely; the process runs on evidence and calls, not on-site days. Clients include HockeyStack, Leapsome, Circula, instaffo, and simplesense.",
+        a: "Mostly Germany, Switzerland, Austria, and the United States, with other countries welcome. Everything is delivered remotely; the process runs on evidence and calls, not on-site days. Clients include HockeyStack, Leapsome, Circula, instaffo, and Simplesense.",
       },
       {
         q: "How is it priced?",

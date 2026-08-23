@@ -28,7 +28,7 @@ const slides = [
     slug: "simplesense",
     image: "/assets/featured/project-image-2.avif",
     logo: "/assets/tab-logos/Simplesense.svg",
-    title: "Brand and website relaunch for simplesense",
+    title: "Brand and website relaunch for Simplesense",
     body: "A visual language built from their own story: systems that don't talk to each other, finally in one design.",
   },
   {
