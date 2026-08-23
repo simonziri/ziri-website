@@ -8,57 +8,42 @@ import styles from "./case-study-article.module.css";
 function GalleryRowView({ row }: { row: GalleryRow }) {
   if (row.layout === "full") {
     return (
-      <div className={styles.galleryRow} data-layout="full">
-        <figure
+      <div className={styles.galleryRow}>
+        <Image
           className={styles.galleryImage}
-          data-role="large"
-          data-fit={row.image.fit ?? "cover"}
-        >
-          <Image
-            src={row.image.src}
-            alt={row.image.alt}
-            fill
-            sizes="(max-width: 991px) 100vw, 1322px"
-          />
-        </figure>
+          src={row.image.src}
+          alt={row.image.alt}
+          width={row.image.width}
+          height={row.image.height}
+          sizes="(max-width: 991px) 100vw, 1322px"
+        />
       </div>
     );
   }
 
-  const large = (
-    <figure
-      className={styles.galleryImage}
-      data-role="large"
-      data-fit={row.large.fit ?? "cover"}
-      key="large"
-    >
-      <Image
-        src={row.large.src}
-        alt={row.large.alt}
-        fill
-        sizes="(max-width: 640px) 100vw, 66vw"
-      />
-    </figure>
-  );
-  const small = (
-    <figure
-      className={styles.galleryImage}
-      data-role="small"
-      data-fit={row.small.fit ?? "cover"}
-      key="small"
-    >
-      <Image
-        src={row.small.src}
-        alt={row.small.alt}
-        fill
-        sizes="(max-width: 640px) 100vw, 33vw"
-      />
-    </figure>
-  );
+  // Bento: Spaltenbreiten folgen den Seitenverhältnissen, damit alle
+  // Bilder der Reihe dieselbe gerenderte Höhe haben.
+  const columns = row.images
+    .map((image) => `${(image.width / image.height).toFixed(4)}fr`)
+    .join(" ");
 
   return (
-    <div className={styles.galleryRow} data-layout={row.layout}>
-      {row.layout === "largeLeft" ? [large, small] : [small, large]}
+    <div
+      className={styles.galleryRow}
+      data-bento=""
+      style={{ gridTemplateColumns: columns }}
+    >
+      {row.images.map((image) => (
+        <Image
+          className={styles.galleryImage}
+          src={image.src}
+          alt={image.alt}
+          width={image.width}
+          height={image.height}
+          sizes="(max-width: 991px) 100vw, 660px"
+          key={image.src}
+        />
+      ))}
     </div>
   );
 }
@@ -85,14 +70,21 @@ export function CaseStudyArticle({
 
         <header className={styles.hero}>
           <div className={styles.heroCopy}>
-            <Image
-              className={styles.heroLogo}
-              src={caseStudy.logo}
-              alt={caseStudy.client}
-              width={160}
-              height={32}
-            />
-            <h1 className={styles.title} data-reveal="sweep">{caseStudy.title}</h1>
+            {caseStudy.logo ? (
+              <Image
+                className={styles.heroLogo}
+                src={caseStudy.logo}
+                alt={caseStudy.client}
+                width={160}
+                height={32}
+              />
+            ) : null}
+            <div>
+              <h1 className={styles.title} data-reveal="sweep">
+                {caseStudy.title}
+              </h1>
+              <p className={styles.sub}>{caseStudy.sub}</p>
+            </div>
           </div>
           {caseStudy.video ? (
             <div className={styles.video}>
@@ -100,7 +92,7 @@ export function CaseStudyArticle({
                 <iframe
                   className={styles.videoEmbed}
                   src={caseStudy.video.url}
-                  title={`${caseStudy.client} testimonial video`}
+                  title={`${caseStudy.client} video`}
                   allow="autoplay; fullscreen; picture-in-picture"
                   allowFullScreen
                 />
@@ -111,7 +103,7 @@ export function CaseStudyArticle({
           ) : null}
         </header>
 
-        {caseStudy.kpis.length > 0 ? (
+        {caseStudy.kpis && caseStudy.kpis.length > 0 ? (
           <ul className={styles.kpis}>
             {caseStudy.kpis.map((kpi) => (
               <li key={kpi.label}>
@@ -122,22 +114,20 @@ export function CaseStudyArticle({
           </ul>
         ) : null}
 
-        <div className={styles.gallery}>
-          <div className={styles.galleryRow} data-layout="full">
-            <figure className={styles.galleryImage} data-role="hero">
-              <Image
-                src={caseStudy.heroImage.src}
-                alt={caseStudy.heroImage.alt}
-                fill
-                priority
-                sizes="(max-width: 991px) 100vw, 1322px"
-              />
-            </figure>
-          </div>
-          {caseStudy.gallery.map((row, index) => (
-            <GalleryRowView key={index} row={row} />
-          ))}
+        <div className={styles.summary}>
+          <p>{caseStudy.summary}</p>
+          {caseStudy.note ? (
+            <p className={styles.note}>{caseStudy.note}</p>
+          ) : null}
         </div>
+
+        {caseStudy.gallery.length > 0 ? (
+          <div className={styles.gallery}>
+            {caseStudy.gallery.map((row, index) => (
+              <GalleryRowView key={index} row={row} />
+            ))}
+          </div>
+        ) : null}
       </div>
 
       <div className={styles.narrow}>
@@ -155,6 +145,7 @@ export function CaseStudyArticle({
                     src={caseStudy.testimonial.avatar}
                     alt={caseStudy.testimonial.name}
                     fill
+                    sizes="42px"
                   />
                 ) : null}
               </span>
@@ -169,27 +160,6 @@ export function CaseStudyArticle({
             </div>
           </section>
         ) : null}
-
-        <dl className={styles.meta}>
-          <div>
-            <dt className={styles.metaKey}>Industry</dt>
-            <dd className={styles.metaValue}>{caseStudy.industry}</dd>
-          </div>
-          <div>
-            <dt className={styles.metaKey}>Year</dt>
-            <dd className={styles.metaValue}>{caseStudy.year}</dd>
-          </div>
-          <div>
-            <dt className={styles.metaKey}>Services</dt>
-            <dd className={styles.metaValue}>
-              {caseStudy.services.map((service) => (
-                <span key={service} style={{ display: "block" }}>
-                  {service}
-                </span>
-              ))}
-            </dd>
-          </div>
-        </dl>
 
         {next && next.slug !== caseStudy.slug ? (
           <Link

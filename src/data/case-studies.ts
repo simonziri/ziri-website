@@ -4,6 +4,10 @@
  * Structured to map 1:1 onto a CMS collection later (Sanity):
  * every field below becomes a document field, `gallery` becomes an
  * array of typed blocks. Keep components dumb — they only read this shape.
+ *
+ * Images carry their intrinsic width/height so the markup can declare
+ * dimensions and avoid layout shift; they render at full container
+ * width with their natural aspect ratio.
  */
 
 export type CaseStudyKpi = {
@@ -14,16 +18,16 @@ export type CaseStudyKpi = {
 export type CaseStudyImage = {
   src: string;
   alt: string;
-  /** "cover" (default) fills the tile; "contain" letterboxes with
-   *  padding and a subtle drop shadow. */
-  fit?: "cover" | "contain";
+  width: number;
+  height: number;
 };
 
-/** One row in the project gallery. `full` = single wide image;
- *  `largeLeft`/`largeRight` = bento pair, the large image carries the row. */
+/** One row in the project gallery. `full` = single full-width image;
+ *  `bento` = images side by side, column widths follow aspect ratios
+ *  so all images in the row share the same rendered height. */
 export type GalleryRow =
   | { layout: "full"; image: CaseStudyImage }
-  | { layout: "largeLeft" | "largeRight"; large: CaseStudyImage; small: CaseStudyImage };
+  | { layout: "bento"; images: CaseStudyImage[] };
 
 export type CaseStudyTestimonial = {
   quote: string[];
@@ -32,133 +36,182 @@ export type CaseStudyTestimonial = {
   avatar?: string;
 };
 
-export type CaseStudyVideo = {
-  /** Embed URL (YouTube/Vimeo/mp4). Empty while we only reserve the slot. */
-  url?: string;
-  poster?: string;
-};
-
 export type CaseStudy = {
   slug: string;
   client: string;
-  logo: string;
-  /** Card/preview image used by listings (Featured Work, etc.). */
-  thumbnail: CaseStudyImage;
   title: string;
+  /** One-line subline under the title. */
+  sub: string;
+  /** Intro paragraph; also used for <meta name="description">. */
+  summary: string;
+  logo?: string;
+  /** Small print (e.g. "Commissioned by …", partnership credits). */
+  note?: string;
+  /** Card/preview image used by listings — delivered later. */
+  thumbnail?: CaseStudyImage;
   /** Optional 1:1 video embed next to the headline. */
-  video?: CaseStudyVideo;
-  /** 0–4 entries; the band is hidden when empty. */
-  kpis: CaseStudyKpi[];
-  heroImage: CaseStudyImage;
+  video?: { url?: string; poster?: string };
+  /** Optional; band is hidden when absent. */
+  kpis?: CaseStudyKpi[];
   gallery: GalleryRow[];
   testimonial?: CaseStudyTestimonial;
-  industry: string;
-  year: string;
-  services: string[];
-  /** Used for <meta name="description">. */
-  summary: string;
+  /** Draft cases render at their URL but are excluded from
+   *  listings, next-links and generateStaticParams. */
+  draft?: boolean;
 };
+
+const img = (
+  src: string,
+  alt: string,
+  width: number,
+  height: number,
+): CaseStudyImage => ({ src: `/assets/case-studies/${src}`, alt, width, height });
 
 export const caseStudies: CaseStudy[] = [
   {
+    slug: "leapsome",
+    client: "Leapsome",
+    title: "Website System & Conversion Program for Leapsome",
+    sub: "From technical debt to a self-serve website the marketing team runs on its own.",
+    summary:
+      "Over 1.5+ years as a retainer partner, we cleaned up a huge grown website, removed developer dependency, and cut the time to launch new pages by 90% — the team has since shipped 15+ product pages on their own. On top, we run a research- and messaging-focused conversion program on their highest-leverage pages.",
+    logo: "/assets/tab-logos/Leapsome.svg",
+    gallery: [
+      { layout: "full", image: img("leapsomebottom.avif", "Leapsome website system", 2517, 1821) },
+      { layout: "full", image: img("leapsomecenter.avif", "Leapsome page templates", 2517, 963) },
+    ],
+  },
+  {
+    slug: "hockeystack",
+    client: "HockeyStack",
+    title: "Visual Refresh & Homepage Redesign for HockeyStack",
+    sub: "A sharper visual language and rebuilt homepage for the revenue analytics platform.",
+    summary:
+      "We revamped HockeyStack's colors, typography, and visual language, then redesigned and redeveloped the homepage to match where the product had grown. Along the way, we fixed a broken proxy affecting 100+ pages, protecting hard-earned SEO rankings.",
+    note: "Commissioned by Quarter Digital.",
+    logo: "/assets/tab-logos/HockeyStack.svg",
+    gallery: [
+      { layout: "full", image: img("hockeystacktop.avif", "HockeyStack homepage redesign", 2517, 1833) },
+      { layout: "full", image: img("hockeystackbottom.avif", "HockeyStack visual language", 2517, 963) },
+    ],
+  },
+  {
+    slug: "instaffo",
+    client: "Instaffo",
+    title: "B2B Area Expansion for Instaffo",
+    sub: "We expanded Instaffo's B2B area — with a design system their team now runs.",
+    summary:
+      "Instaffo's B2B story lived in the shadow of its B2C brand. We designed and developed the expanded B2B area, built a design system that keeps everything consistent, and trained their team to develop the site further on their own — which they do.",
+    logo: "/assets/tab-logos/Instaffo.svg",
+    gallery: [
+      { layout: "full", image: img("instaffotop.avif", "Instaffo B2B area", 2517, 963) },
+      { layout: "full", image: img("instaffocenter.avif", "Instaffo design system", 2517, 1833) },
+      { layout: "full", image: img("instaffobottom.avif", "Instaffo B2B pages", 2736, 1221) },
+    ],
+  },
+  {
     slug: "circula",
     client: "Circula",
+    title: "Website relaunch for Circula",
+    sub: "Research, messaging, and a rebuilt site for a finance product sold to a skeptical buying committee.",
+    summary:
+      "We researched Circula's buyers and tested the message before rebuilding the site — so the relaunch is built on evidence, not taste.",
     logo: "/assets/tab-logos/Circula.svg",
-    thumbnail: {
-      src: "/assets/featured/project-image-1.avif",
-      alt: "Circula website before and after the ZIRI redesign",
-    },
-    title:
-      "Research, message & conversion: How ZIRI rebuilt Circula's website around what buyers actually need.",
-    video: {
-      // Beispiel-Embed als Platzhalter, bis echte Testimonial-Videos da sind.
-      url: "https://www.youtube-nocookie.com/embed/aqz-KE-bpKQ",
-    },
-    kpis: [
-      { value: "+38%", label: "Demo requests" },
-      { value: "2.1×", label: "Landing page conversion" },
-      { value: "8", label: "Buyer interviews" },
-    ],
-    heroImage: {
-      src: "/assets/featured/project-image-1.avif",
-      alt: "The relaunched Circula website",
-    },
     gallery: [
       {
-        layout: "largeLeft",
-        large: {
-          src: "/assets/featured/circula-after.png",
-          alt: "Circula homepage after the redesign",
-        },
-        small: {
-          src: "/assets/featured/circula-before.png",
-          alt: "Circula homepage before the redesign",
-          fit: "contain",
-        },
+        layout: "bento",
+        images: [
+          img("circulabentoleft.avif", "Circula website detail", 1662, 963),
+          img("circulabentoright.avif", "Circula mobile view", 834, 963),
+        ],
       },
+      { layout: "full", image: img("circulabottom.avif", "The relaunched Circula website", 2544, 1833) },
     ],
-    testimonial: {
-      quote: [
-        "“We partnered with ZIRI for the relaunch of our website, and the experience was flawless from start to finish. The team demonstrated outstanding responsiveness and undeniable expertise.”",
-        "“Beyond the launch, they continue to support us on a daily basis. They're a trusted partner we can truly rely on.”",
-      ],
-      name: "Jane Doe",
-      role: "Head of Marketing @Circula",
-    },
-    industry: "Expense Management",
-    year: "2026",
-    services: ["Research", "Messaging", "Web Design", "Development"],
-    summary:
-      "How ZIRI rebuilt Circula's website around buyer research and message testing — placeholder case study.",
   },
   {
     slug: "simplesense",
-    client: "Simplesense",
+    client: "simplesense",
+    title: "Rebrand, Visual Language & Website Relaunch for simplesense",
+    sub: "A full rebrand and relaunch that make complex data infrastructure instantly understandable.",
+    summary:
+      "simplesense connects systems that don't talk to each other — and their old site shared the category's problem: complexity nobody could parse quickly. We rebuilt the brand from the ground up, defined the visual direction for their platform, designed a visual language built from their core story, and relaunched the website — extended since into case study and whitepaper designs.",
+    note: "In partnership with TRU VM and Marie Wilda.",
     logo: "/assets/tab-logos/Simplesense.svg",
-    thumbnail: {
-      src: "/assets/featured/project-image-2.avif",
-      alt: "Simplesense website before and after the ZIRI redesign",
-    },
-    title:
-      "From feature list to sales tool: the Simplesense website relaunch.",
-    kpis: [
-      { value: "−31%", label: "Bounce rate" },
-      { value: "6 weeks", label: "To launch" },
-    ],
-    heroImage: {
-      src: "/assets/featured/project-image-2.avif",
-      alt: "The relaunched Simplesense website",
-    },
     gallery: [
-      {
-        layout: "full",
-        image: {
-          src: "/assets/featured/project-image-2.avif",
-          alt: "Simplesense website overview",
-        },
-      },
+      { layout: "full", image: img("simplesensetop.avif", "simplesense rebrand", 2517, 1833) },
+      { layout: "full", image: img("simplesensebottom.avif", "simplesense visual language", 2517, 963) },
     ],
     testimonial: {
       quote: [
-        "“ZIRI understood our buyers better than we did. The new site finally sells the product the way our best rep would.”",
+        "“They rapidly got up to speed on our problem and solution set and cut through the complexity to create a design that cleanly tells our story to an outside audience.”",
       ],
-      name: "John Doe",
-      role: "CEO @Simplesense",
+      name: "Eric Kanagy",
+      role: "CEO & Founder, simplesense",
+      avatar: "/assets/eric-kanagy.png",
     },
-    industry: "Emergency Response Technology",
-    year: "2026",
-    services: ["Research", "Web Design"],
+  },
+
+  /* ——— Vorgelagert: Inhalte stehen, Bilder folgen (draft) ——— */
+  {
+    slug: "scalera",
+    client: "Scalera",
+    title: "Rebrand & Website for Scalera",
+    sub: "A complete rebrand and new website that make complex AI software instantly clear.",
     summary:
-      "The Simplesense website relaunch by ZIRI — placeholder case study.",
+      "Scalera's AI tendering platform is powerful and hard to explain — exactly the combination that loses deals. We rebranded Scalera completely and built the full website (DE/EN), sharpened how the software is communicated, and coached the internal team on writing copy that stays clear as they grow.",
+    gallery: [],
+    draft: true,
+  },
+  {
+    slug: "notus",
+    client: "Notus",
+    title: "Brand, Website & Positioning for Notus",
+    sub: "A new look for the personal branding agency — strategy through development, one team.",
+    summary:
+      "For Notus, we handled strategy, design, and development in one motion, giving the personal branding agency a website that finally looks like the work they sell.",
+    gallery: [],
+    draft: true,
+  },
+  {
+    slug: "ideabay",
+    client: "ideabay",
+    title: "Rebrand, Messaging & Website for ideabay",
+    sub: "New positioning, new copy, new website — everything but the logo.",
+    summary:
+      "For ideabay, we looked at why deals were won and lost, who their best customers are, and rebuilt the messaging around them. On that basis we rewrote the entire copy, redesigned the brand (keeping the logo), and built the new website for their AI CX solutions.",
+    gallery: [],
+    draft: true,
+  },
+  {
+    slug: "analyst-house",
+    client: "[Analyst House]",
+    title: "Homepage & Messaging for [Name]",
+    sub: "A messaging-first homepage update built on why they win and lose deals.",
+    summary:
+      "Half of this project was messaging work: we analyzed why deals were lost and won, identified their best customers, set priorities, and aligned the entire messaging around them. On that basis, we upgraded their existing brand design and updated the homepage to carry the new story.",
+    gallery: [],
+    draft: true,
+  },
+  {
+    slug: "spark",
+    client: "SPARK",
+    title: "Rebrand, Messaging & Website Relaunch for SPARK",
+    sub: "Messaging built on real deal data — carried into a new brand and full relaunch.",
+    summary:
+      "Like every project, this started with why deals were won and lost and who the best customers are. For SPARK, the answer called for more than messaging: we redid the branding and relaunched the complete website so the sharpened story shows up everywhere a buyer looks.",
+    gallery: [],
+    draft: true,
   },
 ];
+
+export const listedCaseStudies = caseStudies.filter((entry) => !entry.draft);
 
 export function getCaseStudy(slug: string): CaseStudy | undefined {
   return caseStudies.find((entry) => entry.slug === slug);
 }
 
 export function getNextCaseStudy(slug: string): CaseStudy | undefined {
-  const index = caseStudies.findIndex((entry) => entry.slug === slug);
+  const index = listedCaseStudies.findIndex((entry) => entry.slug === slug);
   if (index === -1) return undefined;
-  return caseStudies[(index + 1) % caseStudies.length];
+  return listedCaseStudies[(index + 1) % listedCaseStudies.length];
 }

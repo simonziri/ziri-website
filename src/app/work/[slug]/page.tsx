@@ -3,13 +3,14 @@ import { notFound } from "next/navigation";
 import { CaseStudyArticle } from "@/components/case-study/case-study-article";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
-import { caseStudies, getCaseStudy } from "@/data/case-studies";
+import { getCaseStudy, listedCaseStudies } from "@/data/case-studies";
 import styles from "../../page.module.css";
 
 type Params = { slug: string };
 
 export function generateStaticParams(): Params[] {
-  return caseStudies.map(({ slug }) => ({ slug }));
+  // Drafts bleiben erreichbar, werden aber nicht vorgerendert/verlinkt.
+  return listedCaseStudies.map(({ slug }) => ({ slug }));
 }
 
 export async function generateMetadata({

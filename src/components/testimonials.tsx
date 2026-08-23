@@ -13,33 +13,52 @@ import styles from "./testimonials.module.css";
 const AUTOPLAY_DURATION = 6500;
 
 const clients = [
-  { name: "Simplesense", src: "/assets/tab-logos/Simplesense.svg" },
-  { name: "Leapsome", src: "/assets/tab-logos/Leapsome.svg" },
-  { name: "HockeyStack", src: "/assets/tab-logos/HockeyStack.svg" },
-  { name: "Instaffo", src: "/assets/tab-logos/Instaffo.svg" },
-  { name: "Circula", src: "/assets/tab-logos/Circula.svg" },
+  {
+    name: "simplesense",
+    src: "/assets/tab-logos/Simplesense.svg",
+    caseSlug: "simplesense",
+    quote:
+      "“They rapidly got up to speed on our problem and solution set and cut through the complexity to create a design that cleanly tells our story to an outside audience.”",
+    author: "Eric Kanagy",
+    role: "CEO & Founder, simplesense",
+    avatar: "/assets/eric-kanagy.png",
+  },
+  {
+    name: "HockeyStack",
+    src: "/assets/tab-logos/HockeyStack.svg",
+    caseSlug: "hockeystack",
+    quote:
+      "“Hey, just wanted to let you know that ZIRI is amazing. Absolutely stellar work. Thank you for the rec!”",
+    author: "Claudia Ring",
+    role: "VP of Marketing, HockeyStack",
+    avatar: "/assets/testimonials/claudia-ring.avif",
+  },
+  {
+    name: "Instaffo",
+    src: "/assets/tab-logos/Instaffo.svg",
+    caseSlug: "instaffo",
+    quote:
+      "“We're super happy with the result. Thanks for your work.”",
+    author: "Christoph Zoeller",
+    role: "CEO, Instaffo",
+    avatar: "/assets/testimonials/christoph-zoeller.avif",
+  },
+  {
+    name: "Circula",
+    src: "/assets/tab-logos/Circula.svg",
+    caseSlug: "circula",
+    quote: "“Great result for Circula 💪🙌”",
+    author: "Christophe Aumaître",
+    role: "Investor, Circula",
+  },
 ] as const;
 
 export function Testimonials() {
   const [active, setActive] = useState(0);
   const [cycle, setCycle] = useState(0);
   const [paused, setPaused] = useState(false);
-  const [mobile, setMobile] = useState(false);
   const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
-  const visibleClients = mobile ? clients.slice(0, 4) : clients;
-
-  useEffect(() => {
-    const media = window.matchMedia("(max-width: 47.9375rem)");
-    const update = () => setMobile(media.matches);
-
-    update();
-    media.addEventListener("change", update);
-    return () => media.removeEventListener("change", update);
-  }, []);
-
-  useEffect(() => {
-    if (active >= visibleClients.length) setActive(0);
-  }, [active, visibleClients.length]);
+  const visibleClients = clients;
 
   useEffect(() => {
     if (paused || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
@@ -70,6 +89,8 @@ export function Testimonials() {
     selectTab(nextIndex);
     tabRefs.current[nextIndex]?.focus();
   };
+
+  const current = visibleClients[active] ?? visibleClients[0];
 
   return (
     <section
@@ -125,29 +146,27 @@ export function Testimonials() {
         id="testimonial-panel"
         role="tabpanel"
         aria-live="polite"
-        aria-label={`${visibleClients[active]?.name ?? visibleClients[0].name} testimonial`}
+        aria-label={`${current.name} testimonial`}
         key={`${active}-${cycle}`}
       >
-        <span className={styles.headshotFrame}>
-          <img
-            className={styles.headshot}
-            src="/assets/eric-kanagy.png"
-            alt="Eric Kanagy"
-            width={61}
-            height={59}
-          />
-        </span>
-        <blockquote>
-          “They rapidly got up to speed on our problem and solution set and cut
-          through the complexity to create a design that cleanly tells our story to
-          an outside audience.”
-        </blockquote>
+        {"avatar" in current && current.avatar ? (
+          <span className={styles.headshotFrame}>
+            <img
+              className={styles.headshot}
+              src={current.avatar}
+              alt={current.author}
+              width={61}
+              height={59}
+            />
+          </span>
+        ) : null}
+        <blockquote>{current.quote}</blockquote>
         <div className={styles.panelFooter}>
           <p className={styles.author}>
-            Eric Kanagy, CEO &amp; Founder, simplesense
+            {current.author}, {current.role}
           </p>
-          <Link href="/work/simplesense" scroll={false}>
-            Read Case Study
+          <Link href={`/work/${current.caseSlug}`} scroll={false}>
+            Read case study
           </Link>
         </div>
       </div>
