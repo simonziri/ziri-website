@@ -4,6 +4,7 @@ import { EngagementTypes } from "@/components/engagement-types";
 import { FaqSection } from "@/components/faq-section";
 import { FeaturedWork } from "@/components/featured-work";
 import { Hero } from "@/components/hero";
+import { HeroDots } from "@/components/hero-dots";
 import { OurWay } from "@/components/our-way";
 import { Paradox } from "@/components/paradox";
 import { SiteHeader } from "@/components/site-header";
@@ -16,8 +17,11 @@ export default function HomePage() {
     <main className={styles.page}>
       <div className={styles.shell}>
         <SiteHeader />
-        <Hero />
-        <FeaturedWork />
+        <div className={styles.dotsScope}>
+          <HeroDots />
+          <Hero />
+          <FeaturedWork />
+        </div>
         <Paradox />
         <OurWay />
         <CustomerJourney />

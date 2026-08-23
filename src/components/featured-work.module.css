@@ -2,9 +2,11 @@
   --slide-width: 63.25rem;
   --slide-gap: 2.1875rem;
 
+  /* Im Dots-Scope: Hintergrund transparent, Inhalt über dem Punktraster */
   position: relative;
+  z-index: 1;
   padding-block: 6rem 6.875rem;
-  background: var(--surface-base);
+  background: transparent;
   outline: none;
 }
 

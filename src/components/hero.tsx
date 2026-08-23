@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { HeroDots } from "./hero-dots";
 import { MobileLogoWall } from "./mobile-logo-wall";
 import { PixelHatchButton } from "./pixel-hatch-button";
 import styles from "./home-sections.module.css";
@@ -7,7 +6,6 @@ import styles from "./home-sections.module.css";
 export function Hero() {
   return (
     <header className={styles.hero} aria-labelledby="hero-title">
-      <HeroDots />
       <div className={styles.heroCopy}>
         <div className={styles.heroIntro}>
           <p

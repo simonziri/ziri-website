@@ -107,19 +107,20 @@
   position: absolute;
   inset: 0;
   z-index: 0;
+  opacity: 0.5;
   /* Punkte verlieren nach oben und unten nur Opacity */
   mask-image: linear-gradient(
     to bottom,
     transparent 0%,
-    #000 22%,
-    #000 78%,
+    #000 12%,
+    #000 88%,
     transparent 100%
   );
   -webkit-mask-image: linear-gradient(
     to bottom,
     transparent 0%,
-    #000 22%,
-    #000 78%,
+    #000 12%,
+    #000 88%,
     transparent 100%
   );
 }
