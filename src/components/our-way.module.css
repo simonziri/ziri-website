@@ -25,12 +25,6 @@
   text-wrap: pretty;
 }
 
-.title span:first-child {
-  --sweep-rest: var(--text-secondary);
-
-  color: var(--text-secondary);
-}
-
 /* Duo-Headline: zweiter Teil beginnt auf Desktop in neuer Zeile */
 @media (min-width: 48rem) {
   .title span {
@@ -94,16 +88,16 @@
 }
 
 .cardBody {
+  display: flex;
   max-width: 31rem;
+  flex-direction: column;
+  gap: 2.75rem;
   color: var(--text-secondary);
   font-size: var(--font-size-regular);
   line-height: var(--line-height-relaxed);
 }
 
 .ziriWay .cardBody {
-  display: flex;
-  flex-direction: column;
-  gap: 2.75rem;
   opacity: 0.8;
 }
 

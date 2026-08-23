@@ -76,6 +76,11 @@ export const caseStudies: CaseStudy[] = [
     summary:
       "Over 1.5+ years as a retainer partner, we cleaned up a huge grown website, removed developer dependency, and cut the time to launch new pages by 90% — the team has since shipped 15+ product pages on their own. On top, we run a research- and messaging-focused conversion program on their highest-leverage pages.",
     logo: "/assets/tab-logos/Leapsome.svg",
+    kpis: [
+      { value: "90%", label: "less time to launch a page" },
+      { value: "15+", label: "pages shipped by the team" },
+      { value: "1.5+ yrs", label: "retainer partnership" },
+    ],
     gallery: [
       { layout: "full", image: img("leapsomebottom.avif", "Leapsome website system", 2517, 1821) },
       { layout: "full", image: img("leapsomecenter.avif", "Leapsome page templates", 2517, 963) },
@@ -90,6 +95,7 @@ export const caseStudies: CaseStudy[] = [
       "We revamped HockeyStack's colors, typography, and visual language, then redesigned and redeveloped the homepage to match where the product had grown. Along the way, we fixed a broken proxy affecting 100+ pages, protecting hard-earned SEO rankings.",
     note: "Commissioned by Quarter Digital.",
     logo: "/assets/tab-logos/HockeyStack.svg",
+    kpis: [{ value: "100+", label: "pages with rankings protected" }],
     gallery: [
       { layout: "full", image: img("hockeystacktop.avif", "HockeyStack homepage redesign", 2517, 1833) },
       { layout: "full", image: img("hockeystackbottom.avif", "HockeyStack visual language", 2517, 963) },
@@ -112,11 +118,17 @@ export const caseStudies: CaseStudy[] = [
   {
     slug: "circula",
     client: "Circula",
-    title: "Website relaunch for Circula",
-    sub: "Research, messaging, and a rebuilt site for a finance product sold to a skeptical buying committee.",
+    title: "Rebrand & Website Relaunch for Circula",
+    sub: "A complete redesign and 500+ page migration to help Circula look like the market leader.",
     summary:
-      "We researched Circula's buyers and tested the message before rebuilding the site — so the relaunch is built on evidence, not taste.",
+      "Circula had outgrown its website: a fast-scaling expense platform that still looked like an early-stage startup, in a category full of interchangeable fintech design. We supported the brand redesign alongside their internal team, redesigned the website, and migrated 500+ pages across two languages without losing rankings — then trained the team to build and edit pages themselves. The result got featured three times.",
+    note: "In partnership with Luca Gonzalez Sonst and Christian Schmitt.",
     logo: "/assets/tab-logos/Circula.svg",
+    kpis: [
+      { value: "500+", label: "pages migrated" },
+      { value: "2", label: "languages" },
+      { value: "3×", label: "featured" },
+    ],
     gallery: [
       {
         layout: "bento",

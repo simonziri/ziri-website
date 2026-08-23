@@ -15,19 +15,13 @@
 }
 
 .title {
-  width: min(64.4375rem, 100%);
+  width: 100%;
   color: var(--text-heading);
   font-size: 2.8125rem;
   font-weight: 420;
   letter-spacing: -0.09375rem;
-  line-height: 1.14;
+  line-height: 1.2;
   text-wrap: pretty;
-}
-
-.title span:first-child {
-  --sweep-rest: var(--text-secondary);
-
-  color: var(--text-secondary);
 }
 
 .cardGrid {
@@ -119,12 +113,5 @@
   .cardCopy {
     min-height: 13.5rem;
     padding-top: 2rem;
-  }
-}
-
-/* Duo-Headline: zweiter Teil beginnt auf Desktop in neuer Zeile */
-@media (min-width: 48rem) {
-  .title span {
-    display: block;
   }
 }

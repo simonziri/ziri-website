@@ -1,6 +1,5 @@
 import { BookCall } from "@/components/book-call";
 import { CustomerJourney } from "@/components/customer-journey";
-import { EngagementTypes } from "@/components/engagement-types";
 import { FaqSection } from "@/components/faq-section";
 import { FeaturedWork } from "@/components/featured-work";
 import { Hero } from "@/components/hero";
@@ -26,7 +25,8 @@ export default function HomePage() {
         <OurWay />
         <CustomerJourney />
         <Testimonials />
-        <EngagementTypes />
+        {/* EngagementTypes vorerst ausgeblendet (Simons Ansage 23.08.) */}
+        <div className={styles.themeFade} aria-hidden="true" />
         <BookCall />
         <FaqSection />
         <SiteFooter />

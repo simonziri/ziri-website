@@ -30,8 +30,9 @@ export function Paradox() {
       <div className={styles.header}>
         <SectionTag>The paradox</SectionTag>
         <h2 className={styles.title} id="paradox-title">
-          <span data-reveal="sweep">Traffic is healthy and your customers love you.</span>
-          <span data-reveal="sweep">Yet acquisition gets pricier and deals go to the established name.</span>
+          {/* Fließtext ohne erzwungenen Umbruch: bricht auf Desktop in zwei Zeilen */}
+          <span data-reveal="sweep">Traffic is healthy and your customers love you.</span>{" "}
+          <span data-reveal="sweep">Yet acquisition costs go up and deals go to the established name.</span>
         </h2>
       </div>
 

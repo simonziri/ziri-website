@@ -32,8 +32,9 @@ für alte Webflow-URLs? Sitemap + robots.txt fehlen noch → vor Launch bauen.
 
 1. **Thumbnails** für Case Studies liefert Simon nach → in
    `caseStudies[].thumbnail` + Featured-Work-Slides einsetzen.
-2. **Circula-Copy** fehlte im Content-Paket — aktuelle Summary ist
-   behelfsmäßig; ersetzen wenn geliefert.
+2. **Engagement-Types-Sektion** ist vorerst ausgeblendet (Simon denkt
+   über den Inhalt nach) — Komponente existiert weiter, in
+   `src/app/page.tsx` wieder einhängen wenn freigegeben.
 3. **Draft-Cases** (scalera, notus, ideabay, analyst-house, spark):
    Content steht in `src/data/case-studies.ts`, Bilder fehlen. Bei
    Lieferung: Galerie füllen, `draft: true` entfernen.

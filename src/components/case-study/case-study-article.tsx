@@ -58,6 +58,9 @@ export function CaseStudyArticle({
 }) {
   const next = getNextCaseStudy(caseStudy.slug);
   const linkScroll = inPanel ? false : undefined;
+  const hasKpis = Boolean(caseStudy.kpis && caseStudy.kpis.length > 0);
+  // Testimonial steht immer direkt unter dem ersten Bild
+  const [firstGalleryRow, ...moreGalleryRows] = caseStudy.gallery;
 
   return (
     <article className={styles.article}>
@@ -114,24 +117,26 @@ export function CaseStudyArticle({
           </ul>
         ) : null}
 
-        <div className={styles.summary}>
+        <div
+          className={
+            hasKpis ? styles.summary : `${styles.summary} ${styles.summaryNoKpis}`
+          }
+        >
           <p>{caseStudy.summary}</p>
           {caseStudy.note ? (
             <p className={styles.note}>{caseStudy.note}</p>
           ) : null}
         </div>
 
-        {caseStudy.gallery.length > 0 ? (
+        {firstGalleryRow ? (
           <div className={styles.gallery}>
-            {caseStudy.gallery.map((row, index) => (
-              <GalleryRowView key={index} row={row} />
-            ))}
+            <GalleryRowView row={firstGalleryRow} />
           </div>
         ) : null}
       </div>
 
-      <div className={styles.narrow}>
-        {caseStudy.testimonial ? (
+      {caseStudy.testimonial ? (
+        <div className={styles.narrow}>
           <section className={styles.testimonial} aria-label="Testimonial">
             <blockquote className={styles.quote}>
               {caseStudy.testimonial.quote.map((paragraph) => (
@@ -159,8 +164,20 @@ export function CaseStudyArticle({
               </span>
             </div>
           </section>
-        ) : null}
+        </div>
+      ) : null}
 
+      {moreGalleryRows.length > 0 ? (
+        <div className={styles.inset}>
+          <div className={styles.gallery}>
+            {moreGalleryRows.map((row, index) => (
+              <GalleryRowView key={index} row={row} />
+            ))}
+          </div>
+        </div>
+      ) : null}
+
+      <div className={styles.narrow}>
         {next && next.slug !== caseStudy.slug ? (
           <Link
             className={styles.next}

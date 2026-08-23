@@ -20,8 +20,8 @@ const slides = [
     slug: "circula",
     image: "/assets/featured/project-image-1.avif",
     logo: "/assets/tab-logos/Circula.svg",
-    title: "Website relaunch for Circula",
-    body: "Research, messaging, and a rebuilt site for a finance product sold to a skeptical buying committee.",
+    title: "Rebrand & Website Relaunch for Circula",
+    body: "A complete redesign and 500+ page migration to help Circula look like the market leader.",
   },
   {
     name: "Simplesense",

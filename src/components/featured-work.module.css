@@ -247,8 +247,10 @@
 }
 
 .slideContent > img {
-  width: 8.1875rem;
-  height: auto;
+  width: 100%;
+  height: 1.8125rem;
+  object-fit: contain;
+  object-position: left center;
 }
 
 .slideCopy {

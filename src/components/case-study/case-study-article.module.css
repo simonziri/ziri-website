@@ -150,10 +150,16 @@
   border-radius: 0.5rem;
 }
 
-/* Summary unter dem Hero */
+/* Summary unter dem Hero — etwas mehr Luft zum ersten Bild */
 .summary {
   max-width: 46rem;
-  padding-bottom: var(--space-large);
+  padding-bottom: var(--space-xlarge);
+}
+
+/* Ohne KPI-Band: +20% Abstand zum Heading, +20% Textbreite */
+.summaryNoKpis {
+  margin-top: calc(var(--space-medium) * 0.2);
+  max-width: 55.2rem;
 }
 
 .summary p {
@@ -184,8 +190,9 @@
   padding-inline: var(--content-gutter);
 }
 
+/* Steht zwischen erstem Bild und restlicher Galerie */
 .testimonial {
-  padding-block: var(--space-large) var(--space-xsmall);
+  padding-block: var(--space-large);
 }
 
 .quote {
@@ -259,8 +266,9 @@
   color: var(--text-body);
 }
 
-/* Next case */
+/* Next case — deutlicher Whitespace vor dem Abschluss */
 .next {
+  margin-top: 10rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
