@@ -30,8 +30,9 @@ für alte Webflow-URLs? Sitemap + robots.txt fehlen noch → vor Launch bauen.
 
 ## Offene Punkte (TODO)
 
-1. **Thumbnails** für Case Studies liefert Simon nach → in
-   `caseStudies[].thumbnail` + Featured-Work-Slides einsetzen.
+1. Thumbnails: alle fünf Live-Cases haben `thumbnail` + eigenen
+   Featured-Work-Slide. Reihenfolge (Simons Ansage): Circula,
+   simplesense, Leapsome, HockeyStack, Instaffo.
 2. **Engagement-Types-Sektion** ist vorerst ausgeblendet (Simon denkt
    über den Inhalt nach) — Komponente existiert weiter, in
    `src/app/page.tsx` wieder einhängen wenn freigegeben.

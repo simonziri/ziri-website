@@ -69,53 +69,6 @@ const img = (
 
 export const caseStudies: CaseStudy[] = [
   {
-    slug: "leapsome",
-    client: "Leapsome",
-    title: "Website System & Conversion Program for Leapsome",
-    sub: "From technical debt to a self-serve website the marketing team runs on its own.",
-    summary:
-      "Over 1.5+ years as a retainer partner, we cleaned up a huge grown website, removed developer dependency, and cut the time to launch new pages by 90%. The team has since shipped 15+ product pages on their own. On top, we run a research- and messaging-focused conversion program on their highest-leverage pages.",
-    logo: "/assets/tab-logos/Leapsome.svg",
-    kpis: [
-      { value: "90%", label: "less time to launch a page" },
-      { value: "15+", label: "pages shipped by the team" },
-      { value: "1.5+ yrs", label: "retainer partnership" },
-    ],
-    gallery: [
-      { layout: "full", image: img("leapsomebottom.avif", "Leapsome website system", 2517, 1821) },
-      { layout: "full", image: img("leapsomecenter.avif", "Leapsome page templates", 2517, 963) },
-    ],
-  },
-  {
-    slug: "hockeystack",
-    client: "HockeyStack",
-    title: "Visual Refresh & Homepage Redesign for HockeyStack",
-    sub: "A sharper visual language and rebuilt homepage for the revenue analytics platform.",
-    summary:
-      "We revamped HockeyStack's colors, typography, and visual language, then redesigned and redeveloped the homepage to match where the product had grown. Along the way, we fixed a broken proxy affecting 100+ pages, protecting hard-earned SEO rankings.",
-    note: "Commissioned by Quarter Digital.",
-    logo: "/assets/tab-logos/HockeyStack.svg",
-    kpis: [{ value: "100+", label: "pages with rankings protected" }],
-    gallery: [
-      { layout: "full", image: img("hockeystacktop.avif", "HockeyStack homepage redesign", 2517, 1833) },
-      { layout: "full", image: img("hockeystackbottom.avif", "HockeyStack visual language", 2517, 963) },
-    ],
-  },
-  {
-    slug: "instaffo",
-    client: "Instaffo",
-    title: "B2B Area Expansion for Instaffo",
-    sub: "We expanded Instaffo's B2B area, with a design system their team now runs.",
-    summary:
-      "Instaffo's B2B story lived in the shadow of its B2C brand. We designed and developed the expanded B2B area, built a design system that keeps everything consistent, and trained their team to develop the site further on their own, which they do.",
-    logo: "/assets/tab-logos/Instaffo.svg",
-    gallery: [
-      { layout: "full", image: img("instaffotop.avif", "Instaffo B2B area", 2517, 963) },
-      { layout: "full", image: img("instaffocenter.avif", "Instaffo design system", 2517, 1833) },
-      { layout: "full", image: img("instaffobottom.avif", "Instaffo B2B pages", 2736, 1221) },
-    ],
-  },
-  {
     slug: "circula",
     client: "Circula",
     title: "Rebrand & Website Relaunch for Circula",
@@ -124,6 +77,12 @@ export const caseStudies: CaseStudy[] = [
       "Circula had outgrown its website: a fast-scaling expense platform that still looked like an early-stage startup, in a category full of interchangeable fintech design. We supported the brand redesign alongside their internal team, redesigned the website, and migrated 500+ pages across two languages without losing rankings, then trained the team to build and edit pages themselves. The result got featured three times.",
     note: "In partnership with Luca Gonzalez Sonst and Christian Schmitt.",
     logo: "/assets/tab-logos/Circula.svg",
+    thumbnail: {
+      src: "/assets/featured/project-image-1.avif",
+      alt: "Circula website redesign",
+      width: 1412,
+      height: 1412,
+    },
     kpis: [
       { value: "500+", label: "pages migrated" },
       { value: "2", label: "languages" },
@@ -149,6 +108,12 @@ export const caseStudies: CaseStudy[] = [
       "simplesense connects systems that don't talk to each other, and their old site shared the category's problem: complexity nobody could parse quickly. We rebuilt the brand from the ground up, defined the visual direction for their platform, designed a visual language built from their core story, and relaunched the website, extended since into case study and whitepaper designs.",
     note: "In partnership with TRU VM and Marie Wilda.",
     logo: "/assets/tab-logos/Simplesense.svg",
+    thumbnail: {
+      src: "/assets/featured/project-image-2.avif",
+      alt: "simplesense website redesign",
+      width: 1412,
+      height: 1412,
+    },
     gallery: [
       { layout: "full", image: img("simplesensetop.avif", "simplesense rebrand", 2517, 1833) },
       { layout: "full", image: img("simplesensebottom.avif", "simplesense visual language", 2517, 963) },
@@ -161,6 +126,71 @@ export const caseStudies: CaseStudy[] = [
       role: "CEO & Founder, simplesense",
       avatar: "/assets/eric-kanagy.png",
     },
+  },
+  {
+    slug: "leapsome",
+    client: "Leapsome",
+    title: "Website System & Conversion Program for Leapsome",
+    sub: "From technical debt to a self-serve website the marketing team runs on its own.",
+    summary:
+      "Over 1.5+ years as a retainer partner, we cleaned up a huge grown website, removed developer dependency, and cut the time to launch new pages by 90%. The team has since shipped 15+ product pages on their own. On top, we run a research- and messaging-focused conversion program on their highest-leverage pages.",
+    logo: "/assets/tab-logos/Leapsome.svg",
+    thumbnail: {
+      src: "/assets/featured/leapsome-thumb.avif",
+      alt: "Leapsome website system",
+      width: 1544,
+      height: 1544,
+    },
+    kpis: [
+      { value: "90%", label: "less time to launch a page" },
+      { value: "15+", label: "pages shipped by the team" },
+      { value: "1.5+ yrs", label: "retainer partnership" },
+    ],
+    gallery: [
+      { layout: "full", image: img("leapsomebottom.avif", "Leapsome website system", 2517, 1821) },
+      { layout: "full", image: img("leapsomecenter.avif", "Leapsome page templates", 2517, 963) },
+    ],
+  },
+  {
+    slug: "hockeystack",
+    client: "HockeyStack",
+    title: "Visual Refresh & Homepage Redesign for HockeyStack",
+    sub: "A sharper visual language and rebuilt homepage for the revenue analytics platform.",
+    summary:
+      "We revamped HockeyStack's colors, typography, and visual language, then redesigned and redeveloped the homepage to match where the product had grown. Along the way, we fixed a broken proxy affecting 100+ pages, protecting hard-earned SEO rankings.",
+    note: "Commissioned by Quarter Digital.",
+    logo: "/assets/tab-logos/HockeyStack.svg",
+    thumbnail: {
+      src: "/assets/featured/hockeystack-thumb.avif",
+      alt: "HockeyStack homepage redesign",
+      width: 1544,
+      height: 1544,
+    },
+    kpis: [{ value: "100+", label: "pages with rankings protected" }],
+    gallery: [
+      { layout: "full", image: img("hockeystacktop.avif", "HockeyStack homepage redesign", 2517, 1833) },
+      { layout: "full", image: img("hockeystackbottom.avif", "HockeyStack visual language", 2517, 963) },
+    ],
+  },
+  {
+    slug: "instaffo",
+    client: "Instaffo",
+    title: "B2B Area Expansion for Instaffo",
+    sub: "We expanded Instaffo's B2B area, with a design system their team now runs.",
+    summary:
+      "Instaffo's B2B story lived in the shadow of its B2C brand. We designed and developed the expanded B2B area, built a design system that keeps everything consistent, and trained their team to develop the site further on their own, which they do.",
+    logo: "/assets/tab-logos/Instaffo.svg",
+    thumbnail: {
+      src: "/assets/featured/instaffo-thumb.avif",
+      alt: "Instaffo B2B area",
+      width: 1544,
+      height: 1544,
+    },
+    gallery: [
+      { layout: "full", image: img("instaffotop.avif", "Instaffo B2B area", 2517, 963) },
+      { layout: "full", image: img("instaffocenter.avif", "Instaffo design system", 2517, 1833) },
+      { layout: "full", image: img("instaffobottom.avif", "Instaffo B2B pages", 2736, 1221) },
+    ],
   },
 
   /* ——— Vorgelagert: Inhalte stehen, Bilder folgen (draft) ——— */

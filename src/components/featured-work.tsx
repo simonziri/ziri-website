@@ -31,6 +31,30 @@ const slides = [
     title: "Brand and website relaunch for simplesense",
     body: "A visual language built from their own story: systems that don't talk to each other, finally in one design.",
   },
+  {
+    name: "Leapsome",
+    slug: "leapsome",
+    image: "/assets/featured/leapsome-thumb.avif",
+    logo: "/assets/tab-logos/Leapsome.svg",
+    title: "Website System & Conversion Program for Leapsome",
+    body: "From technical debt to a self-serve website the marketing team runs on its own.",
+  },
+  {
+    name: "HockeyStack",
+    slug: "hockeystack",
+    image: "/assets/featured/hockeystack-thumb.avif",
+    logo: "/assets/tab-logos/HockeyStack.svg",
+    title: "Visual Refresh & Homepage Redesign for HockeyStack",
+    body: "A sharper visual language and rebuilt homepage for the revenue analytics platform.",
+  },
+  {
+    name: "Instaffo",
+    slug: "instaffo",
+    image: "/assets/featured/instaffo-thumb.avif",
+    logo: "/assets/tab-logos/Instaffo.svg",
+    title: "B2B Area Expansion for Instaffo",
+    body: "We expanded Instaffo's B2B area, with a design system their team now runs.",
+  },
 ] as const;
 
 const SLIDE_COUNT = slides.length;
