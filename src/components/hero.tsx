@@ -13,7 +13,7 @@ export function Hero() {
             data-reveal="fade"
             style={{ "--reveal-duration": "1650ms" } as React.CSSProperties}
           >
-            For B2B companies with high contract values.
+            For B2B companies selling five to seven figure deals.
           </p>
           <h1 className={styles.heroTitle} id="hero-title">
             <span data-reveal="sweep">We build your website on why buyers choose you,</span>{" "}
