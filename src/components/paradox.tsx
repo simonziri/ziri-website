@@ -4,9 +4,9 @@ import styles from "./paradox.module.css";
 
 const paradoxCards = [
   {
-    title: "“We went another direction.”",
-    body: "Deals you were sure of go quiet, then you learn they went with the established competitor.",
-    video: "/media/paradox-losing-deals.mp4",
+    title: "Low conversion rates, low close rates",
+    body: "Traffic lands but rarely turns into pipeline — and the deals that reach sales close less often than your product deserves.",
+    video: "/media/paradox-low-conversion.mp4",
     freezeAtEnd: false,
   },
   {
@@ -17,9 +17,9 @@ const paradoxCards = [
   },
   {
     // Provisorisch: nur Standbild (letzter Frame), zwei laufende Videos reichen
-    title: "Every first call starts at zero",
-    body: "Sales re-explains what the company does on the first call.",
-    video: "/media/paradox-low-conversion.mp4",
+    title: "“We went another direction.”",
+    body: "Deals you were sure of go quiet, then you learn they went with the established competitor.",
+    video: "/media/paradox-losing-deals.mp4",
     freezeAtEnd: true,
   },
 ] as const;
