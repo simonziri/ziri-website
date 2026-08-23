@@ -78,23 +78,12 @@ export function ContactForm() {
     return (
       <div className={styles.formSuccess} role="status">
         <h3>Received.</h3>
-        <p>
-          We&rsquo;ll run your site through the models, look at how you compare
-          against the competition, and come back with a first read. If
-          we&rsquo;re not the right fit, we&rsquo;ll tell you that too.
-        </p>
       </div>
     );
   }
 
   return (
     <form className={styles.form} onSubmit={handleSubmit} noValidate>
-      <p className={styles.formIntro}>
-        We take on a limited number of engagements and start every one with
-        research. These questions tell us whether we&rsquo;re the right fit
-        and give us a head start before your first call.
-      </p>
-
       {/* Honeypot — für Menschen unsichtbar */}
       <label className={styles.honeypot} aria-hidden="true">
         Leave this empty

@@ -24,10 +24,10 @@ export function BookCall() {
           />
           <div>
             <h2 id="book-call-title" data-reveal="sweep">
-              “Glad you made it this far. Tell us about the last deal you
-              lost, and we’ll take it from there.”
+              “We take on a limited number of engagements and start every one
+              with research. These questions tell us whether we’re the right
+              fit and give us a head start before your first call.”
             </h2>
-            <p>Simon Ziri, Founder</p>
           </div>
         </header>
 
