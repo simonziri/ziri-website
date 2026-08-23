@@ -43,7 +43,15 @@ const groups = [
       },
       {
         q: "What does an engagement look like?",
-        a: "Diagnosis first: two to three weeks of buyer evidence, the AI-representation check, and Edge Selection, which closes with one recommended differentiation play and a formal go or no-go. Then the work ships in Waves, highest-leverage pages first. We don’t rebuild anything we haven’t researched.",
+        a: "Diagnosis first: two to three weeks of buyer evidence, the AI-representation check, and Edge Selection, which closes with one recommended differentiation play and a formal go or no-go, and no-go is an honest possible outcome. Then the work ships in Waves, highest-leverage pages first. We don’t rebuild anything we haven’t researched.",
+      },
+      {
+        q: "Our CRM is messy and we barely record calls. Is there anything to research?",
+        a: "Almost always, yes. This is the normal starting state, and the method is built for low volume: a handful of recorded calls and twenty meaningful deals at €30k+ is a rich corpus, plus reviews and communities across your whole category. In week one we run an evidence checkpoint: enough signal to pick a play, or not. If not, we say so right then, and buyer interviews extend the research. Where evidence stays thin, the workshop with your team becomes the primary source, and the findings document says so in writing. Where your team’s beliefs and the data disagree, we record it as a finding and resolve it in the findings session, with the evidence on the table. Loss reasons logged as “budget” don’t worry us either; in most deals, budget is the cover story for “they didn’t see the value.”",
+      },
+      {
+        q: "What if the website isn’t our real problem?",
+        a: "Then Diagnosis says so. It ends in a formal go or no-go, and no-go is a real outcome: when the evidence points at product gaps, pricing, or a positioning decision only your CEO can make, the readout names it instead of selling you a rebuild. You keep the evidence and the roadmap either way.",
       },
       {
         q: "How long until the new site is live?",
