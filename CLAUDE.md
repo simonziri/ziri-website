@@ -1,5 +1,8 @@
 # ZIRI Website 2026
 
+**Neue Session? Zuerst HANDOFF.md lesen** — aktueller Projektstand,
+offene TODOs, Architektur-Fallen und Arbeitsweise.
+
 Next.js 16 (App Router) + TypeScript + CSS Modules + GSAP + shaders (WebGPU).
 Design tokens live in `src/styles/tokens.css` — always style with tokens, never
 raw hex values (exception: deliberate one-offs already in the codebase).
