@@ -169,12 +169,6 @@
   text-wrap: pretty;
 }
 
-@media (min-width: 48rem) {
-  .heroTitle span {
-    display: block;
-  }
-}
-
 .heroDescription {
   width: min(57.375rem, 100%);
   color: var(--text-secondary);
