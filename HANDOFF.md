@@ -72,8 +72,11 @@ für alte Webflow-URLs? Sitemap + robots.txt fehlen noch → vor Launch bauen.
   Reihenhöhen matchen. Bildmaße stehen in case-studies.ts (Layout-Shift).
 - **Fonts/Weights**: max 420 (nicht-mono), Regular 400, Mono 480/400.
   H2s: 45px/1.14, H3s 1.18, Absätze line-height 1.55 (Token relaxed).
-- **Dark-Sektionen**: nur CTA (#contact), FAQ, Footer — via
-  data-theme="dark-primary" (Basis #050505). Rest light.
+- **Dark-Sektionen**: FAQ + Footer hart via data-theme="dark-primary"
+  (Basis #050505). CTA (#contact) hat KEIN eigenes Theme mehr: die
+  ganze Seite flippt per Scroll-Trigger (theme-scroll.tsx) light↔dark,
+  synchron über html[data-theme-anim] in globals.css. Form-Insel im
+  CTA bleibt immer light-primary.
 - **Kontaktformular**: siehe CLAUDE.md (GDPR-Invarianten!). Tracking nur
   über CustomEvent `ziri:contact:submitted` anhängen.
 - **Paradox-Karte 3** eingefroren (freezeAtEnd) — nur 2 Videos laufen.
