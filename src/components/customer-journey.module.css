@@ -133,15 +133,12 @@
   text-wrap: pretty;
 }
 
-.step h3 span {
-  color: rgba(33, 31, 22, 0.56);
-}
 
 .step > p {
-  width: min(36.5rem, 100%);
+  width: min(48.125rem, 100%);
   color: var(--text-secondary);
   font-size: 1.125rem;
-  line-height: 1.5;
+  line-height: var(--line-height-relaxed);
 }
 
 .mobilePattern {

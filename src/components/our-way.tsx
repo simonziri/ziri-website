@@ -7,8 +7,7 @@ export function OurWay() {
       <div className={styles.heading}>
         <SectionTag>Our Point of View</SectionTag>
         <h2 className={styles.title} id="our-way-title">
-        <span data-reveal="sweep">Typical website projects are driven by opinions and best practices.</span>{" "}
-        <span data-reveal="sweep">Ours run on a deep understanding of your market and ICP.</span>
+        <span data-reveal="sweep">Typical website projects are driven by opinions and best practices.</span>
         </h2>
       </div>
 
@@ -41,8 +40,9 @@ export function OurWay() {
           <div className={styles.cardHeading}>
             <p className={styles.cardLabel}>ZIRI WAY</p>
             <h3>
-              We build the other way around: first why you lose, then the
-              language, then the design.
+              We build the other way around:
+              <br />
+              first why you lose, then the language, then the design.
             </h3>
           </div>
           <div className={styles.cardBody}>

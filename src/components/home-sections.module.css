@@ -160,13 +160,19 @@
 }
 
 .heroTitle {
-  width: min(66rem, 100%);
+  width: min(74rem, 100%);
   color: var(--text-body);
   font-size: var(--font-size-h1);
   font-weight: 420;
   letter-spacing: -0.034168em;
   line-height: 0.95;
   text-wrap: pretty;
+}
+
+@media (min-width: 48rem) {
+  .heroTitle span {
+    display: block;
+  }
 }
 
 .heroDescription {

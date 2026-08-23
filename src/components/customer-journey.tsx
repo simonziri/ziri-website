@@ -174,7 +174,7 @@ export function CustomerJourney() {
       <div className={styles.heading}>
         <SectionTag>The Ziri Method</SectionTag>
         <h2 className={styles.title} id="customer-title" data-reveal="sweep">
-          Our method is driven by deep research and clear differentiation.
+          Our method is driven by a deep understanding of your market, your buyers, and clear differentiation.
         </h2>
       </div>
 

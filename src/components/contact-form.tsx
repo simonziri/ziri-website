@@ -107,7 +107,6 @@ export function ContactForm() {
       </label>
 
       <fieldset className={styles.formSection}>
-        <legend className={styles.formEyebrow}>01 — The bottleneck</legend>
         <p className={styles.formQuestion}>
           What&rsquo;s costing you the most right now?
         </p>
@@ -126,7 +125,6 @@ export function ContactForm() {
       </fieldset>
 
       <fieldset className={styles.formSection}>
-        <legend className={styles.formEyebrow}>02 — Deal size</legend>
         <p className={styles.formQuestion}>
           Typical contract value per customer?
         </p>
@@ -150,7 +148,6 @@ export function ContactForm() {
       </fieldset>
 
       <fieldset className={styles.formSection}>
-        <legend className={styles.formEyebrow}>03 — Timing</legend>
         <p className={styles.formQuestion}>When do you want to start?</p>
         <div
           className={styles.segmented}
@@ -172,7 +169,6 @@ export function ContactForm() {
       </fieldset>
 
       <fieldset className={styles.formSection}>
-        <legend className={styles.formEyebrow}>04 — Contact</legend>
         <div className={styles.formGrid}>
           <label className={styles.formField}>
             <span>Work email</span>
@@ -214,9 +210,8 @@ export function ContactForm() {
       <label className={styles.formConsent}>
         <input name="consent" type="checkbox" required />
         <span>
-          I agree that ZIRI may use my details to respond to my inquiry. No
-          newsletter, no tracking — details in the{" "}
-          <a href="/privacy">privacy policy</a>.
+          I agree that ZIRI may use my details to respond to my inquiry.
+          Details in the <a href="/privacy">privacy policy</a>.
         </span>
       </label>
 

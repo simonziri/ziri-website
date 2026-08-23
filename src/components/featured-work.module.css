@@ -269,7 +269,7 @@
   width: min(31.875rem, 100%);
   color: var(--text-secondary);
   font-size: var(--font-size-large);
-  line-height: 1.5;
+  line-height: var(--line-height-relaxed);
 }
 
 .controls {

@@ -90,7 +90,7 @@
   max-width: 31rem;
   color: var(--text-secondary);
   font-size: 1.125rem;
-  line-height: 1.5;
+  line-height: var(--line-height-relaxed);
 }
 
 .audience a {
@@ -107,6 +107,7 @@
 .deliverables li {
   padding: 0.75rem 0;
   border-bottom: 1px solid var(--border-default);
+  color: var(--text-secondary);
   font-size: 1.125rem;
   line-height: 1.3;
 }

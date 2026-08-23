@@ -15,8 +15,9 @@ export function Hero() {
           >
             For B2B companies in committee-driven sales.
           </p>
-          <h1 className={styles.heroTitle} id="hero-title" data-reveal="sweep">
-            A website built on why you actually lost deals, driven by clear differentiation.
+          <h1 className={styles.heroTitle} id="hero-title">
+            <span data-reveal="sweep">A website built on why you actually lost deals,</span>{" "}
+            <span data-reveal="sweep">driven by clear differentiation.</span>
           </h1>
         </div>
 
