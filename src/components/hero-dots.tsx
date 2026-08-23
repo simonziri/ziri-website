@@ -92,7 +92,7 @@ export function HeroDots() {
         <DotGrid
           color="#c6c5bb"
           density={density}
-          dotSize={0.22}
+          dotSize={0.11}
           maskSource="heroDotsCursor"
           maskType="alphaInverted"
         />
@@ -100,7 +100,7 @@ export function HeroDots() {
         <DotGrid
           color="#c6c5bb"
           density={density}
-          dotSize={0.08}
+          dotSize={0.04}
           maskSource="heroDotsCursor"
           maskType="alpha"
         />
