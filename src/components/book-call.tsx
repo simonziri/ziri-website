@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { ContactForm } from "./contact-form";
 import styles from "./book-call.module.css";
 
 export function BookCall() {
@@ -28,8 +29,13 @@ export function BookCall() {
           </div>
         </header>
 
-        <div className={styles.embed} role="region" aria-label="Book a call form">
-          <span className={styles.srOnly}>Scheduling form will appear here.</span>
+        <div
+          className={styles.embed}
+          role="region"
+          aria-label="Contact form"
+          data-theme="light-primary"
+        >
+          <ContactForm />
         </div>
       </div>
     </section>

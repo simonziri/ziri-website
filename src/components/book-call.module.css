@@ -44,7 +44,140 @@
   width: 100%;
   min-height: 37.5rem;
   margin-top: 1.0625rem;
+  padding: 2.5rem;
+  border-radius: 4px;
   background: #fff;
+  color: var(--color-dark-neutral-800);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.formRow {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+.formField {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.formField span {
+  font-size: var(--font-size-small);
+  font-weight: 420;
+  color: var(--color-dark-neutral-500);
+}
+
+.formField input,
+.formField textarea {
+  padding: 0.8125rem 0.875rem;
+  border: 1px solid var(--color-light-neutral-700);
+  border-radius: 2px;
+  background: var(--color-light-neutral-100);
+  color: var(--color-dark-neutral-800);
+  font-size: var(--font-size-regular);
+  line-height: 1.5;
+  transition: border-color 160ms var(--ease-global);
+}
+
+.formField textarea {
+  resize: vertical;
+}
+
+.formField input:focus-visible,
+.formField textarea:focus-visible {
+  border-color: var(--color-dark-neutral-500);
+  outline: none;
+}
+
+.honeypot {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+
+.formConsent {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  font-size: var(--font-size-small);
+  line-height: 1.5;
+  color: var(--color-dark-neutral-400);
+  cursor: pointer;
+}
+
+.formConsent input {
+  margin-top: 0.2rem;
+  accent-color: var(--color-dark-neutral-800);
+}
+
+.formConsent a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+.formFooter {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.formSubmit {
+  padding: 0.8125rem 1.25rem;
+  border: 0;
+  border-radius: 3px;
+  background: var(--color-dark-neutral-800);
+  color: var(--color-light-neutral-100);
+  cursor: pointer;
+  font-size: var(--font-size-medium);
+  font-weight: 420;
+  line-height: 1;
+  transition:
+    background-color 240ms var(--ease-global),
+    transform 420ms var(--ease-global);
+}
+
+.formSubmit:hover:not(:disabled) {
+  background: var(--color-dark-neutral-600);
+  transform: scale(0.97);
+}
+
+.formSubmit:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.formError {
+  font-size: var(--font-size-small);
+  color: var(--color-coral-600);
+}
+
+.formSuccess {
+  display: flex;
+  min-height: 20rem;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.formSuccess h3 {
+  color: var(--color-dark-neutral-800);
+  font-size: var(--font-size-h5);
+  font-weight: 420;
+}
+
+.formSuccess p {
+  color: var(--color-dark-neutral-400);
 }
 
 .srOnly {
@@ -86,5 +219,10 @@
   .embed {
     min-height: 31rem;
     margin-top: 2rem;
+    padding: 1.5rem;
+  }
+
+  .formRow {
+    grid-template-columns: 1fr;
   }
 }
