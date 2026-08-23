@@ -8,7 +8,6 @@ import styles from "./home-sections.module.css";
 const navigation = [
   { label: "Cases", href: "/#featured-work" },
   { label: "Method", href: "/#customer" },
-  { label: "Service", href: "/#services" },
   { label: "FAQ", href: "/#faq" },
 ] as const;
 

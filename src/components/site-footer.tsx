@@ -14,7 +14,6 @@ const footerLinks: ReadonlyArray<{
   { label: "Cases", href: "/#featured-work" },
   { label: "Method", href: "/#customer" },
   { label: "Work with us", href: "/#contact", active: true },
-  { label: "Service", href: "/#services" },
   { label: "FAQ", href: "/#faq" },
 ] as const;
 
