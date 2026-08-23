@@ -8,7 +8,7 @@
 .title {
   width: min(55rem, 100%);
   font-size: 2.8125rem;
-  font-weight: 463;
+  font-weight: 420;
   letter-spacing: -0.09375rem;
   line-height: 1.14;
   text-wrap: pretty;
@@ -48,7 +48,39 @@
   min-width: 0;
   min-height: 0;
   background: var(--cell-color);
-  transition: background-color 620ms var(--ease-global);
+}
+
+/* Wechselnde Pixel skalieren runter (alte Farbe) und hoch (neue Farbe) */
+.patternCell[data-swap="true"] {
+  animation: cell-swap 620ms var(--ease-global) backwards;
+}
+
+@keyframes cell-swap {
+  0% {
+    background: var(--cell-prev);
+    transform: scale(1);
+  }
+
+  50% {
+    background: var(--cell-prev);
+    transform: scale(0);
+  }
+
+  50.01% {
+    background: var(--cell-color);
+    transform: scale(0);
+  }
+
+  100% {
+    background: var(--cell-color);
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .patternCell[data-swap="true"] {
+    animation: none;
+  }
 }
 
 .steps {
@@ -73,7 +105,7 @@
   width: max-content;
   font-family: ui-monospace, "SFMono-Regular", Consolas, monospace;
   font-size: 1.25rem;
-  font-weight: 500;
+  font-weight: 480;
   line-height: 1;
 }
 
@@ -90,7 +122,7 @@
 .step h3 {
   width: min(48.125rem, 100%);
   font-size: 2rem;
-  font-weight: 500;
+  font-weight: 420;
   line-height: 1.18;
   text-wrap: pretty;
 }

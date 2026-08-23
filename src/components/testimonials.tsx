@@ -142,10 +142,14 @@ export function Testimonials() {
           through the complexity to create a design that cleanly tells our story to
           an outside audience.”
         </blockquote>
-        <Link href="#featured-work">Read Case Study</Link>
-        <p className={styles.author}>
-          Eric Kanagy, CEO &amp; Founder Simplesense
-        </p>
+        <div className={styles.panelFooter}>
+          <p className={styles.author}>
+            Eric Kanagy, CEO &amp; Founder Simplesense
+          </p>
+          <Link href="/work/simplesense" scroll={false}>
+            Read Case Study
+          </Link>
+        </div>
       </div>
     </section>
   );

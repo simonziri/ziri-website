@@ -29,6 +29,27 @@
   object-position: center bottom;
 }
 
+/* Parallax: startet halbtransparent und slidet beim Scrollen hoch */
+@supports (animation-timeline: view()) {
+  .footerImage {
+    animation: footer-parallax linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 45%;
+  }
+}
+
+@keyframes footer-parallax {
+  from {
+    opacity: 0.5;
+    transform: translateY(10%);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .legacyFooter {
   --footer-cell: clamp(4px, 2.15vw, 24px);
   --footer-gap: 2px;
@@ -71,7 +92,7 @@
   width: min(65.5625rem, calc(100% - (var(--content-gutter) * 2)));
   color: #fbfbf8;
   font-size: 3.75rem;
-  font-weight: 500;
+  font-weight: 420;
   letter-spacing: -0.128rem;
   line-height: 0.95;
   text-wrap: balance;

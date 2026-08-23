@@ -19,7 +19,7 @@
   width: min(64.4375rem, 100%);
   color: var(--text-heading);
   font-size: 2.8125rem;
-  font-weight: 463;
+  font-weight: 420;
   letter-spacing: -0.09375rem;
   line-height: 1.14;
   text-wrap: pretty;
@@ -64,7 +64,7 @@
   width: min(17.875rem, 100%);
   color: var(--text-heading);
   font-size: var(--font-size-h5);
-  font-weight: 500;
+  font-weight: 420;
   line-height: 1.2;
   text-wrap: pretty;
 }
@@ -118,5 +118,12 @@
   .cardCopy {
     min-height: 13.5rem;
     padding-top: 2rem;
+  }
+}
+
+/* Duo-Headline: zweiter Teil beginnt auf Desktop in neuer Zeile */
+@media (min-width: 48rem) {
+  .title span {
+    display: block;
   }
 }

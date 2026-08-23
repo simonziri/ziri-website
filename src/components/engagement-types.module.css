@@ -14,7 +14,7 @@
 
 .heading h2 {
   font-size: 2.8125rem;
-  font-weight: 463;
+  font-weight: 420;
   letter-spacing: -0.09375rem;
   line-height: 1.14;
   text-wrap: pretty;
@@ -29,8 +29,13 @@
   min-height: 32.25rem;
   flex-direction: column;
   gap: 5rem;
-  padding: 1.5rem 0 3rem;
+  /* Divider mittig: gleicher Abstand darüber und darunter, ~20 % mehr Luft */
+  padding: 3.6rem 0;
   border-bottom: 1px solid var(--border-default);
+}
+
+.item:first-child {
+  padding-top: 1.5rem;
 }
 
 .itemHeading {
@@ -40,16 +45,28 @@
 }
 
 .tier {
+  display: flex;
   width: max-content;
   font-family: ui-monospace, "SFMono-Regular", Consolas, monospace;
-  font-size: 1.125rem;
+  font-size: 1.25rem;
+  font-weight: 480;
   line-height: 1;
+}
+
+.tier span {
+  padding: 0.5625rem 0.875rem;
+  background: var(--surface-raised);
+}
+
+.tierSwatch {
+  display: block;
+  width: 2.375rem;
 }
 
 .item h3 {
   max-width: 32rem;
   font-size: 2rem;
-  font-weight: 500;
+  font-weight: 420;
   letter-spacing: -0.025rem;
   line-height: 1.18;
 }
@@ -69,9 +86,8 @@
 
 .details h4 {
   margin-bottom: 1.5rem;
-  font-family: ui-monospace, "SFMono-Regular", Consolas, monospace;
   font-size: 1rem;
-  font-weight: 500;
+  font-weight: 420;
   line-height: 1.2;
 }
 
@@ -129,5 +145,16 @@
 @media (max-width: 29.9375rem) {
   .heading h2 {
     font-size: 2rem;
+  }
+}
+
+/* Duo-Headline: erster Satz sekundär, zweiter primär; Desktop mit Zeilenumbruch */
+.heading h2 span {
+  color: var(--text-secondary);
+}
+
+@media (min-width: 48rem) {
+  .heading h2 span {
+    display: block;
   }
 }

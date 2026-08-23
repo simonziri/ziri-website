@@ -1,9 +1,16 @@
 .section {
+  display: flex;
   min-height: 41.25rem;
-  padding: 3.8125rem var(--content-inset) 6.9375rem;
+  flex-direction: column;
+  /* Tabs oben, Content unten — gleicher Abstand zu beiden Kanten */
+  padding: 3.8125rem var(--content-inset);
   background: var(--surface-raised);
   content-visibility: auto;
   contain-intrinsic-size: 41.25rem;
+}
+
+.panel {
+  margin-top: auto;
 }
 
 .tabs {
@@ -97,16 +104,26 @@
   margin: 0;
   color: var(--text-heading);
   font-size: 2rem;
-  font-weight: 400;
+  font-weight: 420;
   letter-spacing: -0.03rem;
   line-height: 1.14;
 }
 
 .panel a {
   color: var(--text-heading);
-  font-size: 1.125rem;
-  line-height: 1.14;
+  font-size: 1.375rem;
+  font-weight: 420;
+  line-height: 1;
   text-decoration: none;
+  white-space: nowrap;
+}
+
+.panelFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1.5rem;
+  flex-wrap: wrap;
 }
 
 .panel a:hover,
@@ -118,6 +135,7 @@
   color: rgba(33, 31, 22, 0.56);
   font-family: ui-monospace, "SFMono-Regular", Consolas, monospace;
   font-size: 1.375rem;
+  font-weight: 400;
   line-height: 1;
 }
 

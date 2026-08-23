@@ -47,24 +47,46 @@ const phases: Phase[] = [
 
 type PixelCellStyle = CSSProperties & {
   "--cell-color": string;
+  "--cell-prev"?: string;
 };
 
+function cellColor(phase: Phase, key: string) {
+  return phase.cells.has(key) ? phase.accent : "var(--surface-raised)";
+}
+
 function PixelPattern({ phase }: { phase: Phase }) {
+  // Beim Phasenwechsel werden nur die Pixel animiert, deren Farbe sich
+  // ändert: runterskalieren in der alten Farbe, hochskalieren in der neuen.
+  const previousPhaseRef = useRef(phase);
+  const previousPhase = previousPhaseRef.current;
+
+  useEffect(() => {
+    previousPhaseRef.current = phase;
+  }, [phase]);
+
   return (
     <div className={styles.pattern} aria-hidden="true">
       {Array.from({ length: 169 }, (_, index) => {
         const row = Math.floor(index / 13);
         const column = index % 13;
         const key = cellKey(row, column);
-        const isAccent = phase.cells.has(key);
+        const color = cellColor(phase, key);
+        const previousColor = cellColor(previousPhase, key);
+        const swaps = previousPhase !== phase && color !== previousColor;
         const style: PixelCellStyle = {
-          "--cell-color": isAccent ? phase.accent : "var(--surface-raised)",
+          "--cell-color": color,
         };
+        if (swaps) {
+          style["--cell-prev"] = previousColor;
+          // Diagonale Welle: Pixel tauschen zeitversetzt statt alle gleichzeitig.
+          style.animationDelay = `${(row + column) * 14}ms`;
+        }
 
         return (
           <i
-            key={index}
+            key={swaps ? `${index}-${phase.label}` : index}
             className={styles.patternCell}
+            data-swap={swaps || undefined}
             style={style}
           />
         );

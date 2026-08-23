@@ -18,7 +18,7 @@
   --ease-global: cubic-bezier(0.625, 0.05, 0, 1);
 
   /* Font family */
-  --font-family-sans: var(--font-tt-hoves), "TT Hoves Pro Trial", Arial,
+  --font-family-sans: var(--font-stack-sans), "Stack Sans Text", Arial,
     sans-serif;
 
   /* Primitive colors: light neutral */

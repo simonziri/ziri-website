@@ -12,7 +12,7 @@
   width: min(73.0625rem, 100%);
   color: var(--text-heading);
   font-size: 2.8125rem;
-  font-weight: 463;
+  font-weight: 420;
   letter-spacing: -0.09375rem;
   line-height: 1.14;
   text-wrap: pretty;
@@ -22,10 +22,24 @@
   color: rgba(33, 31, 22, 0.46);
 }
 
+/* Duo-Headline: zweiter Teil beginnt auf Desktop in neuer Zeile */
+@media (min-width: 48rem) {
+  .title span {
+    display: block;
+  }
+}
+
 .cardGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 30rem), 1fr));
+  /* Old Way klein, ZIRI Way groß — Ratio ~500:800 */
+  grid-template-columns: minmax(0, 5fr) minmax(0, 8fr);
   gap: 1rem;
+}
+
+@media (max-width: 61.9375rem) {
+  .cardGrid {
+    grid-template-columns: 1fr;
+  }
 }
 
 .card {
@@ -40,7 +54,8 @@
 }
 
 .oldWay {
-  background: var(--color-light-neutral-500);
+  background: transparent;
+  border: 1px solid var(--color-light-neutral-600);
 }
 
 .ziriWay {
@@ -56,14 +71,14 @@
 .cardLabel {
   font-family: ui-monospace, "SFMono-Regular", Consolas, "Liberation Mono", monospace;
   font-size: var(--font-size-medium);
-  font-weight: 500;
+  font-weight: 480;
   line-height: 1;
 }
 
 .cardHeading h3 {
   max-width: 32rem;
   font-size: var(--font-size-h5);
-  font-weight: 500;
+  font-weight: 420;
   line-height: 1.2;
   text-wrap: pretty;
 }
@@ -83,7 +98,7 @@
 }
 
 .cardBody strong {
-  font-weight: 500;
+  font-weight: 420;
 }
 
 @media (max-width: 61.9375rem) {
