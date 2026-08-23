@@ -22,8 +22,8 @@ export function BookCall() {
           />
           <div>
             <h2 id="book-call-title" data-reveal="sweep">
-              “We’re stoked to have you here. If you’re ready to chat, please fill
-              out the form below.”
+              “Glad you made it this far. Tell us about the last deal that went
+              quiet, and we’ll take it from there.”
             </h2>
             <p>Simon Ziri, Founder</p>
           </div>

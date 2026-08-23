@@ -144,7 +144,7 @@ export function Testimonials() {
         </blockquote>
         <div className={styles.panelFooter}>
           <p className={styles.author}>
-            Eric Kanagy, CEO &amp; Founder Simplesense
+            Eric Kanagy, CEO &amp; Founder, simplesense
           </p>
           <Link href="/work/simplesense" scroll={false}>
             Read Case Study

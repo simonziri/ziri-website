@@ -21,13 +21,15 @@ const slides = [
     image: "/assets/featured/project-image-1.avif",
     logo: "/assets/tab-logos/Circula.svg",
     title: "Website relaunch for Circula",
+    body: "Research, messaging, and a rebuilt site for a finance product sold to a skeptical buying committee.",
   },
   {
     name: "Simplesense",
     slug: "simplesense",
     image: "/assets/featured/project-image-2.avif",
     logo: "/assets/tab-logos/Simplesense.svg",
-    title: "Website relaunch for Simplesense",
+    title: "Brand and website relaunch for simplesense",
+    body: "A visual language built from their own story: systems that don't talk to each other, finally in one design.",
   },
 ] as const;
 
@@ -84,10 +86,7 @@ function FeaturedSlide({ index, clone = false }: { index: number; clone?: boolea
           />
           <div className={styles.slideCopy}>
             <h2>{slide.title}</h2>
-            <p>
-              We research your buyers, and test the message - then design the brand
-              and site that converts.
-            </p>
+            <p>{slide.body}</p>
           </div>
         </div>
       </Link>

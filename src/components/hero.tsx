@@ -13,10 +13,10 @@ export function Hero() {
             data-reveal="fade"
             style={{ "--reveal-duration": "1650ms" } as React.CSSProperties}
           >
-            Fix your CAC &amp; CVR: Websites and Brands built to win long sales cycles.
+            For B2B companies in committee-driven sales.
           </p>
           <h1 className={styles.heroTitle} id="hero-title" data-reveal="sweep">
-            In B2B Tech, your website can’t afford to be confusing and commoditized.
+            A website built on why you actually lost deals, driven by clear differentiation.
           </h1>
         </div>
 
@@ -25,9 +25,9 @@ export function Hero() {
           data-reveal="fade"
           style={{ "--reveal-delay": "200ms", "--reveal-duration": "1650ms" } as React.CSSProperties}
         >
-          High CaC, low conversion rates, low , price fights and lost deals are
-          expensive. We bet on customer-research, differentiation and clarity, so
-          websites win during realistic sales cycles.
+          We research your lost deals, your buyers, and how AI models describe
+          you against competitors — then build your site around the difference
+          only you can claim.
         </p>
       </div>
 

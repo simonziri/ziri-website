@@ -7,8 +7,8 @@ export function OurWay() {
       <div className={styles.heading}>
         <SectionTag>Our Point of View</SectionTag>
         <h2 className={styles.title} id="our-way-title">
-        <span data-reveal="sweep">The answer isn’t another redesign or blind A/B testing.</span>{" "}
-        <span data-reveal="sweep">You need a website built for multi-layered sales cycles.</span>
+        <span data-reveal="sweep">Typical website projects are driven by opinions and best practices.</span>{" "}
+        <span data-reveal="sweep">Ours run on a deep understanding of your market and ICP.</span>
         </h2>
       </div>
 
@@ -16,20 +16,21 @@ export function OurWay() {
         <article className={`${styles.card} ${styles.oldWay}`} data-reveal="rise">
           <div className={styles.cardHeading}>
             <p className={styles.cardLabel}>OLD WAY</p>
-            <h3>
-              CRO agencies sell rapid A/B testing. Design agencies sell redesigns.
-              <br />
-              Both rarely work out in B2B.
-            </h3>
+            <h3>New design, new wording, same message underneath.</h3>
           </div>
-          <p className={styles.cardBody}>
-            Beautiful websites are rarely built for results.
-            <br />
-            <br />
-            Classic CRO agencies work best with high volume. For most B2B companies,
-            experiments take months until they’re significant, so rapid A/B testing
-            cannot be the driver of the project.
-          </p>
+          <div className={styles.cardBody}>
+            <p>
+              The big decisions get made in a meeting room: what the founder
+              likes, what a competitor does, and best practices.
+            </p>
+            <p>
+              As a result, key decisions are made from opinions and best
+              practices borrowed from companies in completely different phases
+              and industries. Competitors are being copied — so instead of
+              standing out, you go under. When your contracts are worth five to
+              seven figures, this approach doesn’t cut it.
+            </p>
+          </div>
         </article>
 
         <article
@@ -40,23 +41,21 @@ export function OurWay() {
           <div className={styles.cardHeading}>
             <p className={styles.cardLabel}>ZIRI WAY</p>
             <h3>
-              Customer-led and differentiation-first websites so you win during
-              unpredictable sales cycles.
+              We build the other way around: first why you lose, then the
+              language, then the design.
             </h3>
           </div>
           <div className={styles.cardBody}>
             <p>
-              It’s no coincidence that companies like Ramp crush their competition.
-              They found out that to win big deals, brain and gut need to be aligned.
+              Large, often committee-driven, deals are signed when gut and
+              brain agree. The site feels credible immediately and holds up
+              under months of scrutiny.
             </p>
             <p>
-              <strong>We bet on customer-research as our source of truth.</strong>
-              <br />
-              Differentiation and clarity as your unfair advantage.
-              <br />
-              Messaging and design for execution.
-              <br />
-              A/B tests for validation.
+              Website analytics, buyer and competitor data are our foundation.
+              From there, we build a strategy made to win against established
+              competitors. For committee-driven sales: long cycles, multiple
+              stakeholders, high contract values.
             </p>
           </div>
         </article>

@@ -9,6 +9,8 @@ type Phase = {
   label: string;
   accent: string;
   cells: ReadonlySet<string>;
+  heading: string;
+  body: string;
 };
 
 const cellKey = (row: number, column: number) => `${row}:${column}`;
@@ -41,9 +43,32 @@ const iterationCells = new Set([
 ]);
 
 const phases: Phase[] = [
-  { number: "01", label: "Foundation", accent: "#fac167", cells: foundationCells },
-  { number: "02", label: "Execution", accent: "#d69cd5", cells: executionCells },
-  { number: "03", label: "Iteration", accent: "#ff765a", cells: iterationCells },
+  {
+    number: "01",
+    label: "Diagnosis",
+    accent: "#fac167",
+    cells: foundationCells,
+    heading:
+      "We go deep on your buyers, your competitors' buyers, and your deals won and lost.",
+    body: "Reviews, communities, and your recorded sales calls show what buyers love, what they hate, and what every vendor claims — that's the Sameness Map. We check how AI models describe you against named competitors. Then we form our hypotheses from the data and our experience, and bring them to you to be challenged. What survives is one recommended play: open ground your buyers pay for, pressure-tested with real buyers before we go live.",
+  },
+  {
+    number: "02",
+    label: "Rebuild",
+    accent: "#d69cd5",
+    cells: executionCells,
+    heading:
+      "Once validated, we translate your differentiator into messaging and design.",
+    body: "Your validated differentiator becomes the messaging system, the brand, and the website. Built to answer the three core questions that get you considered: is this legit, what is this, and why you. Before the website goes live, we go through another round of validation — both in front of your audience and the AI models that will consult them.",
+  },
+  {
+    number: "03",
+    label: "Compounding",
+    accent: "#ff765a",
+    cells: iterationCells,
+    heading: "Then we challenge our own assumptions.",
+    body: "Every month, we close with a readout: our hypotheses against reality, KPIs, what sales hears on calls, how AI models describe you now — because that drifts with every model version. Where we were right, we double down. Where we were wrong, we say so and revise. Each round adds to a private research dataset.",
+  },
 ];
 
 type PixelCellStyle = CSSProperties & {
@@ -149,8 +174,7 @@ export function CustomerJourney() {
       <div className={styles.heading}>
         <SectionTag>The Ziri Method</SectionTag>
         <h2 className={styles.title} id="customer-title" data-reveal="sweep">
-          Differentiation and customer research first so that both your buyer and
-          AI will love you.
+          Our method is driven by deep research and clear differentiation.
         </h2>
       </div>
 
@@ -181,17 +205,8 @@ export function CustomerJourney() {
                 <PixelPattern phase={phase} />
               </div>
               <PhaseTag phase={phase} />
-              <h3>
-                We start by understanding how your customer thinks and acts.{" "}
-                <span>Then we sharpen your positioning and find what makes you unique.</span>
-              </h3>
-              <p>
-                Vorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate
-                libero et velit interdum, ac aliquet odio mattis. Class aptent taciti
-                sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
-                Curabitur tempus urna at turpis condimentum lobortis. Ut commodo
-                efficitur neque.
-              </p>
+              <h3>{phase.heading}</h3>
+              <p>{phase.body}</p>
             </article>
           ))}
         </div>
