@@ -44,12 +44,23 @@ const clients = [
     avatar: "/assets/testimonials/christoph-zoeller.avif",
   },
   {
-    name: "Circula",
-    src: "/assets/tab-logos/Circula.svg",
-    caseSlug: "circula",
-    quote: "“Great result for Circula 💪🙌”",
-    author: "Christophe Aumaître",
-    role: "Investor, Circula",
+    name: "Notus",
+    src: "/assets/tab-logos/Notus.svg",
+    caseSlug: "notus",
+    quote:
+      "“ZIRI, appreciate you. Really happy with the results and working with you guys.”",
+    author: "Marvin Sanginés",
+    role: "Founder, Notus",
+    avatar: "/assets/testimonials/marvin-sangines.avif",
+  },
+  {
+    name: "onebio",
+    src: "/assets/tab-logos/Onebio.svg",
+    quote:
+      "“THANK YOU. I’d like to forever and always work with you on web projects because of how smooth and precise feedback and implementation has been. Truly truly truly a gem.”",
+    author: "Shuya Gong",
+    role: "Co-Founder, onebio",
+    avatar: "/assets/testimonials/shuya-gong.avif",
   },
 ] as const;
 
@@ -165,9 +176,11 @@ export function Testimonials() {
           <p className={styles.author}>
             {current.author}, {current.role}
           </p>
-          <Link href={`/work/${current.caseSlug}`} scroll={false}>
-            Read case study
-          </Link>
+          {"caseSlug" in current ? (
+            <Link href={`/work/${current.caseSlug}`} scroll={false}>
+              Read case study <span aria-hidden="true">→</span>
+            </Link>
+          ) : null}
         </div>
       </div>
     </section>

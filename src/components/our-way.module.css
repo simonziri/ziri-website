@@ -50,7 +50,9 @@
   display: flex;
   min-height: 28.9375rem;
   flex-direction: column;
-  justify-content: space-between;
+  /* Fester Abstand statt space-between: beide Bodys starten auf
+     gleicher Höhe (Headings sind auf Desktop gleich hoch) */
+  gap: 4rem;
   overflow: hidden;
   padding: 3.25rem 2.8125rem;
   border-radius: 4px;
@@ -70,6 +72,14 @@
   display: flex;
   flex-direction: column;
   gap: 2.4375rem;
+}
+
+/* Beide Bodys starten auf gleicher Höhe: Heading-Block bekommt die
+   Höhe des höheren (3-zeilige ZIRI-H3) als Mindesthöhe */
+@media (min-width: 62rem) {
+  .cardHeading {
+    min-height: 8.875rem;
+  }
 }
 
 .cardLabel {

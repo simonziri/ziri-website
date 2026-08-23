@@ -13,7 +13,7 @@ export function Hero() {
             data-reveal="fade"
             style={{ "--reveal-duration": "1650ms" } as React.CSSProperties}
           >
-            For B2B companies in committee-driven sales.
+            For B2B companies with high contract values.
           </p>
           <h1 className={styles.heroTitle} id="hero-title">
             <span data-reveal="sweep">A website built on why you actually lost deals,</span>{" "}
@@ -27,7 +27,7 @@ export function Hero() {
           style={{ "--reveal-delay": "200ms", "--reveal-duration": "1650ms" } as React.CSSProperties}
         >
           We research your lost deals, your buyers, and how AI models describe
-          you against competitors — then build your site around the difference
+          you against competitors, then build your site around the difference
           only you can claim.
         </p>
       </div>

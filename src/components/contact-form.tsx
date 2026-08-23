@@ -6,23 +6,23 @@ import styles from "./book-call.module.css";
 type Status = "idle" | "submitting" | "error";
 
 const bottlenecks = [
-  { value: "deals-go-quiet", label: "Deals go quiet, then “we went another direction.”" },
+  { value: "deals-go-quiet", label: "Deals stall, then “we went another direction.”" },
   { value: "sales-re-explains", label: "Sales re-explains what we do on every call." },
   { value: "cac-climbing", label: "Traffic converts poorly while CAC keeps climbing." },
-  { value: "price-pressure", label: "We get negotiated down — we look comparable to cheaper options." },
+  { value: "price-pressure", label: "We get negotiated down because we look comparable to cheaper options." },
   { value: "relaunch", label: "We're planning a relaunch and want it built on more than design." },
 ] as const;
 
 const dealSizes = [
   { value: "<10k", label: "Under €10k" },
-  { value: "10-30k", label: "€10–30k" },
-  { value: "30-100k", label: "€30–100k" },
-  { value: "100k+", label: "€100k+" },
+  { value: "10-100k", label: "€10-100k" },
+  { value: "100k-1m", label: "€100k-1M" },
+  { value: "1m+", label: "€1M+" },
 ] as const;
 
 const timelines = [
   { value: "now", label: "Now" },
-  { value: "1-3-months", label: "Next 1–3 months" },
+  { value: "1-3-months", label: "Next 1-3 months" },
   { value: "this-year", label: "This year" },
   { value: "exploring", label: "Exploring" },
 ] as const;
@@ -91,7 +91,7 @@ export function ContactForm() {
     <form className={styles.form} onSubmit={handleSubmit} noValidate>
       <p className={styles.formIntro}>
         We take on a limited number of engagements and start every one with
-        research. These questions tell us whether we&rsquo;re the right fit —
+        research. These questions tell us whether we&rsquo;re the right fit
         and give us a head start before your first call.
       </p>
 
@@ -182,7 +182,7 @@ export function ContactForm() {
           </label>
           <label className={styles.formField}>
             <span>
-              Company website <em>(optional)</em>
+              Company website <em>(Optional)</em>
             </span>
             <input
               name="website"
@@ -194,8 +194,8 @@ export function ContactForm() {
           </label>
           <label className={`${styles.formField} ${styles.formFieldFull}`}>
             <span>
-              <em>(Optional)</em> Anything you&rsquo;d like to tell us about
-              your project?
+              Anything you&rsquo;d like to tell us about your project?{" "}
+              <em>(Optional)</em>
             </span>
             <textarea
               name="message"
@@ -221,7 +221,7 @@ export function ContactForm() {
           type="submit"
           disabled={status === "submitting"}
         >
-          {status === "submitting" ? "Sending…" : "Request a conversation"}
+          {status === "submitting" ? "Sending…" : "Schedule a consultation"}
         </button>
         {status === "error" ? (
           <p className={styles.formError} role="alert">

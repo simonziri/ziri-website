@@ -74,7 +74,7 @@ export const caseStudies: CaseStudy[] = [
     title: "Website System & Conversion Program for Leapsome",
     sub: "From technical debt to a self-serve website the marketing team runs on its own.",
     summary:
-      "Over 1.5+ years as a retainer partner, we cleaned up a huge grown website, removed developer dependency, and cut the time to launch new pages by 90% — the team has since shipped 15+ product pages on their own. On top, we run a research- and messaging-focused conversion program on their highest-leverage pages.",
+      "Over 1.5+ years as a retainer partner, we cleaned up a huge grown website, removed developer dependency, and cut the time to launch new pages by 90%. The team has since shipped 15+ product pages on their own. On top, we run a research- and messaging-focused conversion program on their highest-leverage pages.",
     logo: "/assets/tab-logos/Leapsome.svg",
     kpis: [
       { value: "90%", label: "less time to launch a page" },
@@ -105,9 +105,9 @@ export const caseStudies: CaseStudy[] = [
     slug: "instaffo",
     client: "Instaffo",
     title: "B2B Area Expansion for Instaffo",
-    sub: "We expanded Instaffo's B2B area — with a design system their team now runs.",
+    sub: "We expanded Instaffo's B2B area, with a design system their team now runs.",
     summary:
-      "Instaffo's B2B story lived in the shadow of its B2C brand. We designed and developed the expanded B2B area, built a design system that keeps everything consistent, and trained their team to develop the site further on their own — which they do.",
+      "Instaffo's B2B story lived in the shadow of its B2C brand. We designed and developed the expanded B2B area, built a design system that keeps everything consistent, and trained their team to develop the site further on their own, which they do.",
     logo: "/assets/tab-logos/Instaffo.svg",
     gallery: [
       { layout: "full", image: img("instaffotop.avif", "Instaffo B2B area", 2517, 963) },
@@ -121,7 +121,7 @@ export const caseStudies: CaseStudy[] = [
     title: "Rebrand & Website Relaunch for Circula",
     sub: "A complete redesign and 500+ page migration to help Circula look like the market leader.",
     summary:
-      "Circula had outgrown its website: a fast-scaling expense platform that still looked like an early-stage startup, in a category full of interchangeable fintech design. We supported the brand redesign alongside their internal team, redesigned the website, and migrated 500+ pages across two languages without losing rankings — then trained the team to build and edit pages themselves. The result got featured three times.",
+      "Circula had outgrown its website: a fast-scaling expense platform that still looked like an early-stage startup, in a category full of interchangeable fintech design. We supported the brand redesign alongside their internal team, redesigned the website, and migrated 500+ pages across two languages without losing rankings, then trained the team to build and edit pages themselves. The result got featured three times.",
     note: "In partnership with Luca Gonzalez Sonst and Christian Schmitt.",
     logo: "/assets/tab-logos/Circula.svg",
     kpis: [
@@ -146,7 +146,7 @@ export const caseStudies: CaseStudy[] = [
     title: "Rebrand, Visual Language & Website Relaunch for simplesense",
     sub: "A full rebrand and relaunch that make complex data infrastructure instantly understandable.",
     summary:
-      "simplesense connects systems that don't talk to each other — and their old site shared the category's problem: complexity nobody could parse quickly. We rebuilt the brand from the ground up, defined the visual direction for their platform, designed a visual language built from their core story, and relaunched the website — extended since into case study and whitepaper designs.",
+      "simplesense connects systems that don't talk to each other, and their old site shared the category's problem: complexity nobody could parse quickly. We rebuilt the brand from the ground up, defined the visual direction for their platform, designed a visual language built from their core story, and relaunched the website, extended since into case study and whitepaper designs.",
     note: "In partnership with TRU VM and Marie Wilda.",
     logo: "/assets/tab-logos/Simplesense.svg",
     gallery: [
@@ -170,7 +170,7 @@ export const caseStudies: CaseStudy[] = [
     title: "Rebrand & Website for Scalera",
     sub: "A complete rebrand and new website that make complex AI software instantly clear.",
     summary:
-      "Scalera's AI tendering platform is powerful and hard to explain — exactly the combination that loses deals. We rebranded Scalera completely and built the full website (DE/EN), sharpened how the software is communicated, and coached the internal team on writing copy that stays clear as they grow.",
+      "Scalera's AI tendering platform is powerful and hard to explain, exactly the combination that loses deals. We rebranded Scalera completely and built the full website (DE/EN), sharpened how the software is communicated, and coached the internal team on writing copy that stays clear as they grow.",
     gallery: [],
     draft: true,
   },
@@ -178,7 +178,7 @@ export const caseStudies: CaseStudy[] = [
     slug: "notus",
     client: "Notus",
     title: "Brand, Website & Positioning for Notus",
-    sub: "A new look for the personal branding agency — strategy through development, one team.",
+    sub: "A new look for the personal branding agency: strategy through development, one team.",
     summary:
       "For Notus, we handled strategy, design, and development in one motion, giving the personal branding agency a website that finally looks like the work they sell.",
     gallery: [],
@@ -188,7 +188,7 @@ export const caseStudies: CaseStudy[] = [
     slug: "ideabay",
     client: "ideabay",
     title: "Rebrand, Messaging & Website for ideabay",
-    sub: "New positioning, new copy, new website — everything but the logo.",
+    sub: "New positioning, new copy, new website. Everything but the logo.",
     summary:
       "For ideabay, we looked at why deals were won and lost, who their best customers are, and rebuilt the messaging around them. On that basis we rewrote the entire copy, redesigned the brand (keeping the logo), and built the new website for their AI CX solutions.",
     gallery: [],
@@ -208,7 +208,7 @@ export const caseStudies: CaseStudy[] = [
     slug: "spark",
     client: "SPARK",
     title: "Rebrand, Messaging & Website Relaunch for SPARK",
-    sub: "Messaging built on real deal data — carried into a new brand and full relaunch.",
+    sub: "Messaging built on real deal data, carried into a new brand and full relaunch.",
     summary:
       "Like every project, this started with why deals were won and lost and who the best customers are. For SPARK, the answer called for more than messaging: we redid the branding and relaunched the complete website so the sharpened story shows up everywhere a buyer looks.",
     gallery: [],

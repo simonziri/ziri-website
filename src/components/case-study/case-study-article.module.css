@@ -62,7 +62,7 @@
   letter-spacing: -0.022em;
   color: var(--text-heading);
   margin: 0;
-  text-wrap: balance;
+  text-wrap: pretty;
   max-width: 18em;
 }
 

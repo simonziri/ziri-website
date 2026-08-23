@@ -14,20 +14,19 @@ export function OurWay() {
       <div className={styles.cardGrid}>
         <article className={`${styles.card} ${styles.oldWay}`} data-reveal="rise">
           <div className={styles.cardHeading}>
-            <p className={styles.cardLabel}>OLD WAY</p>
+            <p className={styles.cardLabel}>TYPICAL WEBSITE PROJECTS</p>
             <h3>New design, new wording, same message underneath.</h3>
           </div>
           <div className={styles.cardBody}>
             <p>
-              The big decisions get made in a meeting room: what the founder
-              likes, what a competitor does, and best practices.
+              Critical decisions are made from opinions and best practices
+              borrowed from companies in completely different phases and
+              industries.
             </p>
             <p>
-              As a result, key decisions are made from opinions and best
-              practices borrowed from companies in completely different phases
-              and industries. Competitors are being copied — so instead of
-              standing out, you go under. When your contracts are worth five to
-              seven figures, this approach doesn’t cut it.
+              Competitors are being copied, so instead of standing out, you go
+              under. When your contracts are worth five to seven figures, this
+              approach doesn’t cut it.
             </p>
           </div>
         </article>
@@ -38,7 +37,7 @@ export function OurWay() {
           style={{ "--reveal-delay": "140ms" } as React.CSSProperties}
         >
           <div className={styles.cardHeading}>
-            <p className={styles.cardLabel}>ZIRI WAY</p>
+            <p className={styles.cardLabel}>ZIRI&rsquo;S APPROACH</p>
             <h3>
               We build the other way around:
               <br />

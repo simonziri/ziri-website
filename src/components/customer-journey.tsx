@@ -50,7 +50,7 @@ const phases: Phase[] = [
     cells: foundationCells,
     heading:
       "We go deep on your buyers, your competitors' buyers, and your deals won and lost.",
-    body: "Reviews, communities, and your recorded sales calls show what buyers love, what they hate, and what every vendor claims — that's the Sameness Map. We check how AI models describe you against named competitors. Then we form our hypotheses from the data and our experience, and bring them to you to be challenged. What survives is one recommended play: open ground your buyers pay for, pressure-tested with real buyers before we go live.",
+    body: "Reviews, communities, and your recorded sales calls show what buyers love, what they hate, and what every vendor claims. That's the Sameness Map. We check how AI models describe you against named competitors. Then we form our hypotheses from the data and our experience, and bring them to you to be challenged. What survives is one recommended play: open ground your buyers pay for, pressure-tested with real buyers before we go live.",
   },
   {
     number: "02",
@@ -59,7 +59,7 @@ const phases: Phase[] = [
     cells: executionCells,
     heading:
       "Once validated, we translate your differentiator into messaging and design.",
-    body: "Your validated differentiator becomes the messaging system, the brand, and the website. Built to answer the three core questions that get you considered: is this legit, what is this, and why you. Before the website goes live, we go through another round of validation — both in front of your audience and the AI models that will consult them.",
+    body: "Your validated differentiator becomes the messaging system, the brand, and the website. Built to answer the three core questions that get you considered: is this legit, what is this, and why you. Before the website goes live, we go through another round of validation, both in front of your audience and the AI models that will consult them.",
   },
   {
     number: "03",
@@ -67,7 +67,7 @@ const phases: Phase[] = [
     accent: "#ff765a",
     cells: iterationCells,
     heading: "Then we challenge our own assumptions.",
-    body: "Every month, we close with a readout: our hypotheses against reality, KPIs, what sales hears on calls, how AI models describe you now — because that drifts with every model version. Where we were right, we double down. Where we were wrong, we say so and revise. Each round adds to a private research dataset.",
+    body: "Every month, we close with a readout: our hypotheses against reality, KPIs, what sales hears on calls, how AI models describe you now, because that drifts with every model version. Where we were right, we double down. Where we were wrong, we say so and revise. Each round adds to a private research dataset.",
   },
 ];
 

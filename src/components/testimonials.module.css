@@ -9,15 +9,17 @@
   contain-intrinsic-size: 41.25rem;
 }
 
+/* Tabs strecken sich immer über die volle Containerbreite */
 .tabs {
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  display: flex;
   gap: 0.25rem;
 }
 
 .tab {
   position: relative;
   display: grid;
+  flex: 1 1 0;
+  min-width: 0;
   height: 3.75rem;
   place-items: center;
   padding: 0.75rem 1rem 0;
@@ -155,8 +157,6 @@
   }
 
   .tabs {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
     width: 100%;
     overflow: visible;
   }

@@ -65,15 +65,14 @@ function FeaturedSlide({ index, clone = false }: { index: number; clone?: boolea
           <div className={styles.projectImage}>
             <Image
               src={slide.image}
-              alt={`${slide.name} website before and after the ZIRI redesign`}
+              alt={`${slide.name} website redesign`}
               fill
               draggable={false}
               sizes="(max-width: 768px) calc(100vw - 64px), 353px"
             />
-            <span className={styles.comparisonLabels} aria-hidden="true">
-              <span>Before</span>
-              <span>After</span>
-            </span>
+            {/* Before/After-Labels vorerst raus (Simons Ansage 23.08.);
+                Markup bei Bedarf wiederherstellen:
+                <span className={styles.comparisonLabels}>Before/After</span> */}
           </div>
         </div>
         <div className={styles.slideContent}>

@@ -43,7 +43,9 @@ für alte Webflow-URLs? Sitemap + robots.txt fehlen noch → vor Launch bauen.
    Nach Domain-Verifizierung `CONTACT_EMAIL_FROM` auf @simonziri.com.
 5. **Imprint/Privacy**: gelb markierte Platzhalter (Adresse, USt-IdNr.)
    in `src/app/imprint/page.tsx` + `privacy/page.tsx` füllen (Simon).
-6. Foto für Christophe Aumaître (Circula-Testimonial) fehlt.
+6. Testimonial-Sektion: Circula-Zitat ersetzt durch Notus (Marvin
+   Sanginés) + onebio (Shuya Gong). Rolle „Co-Founder, onebio" von
+   Simon bestätigen lassen (alte Website sagte Maybe Ventures).
 7. Leapsome-Testimonial bewusst noch keins (Simons Ansage).
 8. Sanity-Migration macht später der Dev (Basis: flowtricks/remarkable);
    Datenmodell in case-studies.ts ist CMS-ready gehalten.

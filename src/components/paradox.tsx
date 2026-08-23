@@ -5,7 +5,7 @@ import styles from "./paradox.module.css";
 const paradoxCards = [
   {
     title: "Low conversion rates, low close rates",
-    body: "Traffic lands but rarely turns into pipeline — and the deals that reach sales close less often than your product deserves.",
+    body: "Visitors rarely turn into pipeline, and the deals that reach sales close less often than your product deserves.",
     video: "/media/paradox-low-conversion.mp4",
     freezeAtEnd: false,
   },
@@ -18,7 +18,7 @@ const paradoxCards = [
   {
     // Provisorisch: nur Standbild (letzter Frame), zwei laufende Videos reichen
     title: "“We went another direction.”",
-    body: "Deals you were sure of go quiet, then you learn they went with the established competitor.",
+    body: "Deals you were sure of stall, then you learn they went with the established competitor.",
     video: "/media/paradox-losing-deals.mp4",
     freezeAtEnd: true,
   },
@@ -30,9 +30,7 @@ export function Paradox() {
       <div className={styles.header}>
         <SectionTag>The paradox</SectionTag>
         <h2 className={styles.title} id="paradox-title">
-          {/* Fließtext ohne erzwungenen Umbruch: bricht auf Desktop in zwei Zeilen */}
-          <span data-reveal="sweep">Traffic is healthy and your customers love you.</span>{" "}
-          <span data-reveal="sweep">Yet acquisition costs go up and deals go to the established name.</span>
+          <span data-reveal="sweep">Your customers love you, yet CAC goes up and deals go to the established name.</span>
         </h2>
       </div>
 

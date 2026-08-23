@@ -17,7 +17,7 @@ const groups = [
       },
       {
         q: "What do you mean by committee-driven sales?",
-        a: "The motion where a committee decides: high contract values, long cycles, many stakeholders, and one internal champion carrying your case into rooms you never enter. Our method is built for exactly that — the site gets you considered in minutes, and it arms your champion with understanding, enthusiasm, ammunition, and presence for the months after.",
+        a: "The motion where a committee decides: high contract values, long cycles, many stakeholders, and one internal champion carrying your case into rooms you never enter. Our method is built for exactly that: the site gets you considered in minutes, and it arms your champion with understanding, enthusiasm, ammunition, and presence for the months after.",
       },
       {
         q: "Are you an AEO or AI-search agency?",
@@ -38,12 +38,12 @@ const groups = [
     title: "How we work with you",
     items: [
       {
-        q: "Our site is fairly new — do we still need a full relaunch?",
-        a: "No. If the design holds, we don’t touch it for the sake of touching it. Diagnosis finds why deals go quiet, and the fixes ship in Waves on your existing site — messaging, key pages, sales material. Many clients start exactly there and never do a classic relaunch.",
+        q: "Our site is fairly new. Do we still need a full relaunch?",
+        a: "No. If the design holds, we don’t touch it for the sake of touching it. Diagnosis finds why deals stall, and the fixes ship in Waves on your existing site: messaging, key pages, sales material. Many clients start exactly there and never do a classic relaunch.",
       },
       {
         q: "What does an engagement look like?",
-        a: "Diagnosis first: two to three weeks of buyer evidence, the AI-representation check, and Edge Selection — one recommended differentiation play, closing with a formal go or no-go. Then the work ships in Waves, highest-leverage pages first. We don’t rebuild anything we haven’t researched.",
+        a: "Diagnosis first: two to three weeks of buyer evidence, the AI-representation check, and Edge Selection, which closes with one recommended differentiation play and a formal go or no-go. Then the work ships in Waves, highest-leverage pages first. We don’t rebuild anything we haven’t researched.",
       },
       {
         q: "How long until the new site is live?",

@@ -24,6 +24,28 @@ body {
     color 180ms var(--ease-global);
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-wrap: pretty;
+}
+
+/* Scroll-getriebener Theme-Wechsel (theme-scroll.tsx): alle Token-Farben
+   blenden weich über, sobald data-theme auf <html> umspringt. :where()
+   hält die Spezifität bei 0, eigene transition-Regeln gewinnen weiter. */
+html[data-theme-anim],
+html[data-theme-anim]
+  :where(body, main, header, footer, nav, section, article, div, p, h1, h2,
+    h3, h4, h5, h6, span, a, li, ul, ol, blockquote) {
+  transition:
+    background-color 700ms var(--ease-global),
+    color 700ms var(--ease-global),
+    border-color 700ms var(--ease-global);
+}
+
 button,
 input,
 textarea,

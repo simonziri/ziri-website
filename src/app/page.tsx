@@ -9,6 +9,7 @@ import { Paradox } from "@/components/paradox";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { Testimonials } from "@/components/testimonials";
+import { ThemeScrollShift } from "@/components/theme-scroll";
 import styles from "./page.module.css";
 
 export default function HomePage() {
@@ -26,7 +27,7 @@ export default function HomePage() {
         <CustomerJourney />
         <Testimonials />
         {/* EngagementTypes vorerst ausgeblendet (Simons Ansage 23.08.) */}
-        <div className={styles.themeFade} aria-hidden="true" />
+        <ThemeScrollShift />
         <BookCall />
         <FaqSection />
         <SiteFooter />

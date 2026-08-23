@@ -35,9 +35,9 @@ const engagements = [
   {
     id: "retainer",
     tier: "Retainer",
-    heading: "The Waves continue — so you stay the most present option.",
+    heading: "The Waves continue, so you stay the most present option.",
     audience:
-      "For teams that want the research corpus and the site to keep improving — and the right door if your site is live but underperforming: Diagnosis first, then Waves on the pages you already have. You set the cadence, priced per Wave, minimum three.",
+      "For teams that want the research corpus and the site to keep improving, and the right door if your site is live but underperforming: Diagnosis first, then Waves on the pages you already have. You set the cadence, priced per Wave, minimum three.",
     deliverables: [
       "One new research round per Wave, into your private corpus",
       "AI-representation monitoring across models",

@@ -28,7 +28,7 @@ export default function PrivacyPage() {
             This website is intentionally light on data. No advertising
             cookies, no analytics, no third-party fonts. Below is a complete
             account of what happens with personal data when you visit
-            simonziri.com — written to be read, not just filed.
+            simonziri.com, written to be read, not just filed.
           </p>
 
           <h2>1. Controller</h2>

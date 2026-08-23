@@ -206,7 +206,7 @@
   width: 33.25rem;
   height: 2.75rem;
   flex: 0 0 auto;
-  opacity: 0.7;
+  opacity: 0.5;
 }
 
 .logoCell {
@@ -225,7 +225,8 @@
 }
 
 .logoCell:not(:last-child) {
-  border-right: 1px solid var(--border-default);
+  border-right: 1px solid
+    color-mix(in srgb, var(--border-default) 50%, transparent);
 }
 
 .hockeyStackLogo {

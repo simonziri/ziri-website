@@ -15,16 +15,6 @@
   position: relative;
 }
 
-/* Weicher Theme-Übergang: Testimonials (light) → CTA (dark), keine Kante */
-.themeFade {
-  height: 26rem;
-  background: linear-gradient(
-    to bottom,
-    var(--color-light-neutral-300),
-    #050505
-  );
-}
-
 /* Beim Scrollen in die nächste Section: vorherige fadet aus und hebt 5rem an */
 @supports (animation-timeline: view()) {
   /* Eine Timeline pro Section: alle Kinder bewegen sich als Einheit */
