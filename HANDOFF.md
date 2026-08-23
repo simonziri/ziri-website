@@ -26,7 +26,8 @@ GoDaddy-DNS, zwei Records ändern:
 - CNAME `www`: cdn.webflow.com → cname.vercel-dns.com
 Vorher: Domains im Vercel-Dashboard hinterlegen (simonziri.com + www),
 TTL runtersetzen. Danach Webflow unpublishen. Vorher prüfen: Redirects
-für alte Webflow-URLs? Sitemap + robots.txt fehlen noch → vor Launch bauen.
+für alte Webflow-URLs? Sitemap + robots.txt + Metadata/JSON-LD stehen
+(23.08.); es fehlt noch ein OG-Image (1200×630) für Social Shares.
 
 ## Offene Punkte (TODO)
 

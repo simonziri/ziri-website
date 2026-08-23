@@ -24,6 +24,14 @@ export async function generateMetadata({
   return {
     title: `${caseStudy.client} Case Study | ZIRI`,
     description: caseStudy.summary,
+    openGraph: {
+      type: "article",
+      title: `${caseStudy.client} Case Study | ZIRI`,
+      description: caseStudy.sub,
+      ...(caseStudy.thumbnail ? { images: [caseStudy.thumbnail.src] } : {}),
+    },
+    // Drafts sind erreichbar, sollen aber nicht in den Index
+    ...(caseStudy.draft ? { robots: { index: false, follow: false } } : {}),
   };
 }
 

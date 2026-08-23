@@ -77,6 +77,13 @@ export function SiteFooter() {
         <div className={styles.legal}>
           <Link href="/privacy">Privacy Policy</Link>
           <Link href="/imprint">Imprint</Link>
+          <a
+            href="https://www.linkedin.com/in/simonziri/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            LinkedIn
+          </a>
         </div>
       </div>
       <div className={styles.footerArtwork}>
