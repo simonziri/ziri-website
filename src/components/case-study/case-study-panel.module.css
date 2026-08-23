@@ -1,0 +1,54 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  background: var(--color-black-alpha-40);
+  opacity: 0;
+  transition: opacity 320ms var(--ease-global);
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+.panel {
+  outline: none;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 91;
+  width: min(58rem, 94vw);
+  background: var(--surface-base);
+  box-shadow: -24px 0 80px -32px var(--color-black-alpha-40);
+  transform: translateX(102%);
+  transition: transform 420ms var(--ease-global);
+  display: flex;
+  flex-direction: column;
+}
+
+.root[data-open="true"] .overlay {
+  opacity: 1;
+}
+
+.root[data-open="true"] .panel {
+  transform: translateX(0);
+}
+
+
+.scroller {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  flex: 1;
+}
+
+/* Engerer Rahmen im Panel: Insets kompakter als auf der vollen Seite */
+.scroller :global(article) {
+  --content-gutter: 2.5rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .overlay,
+  .panel {
+    transition: none;
+  }
+}

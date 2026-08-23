@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import {
   useLayoutEffect,
   useRef,
@@ -16,12 +17,14 @@ import styles from "./featured-work.module.css";
 const slides = [
   {
     name: "Circula",
+    slug: "circula",
     image: "/assets/featured/project-image-1.avif",
     logo: "/assets/tab-logos/Circula.svg",
     title: "Website relaunch for Circula",
   },
   {
     name: "Simplesense",
+    slug: "simplesense",
     image: "/assets/featured/project-image-2.avif",
     logo: "/assets/tab-logos/Simplesense.svg",
     title: "Website relaunch for Simplesense",
@@ -43,35 +46,45 @@ function FeaturedSlide({ index, clone = false }: { index: number; clone?: boolea
       aria-hidden={clone || undefined}
       data-clone={clone || undefined}
     >
-      <div className={styles.slideMedia}>
-        <div className={styles.projectImage}>
+      <Link
+        className={styles.slideLink}
+        href={`/work/${slide.slug}`}
+        scroll={false}
+        tabIndex={clone ? -1 : undefined}
+        draggable={false}
+      >
+        <div className={styles.slideMedia}>
+          <div className={styles.projectImage}>
+            <Image
+              src={slide.image}
+              alt={`${slide.name} website before and after the ZIRI redesign`}
+              fill
+              draggable={false}
+              sizes="(max-width: 768px) calc(100vw - 64px), 353px"
+            />
+            <span className={styles.comparisonLabels} aria-hidden="true">
+              <span>Before</span>
+              <span>After</span>
+            </span>
+          </div>
+        </div>
+        <div className={styles.slideContent}>
           <Image
-            src={slide.image}
-            alt={`${slide.name} website before and after the ZIRI redesign`}
-            fill
-            sizes="(max-width: 768px) calc(100vw - 64px), 353px"
+            src={slide.logo}
+            alt={slide.name}
+            width={262}
+            height={58}
+            draggable={false}
           />
-          <span className={styles.comparisonLabels} aria-hidden="true">
-            <span>Before</span>
-            <span>After</span>
-          </span>
+          <div className={styles.slideCopy}>
+            <h2>{slide.title}</h2>
+            <p>
+              We research your buyers, and test the message - then design the brand
+              and site that converts.
+            </p>
+          </div>
         </div>
-      </div>
-      <div className={styles.slideContent}>
-        <Image
-          src={slide.logo}
-          alt={slide.name}
-          width={262}
-          height={58}
-        />
-        <div className={styles.slideCopy}>
-          <h2>{slide.title}</h2>
-          <p>
-            We research your buyers, and test the message - then design the brand
-            and site that converts.
-          </p>
-        </div>
-      </div>
+      </Link>
     </article>
   );
 }
@@ -84,7 +97,11 @@ export function FeaturedWork() {
   const [isDragging, setIsDragging] = useState(false);
   const viewportRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
-  const dragRef = useRef<{ pointerId: number; startX: number } | null>(null);
+  const dragRef = useRef<{
+    pointerId: number;
+    startX: number;
+    captured: boolean;
+  } | null>(null);
 
   const current = physicalIndex % SLIDE_COUNT;
   const trackStyle: TrackStyle = {
@@ -129,16 +146,28 @@ export function FeaturedWork() {
 
   const handlePointerDown = (event: PointerEvent<HTMLDivElement>) => {
     if (event.target instanceof HTMLInputElement) return;
-    event.currentTarget.setPointerCapture(event.pointerId);
-    dragRef.current = { pointerId: event.pointerId, startX: event.clientX };
-    setIsAnimating(false);
-    setIsDragging(true);
+    // Capture erst ab Bewegung (siehe handlePointerMove), damit Klicks
+    // auf die Slide-Links normal navigieren.
+    dragRef.current = {
+      pointerId: event.pointerId,
+      startX: event.clientX,
+      captured: false,
+    };
   };
 
   const handlePointerMove = (event: PointerEvent<HTMLDivElement>) => {
     const drag = dragRef.current;
     if (!drag || drag.pointerId !== event.pointerId) return;
     const nextOffset = event.clientX - drag.startX;
+
+    if (!drag.captured) {
+      if (Math.abs(nextOffset) < 8) return;
+      drag.captured = true;
+      event.currentTarget.setPointerCapture(event.pointerId);
+      setIsAnimating(false);
+      setIsDragging(true);
+    }
+
     const limit = stepWidth || 1;
     setDragOffset(Math.max(-limit, Math.min(limit, nextOffset)));
   };
@@ -147,17 +176,12 @@ export function FeaturedWork() {
     const drag = dragRef.current;
     if (!drag || drag.pointerId !== event.pointerId) return;
 
+    dragRef.current = null;
+    if (!drag.captured) return;
+
     const distance = event.clientX - drag.startX;
     const threshold = Math.min(stepWidth * 0.14, 120);
-    dragRef.current = null;
     setIsDragging(false);
-
-    if (Math.abs(distance) < 2) {
-      setDragOffset(0);
-      setIsAnimating(false);
-      return;
-    }
-
     setIsAnimating(true);
     setDragOffset(0);
 
@@ -228,7 +252,7 @@ export function FeaturedWork() {
             onClick={showPrevious}
           >
             <Image
-              src="/assets/featured/carousel-previous-new.svg"
+              src="/assets/featured/carousel-arrow.svg"
               alt=""
               width={43}
               height={43}
@@ -242,7 +266,7 @@ export function FeaturedWork() {
             onClick={showNext}
           >
             <Image
-              src="/assets/featured/carousel-next-new.svg"
+              src="/assets/featured/carousel-arrow.svg"
               alt=""
               width={43}
               height={43}

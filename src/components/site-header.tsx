@@ -7,9 +7,9 @@ import { PixelHatchButton } from "./pixel-hatch-button";
 import styles from "./home-sections.module.css";
 
 const navigation = [
-  { label: "Testimonials", href: "#testimonials" },
-  { label: "Services", href: "#services" },
-  { label: "About us", href: "#about" },
+  { label: "Testimonials", href: "/#testimonials" },
+  { label: "Services", href: "/#services" },
+  { label: "About us", href: "/#about" },
 ] as const;
 
 export function SiteHeader() {
