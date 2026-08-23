@@ -96,6 +96,7 @@ export function FaqSection() {
       id="faq"
       aria-labelledby="faq-title"
       data-theme="dark-primary"
+      data-section-anim="off"
     >
       <aside className={styles.intro}>
         <div className={styles.introContent}>

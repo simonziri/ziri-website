@@ -107,6 +107,7 @@ export function Testimonials() {
     <section
       className={styles.section}
       id="testimonials"
+      data-section-anim="off"
       aria-label="Client testimonials"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}

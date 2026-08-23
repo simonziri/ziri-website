@@ -10,6 +10,7 @@ export function BookCall() {
       className={styles.section}
       id="contact"
       aria-labelledby="book-call-title"
+      data-section-anim="off"
     >
       <div className={styles.inner}>
         <header className={styles.heading}>

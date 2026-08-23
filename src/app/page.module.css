@@ -15,14 +15,25 @@
   position: relative;
 }
 
-/* Beim Scrollen in die nächste Section: vorherige fadet aus und hebt 5rem an */
+/* Beim Scrollen in die nächste Section: vorherige fadet aus und hebt 5rem an.
+   Sektionen mit data-section-anim="off" (ab Testimonials) sind ausgenommen —
+   die scrollgetriebenen Animationen ruckelten dort. */
 @supports (animation-timeline: view()) {
   /* Eine Timeline pro Section: alle Kinder bewegen sich als Einheit */
-  .shell :is(section, header) {
+  .shell
+    :is(section, header):not(
+      [data-section-anim="off"],
+      [data-section-anim="off"] *
+    ) {
     view-timeline: --section-tl block;
   }
 
-  .shell :is(section, header) > * {
+  .shell
+    :is(section, header):not(
+      [data-section-anim="off"],
+      [data-section-anim="off"] *
+    )
+    > * {
     animation:
       section-enter both,
       section-exit both;
