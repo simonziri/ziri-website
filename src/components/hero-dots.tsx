@@ -4,6 +4,9 @@ import { useEffect, useRef, useState } from "react";
 import { Circle, DotGrid, Shader } from "shaders/react";
 import styles from "./home-sections.module.css";
 
+/** Ziel-Abstand zwischen den Punkten in px — unabhängig von der Canvas-Größe. */
+const DOT_PITCH = 25;
+
 /**
  * Ramp-style dot grid behind hero and featured work.
  *
@@ -12,18 +15,30 @@ import styles from "./home-sections.module.css";
  *   inside — so the dots shrink where the mouse is.
  * - The cursor position is tracked manually and passed as a reactive
  *   prop (the library's own mouse driver received no events here).
- * - A CSS mask on the wrapper fades the dots' opacity toward the top
- *   and bottom edges; the wrapper also halves the overall opacity.
+ * - density is derived from the measured canvas size so the dot pitch
+ *   stays constant no matter how tall the canvas is.
+ * - The wrapper fades in over 1.5s on mount; a CSS mask fades the
+ *   dots' opacity toward the top and bottom edges.
  */
 export function HeroDots() {
   const wrapRef = useRef<HTMLDivElement>(null);
   const targetRef = useRef({ x: 0.5, y: 0.3 });
   const [center, setCenter] = useState({ x: 0.5, y: 0.3 });
+  const [density, setDensity] = useState(60);
 
   useEffect(() => {
     const wrap = wrapRef.current;
     if (!wrap) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    // Punktabstand konstant halten: density = längste Kante / Pitch
+    const measure = () => {
+      const rect = wrap.getBoundingClientRect();
+      const longest = Math.max(rect.width, rect.height);
+      if (longest > 0) setDensity(Math.round(longest / DOT_PITCH));
+    };
+    measure();
+    const resizeObserver = new ResizeObserver(measure);
+    resizeObserver.observe(wrap);
 
     let frame = 0;
 
@@ -55,6 +70,7 @@ export function HeroDots() {
     frame = requestAnimationFrame(tick);
 
     return () => {
+      resizeObserver.disconnect();
       window.removeEventListener("pointermove", onMove);
       cancelAnimationFrame(frame);
     };
@@ -75,7 +91,7 @@ export function HeroDots() {
         {/* Normale Dots — überall außer in der Cursor-Zone */}
         <DotGrid
           color="#c6c5bb"
-          density={56}
+          density={density}
           dotSize={0.22}
           maskSource="heroDotsCursor"
           maskType="alphaInverted"
@@ -83,7 +99,7 @@ export function HeroDots() {
         {/* Kleine Dots — nur in der Cursor-Zone */}
         <DotGrid
           color="#c6c5bb"
-          density={56}
+          density={density}
           dotSize={0.08}
           maskSource="heroDotsCursor"
           maskType="alpha"
