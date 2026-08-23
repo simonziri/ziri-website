@@ -56,10 +56,12 @@ function cellColor(phase: Phase, key: string) {
 }
 
 function PixelPattern({ phase }: { phase: Phase }) {
-  // Beim Phasenwechsel werden nur die Pixel animiert, deren Farbe sich
-  // ändert: runterskalieren in der alten Farbe, hochskalieren in der neuen.
+  // Beim Phasenwechsel läuft eine diagonale Welle durch ALLE Pixel:
+  // jede Zelle skaliert runter (alte Farbe) und hoch (neue Farbe) —
+  // auch wenn die Farbe gleich bleibt.
   const previousPhaseRef = useRef(phase);
   const previousPhase = previousPhaseRef.current;
+  const waving = previousPhase !== phase;
 
   useEffect(() => {
     previousPhaseRef.current = phase;
@@ -71,23 +73,19 @@ function PixelPattern({ phase }: { phase: Phase }) {
         const row = Math.floor(index / 13);
         const column = index % 13;
         const key = cellKey(row, column);
-        const color = cellColor(phase, key);
-        const previousColor = cellColor(previousPhase, key);
-        const swaps = previousPhase !== phase && color !== previousColor;
         const style: PixelCellStyle = {
-          "--cell-color": color,
+          "--cell-color": cellColor(phase, key),
         };
-        if (swaps) {
-          style["--cell-prev"] = previousColor;
-          // Diagonale Welle: Pixel tauschen zeitversetzt statt alle gleichzeitig.
+        if (waving) {
+          style["--cell-prev"] = cellColor(previousPhase, key);
           style.animationDelay = `${(row + column) * 14}ms`;
         }
 
         return (
           <i
-            key={swaps ? `${index}-${phase.label}` : index}
+            key={waving ? `${index}-${phase.label}` : index}
             className={styles.patternCell}
-            data-swap={swaps || undefined}
+            data-swap={waving || undefined}
             style={style}
           />
         );
