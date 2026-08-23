@@ -39,9 +39,14 @@ für alte Webflow-URLs? Sitemap + robots.txt fehlen noch → vor Launch bauen.
 3. **Draft-Cases** (scalera, notus, ideabay, analyst-house, spark):
    Content steht in `src/data/case-studies.ts`, Bilder fehlen. Bei
    Lieferung: Galerie füllen, `draft: true` entfernen.
-4. **Resend**: `RESEND_API_KEY` in Vercel setzen (Simon), sonst landen
-   Formular-Anfragen nur im Server-Log. Ziel: simon+contact@simonziri.com.
-   Nach Domain-Verifizierung `CONTACT_EMAIL_FROM` auf @simonziri.com.
+4. **Resend läuft** (23.08.): `RESEND_API_KEY` + `CONTACT_EMAIL_TO=
+   simon@simonziri.com` in Vercel Production, Zustellung end-to-end
+   getestet. Einschränkung: Test-Absender onboarding@resend.dev darf
+   NUR an die Resend-Account-Adresse senden (deshalb nicht
+   simon+contact@). Nächster Schritt: Domain simonziri.com in Resend
+   verifizieren (DKIM/SPF bei GoDaddy, geht vor dem DNS-Switch), dann
+   `CONTACT_EMAIL_FROM` auf @simonziri.com und Ziel zurück auf
+   simon+contact@simonziri.com.
 5. **Imprint/Privacy**: gelb markierte Platzhalter (Adresse, USt-IdNr.)
    in `src/app/imprint/page.tsx` + `privacy/page.tsx` füllen (Simon).
 6. Testimonial-Sektion: Circula-Zitat ersetzt durch Notus (Marvin
