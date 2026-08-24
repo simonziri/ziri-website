@@ -45,7 +45,7 @@ const slides = [
     image: "/assets/featured/hockeystack-thumb.avif",
     logo: "/assets/tab-logos/HockeyStack.svg",
     title: "Visual Refresh & Homepage Redesign for HockeyStack",
-    body: "A sharper visual language and rebuilt homepage for the revenue analytics platform.",
+    body: "A matured visual language and rebuilt homepage for the revenue analytics platform.",
   },
   {
     name: "Instaffo",
