@@ -7,7 +7,7 @@ export function OurWay() {
       <div className={styles.heading}>
         <SectionTag>Our Point of View</SectionTag>
         <h2 className={styles.title} id="our-way-title">
-        <span data-reveal="sweep">Typical website projects are driven by opinions and best practices.</span>
+        <span data-reveal="sweep">Most websites are built on opinions and disconnected from why your buyers actually chose you.</span>
         </h2>
       </div>
 
@@ -15,7 +15,7 @@ export function OurWay() {
         <article className={`${styles.card} ${styles.oldWay}`} data-reveal="rise">
           <div className={styles.cardHeading}>
             <p className={styles.cardLabel}>TYPICAL WEBSITE PROJECTS</p>
-            <h3>New design, new wording, same message underneath.</h3>
+            <h3>Most Web agencies let you do the brief and call it a day</h3>
           </div>
           <div className={styles.cardBody}>
             <p>
@@ -39,22 +39,15 @@ export function OurWay() {
           <div className={styles.cardHeading}>
             <p className={styles.cardLabel}>ZIRI&rsquo;S APPROACH</p>
             <h3>
-              We build the other way around:
-              <br />
-              first why you lose, then the language, then the design.
+              We build and validate a playbook based on your buyer insights first
             </h3>
           </div>
           <div className={styles.cardBody}>
             <p>
-              Large, often committee-driven, deals are signed when gut and
-              brain agree. The site feels credible immediately and holds up
-              under months of scrutiny.
+              By studying your market and sales insights, we build assumptions on what actually matters to make you the obvious choice.
             </p>
             <p>
-              Website analytics, buyer and competitor data are our foundation.
-              From there, we build a strategy made to win against established
-              competitors. For committee-driven sales: long cycles, multiple
-              stakeholders, high contract values.
+              We bring those assumptions to you to challenge them. Whatever survived gets validated in front of your ideal customer. When we found a winner, we build your messaging, brand and website exactly on that discovered edge.
             </p>
           </div>
         </article>
