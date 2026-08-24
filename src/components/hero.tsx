@@ -26,7 +26,7 @@ export function Hero() {
           data-reveal="fade"
           style={{ "--reveal-delay": "200ms", "--reveal-duration": "1650ms" } as React.CSSProperties}
         >
-          Your market and your sales intel are gold mines to uncover what makes you the obvious choice. We recommend and validate a playbook and only then build your website around it."
+          Your market and your sales intel are gold mines to uncover what makes you the obvious choice. We recommend and validate a playbook and only then build your website around it.
         </p>
       </div>
 
