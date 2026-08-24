@@ -68,11 +68,25 @@ export function Testimonials() {
   const [active, setActive] = useState(0);
   const [cycle, setCycle] = useState(0);
   const [paused, setPaused] = useState(false);
+  const [inView, setInView] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
   const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
   const visibleClients = clients;
 
+  // Autoplay erst, wenn die Sektion wirklich im Viewport ist
   useEffect(() => {
-    if (paused || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const section = sectionRef.current;
+    if (!section) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setInView(entry.isIntersecting),
+      { threshold: 0.35 },
+    );
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!inView || paused || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const timer = window.setTimeout(() => {
       setActive((current) => (current + 1) % visibleClients.length);
@@ -80,7 +94,7 @@ export function Testimonials() {
     }, AUTOPLAY_DURATION);
 
     return () => window.clearTimeout(timer);
-  }, [active, cycle, paused, visibleClients.length]);
+  }, [active, cycle, paused, inView, visibleClients.length]);
 
   const selectTab = (index: number) => {
     setActive(index);
@@ -109,6 +123,7 @@ export function Testimonials() {
       id="testimonials"
       data-section-anim="off"
       aria-label="Client testimonials"
+      ref={sectionRef}
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       onFocus={() => setPaused(true)}

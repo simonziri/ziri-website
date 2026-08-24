@@ -62,6 +62,13 @@
   opacity: 1;
 }
 
+/* Dark-Flip: dunkle SVG-Logos auf Weiß invertieren (auch der aktive
+   Tab bleibt dann monochrom weiß statt invertierter Markenfarben) */
+:global([data-theme="dark-primary"]) .tabLogo,
+:global([data-theme="dark-primary"]) .tab[data-active="true"] .tabLogo {
+  filter: grayscale(1) invert(1);
+}
+
 .progress {
   position: absolute;
   top: -1px;
