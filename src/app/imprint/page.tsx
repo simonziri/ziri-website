@@ -24,11 +24,13 @@ export default function ImprintPage() {
 
           <h2>Provider</h2>
           <p>
-            <strong>ZIRI — Simon Merkt</strong>
+            <strong>ZIRI GmbH</strong>
             <br />
-            <span className={legal.placeholder}>[Street and number]</span>
+            <span>Germanenweg 49</span>
             <br />
-            <span className={legal.placeholder}>[ZIP code, City]</span>, Germany
+            <span>71272 Renningen</span>
+            <br />
+            <span>Germany</span>
           </p>
 
           <h2>Contact</h2>
@@ -41,7 +43,7 @@ export default function ImprintPage() {
           <h2>VAT ID</h2>
           <p>
             VAT identification number pursuant to § 27a UStG:{" "}
-            <span className={legal.placeholder}>[DE — to be added]</span>
+            <span>DE463152518</span>
           </p>
 
           <h2>Responsible for content</h2>
