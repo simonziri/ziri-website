@@ -37,12 +37,13 @@ export default function PrivacyPage() {
             <a href="/imprint">Imprint</a>):
           </p>
           <p>
-            <strong>ZIRI — Simon Merkt</strong>
+            <strong>ZIRI GmbH</strong>
             <br />
-            <span className={legal.placeholder}>[Street and number]</span>
+            <span>Germanenweg 49</span>
             <br />
-            <span className={legal.placeholder}>[ZIP code, City]</span>, Germany
+            <span>71272 Renningen</span>
             <br />
+            <span>Germany</span>
             E-mail: simon@simonziri.com
           </p>
 
