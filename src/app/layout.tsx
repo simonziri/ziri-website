@@ -48,9 +48,8 @@ export const metadata: Metadata = {
 };
 
 /* Strukturierte Daten: Agentur + Website. Inhalte spiegeln die Site
-   (Hero, FAQ „Wo arbeitet ihr?", Cases) und das Imprint (ZIRI — Simon
-   Merkt, Einzelunternehmen: deshalb KEIN legalName "GmbH", der Alias
-   dient nur der Auffindbarkeit) — bei Copy-Änderungen mitziehen. */
+   (Hero, FAQ „Wo arbeitet ihr?", Cases) und die Legal-Seiten (ZIRI GmbH,
+   Renningen — lt. Privacy Policy) — bei Copy-Änderungen mitziehen. */
 const jsonLd = {
   "@context": "https://schema.org",
   "@graph": [
@@ -58,9 +57,17 @@ const jsonLd = {
       "@type": "ProfessionalService",
       "@id": `${SITE_URL}/#organization`,
       name: "ZIRI",
+      legalName: "ZIRI GmbH",
       alternateName: BRAND_ALIASES,
       url: SITE_URL,
       email: "simon@simonziri.com",
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: "Germanenweg 49",
+        postalCode: "71272",
+        addressLocality: "Renningen",
+        addressCountry: "DE",
+      },
       description: SITE_DESCRIPTION,
       slogan: "Your website fails you, because it was built on opinions.",
       founder: {

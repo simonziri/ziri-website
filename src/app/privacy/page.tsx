@@ -44,6 +44,7 @@ export default function PrivacyPage() {
             <span>71272 Renningen</span>
             <br />
             <span>Germany</span>
+            <br />
             E-mail: simon@simonziri.com
           </p>
 
