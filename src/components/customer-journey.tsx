@@ -49,8 +49,8 @@ const phases: Phase[] = [
     accent: "#fac167",
     cells: foundationCells,
     heading:
-      "We go deep on your buyers, your competitors' buyers, and your deals won and lost.",
-    body: "Reviews, communities, and your recorded sales calls show what buyers love, what they hate, and what every vendor claims. That's the Sameness Map. We check how AI models describe you against named competitors. Then we form our hypotheses from the data and our experience, and bring them to you to be challenged. What survives is one recommended play: open ground your buyers pay for, pressure-tested with real buyers before we go live.",
+      "We go deep on your market and buyers to build one recommended playbook.",
+    body: "Reviews, communities, and your sales insights show why buyers chose you, why they chose competitors, and what every vendor claims. We check how AI models describe you against named competitors. Then we form our assumptions from the data and our experience, and bring them to you to be challenged. The winner gets turned into a recommended playbook.",
   },
   {
     number: "02",
@@ -58,16 +58,16 @@ const phases: Phase[] = [
     accent: "#d69cd5",
     cells: executionCells,
     heading:
-      "Once validated, we translate your differentiator into messaging and design.",
-    body: "Your validated differentiator becomes the messaging system, the brand, and the website. Built to answer the three core questions that get you considered: is this legit, what is this, and why you. Before the website goes live, we go through another round of validation, both in front of your audience and the AI models that will consult them.",
+      "Once validated, we translate the playbook into messaging, brand and website",
+    body: "The playbook dictates the messaging system, the brand, and the website. Built to answer three questions that get you considered: is this legit, what is this, and why you. Before the website goes live, we validate again, both in front of your audience and the AI models that will consult them.",
   },
   {
     number: "03",
     label: "Compounding",
     accent: "#ff765a",
     cells: iterationCells,
-    heading: "Then we challenge our own assumptions.",
-    body: "Every month, we close with a readout: our hypotheses against reality, KPIs, what sales hears on calls, how AI models describe you now, because that drifts with every model version. Where we were right, we double down. Where we were wrong, we say so and revise. Each round adds to a private research dataset.",
+    heading: "Then we challenge our own assumptions on a regular cadence.",
+    body: "Every month, we close with a readout: our hypotheses against reality, KPIs, what sales hears on calls, how AI models describe you now. Where we were right, we double down. Where we were wrong, we say so and revise. Each round adds to a private research dataset.",
   },
 ];
 
