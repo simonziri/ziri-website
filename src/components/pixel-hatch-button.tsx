@@ -11,6 +11,8 @@ type PixelHatchButtonProps = {
   ariaLabel?: string;
   variant?: PixelVariant;
   disabled?: boolean;
+  /** Externe Links: öffnet in neuem Tab mit rel noopener/noreferrer */
+  external?: boolean;
   onClick?: MouseEventHandler<HTMLButtonElement>;
 };
 
@@ -52,6 +54,7 @@ export function PixelHatchButton({
   ariaLabel,
   variant = "primary",
   disabled = false,
+  external = false,
   onClick,
 }: PixelHatchButtonProps) {
   const classes = [styles.button, styles[variant], className].filter(Boolean).join(" ");
@@ -73,7 +76,13 @@ export function PixelHatchButton({
 
   if (href) {
     return (
-      <Link className={classes} href={href} aria-label={ariaLabel}>
+      <Link
+        className={classes}
+        href={href}
+        aria-label={ariaLabel}
+        target={external ? "_blank" : undefined}
+        rel={external ? "noopener noreferrer" : undefined}
+      >
         {content}
       </Link>
     );

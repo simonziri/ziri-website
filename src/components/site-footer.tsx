@@ -10,11 +10,17 @@ const footerLinks: ReadonlyArray<{
   label: string;
   href: string;
   active?: boolean;
+  external?: boolean;
 }> = [
   { label: "Cases", href: "/#featured-work" },
   { label: "Method", href: "/#customer" },
   { label: "Work with us", href: "/#contact", active: true },
   { label: "FAQ", href: "/#faq" },
+  {
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/in/simonziri/",
+    external: true,
+  },
 ] as const;
 
 export function SiteFooter() {
@@ -67,6 +73,7 @@ export function SiteFooter() {
               className={`${styles.footerButton} ${link.active ? styles.footerButtonActive : ""}`}
               href={link.href}
               variant={link.active ? "secondary" : "primary"}
+              external={link.external}
               key={link.href}
             >
               {link.label}
@@ -76,13 +83,6 @@ export function SiteFooter() {
         <div className={styles.legal}>
           <Link href="/privacy">Privacy Policy</Link>
           <Link href="/imprint">Imprint</Link>
-          <a
-            href="https://www.linkedin.com/in/simonziri/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            LinkedIn
-          </a>
         </div>
       </div>
       <div className={styles.footerArtwork}>
