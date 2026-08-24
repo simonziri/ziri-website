@@ -12,32 +12,45 @@ const stackSans = localFont({
 });
 
 const SITE_URL = "https://simonziri.com";
+const SITE_TITLE = "ZIRI | B2B Websites Built on Market and Sales Intel";
 const SITE_DESCRIPTION =
-  "We build your website on why buyers choose you, and why they don't. " +
-  "Buyer research and clear differentiation for B2B companies selling " +
-  "five to seven figure deals.";
+  "Your website fails you because it was built on opinions. ZIRI builds " +
+  "and validates a playbook from your market and sales intel, then builds " +
+  "messaging, brand, and website around it.";
+
+/* Brand-Suchvarianten: unsichtbar (JSON-LD + keywords), damit ZIRI unter
+   diesen Schreibweisen gefunden wird. */
+const BRAND_ALIASES = [
+  "ZIRI Agency",
+  "ZIRI GmbH",
+  "ZIRI Website",
+  "ZIRI Webdesign",
+];
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: "ZIRI | B2B Websites Built on Buyer Research",
+  title: SITE_TITLE,
   description: SITE_DESCRIPTION,
+  keywords: ["ZIRI", ...BRAND_ALIASES, "Simon Ziri", "B2B web agency"],
   openGraph: {
     type: "website",
     url: SITE_URL,
     siteName: "ZIRI",
     locale: "en_US",
-    title: "ZIRI | B2B Websites Built on Buyer Research",
+    title: SITE_TITLE,
     description: SITE_DESCRIPTION,
   },
   twitter: {
     card: "summary_large_image",
-    title: "ZIRI | B2B Websites Built on Buyer Research",
+    title: SITE_TITLE,
     description: SITE_DESCRIPTION,
   },
 };
 
 /* Strukturierte Daten: Agentur + Website. Inhalte spiegeln die Site
-   (Hero, FAQ „Wo arbeitet ihr?", Cases) — bei Copy-Änderungen mitziehen. */
+   (Hero, FAQ „Wo arbeitet ihr?", Cases) und das Imprint (ZIRI — Simon
+   Merkt, Einzelunternehmen: deshalb KEIN legalName "GmbH", der Alias
+   dient nur der Auffindbarkeit) — bei Copy-Änderungen mitziehen. */
 const jsonLd = {
   "@context": "https://schema.org",
   "@graph": [
@@ -45,12 +58,15 @@ const jsonLd = {
       "@type": "ProfessionalService",
       "@id": `${SITE_URL}/#organization`,
       name: "ZIRI",
+      alternateName: BRAND_ALIASES,
       url: SITE_URL,
+      email: "simon@simonziri.com",
       description: SITE_DESCRIPTION,
-      slogan: "We build your website on why buyers choose you, and why they don't.",
+      slogan: "Your website fails you, because it was built on opinions.",
       founder: {
         "@type": "Person",
         name: "Simon Ziri",
+        alternateName: "Simon Merkt",
         sameAs: ["https://www.linkedin.com/in/simonziri/"],
       },
       sameAs: ["https://www.linkedin.com/in/simonziri/"],
