@@ -15,14 +15,14 @@ export function OurWay() {
         <article className={`${styles.card} ${styles.oldWay}`} data-reveal="rise">
           <div className={styles.cardHeading}>
             <p className={styles.cardLabel}>TYPICAL WEBSITE PROJECTS</p>
-            <h3>Web design agencies let you build the brief and call it a day</h3>
+            <h3>Classic web agencies let you build the brief and call it a day</h3>
           </div>
           <div className={styles.cardBody}>
             <p>
               Critical decisions are made from opinions and best practices borrowed from companies in completely different phases and industries.
             </p>
             <p>
-              Competitors are being copied, so instead of standing out, you go under. When your contracts are worth five to seven figures, this approach doesn’t cut it.
+              On top of that, competitors are being blindly copied, so instead of standing out, you go under. When your contracts are worth five to seven figures, this approach doesn’t cut it.
             </p>
           </div>
         </article>
