@@ -58,6 +58,7 @@ const jsonLd = {
       "@id": `${SITE_URL}/#organization`,
       name: "ZIRI",
       legalName: "ZIRI GmbH",
+      vatID: "DE463152518",
       alternateName: BRAND_ALIASES,
       url: SITE_URL,
       email: "simon@simonziri.com",

@@ -48,8 +48,10 @@ inkl. OG-/Twitter-Image und Favicons (24.08.).
    verifizieren (DKIM/SPF bei GoDaddy, geht vor dem DNS-Switch), dann
    `CONTACT_EMAIL_FROM` auf @simonziri.com und Ziel zurück auf
    simon+contact@simonziri.com.
-5. **Imprint/Privacy**: gelb markierte Platzhalter (Adresse, USt-IdNr.)
-   in `src/app/imprint/page.tsx` + `privacy/page.tsx` füllen (Simon).
+5. **Imprint/Privacy**: Platzhalter gefüllt (24.08., ZIRI GmbH,
+   Renningen, USt-ID). Für die GmbH fehlen im Imprint noch
+   Registergericht + HRB-Nummer und Geschäftsführer (§ 5 DDG) —
+   Daten von Simon nachliefern lassen.
 6. Testimonial-Sektion: Circula-Zitat ersetzt durch Notus (Marvin
    Sanginés) + onebio (Shuya Gong). Rolle „Co-Founder, onebio" von
    Simon bestätigen lassen (alte Website sagte Maybe Ventures).
