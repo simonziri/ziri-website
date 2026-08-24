@@ -16,8 +16,8 @@ export function Hero() {
             For B2B companies selling five to seven figure deals.
           </p>
           <h1 className={styles.heroTitle} id="hero-title">
-            <span data-reveal="sweep">We build your website on why buyers choose you,</span>{" "}
-            <span data-reveal="sweep">and why they don&rsquo;t.</span>
+            <span data-reveal="sweep">Your website fails you,</span>{" "}
+            <span data-reveal="sweep">because it was built on opinions.</span>
           </h1>
         </div>
 
@@ -26,9 +26,7 @@ export function Hero() {
           data-reveal="fade"
           style={{ "--reveal-delay": "200ms", "--reveal-duration": "1650ms" } as React.CSSProperties}
         >
-          We research your lost deals, your buyers, and how AI models describe
-          you against competitors, then build your site around the difference
-          only you can claim.
+          Your market and your sales intel are gold mines to uncover what makes you the obvious choice. We recommend and validate a playbook and only then build your website around it."
         </p>
       </div>
 
