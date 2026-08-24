@@ -40,6 +40,16 @@ export default function ImprintPage() {
             Web: simonziri.com
           </p>
 
+          <h2>Represented by</h2>
+          <p>Managing Director: Simon Merkt</p>
+
+          <h2>Commercial register</h2>
+          <p>
+            Registered at the local court (Amtsgericht) of Stuttgart
+            <br />
+            Registration number: HRB 805923
+          </p>
+
           <h2>VAT ID</h2>
           <p>
             VAT identification number pursuant to § 27a UStG:{" "}
