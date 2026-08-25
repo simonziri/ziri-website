@@ -16,7 +16,7 @@ export function Hero() {
             For B2B companies selling five to seven figure deals.
           </p>
           <h1 className={styles.heroTitle} id="hero-title">
-            <span data-reveal="sweep">Your website fails you,</span>{" "}
+            <span data-reveal="sweep">Your website doesn't sell,</span>{" "}
             <span data-reveal="sweep">because it was built on opinions.</span>
           </h1>
         </div>
