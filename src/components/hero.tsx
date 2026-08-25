@@ -16,7 +16,7 @@ export function Hero() {
             For B2B companies selling five to seven figure deals.
           </p>
           <h1 className={styles.heroTitle} id="hero-title">
-            <span data-reveal="sweep">Your website doesn't sell,</span>{" "}
+            <span data-reveal="sweep">Your website fails you,</span>{" "}
             <span data-reveal="sweep">because it was built on opinions.</span>
           </h1>
         </div>
@@ -26,7 +26,7 @@ export function Hero() {
           data-reveal="fade"
           style={{ "--reveal-delay": "200ms", "--reveal-duration": "1650ms" } as React.CSSProperties}
         >
-          Your market and your sales intel are gold mines to uncover what makes you the obvious choice. We recommend and validate a playbook and only then build your website around it.
+          Based on your market and sales, we uncover what makes you the obvious choice. From there, we build and validate a winning playbook. Then, we build your website around it.
         </p>
       </div>
 
