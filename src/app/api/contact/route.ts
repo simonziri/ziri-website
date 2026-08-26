@@ -12,7 +12,7 @@ import { NextResponse } from "next/server";
  * - The honeypot field ("company_website_2") silently discards bots.
  */
 
-const CONTACT_TO = process.env.CONTACT_EMAIL_TO ?? "simon+contact@simonziri.com";
+const CONTACT_TO = process.env.CONTACT_EMAIL_TO ?? "hello@simonziri.com";
 const CONTACT_FROM =
   process.env.CONTACT_EMAIL_FROM ?? "ZIRI Website <onboarding@resend.dev>";
 

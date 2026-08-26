@@ -1,6 +1,18 @@
-# HANDOFF — Projektstand ziri-website (Stand: 23.08.2026)
+# HANDOFF — Projektstand ziri-website (Stand: 25.08.2026)
 
 Kontext-Übergabe für neue Claude-Sessions. Zusammen mit CLAUDE.md lesen.
+Dieses Dokument LAUFEND aktuell halten (Simons Ansage); Changelog = Git-Log.
+
+## Copy-Regeln (Simons Ansagen, bei jedem Text anwenden)
+
+- Keine Em-Dashes (—) in Website-Copy; keine „AI-sloppy" Wörter
+  (lands, go quiet, „not x but y"). „Simplesense" groß, CAC nicht CaC.
+- text-wrap: H2 balance, H1/H3+ pretty. Line-heights: Hero-H1 1.2,
+  H3 und kleiner 1.3, Testimonial-Quote 1.3.
+- Simon editiert Copy auch selbst via GitHub-Web → vor jedem Push
+  `git pull --rebase`; bei H1-/Positionierungs-Änderungen Meta-
+  Description, OG-Text und JSON-LD-Slogan in layout.tsx MITZIEHEN
+  (OG-Bild liefert er passend dazu).
 
 ## Was das ist
 
@@ -40,14 +52,16 @@ inkl. OG-/Twitter-Image und Favicons (24.08.).
 3. **Draft-Cases** (scalera, notus, ideabay, analyst-house, spark):
    Content steht in `src/data/case-studies.ts`, Bilder fehlen. Bei
    Lieferung: Galerie füllen, `draft: true` entfernen.
-4. **Resend läuft** (23.08.): `RESEND_API_KEY` + `CONTACT_EMAIL_TO=
-   simon@simonziri.com` in Vercel Production, Zustellung end-to-end
-   getestet. Einschränkung: Test-Absender onboarding@resend.dev darf
-   NUR an die Resend-Account-Adresse senden (deshalb nicht
-   simon+contact@). Nächster Schritt: Domain simonziri.com in Resend
-   verifizieren (DKIM/SPF bei GoDaddy, geht vor dem DNS-Switch), dann
-   `CONTACT_EMAIL_FROM` auf @simonziri.com und Ziel zurück auf
-   simon+contact@simonziri.com.
+4. **Resend läuft** (23.08.), Zustellung end-to-end getestet.
+   `RESEND_API_KEY` + `CONTACT_EMAIL_TO=simon@simonziri.com` in Vercel
+   Production. Einschränkung: Test-Absender onboarding@resend.dev darf
+   NUR an die Resend-Account-Adresse senden. **Zielzustand (Simons
+   Ansage 25.08.): hello@simonziri.com** — Code-Default steht schon
+   darauf, wirksam erst wenn (a) Domain simonziri.com in Resend
+   verifiziert ist (DKIM/SPF bei GoDaddy, geht vor dem DNS-Switch),
+   (b) `CONTACT_EMAIL_FROM` auf @simonziri.com gesetzt und (c) die
+   Vercel-Env `CONTACT_EMAIL_TO` auf hello@ geändert/entfernt wurde
+   (Env überschreibt den Code-Default). Bis dahin weiter simon@.
 5. **Imprint/Privacy**: vollständig (24.08.) — ZIRI GmbH, Renningen,
    USt-ID, Geschäftsführer Simon Merkt, Amtsgericht Stuttgart
    HRB 805923.
