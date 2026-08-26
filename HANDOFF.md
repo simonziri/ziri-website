@@ -31,15 +31,15 @@ noch auf simonziri.com, bis der DNS-Switch kommt.
 - Dev-Server: Preview-Config "ziri-website" (Port 3000). Achtung: die
   launch.json der Session kann im ALTEN Arbeitsverzeichnis liegen.
 
-## DNS-Switch (finaler Schritt, erst wenn Simon es sagt)
+## DNS-Switch: ERLEDIGT (26.08.) — Site ist LIVE
 
-GoDaddy-DNS, zwei Records ändern:
-- A `@`: 198.202.211.1 (Webflow) → 76.76.21.21 (Vercel)
-- CNAME `www`: cdn.webflow.com → cname.vercel-dns.com
-Vorher: Domains im Vercel-Dashboard hinterlegen (simonziri.com + www),
-TTL runtersetzen. Danach Webflow unpublishen. Vorher prüfen: Redirects
-für alte Webflow-URLs? Sitemap + robots.txt + Metadata/JSON-LD stehen
-inkl. OG-/Twitter-Image und Favicons (24.08.).
+simonziri.com läuft auf Vercel (A `@` → 216.198.79.1, www → CNAME
+vercel-dns; Apex 308-redirected auf www). Resend-Domain verifiziert
+(DKIM + send-Subdomain-SPF bei GoDaddy). Restarbeiten:
+- Webflow-Projekt unpublishen.
+- DNS-Altlasten löschen: TXT `proxy-ssl.webflow.com` auf `@`,
+  CNAME `de` → weglot.io (falls Weglot nicht mehr genutzt).
+- Redirects für alte Webflow-URLs prüfen.
 
 ## Offene Punkte (TODO)
 
