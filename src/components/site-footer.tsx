@@ -65,7 +65,7 @@ export function SiteFooter() {
       <div className={styles.head}>
         <h2>
           <span>Let’s make sure your</span>{" "}
-          <span>website sells</span>
+          <span>website wins deals</span>
         </h2>
         <nav className={styles.navigation} aria-label="Footer navigation">
           {footerLinks.map((link) => (

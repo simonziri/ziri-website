@@ -29,7 +29,7 @@ const groups = [
       },
       {
         q: "Why research instead of A/B testing?",
-        a: "At typical B2B high-ticket traffic, a single test takes around two months per page to conclude, which is too slow to drive a project. So we front-load research, ship informed bets, and test only where a page has the volume. We are open about what significance is reachable at your traffic and what isn’t.",
+        a: "At typical B2B traffic, a single test takes around two months per page to conclude, which is too slow to drive a project. So we front-load research, ship informed bets, and test only where a page has the volume. We are open about what significance is reachable at your traffic and what isn’t.",
       },
     ],
   },
@@ -63,7 +63,7 @@ const groups = [
       },
       {
         q: "Do we see the messaging validated before it ships?",
-        a: "Yes, twice. The selected play is pressure-tested in real sales conversations before we build on it. And before messaging ships, the Clarity Test: three to five people matching your buyer profile, and the AI models your buyers use, all asked the same four questions. When both readers retell your differentiation, it ships.",
+        a: "Yes, twice. The selected play is pressure-tested in real sales conversations before we build on it. And before messaging ships, the Spark Test: three to five people matching your buyer profile, and the AI models your buyers use, all asked the same four questions. When both readers retell your differentiation, it ships.",
       },
     ],
   },

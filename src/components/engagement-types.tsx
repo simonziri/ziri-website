@@ -27,7 +27,7 @@ const engagements = [
       "Messaging system built on your selected play",
       "Brand and identity, when the project calls for it",
       "Design and build in Waves, with a readout per Wave",
-      "Clarity Tests with people matching your buyer profile",
+      "Spark Tests with people matching your buyer profile",
       "After-picture: AI check and baseline re-measured",
       "Full handover: components, training, CMS",
     ],

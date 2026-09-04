@@ -7,7 +7,7 @@ export function OurWay() {
       <div className={styles.heading}>
         <SectionTag>Our Point of View</SectionTag>
         <h2 className={styles.title} id="our-way-title">
-        <span data-reveal="sweep">Most websites are built on opinions and disconnected from why your buyers actually chose you.</span>
+        <span data-reveal="sweep">Most websites are built on opinions, not on why your buyers actually choose you.</span>
         </h2>
       </div>
 
@@ -15,14 +15,14 @@ export function OurWay() {
         <article className={`${styles.card} ${styles.oldWay}`} data-reveal="rise">
           <div className={styles.cardHeading}>
             <p className={styles.cardLabel}>TYPICAL WEBSITE PROJECTS</p>
-            <h3>Classic web agencies let you build the brief and call it a day</h3>
+            <h3>Typical agencies design based on your brief and copy.</h3>
           </div>
           <div className={styles.cardBody}>
             <p>
               Critical decisions are made from opinions and best practices borrowed from companies in completely different phases and industries.
             </p>
             <p>
-              On top of that, competitors are being blindly copied, so instead of standing out, you go under. When your contracts are worth five to seven figures, this approach doesn’t cut it.
+              And everyone copies the same three competitors, so instead of standing out, you blend in. When your contracts are worth five to seven figures, this approach doesn’t cut it.
             </p>
           </div>
         </article>
@@ -35,7 +35,7 @@ export function OurWay() {
           <div className={styles.cardHeading}>
             <p className={styles.cardLabel}>ZIRI&rsquo;S APPROACH</p>
             <h3>
-              We build and validate a playbook based on your buyer insights first
+              We diagnose why you win or lose deals first.
             </h3>
           </div>
           <div className={styles.cardBody}>
@@ -43,7 +43,7 @@ export function OurWay() {
               By studying your market and sales insights, we build assumptions on what actually matters to make you the obvious choice.
             </p>
             <p>
-              We bring those assumptions to you to challenge them. Whatever survived gets validated in front of your ideal customer. When we found a winner, we build your messaging, brand and website exactly on that discovered edge.
+              We bring those assumptions to you to challenge them. Whatever survives gets validated in front of your ideal customer. Once we’ve found a winner, we build your messaging, brand and website exactly on that discovered edge.
             </p>
           </div>
         </article>

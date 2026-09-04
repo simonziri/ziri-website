@@ -50,7 +50,7 @@ const phases: Phase[] = [
     cells: foundationCells,
     heading:
       "We go deep on your market and buyers to build one recommended playbook.",
-    body: "Reviews, communities, and your sales insights show why buyers chose you, why they chose competitors, and what every vendor claims. We check how AI models describe you against named competitors. Then we form our assumptions from the data and our experience, and bring them to you to be challenged. The winner gets turned into a recommended playbook.",
+    body: "Reviews, communities, and your sales insights show why buyers chose you, why they chose competitors, and what every vendor claims. We check how AI models describe you against named competitors. Then we form our assumptions from the data and our experience, and bring them to you to be challenged. The winner is pressure-tested in real sales conversations before anything ships.",
   },
   {
     number: "02",
@@ -58,8 +58,8 @@ const phases: Phase[] = [
     accent: "#d69cd5",
     cells: executionCells,
     heading:
-      "Once validated, we translate the playbook into messaging, brand and website",
-    body: "The playbook dictates the messaging system, the brand, and the website. Built to answer three questions that get you considered: is this legit, what is this, and why you. Before the website goes live, we validate again, both in front of your audience and the AI models that will consult them.",
+      "Once validated, we translate the playbook into messaging, brand and website.",
+    body: "The playbook dictates the messaging system, the brand, and the website. Built to answer three questions that get you considered: is this legit, what is this, and why you. Before the website goes live, we validate again, both in front of your audience and the AI models they’ll consult.",
   },
   {
     number: "03",
@@ -67,7 +67,7 @@ const phases: Phase[] = [
     accent: "#ff765a",
     cells: iterationCells,
     heading: "Then we challenge our own assumptions on a regular cadence.",
-    body: "Every month, we close with a readout: our hypotheses against reality, KPIs, what sales hears on calls, how AI models describe you now. Where we were right, we double down. Where we were wrong, we say so and revise. Each round adds to a private research dataset.",
+    body: "Every Wave closes with a readout: our hypotheses against reality, KPIs, what sales hears on calls, how AI models describe you now. Where we were right, we double down. Where we were wrong, we say so and revise. Each round adds to a private research dataset.",
   },
 ];
 
@@ -174,7 +174,7 @@ export function CustomerJourney() {
       <div className={styles.heading}>
         <SectionTag>The Ziri Method</SectionTag>
         <h2 className={styles.title} id="customer-title" data-reveal="sweep">
-          Before we design anything, we find out why you actually lost deals.
+          Before we design anything, we find out why you actually lose deals.
         </h2>
       </div>
 
