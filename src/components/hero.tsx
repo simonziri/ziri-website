@@ -26,7 +26,7 @@ export function Hero() {
           data-reveal="fade"
           style={{ "--reveal-delay": "200ms", "--reveal-duration": "1650ms" } as React.CSSProperties}
         >
-            Our websites make you the obvious choice for the buyers you want most. Even when deals take months and many stakeholders have a say. We dig into your market, customer journey and sales intel to build the brand and website that help you sell more.</p>
+            Our websites make you the obvious choice for the buyers you want most. Even when deals take months and many stakeholders have a say. We dig into your market, customer journeys and sales intel, before we write or design anything.</p>
       </div>
 
       <div className={styles.heroFooter}>
