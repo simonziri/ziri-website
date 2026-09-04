@@ -16,8 +16,8 @@ export function Hero() {
             B2B websites built on your market and sales intel 
           </p>
           <h1 className={styles.heroTitle} id="hero-title">
-            <span data-reveal="sweep">Your website doesn't sell</span>{" "}
-            <span data-reveal="sweep">because it was built on opinions.</span>
+            <span data-reveal="sweep">Pretty websites</span>{" "}
+            <span data-reveal="sweep">don’t win large deals.</span>
           </h1>
         </div>
 
@@ -26,7 +26,7 @@ export function Hero() {
           data-reveal="fade"
           style={{ "--reveal-delay": "200ms", "--reveal-duration": "1650ms" } as React.CSSProperties}
         >
-            Most teams misjudge how their buyers think, so their website keeps talking about the wrong thing. We study your market and your sales insights to uncover what makes you the obvious choice. Then we build a playbook, prove it works, and build your website around it.</p>
+            Our websites make you the obvious choice for the buyers you want most. Even when deals take months and many stakeholders have a say. We dig into your market, customer journey and sales intel to build the brand and website that help you sell more.</p>
       </div>
 
       <div className={styles.heroFooter}>

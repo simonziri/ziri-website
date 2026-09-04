@@ -14,9 +14,9 @@ const stackSans = localFont({
 const SITE_URL = "https://simonziri.com";
 const SITE_TITLE = "ZIRI | B2B Websites Built on Market and Sales Intel";
 const SITE_DESCRIPTION =
-  "Your website doesn't sell because it was built on opinions. ZIRI builds " +
-  "and validates a playbook from your market and sales intel, then builds " +
-  "messaging, brand, and website around it.";
+  "Pretty websites don't win large deals. ZIRI digs into your market, " +
+  "customer journey and sales intel to build the brand and website that " +
+  "make you the obvious choice for the buyers you want most.";
 
 /* Brand-Suchvarianten: unsichtbar (JSON-LD + keywords), damit ZIRI unter
    diesen Schreibweisen gefunden wird. */
@@ -70,7 +70,7 @@ const jsonLd = {
         addressCountry: "DE",
       },
       description: SITE_DESCRIPTION,
-      slogan: "Your website doesn't sell, because it was built on opinions.",
+      slogan: "Pretty websites don't win large deals.",
       founder: {
         "@type": "Person",
         name: "Simon Ziri",
