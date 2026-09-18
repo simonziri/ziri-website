@@ -139,7 +139,7 @@ export const caseStudies: CaseStudy[] = [
         paragraphs: [
           "This runs as part of the retainer, separate from the relaunch. Leapsome's leads are worth a lot. Volume on the pages that matter is therefore low, and small changes take weeks to read. That rules out the usual approach of testing button colors and hoping.",
           "We picked the pages closest to revenue and worked backwards from what sales hears on calls: which objections come up, which competitor gets named, what makes a buyer book a demo and then not show up. Each test carried a written hypothesis before it went live.",
-          "The demo page was the first target. It is the page where interest becomes a meeting, so every point of lift there shows up in pipeline. Product landing pages followed. Some tests won, some lost. We report both the same way, because a program where every test wins is a program nobody is checking.",
+          "The demo page was the first target. It is the page where interest becomes a meeting, so every point of lift there shows up in pipeline.",
           "At Leapsome's deal size a few conversions move the percentage, so we treat every result as directional and let the program compound over several rounds rather than declaring victory on one test.",
         ],
       },
@@ -149,7 +149,7 @@ export const caseStudies: CaseStudy[] = [
         paragraphs: [
           "Leapsome decided to rebuild the site on a new design and messaging. Design prep took two weeks, the build took three, and then [www.leapsome.com](https://www.leapsome.com) switched to the new site. Five weeks from first asset to live.",
           "The size of it: 166 static pages, 45 CMS collections with their own templates, and roughly 5,500 URLs Google already indexes, all of it in English and German. Organic search is one of Leapsome's main growth drivers, so the risk sat in the migration, not the design. A relaunch that drops rankings costs more than it earns, and the old site had to keep running untouched until the switch.",
-          "We built the new site through the newest capabilities of the Webflow MCP. Pages, components, properties, copy and CMS items were written through the API, with the Designer reserved for the few things the API cannot reach. Where no tool existed, we built one: a migration check that requested every indexed URL against the new site before cut-over, and the visual generator described below. Result of the check: every URL answered or redirected to the same target as before, every SEO title and description survived, and the template-level regressions the sweep caught, like two CMS templates that had lost their H1 across more than 100 pages, were fixed before DNS moved.",
+          "We built the new site through the newest capabilities of the Webflow MCP. Pages, components, properties, copy and CMS items were written through the API, with the Designer reserved for the few things the API cannot reach. Where no tool existed, we built one, like the visual generator described below. Before cut-over, we ran a migration check that requested every indexed URL against the new site. Result: every URL answered or redirected to the same target as before, every SEO title and description survived, and the template-level regressions the sweep caught, like two CMS templates that had lost their H1 across more than 100 pages, were fixed before DNS moved.",
         ],
       },
       {
