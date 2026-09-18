@@ -141,7 +141,7 @@ export const caseStudies: CaseStudy[] = [
   {
     slug: "leapsome",
     client: "Leapsome",
-    title: "Leapsome: highlights from 1.5 years of running their website",
+    title: "Highlights from 1.5 years of partnership with Leapsome",
     sub: "Over 1.5 years as their website partner, across strategy, messaging and positioning, design, development, conversion optimization and team enablement.",
     summary:
       "Leapsome sells HR software to companies where a buying decision runs through HR, finance, IT and the exec team. Deals take months. We have been their website partner for over 1.5 years, across strategy, messaging and positioning, design, development, conversion optimization and team enablement. What follows is a collection of highlights from that time, from the ongoing retainer work to the full relaunch.",
