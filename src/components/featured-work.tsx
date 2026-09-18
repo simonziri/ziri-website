@@ -16,6 +16,14 @@ import styles from "./featured-work.module.css";
 
 const slides = [
   {
+    name: "Leapsome",
+    slug: "leapsome",
+    image: "/assets/featured/leapsome-thumb.avif",
+    logo: "/assets/tab-logos/Leapsome.svg",
+    title: "Highlights from 1.5 years of partnership with Leapsome",
+    body: "From clearing technical debt to a five-week relaunch, a custom visual generator and a conversion program built on sales intel.",
+  },
+  {
     name: "Circula",
     slug: "circula",
     image: "/assets/featured/project-image-1.avif",
@@ -30,14 +38,6 @@ const slides = [
     logo: "/assets/tab-logos/Simplesense.svg",
     title: "Brand and website relaunch for Simplesense",
     body: "A visual language built from their own story: systems that don't talk to each other, finally in one design.",
-  },
-  {
-    name: "Leapsome",
-    slug: "leapsome",
-    image: "/assets/featured/leapsome-thumb.avif",
-    logo: "/assets/tab-logos/Leapsome.svg",
-    title: "Highlights from 1.5 years of partnership with Leapsome",
-    body: "From clearing technical debt to a five-week relaunch, a custom visual generator and a conversion program built on sales intel.",
   },
   {
     name: "HockeyStack",

@@ -44,8 +44,9 @@ vercel-dns; Apex 308-redirected auf www). Resend-Domain verifiziert
 ## Offene Punkte (TODO)
 
 1. Thumbnails: alle fünf Live-Cases haben `thumbnail` + eigenen
-   Featured-Work-Slide. Reihenfolge (Simons Ansage): Circula,
-   simplesense, Leapsome, HockeyStack, Instaffo.
+   Featured-Work-Slide. Reihenfolge (Simons Ansage 18.09.): Leapsome,
+   Circula, simplesense, HockeyStack, Instaffo (gilt für Slides UND
+   caseStudies-Array, damit „Next Case" dieselbe Reihenfolge läuft).
 2. **Engagement-Types-Sektion** ist vorerst ausgeblendet (Simon denkt
    über den Inhalt nach) — Komponente existiert weiter, in
    `src/app/page.tsx` wieder einhängen wenn freigegeben.
@@ -95,6 +96,12 @@ vercel-dns; Apex 308-redirected auf www). Resend-Domain verifiziert
   Mono-Label + H2 + Absätze, gerendert zwischen erster Galerie-Reihe
   (+ Testimonial) und restlicher Galerie. Absätze dürfen `[Text](URL)`
   enthalten (wird zum Link). Bisher nur Leapsome (5 Highlights).
+- **Case-SEO**: optionales `seo` (title/description/keywords) und
+  `clientUrl` pro Case überschreiben Title-Tag, Meta-Description, OG
+  und füttern das Article-JSON-LD in `work/[slug]/page.tsx` (author/
+  publisher = Organisation aus layout.tsx, `about` = Kunde). Canonical
+  wird pro Case gesetzt. Nach Copy-Änderungen in der Search Console
+  die URL neu zur Indexierung anstoßen.
 - **Fonts/Weights**: max 420 (nicht-mono), Regular 400, Mono 480/400.
   Hero-H1 1.2, H2s 45px/1.14 (Paradox 1.2), H3 und kleiner 1.3
   (global + Module), Testimonial-Quote 1.3, Absätze 1.55 (relaxed).

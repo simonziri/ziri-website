@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 import { PixelHatchButton } from "./pixel-hatch-button";
 import { SectionTag } from "./section-tag";
@@ -81,7 +82,16 @@ const groups = [
       },
       {
         q: "Where do you work?",
-        a: "Mostly Germany, Switzerland, Austria, and the United States, with other countries welcome. Everything is delivered remotely; the process runs on evidence and calls, not on-site days. Clients include HockeyStack, Leapsome, Circula, instaffo, and Simplesense.",
+        a: (
+          <>
+            Mostly Germany, Switzerland, Austria, and the United States, with
+            other countries welcome. Everything is delivered remotely; the
+            process runs on evidence and calls, not on-site days. Clients
+            include HockeyStack,{" "}
+            <Link href="/work/leapsome">Leapsome</Link>, Circula, instaffo,
+            and Simplesense.
+          </>
+        ),
       },
       {
         q: "How is it priced?",
