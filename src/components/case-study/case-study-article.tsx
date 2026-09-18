@@ -1,6 +1,7 @@
+import type { ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import type { CaseStudy, GalleryRow } from "@/data/case-studies";
+import type { CaseStudy, CaseStudySection, GalleryRow } from "@/data/case-studies";
 import { getNextCaseStudy } from "@/data/case-studies";
 import { BackLink } from "./back-link";
 import styles from "./case-study-article.module.css";
@@ -45,6 +46,43 @@ function GalleryRowView({ row }: { row: GalleryRow }) {
         />
       ))}
     </div>
+  );
+}
+
+// Minimal inline markup for body copy: `[text](url)` becomes a link.
+// External links open in a new tab; everything else stays plain text.
+const LINK_PATTERN = /\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g;
+
+function renderInline(text: string) {
+  const nodes: ReactNode[] = [];
+  let last = 0;
+  for (const match of text.matchAll(LINK_PATTERN)) {
+    const start = match.index ?? 0;
+    if (start > last) nodes.push(text.slice(last, start));
+    nodes.push(
+      <a href={match[2]} target="_blank" rel="noreferrer" key={start}>
+        {match[1]}
+      </a>,
+    );
+    last = start + match[0].length;
+  }
+  if (last < text.length) nodes.push(text.slice(last));
+  return nodes;
+}
+
+function SectionView({ section }: { section: CaseStudySection }) {
+  return (
+    <section className={styles.section}>
+      {section.label ? (
+        <p className={styles.sectionLabel}>{section.label}</p>
+      ) : null}
+      <h2 className={styles.sectionHeading}>{section.heading}</h2>
+      {section.paragraphs.map((paragraph) => (
+        <p className={styles.sectionBody} key={paragraph.slice(0, 32)}>
+          {renderInline(paragraph)}
+        </p>
+      ))}
+    </section>
   );
 }
 
@@ -164,6 +202,14 @@ export function CaseStudyArticle({
               </span>
             </div>
           </section>
+        </div>
+      ) : null}
+
+      {caseStudy.sections && caseStudy.sections.length > 0 ? (
+        <div className={`${styles.narrow} ${styles.sections}`}>
+          {caseStudy.sections.map((section) => (
+            <SectionView key={section.heading} section={section} />
+          ))}
         </div>
       ) : null}
 

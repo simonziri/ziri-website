@@ -29,6 +29,14 @@ export type GalleryRow =
   | { layout: "full"; image: CaseStudyImage }
   | { layout: "bento"; images: CaseStudyImage[] };
 
+/** Long-form body block: mono label (optional) + heading + paragraphs.
+ *  Paragraphs may contain markdown-style links `[text](url)`. */
+export type CaseStudySection = {
+  label?: string;
+  heading: string;
+  paragraphs: string[];
+};
+
 export type CaseStudyTestimonial = {
   quote: string[];
   name: string;
@@ -54,6 +62,9 @@ export type CaseStudy = {
   /** Optional; band is hidden when absent. */
   kpis?: CaseStudyKpi[];
   gallery: GalleryRow[];
+  /** Optional body sections; rendered after the first gallery row
+   *  (and testimonial), before the remaining gallery rows. */
+  sections?: CaseStudySection[];
   testimonial?: CaseStudyTestimonial;
   /** Draft cases render at their URL but are excluded from
    *  listings, next-links and generateStaticParams. */
@@ -130,10 +141,10 @@ export const caseStudies: CaseStudy[] = [
   {
     slug: "leapsome",
     client: "Leapsome",
-    title: "Website System & Conversion Program for Leapsome",
-    sub: "From technical debt to a self-serve website the marketing team runs on its own.",
+    title: "Leapsome: highlights from 1.5 years of running their website",
+    sub: "Over 1.5 years as their website partner, across strategy, messaging and positioning, design, development, conversion optimization and team enablement.",
     summary:
-      "Over 1.5+ years as a retainer partner, we cleaned up a huge grown website, removed developer dependency, and cut the time to launch new pages by 90%. The team has since shipped 15+ product pages on their own. On top, we run a research- and messaging-focused conversion program on their highest-leverage pages.",
+      "Leapsome sells HR software to companies where a buying decision runs through HR, finance, IT and the exec team. Deals take months. We have been their website partner for over 1.5 years, across strategy, messaging and positioning, design, development, conversion optimization and team enablement. What follows is a collection of highlights from that time, from the ongoing retainer work to the full relaunch.",
     logo: "/assets/tab-logos/Leapsome.svg",
     thumbnail: {
       src: "/assets/featured/leapsome-thumb.avif",
@@ -142,13 +153,67 @@ export const caseStudies: CaseStudy[] = [
       height: 1544,
     },
     kpis: [
-      { value: "90%", label: "less time to launch a page" },
-      { value: "15+", label: "pages shipped by the team" },
-      { value: "1.5+ yrs", label: "retainer partnership" },
+      { value: "20+", label: "landing pages shipped by the marketing team without us" },
+      { value: "200+", label: "product visuals from one source of truth, about 200 hours saved" },
+      { value: "5,500", label: "pages migrated and relaunched in 5 weeks, in English and German" },
     ],
     gallery: [
-      { layout: "full", image: img("leapsomebottom.avif", "Leapsome website system", 2517, 1821) },
-      { layout: "full", image: img("leapsomecenter.avif", "Leapsome page templates", 2517, 963) },
+      {
+        layout: "bento",
+        images: [
+          img("leapsomebentoleft.avif", "The relaunched Leapsome homepage", 1395, 837),
+          img("leapsomebentoright.avif", "Generated Leapsome product visual", 1128, 837),
+        ],
+      },
+      { layout: "full", image: img("leapsomebottom.avif", "Leapsome pages in the dark theme", 2544, 1236) },
+    ],
+    sections: [
+      {
+        label: "Highlight 1",
+        heading: "A conversion program built on sales intel, not opinions",
+        paragraphs: [
+          "This runs as part of the retainer, separate from the relaunch. Leapsome's leads are worth a lot. Volume on the pages that matter is therefore low, and small changes take weeks to read. That rules out the usual approach of testing button colors and hoping.",
+          "We picked the pages closest to revenue and worked backwards from what sales hears on calls: which objections come up, which competitor gets named, what makes a buyer book a demo and then not show up. Each test carried a written hypothesis before it went live.",
+          "The demo page was the first target. It is the page where interest becomes a meeting, so every point of lift there shows up in pipeline. Product landing pages followed. Some tests won, some lost. We report both the same way, because a program where every test wins is a program nobody is checking.",
+          "At Leapsome's deal size a few conversions move the percentage, so we treat every result as directional and let the program compound over several rounds rather than declaring victory on one test.",
+        ],
+      },
+      {
+        label: "Highlight 2",
+        heading: "The relaunch, 290 pages in five weeks",
+        paragraphs: [
+          "Leapsome decided to rebuild the site on a new design and messaging. Design prep took two weeks, the build took three, and then [www.leapsome.com](https://www.leapsome.com) switched to the new site. Five weeks from first asset to live.",
+          "The size of it: 166 static pages, 45 CMS collections with their own templates, and roughly 5,500 URLs Google already indexes, all of it in English and German. Organic search is one of Leapsome's main growth drivers, so the risk sat in the migration, not the design. A relaunch that drops rankings costs more than it earns, and the old site had to keep running untouched until the switch.",
+          "We built the new site through the newest capabilities of the Webflow MCP. Pages, components, properties, copy and CMS items were written through the API, with the Designer reserved for the few things the API cannot reach. Where no tool existed, we built one: a migration check that requested every indexed URL against the new site before cut-over, and the visual generator described below. Result of the check: every URL answered or redirected to the same target as before, every SEO title and description survived, and the template-level regressions the sweep caught, like two CMS templates that had lost their H1 across more than 100 pages, were fixed before DNS moved.",
+        ],
+      },
+      {
+        label: "Highlight 3",
+        heading: "A custom visual generator",
+        paragraphs: [
+          "The new design needed product visuals on nearly every page, and Leapsome's product changes faster than a screenshot library can keep up. So we built a generator that turns a written brief into finished, on-brand UI visuals of the product. More than 200 visuals came out of it for the relaunch alone, which took roughly 200 hours off the project.",
+          "It changes who can make visuals. A marketer who needs a hero image for a landing page describes what it should show and gets it, in the right style, without a design ticket. Designers use the output as a base and export SVG to refine it, so they start from something instead of from a blank canvas. And because every visual is built from the same source of truth, the product looks the same on every page, which it never does when screenshots pile up over two years.",
+          "The generator also produces animated and interactive visuals, close to click-through demos, so a page can show the product working instead of a still frame of it.",
+        ],
+      },
+      {
+        label: "Highlight 4",
+        heading: "Enabling the team",
+        paragraphs: [
+          "The setup is component first. Every section the marketing team touches is a reusable block with clear settings, sitting on one design system: shared tokens, three theme modes, and typography and spacing that match the Figma source one to one. A section switches theme by dropping in a single component. Per-page variation happens through properties, not through new classes.",
+          "We paired that with 1:1 sessions and a video library, so the team learned the system on their own pages rather than from documentation.",
+          "The effect shows in what they ship. The team has built more than 20 landing pages without our help since. That moved our collaboration away from execution and towards the strategic layers: which pages to build, what they should say, and how to test them. Instead of being the bottleneck, we raised the ceiling.",
+        ],
+      },
+      {
+        label: "Highlight 5",
+        heading: "Clearing the technical debt",
+        paragraphs: [
+          "When we started, the Leapsome site had years of growth baked in. Hundreds of pages, thousands of classes, and every new page needed a developer. Marketing had ideas faster than the site could take them.",
+          "Dead classes went, page templates got a shared structure, and the pieces marketing touches most became reusable blocks. The measure we cared about was how long it takes a marketer to get a new page live without asking anyone. That time dropped by around 90%.",
+          "This groundwork made everything above possible. You cannot run tests on a site nobody dares to touch, and you cannot relaunch in five weeks on a codebase you do not understand.",
+        ],
+      },
     ],
   },
   {

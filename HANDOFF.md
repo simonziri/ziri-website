@@ -91,6 +91,10 @@ vercel-dns; Apex 308-redirected auf www). Resend-Domain verifiziert
   Fade-in via onReady. dotSize 0.14/0.05, Opacity 0.5, Top-Maske 48%.
 - **Bento-Galerie**: Spaltenbreiten = Seitenverhältnisse (fr), damit
   Reihenhöhen matchen. Bildmaße stehen in case-studies.ts (Layout-Shift).
+- **Case-Body-Sektionen** (`sections` in case-studies.ts, seit 18.09.):
+  Mono-Label + H2 + Absätze, gerendert zwischen erster Galerie-Reihe
+  (+ Testimonial) und restlicher Galerie. Absätze dürfen `[Text](URL)`
+  enthalten (wird zum Link). Bisher nur Leapsome (5 Highlights).
 - **Fonts/Weights**: max 420 (nicht-mono), Regular 400, Mono 480/400.
   Hero-H1 1.2, H2s 45px/1.14 (Paradox 1.2), H3 und kleiner 1.3
   (global + Module), Testimonial-Quote 1.3, Absätze 1.55 (relaxed).

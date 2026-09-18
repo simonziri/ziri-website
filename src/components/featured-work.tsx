@@ -36,8 +36,8 @@ const slides = [
     slug: "leapsome",
     image: "/assets/featured/leapsome-thumb.avif",
     logo: "/assets/tab-logos/Leapsome.svg",
-    title: "Website System & Conversion Program for Leapsome",
-    body: "From technical debt to a self-serve website the marketing team runs on its own.",
+    title: "Leapsome: highlights from 1.5 years of running their website",
+    body: "From clearing technical debt to a five-week relaunch, a custom visual generator and a conversion program built on sales intel.",
   },
   {
     name: "HockeyStack",
