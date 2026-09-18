@@ -112,7 +112,7 @@ export const caseStudies: CaseStudy[] = [
       "Leapsome sells HR software to companies where a buying decision runs through HR, finance, IT and the exec team. Deals take months. We have been their website partner for over 1.5 years, across strategy, messaging and positioning, design, development, conversion optimization and team enablement. What follows is a collection of highlights from that time, from the ongoing retainer work to the full relaunch.",
     logo: "/assets/tab-logos/Leapsome.svg",
     thumbnail: {
-      src: "/assets/featured/leapsome-thumb.avif",
+      src: "/assets/featured/leapsome-thumb-hris.avif",
       alt: "Leapsome website redesign: the relaunched HRIS product page",
       width: 2880,
       height: 3046,

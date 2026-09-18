@@ -18,7 +18,7 @@ const slides = [
   {
     name: "Leapsome",
     slug: "leapsome",
-    image: "/assets/featured/leapsome-thumb.avif",
+    image: "/assets/featured/leapsome-thumb-hris.avif",
     logo: "/assets/tab-logos/Leapsome.svg",
     title: "Highlights from 1.5 years of partnership with Leapsome",
     body: "From clearing technical debt to a five-week relaunch, a custom visual generator and a conversion program built on sales intel.",
