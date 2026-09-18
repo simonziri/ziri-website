@@ -205,14 +205,6 @@ export function CaseStudyArticle({
         </div>
       ) : null}
 
-      {caseStudy.sections && caseStudy.sections.length > 0 ? (
-        <div className={`${styles.narrow} ${styles.sections}`}>
-          {caseStudy.sections.map((section) => (
-            <SectionView key={section.heading} section={section} />
-          ))}
-        </div>
-      ) : null}
-
       {moreGalleryRows.length > 0 ? (
         <div className={styles.inset}>
           <div className={styles.gallery}>
@@ -220,6 +212,14 @@ export function CaseStudyArticle({
               <GalleryRowView key={index} row={row} />
             ))}
           </div>
+        </div>
+      ) : null}
+
+      {caseStudy.sections && caseStudy.sections.length > 0 ? (
+        <div className={`${styles.narrow} ${styles.sections}`}>
+          {caseStudy.sections.map((section) => (
+            <SectionView key={section.heading} section={section} />
+          ))}
         </div>
       ) : null}
 

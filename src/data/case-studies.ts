@@ -74,8 +74,8 @@ export type CaseStudy = {
   /** Optional; band is hidden when absent. */
   kpis?: CaseStudyKpi[];
   gallery: GalleryRow[];
-  /** Optional body sections; rendered after the first gallery row
-   *  (and testimonial), before the remaining gallery rows. */
+  /** Optional body sections; rendered after the full gallery
+   *  (and testimonial), before the next-case link. */
   sections?: CaseStudySection[];
   testimonial?: CaseStudyTestimonial;
   /** Draft cases render at their URL but are excluded from

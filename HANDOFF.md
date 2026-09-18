@@ -93,8 +93,8 @@ vercel-dns; Apex 308-redirected auf www). Resend-Domain verifiziert
 - **Bento-Galerie**: Spaltenbreiten = Seitenverhältnisse (fr), damit
   Reihenhöhen matchen. Bildmaße stehen in case-studies.ts (Layout-Shift).
 - **Case-Body-Sektionen** (`sections` in case-studies.ts, seit 18.09.):
-  Mono-Label + H2 + Absätze, gerendert zwischen erster Galerie-Reihe
-  (+ Testimonial) und restlicher Galerie. Absätze dürfen `[Text](URL)`
+  Mono-Label + H2 + Absätze, gerendert nach der kompletten Galerie
+  (+ Testimonial), vor „Next Case" (Simons Ansage 18.09.). Absätze dürfen `[Text](URL)`
   enthalten (wird zum Link). Bisher nur Leapsome (5 Highlights).
 - **Case-SEO**: optionales `seo` (title/description/keywords) und
   `clientUrl` pro Case überschreiben Title-Tag, Meta-Description, OG
