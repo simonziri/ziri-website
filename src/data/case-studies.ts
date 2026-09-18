@@ -130,7 +130,7 @@ export const caseStudies: CaseStudy[] = [
           img("leapsomebentoright.avif", "Leapsome product visual from the custom generator", 1128, 837),
         ],
       },
-      { layout: "full", image: img("leapsomebottom.avif", "Leapsome website redesign: pages in the dark theme", 2544, 1236) },
+      { layout: "full", image: img("leapsomebottom-v2.avif", "Leapsome website redesign: pages in the dark theme", 2544, 1236) },
     ],
     sections: [
       {
