@@ -12,6 +12,9 @@ const stackSans = localFont({
 });
 
 const SITE_URL = "https://simonziri.com";
+/* Preview-/Staging-Deployments bekommen noindex (zusätzlich zu robots.ts),
+   damit Vercel-Preview-URLs nie in den Google-Index rutschen. */
+const IS_PRODUCTION = process.env.VERCEL_ENV === "production";
 const SITE_TITLE = "ZIRI | B2B Websites Built on Market and Sales Intel";
 const SITE_DESCRIPTION =
   "Pretty websites don't win large deals. ZIRI digs into your market, " +
@@ -29,6 +32,7 @@ const BRAND_ALIASES = [
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
+  robots: IS_PRODUCTION ? undefined : { index: false, follow: false },
   title: SITE_TITLE,
   description: SITE_DESCRIPTION,
   keywords: ["ZIRI", ...BRAND_ALIASES, "Simon Ziri", "B2B web agency"],

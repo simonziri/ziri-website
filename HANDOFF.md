@@ -28,6 +28,11 @@ noch auf simonziri.com, bis der DNS-Switch kommt.
 - Iterations-URL: https://ziri-website-simon-5243s-projects.vercel.app
   (hinter Vercel-Login/Deployment Protection — für Simon direkt offen).
 - `vercel` CLI ist eingeloggt (simon-5243). `gh` CLI eingeloggt (simonziri).
+- **Staging = Vercel Preview-Deployments**: jeder Branch/PR bekommt eine
+  eigene Preview-URL. Nicht-Production-Deployments (`VERCEL_ENV !==
+  "production"`) liefern `robots.txt` Disallow + `<meta name="robots"
+  noindex>` (robots.ts + layout.tsx). Kontaktformular fällt dort auf
+  Server-Log zurück (Resend-Env ist nur Production-scoped) — gewollt.
 - Dev-Server: Preview-Config "ziri-website" (Port 3000). Achtung: die
   launch.json der Session kann im ALTEN Arbeitsverzeichnis liegen.
 
