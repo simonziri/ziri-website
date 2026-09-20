@@ -30,7 +30,7 @@ export function Paradox() {
       <div className={styles.header}>
         <SectionTag>The paradox</SectionTag>
         <h2 className={styles.title} id="paradox-title">
-          <span data-reveal="sweep">Your customers love you, yet CAC goes up and deals go to the established name.</span>
+          <span data-reveal="sweep">Conversion rates are low and perfect-fit prospects go with the bigger or cheaper vendor.</span>
         </h2>
       </div>
 
