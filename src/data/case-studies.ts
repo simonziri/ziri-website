@@ -242,10 +242,18 @@ export const caseStudies: CaseStudy[] = [
     sections: [
       {
         label: "The brief",
-        heading: "A reference point from outside the category",
+        heading: "Out of the defense-tech corner",
         paragraphs: [
-          "Simplesense builds software for critical infrastructure, and their audience is senior, technical and hard to impress. We had relaunched their site once before, a few years earlier. It was clean for its time, and it looked like defense tech: dark, dense, a little tacky. They did not want to sit in that corner any longer. The reference they gave us came from a different world, the calm, editorial look of an AI research lab, and it shaped every decision that followed.",
+          "Simplesense builds software for critical infrastructure, and their audience is senior, technical and hard to impress. The category has a look: dark, dense and loud. Simplesense wanted out of that corner, with a site that reads as calm and credible to people who spend their days in these facilities.",
           "The messaging strategy came from Marie Wilda. Simplesense had reached us through TRU VM, a marketing agency we have worked with since our early days. Our part was the brand, the visual language and the website itself.",
+        ],
+      },
+      {
+        label: "The process",
+        heading: "Understanding the buyer before touching the design",
+        paragraphs: [
+          "Standing out was only part of the job. Before any layout, we worked through who actually buys Simplesense and how those people think: what they are responsible for, what convinces them a vendor is serious, what makes them hesitate, and what finally gets them to buy. We looked at the company strategy behind the relaunch and at the segments and use cases that mattered most for the coming years. And we mapped where the site would show up in their marketing: which campaigns, channels and materials were already running, which were still to come, and who would see the site through each of them.",
+          "The design decisions rest on that work. The restraint, the abstract imagery and the loose visual rules all come from a clear picture of who is looking and what they need to believe, and the site had to hold up in the whitepapers, case studies and outreach that would follow it.",
         ],
       },
       {
@@ -253,7 +261,7 @@ export const caseStudies: CaseStudy[] = [
         heading: "Why the simple design is the harder one",
         paragraphs: [
           "A rich design is forgiving. Gradients, shadows, patterns and background effects carry a lot of weight, and they hide a lot too. Take them away and three things are left: typography, a strong form language and the visuals. Typography could only do so much here. The copy is long and editorial, so the oversized display type that makes minimal sites look striking was off the table. And the audience has no patience for a design that shows off, so restraint was a requirement.",
-          "There was one more trap. When a client hands you a reference, the easy failure is to end up too close to it. So the time that would normally go into effects went into the one thing that could make the site unmistakably theirs: the visual language.",
+          "So the time that would normally go into effects went into the one thing that could make the site unmistakably theirs: the visual language.",
         ],
       },
       {
@@ -261,14 +269,14 @@ export const caseStudies: CaseStudy[] = [
         heading: "Three shapes that cannot talk to each other",
         paragraphs: [
           "Simplesense connects systems in infrastructure that were never built to communicate. That became the whole language. Every visual starts from three forms, a square, a triangle and a circle, standing in for the three groups that have to work together on a site: installation leaders, incident response and facility operators. At the start of each visual the shapes sit apart. Then they connect, and the picture comes together. That movement, from scattered forms to one clear image, is the Simplesense effect, and it is the sentence the brand runs on: turn complexity into clarity.",
-          "The rules are deliberately loose. A tighter system would have limited what the images can do, and the message matters more than a perfect grammar. What we cared about is that every visual, on every page, tells the same story.",
+          "The rules are deliberately loose. A tighter system would have limited what the images can do. What we cared about is that every visual, on every page, tells the same story.",
         ],
       },
       {
         label: "The imagery",
-        heading: "Abstract pictures, so the images stop fighting the copy",
+        heading: "Accurate, good-looking, or abstract",
         paragraphs: [
-          "The earlier site had a picture problem. Infrastructure photos have to be accurate for an audience that lives in these facilities, and accurate infrastructure is cables, racks and clutter. Every image argued against the clarity the copy promised. The abstract language ended that. An image no longer has to document a real installation, so it can be generated, composed and iterated until it carries the message, and arranged to serve the layout.",
+          "Imagery is a familiar problem in the defense and infrastructure space. Pictures have to be accurate, because the audience lives in these facilities and spots a wrong detail immediately. They also have to look good, and real infrastructure is cables, racks and clutter. Sites in the category tend to settle for accurate and pay for it with pages that look like a server room. We went abstract. An image built from the three shapes no longer has to document a real installation, so it can be composed and iterated until it carries the message. It also gives the brand room to be more creative and to stand out in a category where everything looks the same.",
           "The client loved it, and from that point the rest of the project moved quickly. The same shapes have since carried into their case studies and whitepapers.",
         ],
       },
