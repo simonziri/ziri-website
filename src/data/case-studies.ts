@@ -230,6 +230,7 @@ export const caseStudies: CaseStudy[] = [
     gallery: [
       { layout: "full", image: img("simplesensetop.avif", "Simplesense rebrand", 2517, 1833) },
       { layout: "full", image: img("simplesensebottom.avif", "Simplesense visual language", 2517, 963) },
+      { layout: "full", image: img("simplesensedashboards.avif", "Simplesense dashboards: operator view in mission-ready and degraded state, and the command view", 3588, 1222) },
     ],
     testimonial: {
       quote: [
