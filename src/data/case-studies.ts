@@ -239,6 +239,40 @@ export const caseStudies: CaseStudy[] = [
       role: "CEO & Founder, Simplesense",
       avatar: "/assets/eric-kanagy.png",
     },
+    sections: [
+      {
+        label: "The brief",
+        heading: "A reference point from outside the category",
+        paragraphs: [
+          "Simplesense builds software for critical infrastructure, and their audience is senior, technical and hard to impress. We had relaunched their site once before, a few years earlier. It was clean for its time, and it looked like defense tech: dark, dense, a little tacky. They did not want to sit in that corner any longer. The reference they gave us came from a different world, the calm, editorial look of an AI research lab, and it shaped every decision that followed.",
+          "The messaging strategy came from Marie Wilda. Simplesense had reached us through TRU VM, a marketing agency we have worked with since our early days. Our part was the brand, the visual language and the website itself.",
+        ],
+      },
+      {
+        label: "The constraint",
+        heading: "Why the simple design is the harder one",
+        paragraphs: [
+          "A rich design is forgiving. Gradients, shadows, patterns and background effects carry a lot of weight, and they hide a lot too. Take them away and three things are left: typography, a strong form language and the visuals. Typography could only do so much here. The copy is long and editorial, so the oversized display type that makes minimal sites look striking was off the table. And the audience has no patience for a design that shows off, so restraint was a requirement, not a taste.",
+          "There was one more trap. When a client hands you a reference, the easy failure is to land too close to it. So the time that would normally go into effects went into the one thing that could make the site unmistakably theirs: the visual language.",
+        ],
+      },
+      {
+        label: "The visual language",
+        heading: "Three shapes that cannot talk to each other",
+        paragraphs: [
+          "Simplesense connects systems in infrastructure that were never built to communicate. That became the whole language. Every visual starts from three forms, a square, a triangle and a circle, standing in for the three groups that have to work together on a site: installation leaders, incident response and facility operators. At the start of each visual the shapes sit apart. Then they connect, and the picture comes together. That movement, from scattered forms to one clear image, is the Simplesense effect, and it is the sentence the brand runs on: turn complexity into clarity.",
+          "The rules are deliberately loose. A tighter system would have limited what the images can do, and the message matters more than a perfect grammar. What we cared about is that every visual, on every page, tells the same story.",
+        ],
+      },
+      {
+        label: "The imagery",
+        heading: "Abstract pictures, so the images stop fighting the copy",
+        paragraphs: [
+          "The earlier site had a picture problem. Infrastructure photos have to be accurate for an audience that lives in these facilities, and accurate infrastructure is cables, racks and clutter. Every image argued against the clarity the copy promised. The abstract language ended that. An image no longer has to document a real installation, so it can be generated, composed and iterated until it carries the message, and arranged to serve the layout.",
+          "The client loved it, and from that point the rest of the project moved quickly. The same shapes have since carried into their case studies and whitepapers.",
+        ],
+      },
+    ],
   },
   {
     slug: "hockeystack",
