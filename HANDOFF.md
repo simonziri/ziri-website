@@ -100,7 +100,8 @@ vercel-dns; Apex 308-redirected auf www). Resend-Domain verifiziert
 - **Case-Body-Sektionen** (`sections` in case-studies.ts, seit 18.09.):
   Mono-Label + H2 + Absätze, gerendert nach der kompletten Galerie
   (+ Testimonial), vor „Next Case" (Simons Ansage 18.09.). Absätze dürfen `[Text](URL)`
-  enthalten (wird zum Link). Bisher nur Leapsome (5 Highlights).
+  enthalten (wird zum Link). Genutzt von Leapsome (5 Highlights) und
+  Simplesense (Brief, Process, Constraint, Visual Language, Imagery).
 - **Case-SEO**: optionales `seo` (title/description/keywords) und
   `clientUrl` pro Case überschreiben Title-Tag, Meta-Description, OG
   und füttern das Article-JSON-LD in `work/[slug]/page.tsx` (author/
