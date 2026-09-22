@@ -252,8 +252,8 @@ export const caseStudies: CaseStudy[] = [
         label: "The constraint",
         heading: "Why the simple design is the harder one",
         paragraphs: [
-          "A rich design is forgiving. Gradients, shadows, patterns and background effects carry a lot of weight, and they hide a lot too. Take them away and three things are left: typography, a strong form language and the visuals. Typography could only do so much here. The copy is long and editorial, so the oversized display type that makes minimal sites look striking was off the table. And the audience has no patience for a design that shows off, so restraint was a requirement, not a taste.",
-          "There was one more trap. When a client hands you a reference, the easy failure is to land too close to it. So the time that would normally go into effects went into the one thing that could make the site unmistakably theirs: the visual language.",
+          "A rich design is forgiving. Gradients, shadows, patterns and background effects carry a lot of weight, and they hide a lot too. Take them away and three things are left: typography, a strong form language and the visuals. Typography could only do so much here. The copy is long and editorial, so the oversized display type that makes minimal sites look striking was off the table. And the audience has no patience for a design that shows off, so restraint was a requirement.",
+          "There was one more trap. When a client hands you a reference, the easy failure is to end up too close to it. So the time that would normally go into effects went into the one thing that could make the site unmistakably theirs: the visual language.",
         ],
       },
       {
