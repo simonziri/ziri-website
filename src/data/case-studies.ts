@@ -266,6 +266,15 @@ export const caseStudies: CaseStudy[] = [
         ],
       },
       {
+        label: "The dashboards",
+        heading: "The product, redesigned from the ground up",
+        paragraphs: [
+          "The dashboard is the clearest answer to what Simplesense does, so it had to look like the brand. We redesigned it from the ground up: an operator view and a command view, on the same white ground and with the same restraint as the site. Color does the work. Green means mission ready, terracotta means degraded and action required, and every element on the screen reads that state at a glance.",
+          "The task was to set the visual direction. Simplesense's team builds the detailed dashboards, closer to real use, on that foundation, and they match the site in style and look without depending on us.",
+          "Clean visuals are a core part of how we work. Going deep once, into a proper source of truth for the product, makes every visual that follows better and faster, on the website and in everything that comes after it.",
+        ],
+      },
+      {
         label: "The visual language",
         heading: "Three shapes that cannot talk to each other",
         paragraphs: [
