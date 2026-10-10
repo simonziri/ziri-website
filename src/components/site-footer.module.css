@@ -87,11 +87,18 @@
 
 .legal {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 1.75rem;
   margin-top: 1.5rem;
 }
 
-.legal a {
+.legal a,
+.legal button {
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
   font-family: ui-monospace, "SFMono-Regular", Consolas, monospace;
   font-size: 0.6875rem;
   font-weight: 480;
@@ -102,7 +109,8 @@
   transition: color 160ms var(--ease-global);
 }
 
-.legal a:hover {
+.legal a:hover,
+.legal button:hover {
   color: #f6f4f0;
 }
 

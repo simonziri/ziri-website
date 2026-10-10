@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { ConsentBanner } from "@/components/consent-banner";
 import { RevealObserver } from "@/components/reveal-observer";
 import "./globals.css";
 
@@ -115,6 +116,8 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        {/* Früh im DOM, damit das Banner beim Tabben zuerst erreicht wird */}
+        <ConsentBanner />
         <RevealObserver />
         {children}
         {modal}

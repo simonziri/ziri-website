@@ -77,3 +77,9 @@
     padding: 6.5rem var(--space-medium) 4rem;
   }
 }
+
+.article code {
+  font-family: ui-monospace, "SFMono-Regular", Consolas, monospace;
+  font-size: 0.9em;
+  color: var(--text-body);
+}

@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef } from "react";
+import { CookieSettingsButton } from "./cookie-settings-button";
 import { PixelHatchButton } from "./pixel-hatch-button";
 import styles from "./site-footer.module.css";
 
@@ -83,6 +84,7 @@ export function SiteFooter() {
         <div className={styles.legal}>
           <Link href="/privacy">Privacy Policy</Link>
           <Link href="/imprint">Imprint</Link>
+          <CookieSettingsButton />
         </div>
       </div>
       <div className={styles.footerArtwork}>

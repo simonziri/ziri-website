@@ -13,7 +13,8 @@ export const metadata: Metadata = {
  * WICHTIG (siehe CLAUDE.md): Diese Seite beschreibt exakt, was die Website
  * tatsächlich tut. Jede Änderung an Datenverarbeitung (Analytics wie GA4,
  * neue Embeds, neue Formularfelder, neue Empfänger) MUSS hier im selben
- * Change nachgezogen werden.
+ * Change nachgezogen werden. GA4 + Consent-Banner: Abschnitte 7 und 8,
+ * Code in src/components/consent-banner.tsx und src/lib/analytics.ts.
  */
 export default function PrivacyPage() {
   return (
@@ -26,7 +27,8 @@ export default function PrivacyPage() {
 
           <p>
             This website is intentionally light on data. No advertising
-            cookies, no analytics, no third-party fonts. Below is a complete
+            cookies, no third-party fonts, and web analytics only if you allow
+            it. Below is a complete
             account of what happens with personal data when you visit
             simonziri.com, written to be read, not just filed.
           </p>
@@ -192,9 +194,107 @@ export default function PrivacyPage() {
             presenting our work; playback only happens on your initiative.
           </p>
 
-          <h2>7. What this site does not do</h2>
+          <h2 id="analytics">7. Google Analytics 4 (only with your consent)</h2>
+          <p>
+            If you allow &ldquo;Statistics&rdquo; in our privacy banner, we use
+            Google Analytics 4, a web analytics service of Google Ireland
+            Limited, Gordon House, Barrow Street, Dublin 4, Ireland
+            (&ldquo;Google&rdquo;). Without your consent, the Google Analytics
+            script is not loaded and no data is sent to Google.
+          </p>
+          {/* TODO(Simon): verify that the Google Ads Data Processing Terms are accepted in the GA4 account (Admin > Account settings) so Google acts as our processor. */}
+          <p>
+            Google processes the data on our behalf as a processor under
+            Google&rsquo;s data processing terms (Art. 28 GDPR).
+          </p>
+          <p>
+            Purpose: we want to understand how visitors use this site, which
+            pages are read, and which campaigns bring visitors and sign-ups.
+            When you send the contact form or sign up for a training, we record
+            that a sign-up happened (and for which training), not what you
+            entered.
+          </p>
+          <p>Data processed:</p>
           <ul>
-            <li>No analytics or tracking tools (no Google Analytics, no pixels).</li>
+            <li>
+              pseudonymous identifiers stored in the cookies{" "}
+              <code>_ga</code> and <code>_ga_&lt;id&gt;</code>, which recognize
+              your browser across visits and sessions
+            </li>
+            <li>
+              usage data such as pages viewed, time of the visit, scrolling,
+              clicks on outbound links and file downloads
+            </li>
+            {/* TODO(Simon): verify the IP wording against Google's current EU data processing description for GA4. */}
+            <li>
+              your IP address, which Google uses on servers in the EU only to
+              derive an approximate location (country, region, city) and then
+              discards; Google Analytics 4 does not store full IP addresses
+            </li>
+            <li>device type, operating system, browser and screen size</li>
+            <li>
+              the referring website and campaign parameters in the link you
+              arrived through (for example utm_source or utm_campaign)
+            </li>
+          </ul>
+          <p>
+            Google signals and ad personalization are turned off. We do not
+            combine this data with other data about you.
+          </p>
+          <p>
+            Legal basis: your consent, Art. 6(1)(a) GDPR, and for storing and
+            reading the cookies on your device § 25(1) TDDDG.
+          </p>
+          {/* TODO(Simon): verify that Google LLC's DPF certification is current (dataprivacyframework.gov). */}
+          <p>
+            Google may transfer data to Google LLC in the USA. Google LLC is
+            certified under the EU-U.S. Data Privacy Framework, for which the
+            European Commission has issued an adequacy decision (Art. 45 GDPR).
+          </p>
+          <p>
+            Retention: we have set the data retention in Google Analytics to 14
+            months; after that, event data is deleted automatically. The
+            cookies expire after at most 2 years.
+          </p>
+          <p>
+            You can withdraw your consent at any time with effect for the
+            future via the &ldquo;Cookie settings&rdquo; link in the footer of
+            every page. When you withdraw, Google Analytics stops collecting
+            data and we delete the <code>_ga</code> cookies from your browser.
+            More in{" "}
+            <a
+              href="https://policies.google.com/privacy"
+              rel="noreferrer noopener"
+              target="_blank"
+            >
+              Google&rsquo;s privacy policy
+            </a>
+            .
+          </p>
+
+          <h2 id="consent">8. Consent management</h2>
+          <p>
+            When you make a choice in our privacy banner, we store it in your
+            browser&rsquo;s local storage: which categories you allowed, a
+            version number and the time of your choice. No cookie is set and
+            nothing is sent to us or to anyone else. We need this so the site
+            remembers your choice and does not ask again on every page.
+          </p>
+          {/* TODO(Simon): verify legal basis wording for storing the consent choice. */}
+          <p>
+            Legal basis: § 25(2) no. 2 TDDDG (strictly necessary to provide
+            the service you requested) and Art. 6(1)(c) GDPR in conjunction
+            with Art. 7(1) GDPR (we have to be able to show your consent). The
+            entry stays until you change your choice or clear your browser
+            storage.
+          </p>
+
+          <h2>9. What this site does not do</h2>
+          <ul>
+            <li>
+              No analytics without your consent: Google Analytics only runs
+              after you allow it (see section 7). No advertising pixels.
+            </li>
             <li>No advertising or marketing cookies.</li>
             <li>
               No third-party fonts or CDNs — fonts are served from our own
@@ -203,12 +303,12 @@ export default function PrivacyPage() {
             <li>No profiling, no automated decision-making.</li>
           </ul>
           <p>
-            Should we introduce such tools in the future (for example web
-            analytics), we will update this policy beforehand and, where
-            legally required, ask for your consent first.
+            Should we introduce further tools in the future (for example
+            advertising pixels), we will update this policy beforehand and,
+            where legally required, ask for your consent first.
           </p>
 
-          <h2>8. Your rights</h2>
+          <h2>10. Your rights</h2>
           <p>Under the GDPR you have the right to:</p>
           <ul>
             <li>access the personal data we hold about you (Art. 15),</li>
@@ -230,7 +330,7 @@ export default function PrivacyPage() {
             habitual residence.
           </p>
 
-          <h2>9. Changes to this policy</h2>
+          <h2>11. Changes to this policy</h2>
           <p>
             We update this policy whenever the website&rsquo;s functionality
             changes in a way that affects personal data. The date above always

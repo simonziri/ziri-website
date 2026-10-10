@@ -77,6 +77,13 @@ vercel-dns; Apex 308-redirected auf www). Resend-Domain verifiziert
 7. Leapsome-Testimonial bewusst noch keins (Simons Ansage).
 8. Sanity-Migration macht später der Dev (Basis: flowtricks/remarkable);
    Datenmodell in case-studies.ts ist CMS-ready gehalten.
+9. **GA4 + Consent-Banner** (Branch `lead-magnets`, eigenes Banner in
+   `consent-banner.tsx`, Logik in `src/lib/consent.ts` + `analytics.ts`,
+   Consent Mode v2 Basic: vor Einwilligung lädt nichts von Google).
+   Aktiv erst mit Env `NEXT_PUBLIC_GA_MEASUREMENT_ID` in Vercel. In GA4-
+   Admin: Datenaufbewahrung auf 14 Monate, Google Signals aus (so steht es
+   in der Privacy Policy). TODO(Simon)-Kommentare in privacy/page.tsx
+   rechtlich prüfen. Meta Pixel später: ein Eintrag in CONSENT_CATEGORIES.
 
 ## Architektur-Notizen (Dinge, die man leicht kaputt macht)
 

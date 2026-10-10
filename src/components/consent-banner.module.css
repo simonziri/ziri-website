@@ -1,0 +1,245 @@
+/* Consent-Banner: kleine helle Karte unten rechts (mobil volle Breite).
+   Immer light-primary, auch wenn die Seite per Scroll auf dark flippt. */
+
+.card {
+  position: fixed;
+  z-index: 100;
+  right: var(--content-gutter);
+  bottom: var(--space-small);
+  display: flex;
+  width: min(26rem, calc(100vw - (var(--content-gutter) * 2)));
+  max-height: calc(100dvh - (var(--space-small) * 2));
+  flex-direction: column;
+  gap: var(--space-xsmall);
+  overflow-y: auto;
+  padding: var(--padding-card-sm);
+  border: 1px solid var(--border-default);
+  border-radius: 4px;
+  background: var(--surface-overlay);
+  box-shadow:
+    0 1px 2px var(--color-black-alpha-5),
+    0 12px 32px var(--color-black-alpha-15);
+  color: var(--text-body);
+  font-family: var(--font-family-sans);
+  animation: consent-in 420ms var(--ease-global) both;
+}
+
+.card:focus {
+  outline: none;
+}
+
+.card:focus-visible {
+  outline: 2px solid var(--text-link);
+  outline-offset: 2px;
+}
+
+.title {
+  color: var(--text-secondary);
+  font-family: ui-monospace, "SFMono-Regular", Consolas, monospace;
+  font-size: var(--font-size-tiny);
+  font-weight: 480;
+  letter-spacing: 0.08em;
+  line-height: var(--line-height-default);
+  text-transform: uppercase;
+}
+
+.text {
+  color: var(--text-body);
+  font-size: var(--font-size-small);
+  font-weight: 400;
+  line-height: var(--line-height-relaxed);
+}
+
+.text a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+.settings {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-top: 1px solid var(--border-default);
+}
+
+.category {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-xsmall);
+  padding-block: var(--space-xsmall);
+  border-bottom: 1px solid var(--border-default);
+  cursor: pointer;
+}
+
+.categoryText {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-tiny);
+}
+
+.categoryLabel {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xxsmall);
+  font-size: var(--font-size-small);
+  font-weight: 420;
+  line-height: var(--line-height-default);
+}
+
+.categoryBadge {
+  color: var(--text-secondary);
+  font-family: ui-monospace, "SFMono-Regular", Consolas, monospace;
+  font-size: 0.625rem;
+  font-weight: 480;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.categoryDescription {
+  color: var(--text-secondary);
+  font-size: var(--font-size-small);
+  line-height: var(--line-height-relaxed);
+}
+
+/* Schalter (native Checkbox mit role="switch") */
+.switch {
+  position: relative;
+  flex-shrink: 0;
+  width: 2.25rem;
+  height: 1.25rem;
+  margin: 0.125rem 0 0;
+  border-radius: 999px;
+  background: var(--color-light-neutral-700);
+  cursor: pointer;
+  appearance: none;
+  transition: background-color 240ms var(--ease-global);
+}
+
+.switch::after {
+  position: absolute;
+  top: 0.125rem;
+  left: 0.125rem;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  background: var(--color-light-neutral-100);
+  box-shadow: 0 1px 2px var(--color-black-alpha-20);
+  content: "";
+  transition: transform 240ms var(--ease-global);
+}
+
+.switch:checked {
+  background: var(--color-dark-neutral-800);
+}
+
+.switch:checked::after {
+  transform: translateX(1rem);
+}
+
+.switch:disabled {
+  cursor: default;
+  opacity: 0.45;
+}
+
+.switch:focus-visible {
+  outline: 2px solid var(--text-link);
+  outline-offset: 2px;
+}
+
+/* Accept/Reject: bewusst identisch gestaltet (gleich prominent) */
+.actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-xxsmall);
+}
+
+.choice {
+  padding: 0.8125rem var(--space-xsmall);
+  border: 0;
+  border-radius: 3px;
+  background: var(--button-primary-bg);
+  color: var(--button-primary-text);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: var(--font-size-small);
+  font-weight: 420;
+  letter-spacing: 0.01em;
+  line-height: 1;
+  transition:
+    background-color 240ms var(--ease-global),
+    transform 420ms var(--ease-global);
+}
+
+.choice:hover {
+  background: var(--button-primary-bg-hover);
+  transform: scale(0.97);
+}
+
+.choice:focus-visible,
+.textButton:focus-visible {
+  outline: 2px solid var(--text-link);
+  outline-offset: 2px;
+}
+
+.secondary {
+  display: flex;
+  justify-content: center;
+}
+
+.textButton {
+  padding: var(--space-tiny);
+  border: 0;
+  background: none;
+  color: var(--text-body);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: var(--font-size-small);
+  font-weight: 400;
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (max-width: 47.9375rem) {
+  .card {
+    right: var(--content-gutter);
+    left: var(--content-gutter);
+    bottom: var(--content-gutter);
+    width: auto;
+    max-height: calc(100dvh - (var(--content-gutter) * 2));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .choice,
+  .switch,
+  .switch::after {
+    animation: none;
+    transition: none;
+  }
+}
+
+@keyframes consent-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.75rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

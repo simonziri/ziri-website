@@ -1,5 +1,6 @@
 import Link from "next/link";
 import styles from "@/app/training/training.module.css";
+import { CookieSettingsButton } from "./cookie-settings-button";
 
 /* Fokussierte Chrome für /training/*: Logo ohne Navigation, Minimal-Footer
    (nur Legal-Links), damit die Landingpage keinen Ausstieg anbietet. */
@@ -41,6 +42,7 @@ export function TrainingFooter() {
       <nav aria-label="Legal">
         <Link href="/privacy">Privacy Policy</Link>
         <Link href="/imprint">Imprint</Link>
+        <CookieSettingsButton />
       </nav>
     </footer>
   );

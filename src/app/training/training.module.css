@@ -235,16 +235,24 @@
 
 .footer nav {
   display: flex;
+  flex-wrap: wrap;
   gap: var(--space-small);
 }
 
-.footer a {
+.footer a,
+.footer button {
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  font: inherit;
   color: inherit;
   text-decoration: underline;
   text-underline-offset: 0.18em;
 }
 
-.footer a:hover {
+.footer a:hover,
+.footer button:hover {
   color: var(--text-body);
 }
 
