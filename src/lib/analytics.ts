@@ -1,23 +1,30 @@
 /*
- * Google Analytics 4 mit Google Consent Mode v2, BASIC-Modus.
+ * Google Tag Manager (GA4 läuft als Tag in GTM) mit Google Consent Mode v2,
+ * BASIC-Modus.
  *
- * Setup: NEXT_PUBLIC_GA_MEASUREMENT_ID=G-XXXXXXXXXX in Vercel (Production)
- * setzen. Fehlt die Variable, passiert nichts (kein Script, keine Fehler).
- * In GA4-Admin: Datenaufbewahrung auf 14 Monate stellen, Google Signals aus
- * (so steht es in der Datenschutzerklärung).
+ * Container: GTM-59MBXRHB (nicht geheim; per NEXT_PUBLIC_GTM_ID
+ * überschreibbar). GA4-Mess-ID, Tags und Trigger werden in GTM gepflegt,
+ * nicht im Code. In GA4-Admin: Datenaufbewahrung 14 Monate, Google Signals
+ * aus (so steht es in der Datenschutzerklärung).
  *
- * Basic Mode heißt: Vor der Einwilligung in "Statistics" existiert weder
- * gtag noch dataLayer, gtag.js wird nicht geladen, kein Request an Google.
- * Erst loadGoogleAnalytics() (nur nach Einwilligung aufgerufen) setzt die
- * Consent-Defaults, das Update auf granted und lädt gtag.js.
+ * Basic Mode heißt: Vor der Einwilligung in "Statistics" wird gtm.js NICHT
+ * geladen, kein Request an Google (auch das Laden von GTM selbst überträgt
+ * die IP an Google und braucht daher Einwilligung). Erst loadGoogleAnalytics()
+ * setzt die Consent-Defaults (alles denied), das Update analytics_storage =
+ * granted und lädt danach den Container. Das noscript-iframe von GTM wird
+ * bewusst nicht eingebaut (ohne JS gibt es keine Einwilligung).
  *
- * Seitenaufrufe bei Client-Navigation (Next.js router.push/Link): GA4
- * Enhanced Measurement ("Page changes based on browser history events",
- * Standard an) zählt pushState/replaceState selbst. Deshalb senden wir
- * KEINEN manuellen page_view, sonst würde doppelt gezählt. Der erste
- * page_view kommt aus gtag('config'). Falls Enhanced Measurement im
- * GA4-Admin abgeschaltet wird, müsste hier ein page_view pro Route-Wechsel
- * ergänzt werden.
+ * Events: trackEvent() pusht {event, ...params} in den dataLayer. In GTM
+ * dafür einen Trigger "Benutzerdefiniertes Ereignis" (z. B. generate_lead)
+ * und ein GA4-Event-Tag anlegen.
+ *
+ * Seitenaufrufe bei Client-Navigation: GA4 Enhanced Measurement ("Page
+ * changes based on browser history events") zählt pushState selbst, daher
+ * kein manueller page_view (sonst doppelt).
+ *
+ * Meta Pixel später: eigene Kategorie "Marketing" in consent.ts, dann hier
+ * ad_storage/ad_user_data entsprechend updaten und Tag in GTM an Consent
+ * koppeln.
  */
 
 type Gtag = (...args: unknown[]) => void;
@@ -29,25 +36,22 @@ declare global {
   }
 }
 
-export const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID ?? "";
+export const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID || "GTM-59MBXRHB";
 
 let loaded = false;
 let granted = false;
 
 export function isAnalyticsConfigured() {
-  return /^G-[A-Z0-9]+$/i.test(GA_MEASUREMENT_ID);
+  return /^GTM-[A-Z0-9]+$/i.test(GTM_ID);
 }
 
 export function isAnalyticsActive() {
-  return loaded && granted && typeof window.gtag === "function";
+  return loaded && granted && Array.isArray(window.dataLayer);
 }
 
 export function loadGoogleAnalytics() {
   if (!isAnalyticsConfigured()) return;
   granted = true;
-
-  // Nach einem Widerruf in derselben Sitzung wieder freigeben
-  (window as unknown as Record<string, unknown>)[`ga-disable-${GA_MEASUREMENT_ID}`] = false;
 
   if (loaded && window.gtag) {
     window.gtag("consent", "update", { analytics_storage: "granted" });
@@ -56,7 +60,7 @@ export function loadGoogleAnalytics() {
 
   window.dataLayer = window.dataLayer || [];
   window.gtag = function gtag() {
-    // gtag.js erwartet das arguments-Objekt, kein Array
+    // Consent-Befehle erwarten das arguments-Objekt, kein Array
     window.dataLayer!.push(arguments);
   };
 
@@ -68,15 +72,11 @@ export function loadGoogleAnalytics() {
   });
   window.gtag("consent", "update", { analytics_storage: "granted" });
   window.gtag("set", "ads_data_redaction", true);
-  window.gtag("js", new Date());
-  window.gtag("config", GA_MEASUREMENT_ID, {
-    allow_google_signals: false,
-    allow_ad_personalization_signals: false,
-  });
 
+  window.dataLayer.push({ "gtm.start": Date.now(), event: "gtm.js" });
   const script = document.createElement("script");
   script.async = true;
-  script.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(GA_MEASUREMENT_ID)}`;
+  script.src = `https://www.googletagmanager.com/gtm.js?id=${encodeURIComponent(GTM_ID)}`;
   script.dataset.consent = "statistics";
   document.head.appendChild(script);
 
@@ -86,11 +86,9 @@ export function loadGoogleAnalytics() {
 /** Widerruf: Consent auf denied, weitere Hits sperren, _ga*-Cookies löschen. */
 export function revokeGoogleAnalytics() {
   granted = false;
-  if (isAnalyticsConfigured()) {
-    if (window.gtag) {
-      window.gtag("consent", "update", { analytics_storage: "denied" });
-    }
-    (window as unknown as Record<string, unknown>)[`ga-disable-${GA_MEASUREMENT_ID}`] = true;
+  if (window.gtag) {
+    // GA4-Tags in GTM respektieren analytics_storage und senden danach nichts mehr
+    window.gtag("consent", "update", { analytics_storage: "denied" });
   }
   deleteGaCookies();
 }
@@ -126,6 +124,6 @@ function deleteGaCookies() {
 
 export function trackEvent(name: string, params: Record<string, unknown> = {}) {
   if (!isAnalyticsActive()) return;
-  // transport_type beacon: Hit überlebt auch einen sofortigen Seitenwechsel
-  window.gtag!("event", name, { ...params, transport_type: "beacon" });
+  // GTM-Trigger "Benutzerdefiniertes Ereignis" auf `name`; GA4-Tag sendet per Beacon
+  window.dataLayer!.push({ event: name, ...params });
 }

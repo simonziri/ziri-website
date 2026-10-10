@@ -199,8 +199,10 @@ export default function PrivacyPage() {
             If you allow &ldquo;Statistics&rdquo; in our privacy banner, we use
             Google Analytics 4, a web analytics service of Google Ireland
             Limited, Gordon House, Barrow Street, Dublin 4, Ireland
-            (&ldquo;Google&rdquo;). Without your consent, the Google Analytics
-            script is not loaded and no data is sent to Google.
+            (&ldquo;Google&rdquo;). We load it through Google Tag Manager, a
+            tool from the same provider that loads the analytics script.
+            Without your consent, neither Google Tag Manager nor the Google
+            Analytics script is loaded and no data is sent to Google.
           </p>
           {/* TODO(Simon): verify that the Google Ads Data Processing Terms are accepted in the GA4 account (Admin > Account settings) so Google acts as our processor. */}
           <p>

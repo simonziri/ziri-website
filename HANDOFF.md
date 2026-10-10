@@ -80,7 +80,9 @@ vercel-dns; Apex 308-redirected auf www). Resend-Domain verifiziert
 9. **GA4 + Consent-Banner** (Branch `lead-magnets`, eigenes Banner in
    `consent-banner.tsx`, Logik in `src/lib/consent.ts` + `analytics.ts`,
    Consent Mode v2 Basic: vor Einwilligung lädt nichts von Google).
-   Aktiv erst mit Env `NEXT_PUBLIC_GA_MEASUREMENT_ID` in Vercel. In GA4-
+   Läuft über GTM-Container GTM-59MBXRHB (Default im Code, Env
+   `NEXT_PUBLIC_GTM_ID` überschreibt); GA4-Tag + generate_lead-Trigger in
+   GTM pflegen, gtm.js lädt erst nach Einwilligung. In GA4-
    Admin: Datenaufbewahrung auf 14 Monate, Google Signals aus (so steht es
    in der Privacy Policy). TODO(Simon)-Kommentare in privacy/page.tsx
    rechtlich prüfen. Meta Pixel später: ein Eintrag in CONSENT_CATEGORIES.

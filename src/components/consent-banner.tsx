@@ -29,9 +29,8 @@ import styles from "./consent-banner.module.css";
  * - Statistics granted → loadGoogleAnalytics(); später widerrufen →
  *   revokeGoogleAnalytics() (Consent denied + _ga*-Cookies löschen, kein
  *   Reload nötig).
- * - GA4 Measurement-ID kommt aus NEXT_PUBLIC_GA_MEASUREMENT_ID (siehe
- *   src/lib/analytics.ts). Ohne ID läuft das Banner trotzdem, lädt aber nie
- *   ein Script.
+ * - Geladen wird der GTM-Container (GA4 als Tag darin), siehe
+ *   src/lib/analytics.ts.
  * - Conversion-Events hängen an den CustomEvents der Formulare
  *   (ziri:contact:submitted, ziri:training:submitted); die Formulare selbst
  *   bleiben unangetastet (CLAUDE.md). trackEvent() sendet nur, wenn
