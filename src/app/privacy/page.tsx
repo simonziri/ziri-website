@@ -118,9 +118,10 @@ export default function PrivacyPage() {
           <p>
             We use this data to send you the training and to follow up with you
             about it. Submissions are <strong>not stored on the web
-            server</strong>; they are forwarded directly to our e-mail inbox.
-            We keep them for as long as needed to deliver the training and
-            follow up on it. If no further exchange with you follows, we delete
+            server</strong>; they are forwarded directly to our e-mail inbox,
+            to our e-mail service provider beehiiv and to our CRM Pipedrive
+            (see below). We keep them for as long as needed to deliver the
+            training and follow up on it. If no further exchange with you follows, we delete
             them no later than 12 months after our last contact with you, or
             earlier if you withdraw your consent. If a business conversation
             develops from it, we keep your details for as long as that
@@ -132,6 +133,30 @@ export default function PrivacyPage() {
             effect for the future by e-mailing us. As with the contact form, an
             invisible technical field filters out automated spam; no captcha
             service is involved.
+          </p>
+          <p>We use two processors for the training sign-up:</p>
+          <ul>
+            {/* TODO(Simon): verify addresses and transfer mechanism (SCCs / EU-U.S. Data Privacy Framework) against the signed DPAs. */}
+            <li>
+              <strong>beehiiv</strong> (beehiiv Inc., USA), our e-mail service
+              provider. We use it to send you the training and, only if you
+              ticked the separate newsletter checkbox and confirmed via the
+              link, our newsletter. beehiiv receives your e-mail address, your
+              role, the training, whether you opted in to the newsletter and
+              the campaign parameters. beehiiv may process data in the USA;
+              transfers are safeguarded by the EU Standard Contractual
+              Clauses.
+            </li>
+            <li>
+              <strong>Pipedrive</strong> (Pipedrive OÜ, Mustamäe tee 3a, 10615
+              Tallinn, Estonia), our CRM. We use it to keep track of sign-ups
+              and our follow-up. Pipedrive receives the same data as listed
+              above.
+            </li>
+          </ul>
+          <p>
+            Both process the data on our behalf under a data processing
+            agreement.
           </p>
 
           <h2>5. E-mail delivery (Resend)</h2>

@@ -1,5 +1,10 @@
 import { NextResponse } from "next/server";
-import { getTraining, TRAINING_ROLES } from "@/data/trainings";
+import { getTraining, TRAINING_ROLES, type Training } from "@/data/trainings";
+import {
+  createPipedriveLead,
+  subscribeToBeehiiv,
+  type TrainingSignup,
+} from "@/lib/training-integrations";
 
 /**
  * Training-Sign-up-Endpoint (Webinar-Lead-Magnets, /training/[slug]).
@@ -11,10 +16,16 @@ import { getTraining, TRAINING_ROLES } from "@/data/trainings";
  *                              an ZIRI, KEINE Mail an den Lead)
  *     2. CONTACT_WEBHOOK_URL → JSON-POST (source: "ziri-website/training")
  *     3. nichts gesetzt      → Server-Log (Dev-Fallback)
+ * - Parallel dazu (src/lib/training-integrations.ts, je nur wenn Key gesetzt):
+ *     - beehiiv   (BEEHIIV_API_KEY)     → Subscriber anlegen/aktualisieren;
+ *                                          Double-Opt-in nur bei Newsletter
+ *     - Pipedrive (PIPEDRIVE_API_TOKEN) → Person finden/anlegen, Lead + Notiz
+ *   Alle drei laufen unabhängig (Promise.allSettled). Antwort 200, wenn
+ *   beehiiv ODER die Benachrichtigung geklappt hat.
  * - Honeypot "company_website_2" verwirft Bots still.
  *
- * TODO: Bestätigungs-/Zustellmail an den Lead kommt später. Dann Privacy
- * Policy (Abschnitt "Training sign-up") prüfen.
+ * Privacy Policy (Abschnitt 4 "Training sign-up") beschreibt beehiiv und
+ * Pipedrive. Bei Änderungen hier mitziehen.
  */
 
 const CONTACT_TO = process.env.CONTACT_EMAIL_TO ?? "hello@simonziri.com";
@@ -36,6 +47,72 @@ const labelFor = (
   options: ReadonlyArray<{ value: string; label: string }>,
   value: string,
 ) => options.find((option) => option.value === value)?.label ?? value;
+
+type Submission = {
+  training: string;
+  trainingId: string;
+  trainingTitle: string;
+  email: string;
+  role: string;
+  newsletter: boolean;
+  utm: { source: string; campaign: string; content: string };
+  submittedAt: string;
+  source: string;
+};
+
+/** Benachrichtigung an ZIRI: Resend → Webhook → Server-Log. Wirft bei Fehler. */
+async function notifyZiri(
+  submission: Submission,
+  training: Training,
+  role: string,
+): Promise<void> {
+  if (process.env.RESEND_API_KEY) {
+    const text = [
+      `New training signup via simonziri.com`,
+      ``,
+      `Training:     ${training.title}`,
+      `ID / slug:    ${training.id} / ${training.slug}`,
+      ``,
+      `Email:        ${submission.email}`,
+      `Role:         ${labelFor(TRAINING_ROLES, role)}`,
+      `Newsletter:   ${submission.newsletter ? "yes (needs double opt-in)" : "no"}`,
+      ``,
+      `utm_source:   ${submission.utm.source}`,
+      `utm_campaign: ${submission.utm.campaign}`,
+      `utm_content:  ${submission.utm.content}`,
+      ``,
+      `Submitted at: ${submission.submittedAt}`,
+    ].join("\n");
+
+    const response = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        from: CONTACT_FROM,
+        to: [CONTACT_TO],
+        reply_to: submission.email,
+        subject: `Training signup: ${training.title}`,
+        text,
+      }),
+      signal: AbortSignal.timeout(8000),
+    });
+    if (!response.ok) throw new Error(`resend ${response.status}`);
+  } else if (process.env.CONTACT_WEBHOOK_URL) {
+    const response = await fetch(process.env.CONTACT_WEBHOOK_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(submission),
+      signal: AbortSignal.timeout(8000),
+    });
+    if (!response.ok) throw new Error(`webhook ${response.status}`);
+  } else {
+    // Kein Ziel konfiguriert: nur Server-Log (Entwicklung).
+    console.log("[training] submission", submission);
+  }
+}
 
 export async function POST(request: Request) {
   let payload: Payload;
@@ -70,7 +147,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false, error: "invalid" }, { status: 400 });
   }
 
-  const submission = {
+  const submission: Submission = {
     training: training.slug,
     trainingId: training.id,
     trainingTitle: training.title,
@@ -86,53 +163,51 @@ export async function POST(request: Request) {
     source: "ziri-website/training",
   };
 
-  try {
-    if (process.env.RESEND_API_KEY) {
-      const text = [
-        `New training signup via simonziri.com`,
-        ``,
-        `Training:     ${training.title}`,
-        `ID / slug:    ${training.id} / ${training.slug}`,
-        ``,
-        `Email:        ${submission.email}`,
-        `Role:         ${labelFor(TRAINING_ROLES, role)}`,
-        `Newsletter:   ${submission.newsletter ? "yes (needs double opt-in)" : "no"}`,
-        ``,
-        `utm_source:   ${submission.utm.source}`,
-        `utm_campaign: ${submission.utm.campaign}`,
-        `utm_content:  ${submission.utm.content}`,
-        ``,
-        `Submitted at: ${submission.submittedAt}`,
-      ].join("\n");
+  const signup: TrainingSignup = {
+    slug: training.slug,
+    trainingId: training.id,
+    trainingTitle: training.title,
+    email,
+    role,
+    roleLabel: labelFor(TRAINING_ROLES, role),
+    newsletter: submission.newsletter,
+    utmSource,
+    utmCampaign,
+    utmContent,
+    submittedAt: submission.submittedAt,
+  };
 
-      const response = await fetch("https://api.resend.com/emails", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          from: CONTACT_FROM,
-          to: [CONTACT_TO],
-          reply_to: submission.email,
-          subject: `Training signup: ${training.title}`,
-          text,
-        }),
-      });
-      if (!response.ok) throw new Error(`resend ${response.status}`);
-    } else if (process.env.CONTACT_WEBHOOK_URL) {
-      const response = await fetch(process.env.CONTACT_WEBHOOK_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(submission),
-      });
-      if (!response.ok) throw new Error(`webhook ${response.status}`);
-    } else {
-      // Kein Ziel konfiguriert: nur Server-Log (Entwicklung).
-      console.log("[training] submission", submission);
+  // Alle drei Ziele unabhängig voneinander; eins darf ausfallen.
+  const [notified, beehiiv, pipedrive] = await Promise.allSettled([
+    notifyZiri(submission, training, role),
+    subscribeToBeehiiv(signup),
+    createPipedriveLead(signup),
+  ]);
+
+  const logFailure = (
+    target: string,
+    result: PromiseSettledResult<unknown>,
+  ) => {
+    if (result.status === "rejected") {
+      const reason = result.reason;
+      // Nur Name + Message (enthält Status, nie Response-Bodies oder Keys).
+      console.error(
+        `[training] ${target} failed:`,
+        reason instanceof Error
+          ? `${reason.name}: ${reason.message}`
+          : "unknown error",
+      );
     }
-  } catch (error) {
-    console.error("[training] delivery failed", error);
+  };
+  logFailure("notification", notified);
+  logFailure("beehiiv", beehiiv);
+  logFailure("pipedrive", pipedrive);
+
+  // OK, wenn der Lead das Training bekommt (beehiiv) ODER Simon informiert
+  // wurde und manuell nachziehen kann.
+  const beehiivOk =
+    beehiiv.status === "fulfilled" && beehiiv.value.status === "ok";
+  if (!beehiivOk && notified.status === "rejected") {
     return NextResponse.json({ ok: false, error: "delivery" }, { status: 502 });
   }
 
