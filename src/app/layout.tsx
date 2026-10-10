@@ -78,7 +78,7 @@ const jsonLd = {
       founder: {
         "@type": "Person",
         name: "Simon Ziri",
-        alternateName: "Simon Merkt",
+        alternateName: "Simon Ziri Merkt",
         sameAs: ["https://www.linkedin.com/in/simonziri/"],
       },
       sameAs: ["https://www.linkedin.com/in/simonziri/"],

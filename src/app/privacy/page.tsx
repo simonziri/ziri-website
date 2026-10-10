@@ -103,6 +103,11 @@ export default function PrivacyPage() {
             <li>your work e-mail address</li>
             <li>your answer to one short question: your role</li>
             <li>
+              whether you also want our newsletter (optional, separate
+              checkbox; you only receive it after confirming via a link we
+              e-mail you, and you can unsubscribe at any time)
+            </li>
+            <li>
               which training you signed up for and, if the link you arrived
               through contained them, the campaign parameters utm_source,
               utm_campaign and utm_content (these tell us which ad or post

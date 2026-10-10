@@ -76,6 +76,7 @@ export async function POST(request: Request) {
     trainingTitle: training.title,
     email,
     role,
+    newsletter: payload.newsletter === true,
     utm: {
       source: utmSource ?? "-",
       campaign: utmCampaign ?? "-",
@@ -95,6 +96,7 @@ export async function POST(request: Request) {
         ``,
         `Email:        ${submission.email}`,
         `Role:         ${labelFor(TRAINING_ROLES, role)}`,
+        `Newsletter:   ${submission.newsletter ? "yes (needs double opt-in)" : "no"}`,
         ``,
         `utm_source:   ${submission.utm.source}`,
         `utm_campaign: ${submission.utm.campaign}`,

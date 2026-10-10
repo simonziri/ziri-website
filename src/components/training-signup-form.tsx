@@ -60,6 +60,7 @@ export function TrainingSignupForm({ slug }: { slug: string }) {
           utm_campaign: data.get("utm_campaign"),
           utm_content: data.get("utm_content"),
           consent: data.get("consent") === "on",
+          newsletter: data.get("newsletter") === "on",
           company_website_2: data.get("company_website_2"),
         }),
       });
@@ -126,6 +127,14 @@ export function TrainingSignupForm({ slug }: { slug: string }) {
           I agree that ZIRI may use my details to send me this training and
           follow up with me about it. Details in the{" "}
           <a href="/privacy#training">privacy policy</a>.
+        </span>
+      </label>
+
+      <label className={styles.formConsent}>
+        <input name="newsletter" type="checkbox" />
+        <span>
+          Optional: also send me ZIRI&rsquo;s newsletter. You&rsquo;ll get a
+          confirmation e-mail first. Unsubscribe any time.
         </span>
       </label>
 
