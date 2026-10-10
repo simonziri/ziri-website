@@ -103,17 +103,17 @@ export default async function TrainingPage({
               <Image
                 className={styles.avatar}
                 src="/assets/simon-ziri.jpg"
-                alt="Simon Merkt"
+                alt="Simon Ziri"
                 width={64}
                 height={64}
                 sizes="64px"
               />
               <div>
-                <h2 id="teacher-title">Simon Merkt, founder of ZIRI</h2>
+                <h2 id="teacher-title">Simon Ziri, founder of ZIRI</h2>
                 <p>
                   ZIRI builds websites for B2B companies where one deal is
-                  worth €10k+. Recent work includes 1,000+ pages relaunched in
-                  5 weeks and +20% on a €10k+ ACV demo page.
+                  worth €10k+. Recent work includes a 1,000+ page relaunch for Leapsome in
+                  5 weeks and a 200+ page relaunch for Circula.
                 </p>
               </div>
             </div>

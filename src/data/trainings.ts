@@ -153,16 +153,7 @@ export const formatTrainingDate = (isoDate: string) =>
     timeZone: "UTC",
   }).format(new Date(`${isoDate}T00:00:00Z`));
 
-/* Qualifizierungsfragen. Deal-Size-Werte identisch zu dealSizes in
-   src/components/contact-form.tsx halten (dort nicht exportierbar, weil
-   "use client" und diese Liste auch die API-Route validiert). */
-export const TRAINING_DEAL_SIZES = [
-  { value: "<10k", label: "Under €10k" },
-  { value: "10-100k", label: "€10-100k" },
-  { value: "100k-1m", label: "€100k-1M" },
-  { value: "1m+", label: "€1M+" },
-] as const;
-
+/* Qualifizierungsfrage im Training-Formular. */
 export const TRAINING_ROLES = [
   { value: "marketing-leader", label: "Marketing leader" },
   { value: "founder-ceo", label: "Founder / CEO" },

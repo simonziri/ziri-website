@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect, useState, type FormEvent } from "react";
-import { TRAINING_DEAL_SIZES, TRAINING_ROLES } from "@/data/trainings";
+import { TRAINING_ROLES } from "@/data/trainings";
 import styles from "./book-call.module.css";
 
 type Status = "idle" | "submitting" | "error";
@@ -54,10 +54,7 @@ export function TrainingSignupForm({ slug }: { slug: string }) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           training: data.get("training"),
-          firstName: data.get("first_name"),
           email: data.get("email"),
-          website: data.get("website"),
-          dealSize: data.get("deal_size"),
           role: data.get("role"),
           utm_source: data.get("utm_source"),
           utm_campaign: data.get("utm_campaign"),
@@ -95,63 +92,16 @@ export function TrainingSignupForm({ slug }: { slug: string }) {
       ))}
 
       <fieldset className={styles.formSection}>
-        <div className={styles.formGrid}>
-          <label className={styles.formField}>
-            <span>First name</span>
-            <input
-              name="first_name"
-              type="text"
-              autoComplete="given-name"
-              required
-              maxLength={100}
-            />
-          </label>
-          <label className={styles.formField}>
-            <span>Work email</span>
-            <input
-              name="email"
-              type="email"
-              autoComplete="email"
-              required
-              maxLength={320}
-            />
-          </label>
-          <label className={`${styles.formField} ${styles.formFieldFull}`}>
-            <span>
-              Company website <em>(Optional)</em>
-            </span>
-            <input
-              name="website"
-              type="text"
-              inputMode="url"
-              placeholder="yourcompany.com"
-              maxLength={320}
-            />
-          </label>
-        </div>
-      </fieldset>
-
-      <fieldset className={styles.formSection}>
-        <p className={styles.formQuestion}>
-          Typical contract value per customer?
-        </p>
-        <div
-          className={styles.segmented}
-          role="radiogroup"
-          aria-label="Typical deal size"
-        >
-          {TRAINING_DEAL_SIZES.map((option) => (
-            <label key={option.value}>
-              <input
-                type="radio"
-                name="deal_size"
-                value={option.value}
-                required
-              />
-              <span>{option.label}</span>
-            </label>
-          ))}
-        </div>
+        <label className={styles.formField}>
+          <span>Work email</span>
+          <input
+            name="email"
+            type="email"
+            autoComplete="email"
+            required
+            maxLength={320}
+          />
+        </label>
       </fieldset>
 
       <fieldset className={styles.formSection}>

@@ -100,12 +100,8 @@ export default function PrivacyPage() {
             process:
           </p>
           <ul>
-            <li>your first name and work e-mail address (required)</li>
-            <li>your company website (optional)</li>
-            <li>
-              your answers to two short questions: your typical deal size and
-              your role
-            </li>
+            <li>your work e-mail address</li>
+            <li>your answer to one short question: your role</li>
             <li>
               which training you signed up for and, if the link you arrived
               through contained them, the campaign parameters utm_source,
@@ -119,9 +115,11 @@ export default function PrivacyPage() {
             about it. Submissions are <strong>not stored on the web
             server</strong>; they are forwarded directly to our e-mail inbox.
             We keep them for as long as needed to deliver the training and
-            follow up on it, and delete them no later than 12 months after the
-            training&rsquo;s release date, or earlier if you withdraw your
-            consent.
+            follow up on it. If no further exchange with you follows, we delete
+            them no later than 12 months after our last contact with you, or
+            earlier if you withdraw your consent. If a business conversation
+            develops from it, we keep your details for as long as that
+            relationship requires and as statutory retention periods demand.
           </p>
           <p>
             Legal basis: your consent, Art. 6(1)(a) GDPR, which you give via

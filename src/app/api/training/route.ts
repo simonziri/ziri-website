@@ -1,9 +1,5 @@
 import { NextResponse } from "next/server";
-import {
-  getTraining,
-  TRAINING_DEAL_SIZES,
-  TRAINING_ROLES,
-} from "@/data/trainings";
+import { getTraining, TRAINING_ROLES } from "@/data/trainings";
 
 /**
  * Training-Sign-up-Endpoint (Webinar-Lead-Magnets, /training/[slug]).
@@ -32,9 +28,6 @@ const asTrimmed = (value: unknown, max: number): string | null =>
     ? value.trim()
     : null;
 
-const DEAL_SIZE_VALUES: readonly string[] = TRAINING_DEAL_SIZES.map(
-  (option) => option.value,
-);
 const ROLE_VALUES: readonly string[] = TRAINING_ROLES.map(
   (option) => option.value,
 );
@@ -59,10 +52,7 @@ export async function POST(request: Request) {
 
   const slug = asTrimmed(payload.training, 200);
   const training = slug ? getTraining(slug) : undefined;
-  const firstName = asTrimmed(payload.firstName, 100);
   const email = asTrimmed(payload.email, 320);
-  const website = asTrimmed(payload.website, 320);
-  const dealSize = asTrimmed(payload.dealSize, 100);
   const role = asTrimmed(payload.role, 100);
   const utmSource = asTrimmed(payload.utm_source, 200);
   const utmCampaign = asTrimmed(payload.utm_campaign, 200);
@@ -70,11 +60,8 @@ export async function POST(request: Request) {
 
   const valid =
     training !== undefined &&
-    firstName !== null &&
     email !== null &&
     /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) &&
-    dealSize !== null &&
-    DEAL_SIZE_VALUES.includes(dealSize) &&
     role !== null &&
     ROLE_VALUES.includes(role) &&
     payload.consent === true;
@@ -87,10 +74,7 @@ export async function POST(request: Request) {
     training: training.slug,
     trainingId: training.id,
     trainingTitle: training.title,
-    firstName,
     email,
-    website: website ?? "-",
-    dealSize,
     role,
     utm: {
       source: utmSource ?? "-",
@@ -109,10 +93,7 @@ export async function POST(request: Request) {
         `Training:     ${training.title}`,
         `ID / slug:    ${training.id} / ${training.slug}`,
         ``,
-        `First name:   ${submission.firstName}`,
         `Email:        ${submission.email}`,
-        `Website:      ${submission.website}`,
-        `Deal size:    ${labelFor(TRAINING_DEAL_SIZES, dealSize)}`,
         `Role:         ${labelFor(TRAINING_ROLES, role)}`,
         ``,
         `utm_source:   ${submission.utm.source}`,

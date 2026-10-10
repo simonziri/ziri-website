@@ -41,7 +41,7 @@ export default function ImprintPage() {
           </p>
 
           <h2>Represented by</h2>
-          <p>Managing Director: Simon Merkt</p>
+          <p>Managing Director: Simon Ziri Merkt</p>
 
           <h2>Commercial register</h2>
           <p>
@@ -58,7 +58,7 @@ export default function ImprintPage() {
 
           <h2>Responsible for content</h2>
           <p>
-            Simon Merkt (address as above), pursuant to § 18(2) MStV.
+            Simon Ziri Merkt (address as above), pursuant to § 18(2) MStV.
           </p>
 
           <h2>Liability for content</h2>
