@@ -34,7 +34,7 @@ export const CONSENT_CATEGORIES: ReadonlyArray<ConsentCategory> = [
     id: "statistics",
     label: "Statistics",
     description:
-      "Google Analytics 4. Shows us how visitors use the site and which campaigns bring visitors and sign-ups. Sets cookies and only runs if you allow it.",
+      "Google Analytics 4 and Microsoft Clarity. Show us how visitors use the site (including anonymized session recordings and heatmaps) and which campaigns bring visitors and sign-ups. Set cookies and only run if you allow it.",
   },
   // Später aktivieren (Meta Pixel), dann CONSENT_VERSION erhöhen:
   // {

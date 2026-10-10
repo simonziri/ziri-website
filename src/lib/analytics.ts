@@ -28,12 +28,30 @@
  */
 
 type Gtag = (...args: unknown[]) => void;
+type Clarity = ((...args: unknown[]) => void) & { q?: unknown[] };
 
 declare global {
   interface Window {
     dataLayer?: unknown[];
     gtag?: Gtag;
+    clarity?: Clarity;
   }
+}
+
+/*
+ * Microsoft Clarity wird als Tag in GTM geladen (also auch erst nach
+ * Statistics-Einwilligung). Zusätzlich bekommt Clarity das Consent-Signal
+ * über die Clarity Consent API v2 (für EEA-Traffic Pflicht). Der Stub puffert
+ * die Aufrufe, bis das Clarity-Script aus GTM sie abarbeitet.
+ */
+function clarity(...args: unknown[]) {
+  if (typeof window.clarity !== "function") {
+    const stub: Clarity = function (...queued: unknown[]) {
+      (stub.q = stub.q || []).push(queued);
+    };
+    window.clarity = stub;
+  }
+  window.clarity!(...args);
 }
 
 export const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID || "GTM-59MBXRHB";
@@ -52,6 +70,8 @@ export function isAnalyticsActive() {
 export function loadGoogleAnalytics() {
   if (!isAnalyticsConfigured()) return;
   granted = true;
+
+  clarity("consentv2", { ad_Storage: "denied", analytics_Storage: "granted" });
 
   if (loaded && window.gtag) {
     window.gtag("consent", "update", { analytics_storage: "granted" });
@@ -89,6 +109,11 @@ export function revokeGoogleAnalytics() {
   if (window.gtag) {
     // GA4-Tags in GTM respektieren analytics_storage und senden danach nichts mehr
     window.gtag("consent", "update", { analytics_storage: "denied" });
+  }
+  if (typeof window.clarity === "function") {
+    // Clarity stoppt und löscht seine Cookies (_clck, _clsk)
+    clarity("consentv2", { ad_Storage: "denied", analytics_Storage: "denied" });
+    clarity("consent", false);
   }
   deleteGaCookies();
 }

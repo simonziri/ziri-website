@@ -142,8 +142,9 @@ export function ConsentBanner() {
         Privacy settings
       </p>
       <p className={styles.text} id={descriptionId}>
-        We would like to use Google Analytics to see how people use this site
-        and which campaigns bring visitors. It only runs if you allow it. You
+        We would like to use Google Analytics and Microsoft Clarity to see how
+        people use this site and which campaigns bring visitors. They only run
+        if you allow it. You
         can change your choice any time via Cookie settings in the footer.{" "}
         <Link href="/privacy#analytics">Privacy Policy</Link>
       </p>

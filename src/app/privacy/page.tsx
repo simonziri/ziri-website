@@ -274,6 +274,38 @@ export default function PrivacyPage() {
             .
           </p>
 
+          <h2 id="clarity">7a. Microsoft Clarity (only with your consent)</h2>
+          {/* TODO(Simon): verify Microsoft Clarity terms/DPA and masking settings in the Clarity project (Settings > Masking: at least Balanced). */}
+          <p>
+            If you allow &ldquo;Statistics&rdquo;, we also use Microsoft
+            Clarity, a service of Microsoft Ireland Operations Limited, One
+            Microsoft Place, South County Business Park, Leopardstown, Dublin
+            18, Ireland. Clarity shows us how visitors interact with our pages
+            through heatmaps and session recordings (mouse movements, clicks,
+            scrolling). Text you type into form fields is masked and not
+            recorded. Clarity sets the cookies <code>_clck</code> and{" "}
+            <code>_clsk</code> (up to one year) and is loaded through Google
+            Tag Manager, only after your consent.
+          </p>
+          <p>
+            Purpose: to find out where our pages are unclear or hard to use and
+            improve them. Legal basis: your consent, Art. 6(1)(a) GDPR and
+            § 25(1) TDDDG. Data may be transferred to Microsoft Corporation in
+            the USA, which is certified under the EU-US Data Privacy
+            Framework. Microsoft keeps Clarity data for up to 13 months. You
+            can withdraw your consent at any time via &ldquo;Cookie
+            settings&rdquo; in the footer; Clarity then stops and its cookies
+            are removed. More in{" "}
+            <a
+              href="https://privacy.microsoft.com/privacystatement"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              Microsoft&rsquo;s privacy statement
+            </a>
+            .
+          </p>
+
           <h2 id="consent">8. Consent management</h2>
           <p>
             When you make a choice in our privacy banner, we store it in your
@@ -294,8 +326,9 @@ export default function PrivacyPage() {
           <h2>9. What this site does not do</h2>
           <ul>
             <li>
-              No analytics without your consent: Google Analytics only runs
-              after you allow it (see section 7). No advertising pixels.
+              No analytics without your consent: Google Analytics and
+              Microsoft Clarity only run after you allow it (see sections 7
+              and 7a). No advertising pixels.
             </li>
             <li>No advertising or marketing cookies.</li>
             <li>
