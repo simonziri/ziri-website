@@ -22,7 +22,7 @@ export default function PrivacyPage() {
         <SiteHeader />
         <article className={legal.article}>
           <h1>Privacy Policy</h1>
-          <p className={legal.updated}>Last updated: August 23, 2026</p>
+          <p className={legal.updated}>Last updated: October 10, 2026</p>
 
           <p>
             This website is intentionally light on data. No advertising
@@ -94,7 +94,54 @@ export default function PrivacyPage() {
             involved.
           </p>
 
-          <h2>4. Embedded videos (YouTube)</h2>
+          <h2 id="training">4. Training sign-up form</h2>
+          <p>
+            When you sign up for one of our free recorded trainings, we
+            process:
+          </p>
+          <ul>
+            <li>your first name and work e-mail address (required)</li>
+            <li>your company website (optional)</li>
+            <li>
+              your answers to two short questions: your typical deal size and
+              your role
+            </li>
+            <li>
+              which training you signed up for and, if the link you arrived
+              through contained them, the campaign parameters utm_source,
+              utm_campaign and utm_content (these tell us which ad or post
+              brought you to the page; they are read from the address bar,
+              no cookies are set)
+            </li>
+          </ul>
+          <p>
+            We use this data to send you the training and to follow up with you
+            about it. Submissions are <strong>not stored on the web
+            server</strong>; they are forwarded directly to our e-mail inbox.
+            We keep them for as long as needed to deliver the training and
+            follow up on it, and delete them no later than 12 months after the
+            training&rsquo;s release date, or earlier if you withdraw your
+            consent.
+          </p>
+          <p>
+            Legal basis: your consent, Art. 6(1)(a) GDPR, which you give via
+            the checkbox before sending. You can withdraw it at any time with
+            effect for the future by e-mailing us. As with the contact form, an
+            invisible technical field filters out automated spam; no captcha
+            service is involved.
+          </p>
+
+          <h2>5. E-mail delivery (Resend)</h2>
+          <p>
+            Submissions from the contact form and the training sign-up form are
+            delivered to our inbox via Resend (Resend, Inc., 2261 Market Street
+            #5039, San Francisco, CA 94114, USA), which processes the
+            submitted data on our behalf under a data processing agreement.
+            Resend may process data in the USA; transfers are safeguarded by
+            the EU Standard Contractual Clauses.
+          </p>
+
+          <h2>6. Embedded videos (YouTube)</h2>
           <p>
             Individual case study pages embed videos via YouTube&rsquo;s
             privacy-enhanced player (youtube-nocookie.com), operated by Google
@@ -117,7 +164,7 @@ export default function PrivacyPage() {
             presenting our work; playback only happens on your initiative.
           </p>
 
-          <h2>5. What this site does not do</h2>
+          <h2>7. What this site does not do</h2>
           <ul>
             <li>No analytics or tracking tools (no Google Analytics, no pixels).</li>
             <li>No advertising or marketing cookies.</li>
@@ -133,7 +180,7 @@ export default function PrivacyPage() {
             legally required, ask for your consent first.
           </p>
 
-          <h2>6. Your rights</h2>
+          <h2>8. Your rights</h2>
           <p>Under the GDPR you have the right to:</p>
           <ul>
             <li>access the personal data we hold about you (Art. 15),</li>
@@ -155,7 +202,7 @@ export default function PrivacyPage() {
             habitual residence.
           </p>
 
-          <h2>7. Changes to this policy</h2>
+          <h2>9. Changes to this policy</h2>
           <p>
             We update this policy whenever the website&rsquo;s functionality
             changes in a way that affects personal data. The date above always
