@@ -45,7 +45,7 @@ export const trainings: readonly Training[] = [
     slug: "reposition-after-product-change",
     id: "Papa One",
     title:
-      "Your core product changed, so what now? How to reposition and refresh your website in 4–5 weeks.",
+      "Your core product changed, so what now? How to reposition and refresh your website in 4–⁠5 weeks.",
     outcome:
       "A practical way to bring your positioning and your website up to date with what you actually sell today.",
     bullets: [
@@ -73,9 +73,9 @@ export const trainings: readonly Training[] = [
     slug: "demo-page-plus-20",
     id: "Charlie Two",
     title:
-      "The method behind +20% on a €10k+ ACV demo page, even when you already implemented every landing page best practice.",
+      "The method behind +20% on a €10k+ deal value demo page, even when you already implemented every landing page best practice.",
     outcome:
-      "A walkthrough of the method behind +20% on a €10k+ ACV demo page, so you can apply it to your own.",
+      "A walkthrough of the method behind +20% on a €10k+ deal value demo page, so you can apply it to your own.",
     bullets: [
       "Where to look once the usual best practices are already in place",
       "How we decided what to change on the demo page and what to leave",
@@ -121,6 +121,20 @@ export const trainings: readonly Training[] = [
     bullets: [
       "Which building blocks you need before marketing can build alone",
       "A workflow from brief to published page",
+      "Guardrails that keep pages on brand without a design review",
+    ],
+    releaseDate: TRAINING_RELEASE_DATE,
+  },
+  {
+    slug: "landing-pages-in-a-day",
+    id: "Victor Two (day)",
+    title:
+      "Your next landing page shouldn’t take a week. How to launch on-brand pages in a day, without a designer or developer.",
+    outcome:
+      "The setup that lets your marketing team go from brief to live page in a day, on brand and without a ticket queue.",
+    bullets: [
+      "Which building blocks you need before marketing can build alone",
+      "A workflow from brief to published page in one day",
       "Guardrails that keep pages on brand without a design review",
     ],
     releaseDate: TRAINING_RELEASE_DATE,
