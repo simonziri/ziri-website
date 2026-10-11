@@ -37,6 +37,12 @@ export const metadata: Metadata = {
   title: SITE_TITLE,
   description: SITE_DESCRIPTION,
   keywords: ["ZIRI", ...BRAND_ALIASES, "Simon Ziri", "B2B web agency"],
+  // Meta (Facebook) Domain-Verifizierung für simonziri.com im Business-Portfolio
+  // ZIRI GmbH. NICHT entfernen: ohne das Tag verliert die Domain die
+  // Verifizierung (nötig für Pixel/Conversion-Events der Lead-Magnet-Ads).
+  other: {
+    "facebook-domain-verification": "0c6mmmuns738l62o0vb1syc4957osk",
+  },
   openGraph: {
     type: "website",
     url: SITE_URL,
