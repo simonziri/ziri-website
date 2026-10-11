@@ -74,7 +74,7 @@ export const trainings: readonly Training[] = [
     title:
       "Most CRO advice was written for online shops and low-ticket.",
     outcome:
-      "Learn how to raise conversions when each deal is worth €10k+ and volume is low.",
+      "Learn how to raise conversions when each deal is worth $10k+ and volume is low.",
     bullets: [
       "Which CRO habits from e-commerce mislead B2B teams",
       "What buying committees look for before they book a call",
@@ -86,9 +86,9 @@ export const trainings: readonly Training[] = [
     slug: "demo-page-plus-20",
     id: "Charlie Two",
     title:
-      "The method behind +20% on a €10k+ deal value demo page, even when you already implemented every landing page best practice.",
+      "The method behind +20% on a $10k+ deal value demo page, even when you already implemented every landing page best practice.",
     outcome:
-      "A walkthrough of the method behind +20% on a €10k+ deal value demo page, so you can apply it to your own.",
+      "A walkthrough of the method behind +20% on a $10k+ deal value demo page, so you can apply it to your own.",
     bullets: [
       "Where to look once the usual best practices are already in place",
       "How we decided what to change on the demo page and what to leave",
@@ -100,11 +100,11 @@ export const trainings: readonly Training[] = [
     slug: "big-landing-page-changes",
     id: "Charlie Five",
     title:
-      "Button color tests won't move a €10k+ decision. How to make the big landing page changes that do, without flying blind.",
+      "Button color tests won't move a $10k+ decision. How to make the big landing page changes that do, without flying blind.",
     outcome:
       "How to plan bigger landing page changes and still know whether they worked.",
     bullets: [
-      "Which changes are worth testing for €10k+ decisions",
+      "Which changes are worth testing for $10k+ decisions",
       "How to reduce risk before you ship a bigger change",
       "How to read results when traffic is too low for classic A/B tests",
     ],

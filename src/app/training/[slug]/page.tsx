@@ -112,7 +112,7 @@ export default async function TrainingPage({
                 <h2 id="teacher-title">Simon Ziri, founder of ZIRI</h2>
                 <p>
                   ZIRI builds websites for B2B companies where one deal is
-                  worth €10k+. Recent work includes a 1,000+ page relaunch for Leapsome in
+                  worth $10k+. Recent work includes a 1,000+ page relaunch for Leapsome in
                   5 weeks and a 200+ page relaunch for Circula.
                 </p>
               </div>
