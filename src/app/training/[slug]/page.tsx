@@ -26,12 +26,12 @@ export async function generateMetadata({
   if (!training) return {};
   return {
     title: `${training.title} | Free training by ZIRI`,
-    description: training.outcome,
+    description: training.outcome ?? training.title,
     // Lead-Magnet-Seiten nie indexieren, unabhängig von der Umgebung
     robots: { index: false, follow: false },
     openGraph: {
       title: training.title,
-      description: training.outcome,
+      description: training.outcome ?? training.title,
       ...(training.image ? { images: [training.image.src] } : {}),
     },
   };
@@ -65,7 +65,9 @@ export default async function TrainingPage({
           <section className={styles.hero} aria-labelledby="training-title">
             <SectionTag>Free training</SectionTag>
             <h1 id="training-title">{training.title}</h1>
-            <p className={styles.outcome}>{training.outcome}</p>
+            {training.outcome ? (
+              <p className={styles.outcome}>{training.outcome}</p>
+            ) : null}
             {training.image ? (
               <Image
                 src={training.image.src}
@@ -75,11 +77,16 @@ export default async function TrainingPage({
                 sizes="(max-width: 991px) 100vw, 50vw"
               />
             ) : null}
-            <ul className={styles.bullets}>
-              {training.bullets.map((bullet) => (
-                <li key={bullet}>{bullet}</li>
-              ))}
-            </ul>
+            <div className={styles.learn}>
+              <p className={styles.monoLabel} id="learn-title">
+                You will learn
+              </p>
+              <ul className={styles.bullets} aria-labelledby="learn-title">
+                {training.bullets.map((bullet) => (
+                  <li key={bullet}>{bullet}</li>
+                ))}
+              </ul>
+            </div>
             <p className={styles.release}>
               Free recorded training. Sent to your inbox on{" "}
               <strong>{releaseDate}</strong>.
@@ -99,24 +106,24 @@ export default async function TrainingPage({
 
           <section className={styles.teacher} aria-labelledby="teacher-title">
             <p className={styles.monoLabel}>Who&rsquo;s teaching</p>
-            <div className={styles.teacherRow}>
+            <div className={styles.teacherBody}>
               <Image
                 className={styles.avatar}
                 src="/assets/simon-ziri.jpg"
                 alt="Simon Ziri"
-                width={64}
-                height={64}
-                sizes="64px"
+                width={112}
+                height={112}
+                sizes="112px"
               />
-              <div>
-                <h2 id="teacher-title">Simon Ziri, founder of ZIRI</h2>
-                <p>
-                  ZIRI builds websites for B2B companies where one deal is
-                  worth $10k+. Recent work includes a 1,000+ page relaunch for Leapsome in
-                  5 weeks and a 200+ page relaunch for Circula.
-                </p>
-              </div>
+              <h2 id="teacher-title">Simon Ziri, founder of ZIRI</h2>
+              <p>
+                ZIRI builds websites for B2B companies where each customer is
+                worth 5 to 7 figures. Recent work includes a 1,000+ page
+                relaunch for Leapsome, done in just 5 weeks, and a 200+ page
+                relaunch for Circula, which just got acquired by Personio.
+              </p>
             </div>
+            <p className={styles.logosLabel}>Companies ZIRI has worked with</p>
             <div className={styles.logos} aria-label="Selected ZIRI clients">
               {clientLogos.map((logo) => (
                 <Image

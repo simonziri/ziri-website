@@ -18,9 +18,9 @@ export type Training = {
   /** Gesprochene ID, z. B. "Charlie Two" */
   id: string;
   title: string;
-  /** Eine Zeile unter der H1 */
-  outcome: string;
-  bullets: readonly [string, string, string];
+  /** Eine Zeile unter der H1 (optional, z. B. wenn die H1 schon alles sagt) */
+  outcome?: string;
+  bullets: readonly string[];
   /** ISO-Datum (YYYY-MM-DD) */
   releaseDate: string;
   image?: { src: string; alt: string; width: number; height: number };
@@ -31,13 +31,13 @@ export const trainings: readonly Training[] = [
     slug: "relaunch-1000-pages",
     id: "Romeo One",
     title:
-      "How to relaunch your 1,000+ page website in 6 weeks.",
-    outcome:
-      "Without losing rankings or conversions.",
+      "How to relaunch your 1,000+ page website in 6 weeks without losing rankings or conversions.",
     bullets: [
-      "How to sequence a large relaunch so SEO and conversion pages are safe first",
-      "The redirect and QA checklist that catches problems before Google does",
-      "Where to cut scope when the deadline is fixed",
+      "How to choose the right contractor for a relaunch this size",
+      "How to define success before the project starts",
+      "How to monitor success during and after the launch",
+      "What to prioritize, and what to push to after the launch",
+      "What to systemize, plus the tricks that save the most time",
     ],
     releaseDate: TRAINING_RELEASE_DATE,
   },
@@ -48,9 +48,12 @@ export const trainings: readonly Training[] = [
     outcome:
       "Learn what it takes to relaunch in under 6 weeks without tanking your rankings or conversion rates.",
     bullets: [
-      "How to scope a 1,000+ page site before anyone opens a design tool",
-      "Which pages to keep, merge or cut, and how to decide fast",
-      "The SEO and conversion checks to plan before the domain switches",
+      "Where the big risks in a 1,000+ page relaunch are",
+      "What data you need before you start",
+      "The mistakes to avoid, and what they cost if you don't",
+      "The decisions that speed up the whole process",
+      "How to think about systemizing: what you can repeat and template",
+      "How to prioritize pages clearly, so the important ones come first",
     ],
     releaseDate: TRAINING_RELEASE_DATE,
   },
@@ -63,7 +66,7 @@ export const trainings: readonly Training[] = [
       "Learn how to fix your positioning and website in 4–⁠5 weeks.",
     bullets: [
       "How to find out which pages still tell the old story",
-      "How to rewrite positioning with input from sales and customers",
+      "How to rewrite and validate positioning with input from sales and customers",
       "A 4–5 week plan: 2 weeks of positioning, then the website refresh",
     ],
     releaseDate: TRAINING_RELEASE_DATE,
@@ -76,9 +79,10 @@ export const trainings: readonly Training[] = [
     outcome:
       "Learn how to raise conversions when each deal is worth $10k+ and volume is low.",
     bullets: [
+      "Why high-ticket sales cycles, and their sales pages, work fundamentally differently",
       "Which CRO habits from e-commerce mislead B2B teams",
       "What buying committees look for before they book a call",
-      "How to measure progress when you only get a few leads a week",
+      "How to validate success when you only get a few leads a week",
     ],
     releaseDate: TRAINING_RELEASE_DATE,
   },
@@ -146,9 +150,10 @@ export const trainings: readonly Training[] = [
     outcome:
       "Learn how in-house marketers build pages in under 90 minutes. On brand and without waiting on design or development.",
     bullets: [
-      "Which building blocks you need before marketing can build alone",
+      "What needs to happen before marketing can build alone",
       "A workflow from brief to published page in under 90 minutes",
       "Guardrails that keep pages on brand without a design review",
+      "The tools fast-growing companies use to launch pages faster than anyone else",
     ],
     releaseDate: TRAINING_RELEASE_DATE,
   },
