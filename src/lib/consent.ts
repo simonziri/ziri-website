@@ -4,9 +4,9 @@
  * - Gespeichert wird NUR die Wahl selbst, in localStorage unter
  *   CONSENT_STORAGE_KEY ({ version, timestamp, choices }). Kein Cookie,
  *   keine Übertragung an einen Server.
- * - Neue Kategorie (z. B. Meta Pixel): einen Eintrag in CONSENT_CATEGORIES
- *   ergänzen (die Marketing-Zeile unten ist vorbereitet) UND
- *   CONSENT_VERSION hochzählen, damit alle Besucher neu gefragt werden.
+ * - Neue Kategorie: einen Eintrag in CONSENT_CATEGORIES ergänzen UND
+ *   CONSENT_VERSION hochzählen, damit alle Besucher neu gefragt werden
+ *   (Version 2 = Marketing/Meta Pixel dazu).
  *   Datenschutzerklärung im selben Change anpassen (siehe CLAUDE.md).
  * - Jeder Storage-Zugriff ist in try/catch (Private Mode, blockierter
  *   Storage): dann gilt "keine Wahl getroffen" und es lädt nichts.
@@ -36,16 +36,16 @@ export const CONSENT_CATEGORIES: ReadonlyArray<ConsentCategory> = [
     description:
       "Google Analytics 4 and Microsoft Clarity. Show us how visitors use the site (including anonymized session recordings and heatmaps) and which campaigns bring visitors and sign-ups. Set cookies and only run if you allow it.",
   },
-  // Später aktivieren (Meta Pixel), dann CONSENT_VERSION erhöhen:
-  // {
-  //   id: "marketing",
-  //   label: "Marketing",
-  //   description: "Meta Pixel. Measures which of our ads on Facebook and Instagram bring visitors and sign-ups.",
-  // },
+  {
+    id: "marketing",
+    label: "Marketing",
+    description:
+      "Meta Pixel. Lets us measure which of our Meta ads bring sign-ups and show our ads to people who visited this site. Sets cookies and only runs if you allow it.",
+  },
 ];
 
 export const CONSENT_STORAGE_KEY = "ziri-consent-v1";
-export const CONSENT_VERSION = 1;
+export const CONSENT_VERSION = 2;
 
 /** Öffnet das Banner erneut (Footer-Link "Cookie settings"). */
 export const CONSENT_OPEN_EVENT = "ziri:consent:open";

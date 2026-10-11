@@ -11,11 +11,7 @@ import {
   readConsent,
   writeConsent,
 } from "@/lib/consent";
-import {
-  loadGoogleAnalytics,
-  revokeGoogleAnalytics,
-  trackEvent,
-} from "@/lib/analytics";
+import { applyTrackingConsent, trackEvent } from "@/lib/analytics";
 import styles from "./consent-banner.module.css";
 
 /*
@@ -26,21 +22,23 @@ import styles from "./consent-banner.module.css";
  *   "Accept all" und "Reject all" sind gleich prominent (TDDDG/DSK).
  * - Footer-Link "Cookie settings" feuert CONSENT_OPEN_EVENT → Banner geht
  *   mit aufgeklappten Einstellungen wieder auf.
- * - Statistics granted → loadGoogleAnalytics(); später widerrufen →
- *   revokeGoogleAnalytics() (Consent denied + _ga*-Cookies löschen, kein
- *   Reload nötig).
- * - Geladen wird der GTM-Container (GA4 als Tag darin), siehe
- *   src/lib/analytics.ts.
+ * - Kategorien Statistics (GA4, Clarity) und Marketing (Meta Pixel) gehen
+ *   unabhängig voneinander an applyTrackingConsent(): GTM lädt, sobald
+ *   eine der beiden erteilt ist; Widerruf setzt den jeweiligen Consent auf
+ *   denied und löscht die Cookies der Kategorie (kein Reload nötig).
+ * - Geladen wird der GTM-Container (GA4, Clarity, Meta Pixel als Tags
+ *   darin), siehe src/lib/analytics.ts.
  * - Conversion-Events hängen an den CustomEvents der Formulare
  *   (ziri:contact:submitted, ziri:training:submitted); die Formulare selbst
- *   bleiben unangetastet (CLAUDE.md). trackEvent() sendet nur, wenn
- *   Statistics erteilt und gtag geladen ist.
+ *   bleiben unangetastet (CLAUDE.md). trackEvent() sendet nur, wenn GTM
+ *   geladen und Statistics oder Marketing erteilt ist.
  */
 
 function applyChoices(choices: ConsentChoices) {
-  if (choices.statistics) loadGoogleAnalytics();
-  else revokeGoogleAnalytics();
-  // Platz für weitere Kategorien, z. B. if (choices.marketing) loadMetaPixel();
+  applyTrackingConsent({
+    statistics: !!choices.statistics,
+    marketing: !!choices.marketing,
+  });
 }
 
 export function ConsentBanner() {
@@ -143,9 +141,9 @@ export function ConsentBanner() {
       </p>
       <p className={styles.text} id={descriptionId}>
         We would like to use Google Analytics and Microsoft Clarity to see how
-        people use this site and which campaigns bring visitors. They only run
-        if you allow it. You
-        can change your choice any time via Cookie settings in the footer.{" "}
+        people use this site, and the Meta Pixel to measure which of our ads
+        bring sign-ups. They only run if you allow it. You can change your
+        choice any time via Cookie settings in the footer.{" "}
         <Link href="/privacy#analytics">Privacy Policy</Link>
       </p>
 

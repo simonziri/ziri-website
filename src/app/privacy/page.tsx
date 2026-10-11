@@ -13,8 +13,9 @@ export const metadata: Metadata = {
  * WICHTIG (siehe CLAUDE.md): Diese Seite beschreibt exakt, was die Website
  * tatsächlich tut. Jede Änderung an Datenverarbeitung (Analytics wie GA4,
  * neue Embeds, neue Formularfelder, neue Empfänger) MUSS hier im selben
- * Change nachgezogen werden. GA4 + Consent-Banner: Abschnitte 7 und 8,
- * Code in src/components/consent-banner.tsx und src/lib/analytics.ts.
+ * Change nachgezogen werden. GA4, Clarity, Meta Pixel + Consent-Banner:
+ * Abschnitte 7, 7a, 7b und 8, Code in src/components/consent-banner.tsx,
+ * src/lib/consent.ts und src/lib/analytics.ts.
  */
 export default function PrivacyPage() {
   return (
@@ -23,11 +24,11 @@ export default function PrivacyPage() {
         <SiteHeader />
         <article className={legal.article}>
           <h1>Privacy Policy</h1>
-          <p className={legal.updated}>Last updated: October 10, 2026</p>
+          <p className={legal.updated}>Last updated: October 11, 2026</p>
 
           <p>
-            This website is intentionally light on data. No advertising
-            cookies, no third-party fonts, and web analytics only if you allow
+            This website is intentionally light on data. No third-party fonts,
+            and web analytics and advertising measurement only if you allow
             it. Below is a complete
             account of what happens with personal data when you visit
             simonziri.com, written to be read, not just filed.
@@ -201,8 +202,10 @@ export default function PrivacyPage() {
             Limited, Gordon House, Barrow Street, Dublin 4, Ireland
             (&ldquo;Google&rdquo;). We load it through Google Tag Manager, a
             tool from the same provider that loads the analytics script.
-            Without your consent, neither Google Tag Manager nor the Google
-            Analytics script is loaded and no data is sent to Google.
+            Without your consent to &ldquo;Statistics&rdquo;, Google Analytics
+            does not run. Google Tag Manager itself is only loaded once you
+            allow &ldquo;Statistics&rdquo; or &ldquo;Marketing&rdquo; (see
+            section 7b); before that, no data is sent to Google.
           </p>
           {/* TODO(Simon): verify that the Google Ads Data Processing Terms are accepted in the GA4 account (Admin > Account settings) so Google acts as our processor. */}
           <p>
@@ -306,7 +309,83 @@ export default function PrivacyPage() {
             .
           </p>
 
+          <h2 id="meta-pixel">7b. Meta Pixel (only with your consent)</h2>
+          <p>
+            If you allow &ldquo;Marketing&rdquo; in our privacy banner, we use
+            the Meta Pixel, a service of Meta Platforms Ireland Limited, Merrion
+            Road, Dublin 4, D04 X2K5, Ireland (&ldquo;Meta&rdquo;). Like our
+            analytics tools, it is loaded through Google Tag Manager (see
+            section 7) and only after your consent. Without your consent, the Meta Pixel is not
+            loaded and no data is sent to Meta.
+          </p>
+          <p>
+            Purpose: to measure which of our ads on Facebook and Instagram lead
+            to sign-ups, to optimise the delivery of our ads, and possibly to
+            show our ads to people who have visited this site.
+          </p>
+          <p>Data processed:</p>
+          <ul>
+            <li>
+              identifiers stored in the cookies <code>_fbp</code> and{" "}
+              <code>_fbc</code>, which recognize your browser and the ad you
+              clicked
+            </li>
+            <li>
+              pixel events such as PageView (a page was viewed) and Lead (a
+              sign-up happened, without what you entered in the form)
+            </li>
+            <li>your IP address</li>
+            <li>browser and device information</li>
+            <li>the URL of the page you are on</li>
+          </ul>
+          {/* TODO(Simon): verify that Meta's Controller Addendum is accepted in the Meta Business account (Events Manager / Business settings) and that the joint-controllership wording matches it. */}
+          <p>
+            For the collection of this data on our website and its
+            transmission to Meta, we and Meta are joint controllers (Art. 26
+            GDPR). We have agreed with Meta on the respective responsibilities
+            in Meta&rsquo;s Controller Addendum; under it, Meta is the contact
+            point for exercising your rights regarding this processing, though
+            you can also contact us. The further processing of the data after
+            the transmission is Meta&rsquo;s own responsibility.
+          </p>
+          <p>
+            Legal basis: your consent, Art. 6(1)(a) GDPR, and for storing and
+            reading the cookies on your device § 25(1) TDDDG.
+          </p>
+          {/* TODO(Simon): verify that Meta Platforms, Inc.'s DPF certification is current (dataprivacyframework.gov). */}
+          <p>
+            Meta may transfer data to Meta Platforms, Inc. in the USA. Meta
+            Platforms, Inc. is certified under the EU-U.S. Data Privacy
+            Framework, for which the European Commission has issued an
+            adequacy decision (Art. 45 GDPR).
+          </p>
+          {/* TODO(Simon): verify cookie lifetime (_fbp / _fbc, currently 90 days by default) against Meta's documentation. */}
+          <p>
+            The cookies <code>_fbp</code> and <code>_fbc</code> expire after
+            90 days. You can withdraw your consent at any time with effect for
+            the future via the &ldquo;Cookie settings&rdquo; link in the footer
+            of every page. When you withdraw, the Meta Pixel stops sending data
+            and we delete the <code>_fbp</code> and <code>_fbc</code> cookies
+            from your browser. More in{" "}
+            <a
+              href="https://www.facebook.com/privacy/policy/"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              Meta&rsquo;s privacy policy
+            </a>
+            .
+          </p>
+
           <h2 id="consent">8. Consent management</h2>
+          <p>
+            Our privacy banner offers three categories: &ldquo;Necessary&rdquo;
+            (always on, only stores your choice), &ldquo;Statistics&rdquo;
+            (Google Analytics and Microsoft Clarity, see sections 7 and 7a) and
+            &ldquo;Marketing&rdquo; (Meta Pixel, see section 7b). Google Tag
+            Manager is loaded as soon as you allow at least one of Statistics
+            or Marketing; each tool only runs for the category you allowed.
+          </p>
           <p>
             When you make a choice in our privacy banner, we store it in your
             browser&rsquo;s local storage: which categories you allowed, a
@@ -328,9 +407,12 @@ export default function PrivacyPage() {
             <li>
               No analytics without your consent: Google Analytics and
               Microsoft Clarity only run after you allow it (see sections 7
-              and 7a). No advertising pixels.
+              and 7a).
             </li>
-            <li>No advertising or marketing cookies.</li>
+            <li>
+              No advertising pixels or marketing cookies without your consent:
+              the Meta Pixel only runs after you allow it (see section 7b).
+            </li>
             <li>
               No third-party fonts or CDNs — fonts are served from our own
               server.
@@ -338,8 +420,8 @@ export default function PrivacyPage() {
             <li>No profiling, no automated decision-making.</li>
           </ul>
           <p>
-            Should we introduce further tools in the future (for example
-            advertising pixels), we will update this policy beforehand and,
+            Should we introduce further tools in the future, we will update
+            this policy beforehand and,
             where legally required, ask for your consent first.
           </p>
 

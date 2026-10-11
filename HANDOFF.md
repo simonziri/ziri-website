@@ -85,7 +85,20 @@ vercel-dns; Apex 308-redirected auf www). Resend-Domain verifiziert
    GTM pflegen, gtm.js lädt erst nach Einwilligung. In GA4-
    Admin: Datenaufbewahrung auf 14 Monate, Google Signals aus (so steht es
    in der Privacy Policy). TODO(Simon)-Kommentare in privacy/page.tsx
-   rechtlich prüfen. Meta Pixel später: ein Eintrag in CONSENT_CATEGORIES.
+   rechtlich prüfen.
+   **Marketing-Kategorie aktiv** (11.10., CONSENT_VERSION 2 → alle Besucher
+   werden neu gefragt): Kategorien Necessary / Statistics / Marketing.
+   GTM lädt, sobald Statistics ODER Marketing erteilt ist; Consent-Defaults
+   alle denied, dann Update: analytics_storage nur bei Statistics,
+   ad_storage/ad_user_data/ad_personalization nur bei Marketing. Widerruf
+   je Kategorie einzeln (Statistics: _ga*/_clck/_clsk löschen + Clarity
+   stoppen; Marketing: ad_* denied, fbq consent revoke, _fbp/_fbc löschen).
+   dataLayer-Event `consent_update` mit { statistics, marketing } bei jeder
+   Wahl. **Meta Pixel lebt in GTM** als Tag mit Consent-Prüfung
+   ad_storage (PageView + Lead-Event auf Trigger generate_lead).
+   **In GTM pflegen:** GA4- und Clarity-Tags brauchen jetzt zusätzlich die
+   Consent-Prüfung analytics_storage (GTM lädt auch bei nur Marketing).
+   Privacy Policy Abschnitt 7b (Meta Pixel) mit TODO(Simon)-Kommentaren.
 
 ## Architektur-Notizen (Dinge, die man leicht kaputt macht)
 
