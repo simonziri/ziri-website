@@ -180,13 +180,20 @@ function revokeStatistics() {
   );
 }
 
-/** Marketing nicht (mehr) erteilt: Meta Pixel stoppen, _fbp/_fbc löschen. */
+/** Marketing nicht (mehr) erteilt: Meta Pixel stoppen, _fbp/_fbc und First-Party-LinkedIn-Cookies löschen. */
 function revokeMarketing(wasGranted: boolean) {
   if (wasGranted && typeof window.fbq === "function") {
     // Pixel zählt sonst Client-Navigationen (History-Events) weiter
     window.fbq("consent", "revoke");
   }
-  deleteCookies((name) => name === "_fbp" || name === "_fbc");
+  deleteCookies(
+    (name) =>
+      name === "_fbp" ||
+      name === "_fbc" ||
+      name.startsWith("li_") ||
+      name === "lms_ads" ||
+      name === "lms_analytics",
+  );
 }
 
 function deleteCookies(match: (name: string) => boolean) {

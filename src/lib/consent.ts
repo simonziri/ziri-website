@@ -6,7 +6,7 @@
  *   keine Übertragung an einen Server.
  * - Neue Kategorie: einen Eintrag in CONSENT_CATEGORIES ergänzen UND
  *   CONSENT_VERSION hochzählen, damit alle Besucher neu gefragt werden
- *   (Version 2 = Marketing/Meta Pixel dazu).
+ *   (Version 2 = Marketing/Meta Pixel dazu; LinkedIn Insight Tag in derselben Kategorie, kein Versionssprung nötig, da noch nicht live).
  *   Datenschutzerklärung im selben Change anpassen (siehe CLAUDE.md).
  * - Jeder Storage-Zugriff ist in try/catch (Private Mode, blockierter
  *   Storage): dann gilt "keine Wahl getroffen" und es lädt nichts.
@@ -40,7 +40,7 @@ export const CONSENT_CATEGORIES: ReadonlyArray<ConsentCategory> = [
     id: "marketing",
     label: "Marketing",
     description:
-      "Meta Pixel. Lets us measure which of our Meta ads bring sign-ups and show our ads to people who visited this site. Sets cookies and only runs if you allow it.",
+      "Meta Pixel and LinkedIn Insight Tag. Let us measure which of our ads bring sign-ups and show our ads to people who visited this site. Set cookies and only run if you allow it.",
   },
 ];
 

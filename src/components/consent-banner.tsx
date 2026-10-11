@@ -141,8 +141,8 @@ export function ConsentBanner() {
       </p>
       <p className={styles.text} id={descriptionId}>
         We would like to use Google Analytics and Microsoft Clarity to see how
-        people use this site, and the Meta Pixel to measure which of our ads
-        bring sign-ups. They only run if you allow it. You can change your
+        people use this site, and the Meta Pixel and LinkedIn Insight Tag to
+        measure which of our ads bring sign-ups. They only run if you allow it. You can change your
         choice any time via Cookie settings in the footer.{" "}
         <Link href="/privacy#analytics">Privacy Policy</Link>
       </p>

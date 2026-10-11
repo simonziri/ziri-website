@@ -385,12 +385,64 @@ export default function PrivacyPage() {
             .
           </p>
 
+          <h2 id="linkedin">7c. LinkedIn Insight Tag (only with your consent)</h2>
+          <p>
+            If you allow &ldquo;Marketing&rdquo; in our privacy banner, we use
+            the LinkedIn Insight Tag, a service of LinkedIn Ireland Unlimited
+            Company, Wilton Plaza, Wilton Place, Dublin 2, Ireland
+            (&ldquo;LinkedIn&rdquo;). It is loaded through Google Tag Manager
+            (see section 7) and only after your consent. Without your consent,
+            the tag is not loaded and no data is sent to LinkedIn.
+          </p>
+          <p>
+            Purpose: to measure which of our LinkedIn ads lead to sign-ups, to
+            receive aggregated, anonymous reports about the companies, job
+            functions and industries of our visitors, and possibly to show our
+            ads on LinkedIn to people who have visited this site.
+          </p>
+          <p>
+            Data processed: cookies set by LinkedIn (for example{" "}
+            <code>li_fat_id</code>, <code>bcookie</code>, <code>lidc</code>,{" "}
+            <code>UserMatchHistory</code>), your IP address, browser and
+            device information, the page URL and referrer, and events such as
+            a sign-up (without what you entered in the form). If you are
+            logged in to LinkedIn, LinkedIn can link this data to your
+            LinkedIn account; we only receive aggregated reports and never
+            see who you are.
+          </p>
+          {/* TODO(Simon): verify LinkedIn's joint-controller terms (LinkedIn Marketing Solutions / Insight Tag Data Processing Terms) are accepted in Campaign Manager and that this wording matches them. */}
+          <p>
+            For the collection on our website and the transmission to
+            LinkedIn, we and LinkedIn are joint controllers (Art. 26 GDPR)
+            under LinkedIn&rsquo;s terms for the Insight Tag. The further
+            processing after transmission is LinkedIn&rsquo;s own
+            responsibility. Legal basis: your consent, Art. 6(1)(a) GDPR, and
+            for storing and reading cookies on your device § 25(1) TDDDG.
+          </p>
+          {/* TODO(Simon): verify LinkedIn Corporation's DPF certification is current (dataprivacyframework.gov). */}
+          <p>
+            LinkedIn may transfer data to LinkedIn Corporation in the USA,
+            which is certified under the EU-U.S. Data Privacy Framework
+            (adequacy decision, Art. 45 GDPR). LinkedIn cookies expire after
+            up to 180 days. You can withdraw your consent at any time via
+            &ldquo;Cookie settings&rdquo; in the footer. More in{" "}
+            <a
+              href="https://www.linkedin.com/legal/privacy-policy"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              LinkedIn&rsquo;s privacy policy
+            </a>
+            .
+          </p>
+
           <h2 id="consent">8. Consent management</h2>
           <p>
             Our privacy banner offers three categories: &ldquo;Necessary&rdquo;
             (always on, only stores your choice), &ldquo;Statistics&rdquo;
             (Google Analytics and Microsoft Clarity, see sections 7 and 7a) and
-            &ldquo;Marketing&rdquo; (Meta Pixel, see section 7b). Google Tag
+            &ldquo;Marketing&rdquo; (Meta Pixel and LinkedIn Insight Tag, see
+            sections 7b and 7c). Google Tag
             Manager is loaded as soon as you allow at least one of Statistics
             or Marketing; each tool only runs for the category you allowed.
           </p>
@@ -419,7 +471,8 @@ export default function PrivacyPage() {
             </li>
             <li>
               No advertising pixels or marketing cookies without your consent:
-              the Meta Pixel only runs after you allow it (see section 7b).
+              the Meta Pixel and the LinkedIn Insight Tag only run after you
+              allow it (see sections 7b and 7c).
             </li>
             <li>
               No third-party fonts or CDNs — fonts are served from our own
