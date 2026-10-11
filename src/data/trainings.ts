@@ -31,9 +31,9 @@ export const trainings: readonly Training[] = [
     slug: "relaunch-1000-pages",
     id: "Romeo One",
     title:
-      "How to relaunch 1,000+ pages in 6 weeks without losing rankings or conversions.",
+      "How to relaunch your 1,000+ page website in 6 weeks.",
     outcome:
-      "The plan we used to move 1,000+ pages in 6 weeks, step by step, so you can scope your own relaunch.",
+      "Without losing rankings or conversions.",
     bullets: [
       "How to sequence a large relaunch so SEO and conversion pages are safe first",
       "The redirect and QA checklist that catches problems before Google does",
@@ -42,12 +42,25 @@ export const trainings: readonly Training[] = [
     releaseDate: TRAINING_RELEASE_DATE,
   },
   {
+    slug: "prep-1000-page-relaunch",
+    id: "Romeo Two (prep)",
+    title: "How to prep for a 1,000+ page website relaunch.",
+    outcome:
+      "Learn what it takes to relaunch in under 6 weeks without tanking your rankings or conversion rates.",
+    bullets: [
+      "How to scope a 1,000+ page site before anyone opens a design tool",
+      "Which pages to keep, merge or cut, and how to decide fast",
+      "The SEO and conversion checks to plan before the domain switches",
+    ],
+    releaseDate: TRAINING_RELEASE_DATE,
+  },
+  {
     slug: "reposition-after-product-change",
     id: "Papa One",
     title:
-      "Your core product changed, so what now? How to reposition and refresh your website in 4–⁠5 weeks.",
+      "Your product changed and now your B2B website is confusing prospects?",
     outcome:
-      "A practical way to bring your positioning and your website up to date with what you actually sell today.",
+      "Learn how to fix your positioning and website in 4–⁠5 weeks.",
     bullets: [
       "How to find out which pages still tell the old story",
       "How to rewrite positioning with input from sales and customers",
@@ -59,9 +72,9 @@ export const trainings: readonly Training[] = [
     slug: "cro-for-high-ticket-b2b",
     id: "Charlie One",
     title:
-      "Most CRO advice was written for online shops or low-ticket. How to raise conversions when one deal is worth €10k+.",
+      "Most CRO advice was written for online shops and low-ticket.",
     outcome:
-      "Why conversion work for €10k+ deals needs different inputs, and how to set it up for your site.",
+      "Learn how to raise conversions when each deal is worth €10k+ and volume is low.",
     bullets: [
       "Which CRO habits from e-commerce mislead B2B teams",
       "What buying committees look for before they book a call",
@@ -129,12 +142,12 @@ export const trainings: readonly Training[] = [
     slug: "landing-pages-in-a-day",
     id: "Victor Two (day)",
     title:
-      "Your next landing page shouldn’t take a week. How to launch on-brand pages in a day, without a designer or developer.",
+      "Your next SaaS landing page shouldn’t take a week.",
     outcome:
-      "The setup that lets your marketing team go from brief to live page in a day, on brand and without a ticket queue.",
+      "Learn how in-house marketers build pages in under 90 minutes. On brand and without waiting on design or development.",
     bullets: [
       "Which building blocks you need before marketing can build alone",
-      "A workflow from brief to published page in one day",
+      "A workflow from brief to published page in under 90 minutes",
       "Guardrails that keep pages on brand without a design review",
     ],
     releaseDate: TRAINING_RELEASE_DATE,
