@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
+import { PixelHatchButton } from "@/components/pixel-hatch-button";
 import { SectionTag } from "@/components/section-tag";
 import { TrainingFooter, TrainingHeader } from "@/components/training-chrome";
 import { TrainingSignupForm } from "@/components/training-signup-form";
@@ -68,6 +69,10 @@ export default async function TrainingPage({
             {training.outcome ? (
               <p className={styles.outcome}>{training.outcome}</p>
             ) : null}
+            {/* Nur mobil/Tablet sichtbar: dort liegt das Formular weit unten */}
+            <div className={styles.jumpToForm}>
+              <PixelHatchButton href="#signup">Get the free training</PixelHatchButton>
+            </div>
             {training.image ? (
               <Image
                 src={training.image.src}
@@ -95,6 +100,7 @@ export default async function TrainingPage({
 
           <div
             className={styles.formCard}
+            id="signup"
             role="region"
             aria-labelledby="training-form-title"
             data-theme="light-primary"

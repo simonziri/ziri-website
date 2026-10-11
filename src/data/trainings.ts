@@ -13,6 +13,9 @@
 /** Platzhalter-Releasedatum, gilt für alle Trainings bis Simon es festlegt. */
 export const TRAINING_RELEASE_DATE = "2026-11-12";
 
+/** Absenderadresse der Trainings-Mails (beehiiv), steht auf der Danke-Seite. */
+export const TRAINING_SENDER_EMAIL = "simon@mail.simonziri.com";
+
 export type Training = {
   slug: string;
   /** Gesprochene ID, z. B. "Charlie Two" */

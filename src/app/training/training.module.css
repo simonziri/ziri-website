@@ -295,7 +295,24 @@
 }
 
 .thanksActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xsmall);
   margin-top: var(--space-xsmall);
+}
+
+.thanks p strong {
+  color: var(--text-body);
+  font-weight: 420;
+}
+
+/* Sprung-Button zum Formular, nur wenn das Formular unter dem Hero liegt */
+.jumpToForm {
+  display: none;
+}
+
+.formCard {
+  scroll-margin-top: var(--space-small);
 }
 
 @media (max-width: 61.9375rem) {
@@ -310,6 +327,10 @@
 
   .formCard {
     position: static;
+  }
+
+  .jumpToForm {
+    display: block;
   }
 }
 

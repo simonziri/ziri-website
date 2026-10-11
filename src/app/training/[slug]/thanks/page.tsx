@@ -2,7 +2,12 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { PixelHatchButton } from "@/components/pixel-hatch-button";
 import { TrainingFooter, TrainingHeader } from "@/components/training-chrome";
-import { formatTrainingDate, getTraining, trainings } from "@/data/trainings";
+import {
+  TRAINING_SENDER_EMAIL,
+  formatTrainingDate,
+  getTraining,
+  trainings,
+} from "@/data/trainings";
 import styles from "../../training.module.css";
 
 type Params = { slug: string };
@@ -52,9 +57,20 @@ export default async function TrainingThanksPage({
             {training.title}&rdquo; to the address you signed up with. Nothing
             else to do until then.
           </p>
+          <p>
+            One small thing: add{" "}
+            <strong>{TRAINING_SENDER_EMAIL}</strong>{" "}
+            to your contacts, so the training doesn&rsquo;t land in spam.
+          </p>
           <div className={styles.thanksActions}>
+            <PixelHatchButton
+              href="https://www.linkedin.com/in/simonziri/"
+              external
+            >
+              Connect with me on LinkedIn
+            </PixelHatchButton>
             <PixelHatchButton href="/" variant="secondary">
-              Visit simonziri.com
+              Visit my home page
             </PixelHatchButton>
           </div>
         </section>
