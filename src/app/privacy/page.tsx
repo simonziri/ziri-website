@@ -338,6 +338,14 @@ export default function PrivacyPage() {
             <li>browser and device information</li>
             <li>the URL of the page you are on</li>
           </ul>
+          {/* TODO(Simon): Meta "Conversions API" (one-click setup by Meta) is enabled in the Meta Business account; verify wording if Meta changes how it works. */}
+          <p>
+            In addition to the pixel in your browser, Meta sends the same
+            events from its own servers to Meta (Meta&rsquo;s
+            &ldquo;Conversions API&rdquo;). This only covers events the pixel
+            has captured after your consent; without consent, nothing is sent
+            this way either.
+          </p>
           {/* TODO(Simon): verify that Meta's Controller Addendum is accepted in the Meta Business account (Events Manager / Business settings) and that the joint-controllership wording matches it. */}
           <p>
             For the collection of this data on our website and its
