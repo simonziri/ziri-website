@@ -45,13 +45,13 @@ export const trainings: readonly Training[] = [
     slug: "reposition-after-product-change",
     id: "Papa One",
     title:
-      "Your core product changed, so what now? How to reposition and refresh your 100+ page website in under 6 weeks.",
+      "Your core product changed, so what now? How to reposition and refresh your website in 4–5 weeks.",
     outcome:
       "A practical way to bring your positioning and your website up to date with what you actually sell today.",
     bullets: [
       "How to find out which pages still tell the old story",
       "How to rewrite positioning with input from sales and customers",
-      "How to roll out the change across 100+ pages without a full rebuild",
+      "A 4–5 week plan: 2 weeks of positioning, then the website refresh",
     ],
     releaseDate: TRAINING_RELEASE_DATE,
   },
