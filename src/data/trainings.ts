@@ -31,9 +31,9 @@ export const trainings: readonly Training[] = [
     slug: "relaunch-1000-pages",
     id: "Romeo One",
     title:
-      "How to relaunch 1,000+ pages in 5 weeks without losing rankings or conversions.",
+      "How to relaunch 1,000+ pages in 6 weeks without losing rankings or conversions.",
     outcome:
-      "The plan we used to move 1,000+ pages in 5 weeks, step by step, so you can scope your own relaunch.",
+      "The plan we used to move 1,000+ pages in 6 weeks, step by step, so you can scope your own relaunch.",
     bullets: [
       "How to sequence a large relaunch so SEO and conversion pages are safe first",
       "The redirect and QA checklist that catches problems before Google does",
