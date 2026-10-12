@@ -25,6 +25,13 @@ const BEEHIIV_TRAINING_AUTOMATION_ID =
   "aut_78b18800-72f8-4aab-b8b5-7f553f550aff";
 
 const PIPEDRIVE_API = "https://api.pipedrive.com";
+/**
+ * Not secret. Pipedrive custom field "Source Description" (deal/lead field).
+ * A Pipedrive automation renames every new lead to "<org> | <person>"
+ * (Simon needs it for other leads), so the webinar goes into this field too.
+ */
+const PIPEDRIVE_SOURCE_DESCRIPTION_KEY =
+  "3c9f15324a9e7370294890c7689e842b2c7bee36";
 
 const TIMEOUT_MS = 8000;
 
@@ -242,6 +249,7 @@ export async function createPipedriveLead(
       body: JSON.stringify({
         title: `Webinar: ${signup.trainingId} - ${signup.slug}`,
         person_id: personId,
+        [PIPEDRIVE_SOURCE_DESCRIPTION_KEY]: `Webinar: ${signup.trainingId} - ${signup.slug}`,
       }),
     },
   );
