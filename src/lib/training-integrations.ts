@@ -132,6 +132,13 @@ export async function subscribeToBeehiiv(
 
   const subscriptionId = dig(response, "data", "id");
 
+  // beehiiv antwortet auch bei abgelehnten Adressen mit 2xx, legt aber
+  // keinen nutzbaren Kontakt an (status "invalid"). Dann Alarm auslösen.
+  const subscriptionStatus = dig(response, "data", "status");
+  if (subscriptionStatus === "invalid") {
+    throw new Error("beehiiv marked the address as invalid (not subscribed)");
+  }
+
   // Tag "webinar:<slug>" pro Anmeldung, additiv: wer sich für zwei anmeldet, hat
   // beide Tags (das Feld "webinar" hält nur das letzte). Versand am
   // Release-Tag pro Tag-Segment.
