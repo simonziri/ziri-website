@@ -4,6 +4,11 @@ import {
   addPipedriveInterestNote,
   type TrainingInterest,
 } from "@/lib/training-integrations";
+import {
+  describeFailure,
+  sendIntegrationAlert,
+  type FailedTarget,
+} from "@/lib/ziri-alert";
 
 /**
  * Formular auf der Thank-you-Seite (/training/[slug]/thanks):
@@ -62,6 +67,25 @@ async function notifyZiri(interest: TrainingInterest): Promise<void> {
   if (!response.ok) throw new Error(`resend ${response.status}`);
 }
 
+
+/** Gescheiterte Ziele sammeln. In Production gilt "skipped" (Key fehlt) auch als Fehler. */
+function collectFailures(
+  results: ReadonlyArray<readonly [string, PromiseSettledResult<unknown>]>,
+): FailedTarget[] {
+  const failures: FailedTarget[] = [];
+  for (const [target, result] of results) {
+    if (result.status === "rejected") {
+      failures.push({ target, error: describeFailure(result.reason) });
+    } else if (
+      process.env.VERCEL_ENV === "production" &&
+      (result.value as { status?: string } | undefined)?.status === "skipped"
+    ) {
+      failures.push({ target, error: "skipped (API key missing)" });
+    }
+  }
+  return failures;
+}
+
 export async function POST(request: Request) {
   let payload: Record<string, unknown>;
   try {
@@ -102,20 +126,22 @@ export async function POST(request: Request) {
     addPipedriveInterestNote(interest),
   ]);
 
-  for (const [target, result] of [
+  const failures = collectFailures([
     ["notification", notified],
     ["pipedrive", pipedrive],
-  ] as const) {
-    if (result.status === "rejected") {
-      const reason = result.reason;
-      console.error(
-        `[training-interest] ${target} failed:`,
-        reason instanceof Error
-          ? `${reason.name}: ${reason.message}`
-          : "unknown error",
-      );
-    }
+  ]);
+  for (const { target, error } of failures) {
+    console.error(`[training-interest] ${target} failed:`, error);
   }
+  await sendIntegrationAlert(
+    "thank-you page input",
+    [
+      `Email:    ${interest.email}`,
+      `Training: ${interest.trainingTitle} (${interest.slug})`,
+      `Answer:   ${interest.problem}`,
+    ],
+    failures,
+  );
 
   const pipedriveOk =
     pipedrive.status === "fulfilled" && pipedrive.value.status === "ok";

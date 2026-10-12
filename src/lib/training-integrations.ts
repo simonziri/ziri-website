@@ -124,11 +124,31 @@ export async function subscribeToBeehiiv(
   );
 
   const subscriptionId = dig(response, "data", "id");
+
+  // Tag pro Training, additiv: wer sich für zwei Trainings anmeldet, hat
+  // beide Tags (das Feld "training" hält nur das letzte). Versand am
+  // Release-Tag pro Tag-Segment.
+  if (typeof subscriptionId !== "string") {
+    throw new Error("beehiiv subscription returned no id (tag not set)");
+  }
+  await callJson(
+    "beehiiv tag",
+    `${BEEHIIV_API}/publications/${BEEHIIV_PUBLICATION_ID}/subscriptions/${subscriptionId}/tags`,
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ tags: [`training:${signup.slug}`] }),
+    },
+  );
+
   return {
     status: "ok",
     details: {
       http: status,
-      ...(typeof subscriptionId === "string" ? { subscriptionId } : {}),
+      subscriptionId,
     },
   };
 }

@@ -59,6 +59,10 @@ export default async function TrainingThanksPage({
             else to do until then.
           </p>
           <p>
+            A confirmation email is on its way. Can&rsquo;t find it in a few
+            minutes? Check your spam or promotions folder.
+          </p>
+          <p>
             One small thing: add{" "}
             <strong>{TRAINING_SENDER_EMAIL}</strong>{" "}
             to your contacts, so the training doesn&rsquo;t land in spam.

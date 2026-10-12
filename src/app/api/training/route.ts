@@ -6,6 +6,11 @@ import {
   type TrainingSignup,
 } from "@/lib/training-integrations";
 import { isFreeEmail } from "@/lib/work-email";
+import {
+  describeFailure,
+  sendIntegrationAlert,
+  type FailedTarget,
+} from "@/lib/ziri-alert";
 
 /**
  * Training-Sign-up-Endpoint (Webinar-Lead-Magnets, /training/[slug]).
@@ -115,6 +120,25 @@ async function notifyZiri(
   }
 }
 
+
+/** Gescheiterte Ziele sammeln. In Production gilt "skipped" (Key fehlt) auch als Fehler. */
+function collectFailures(
+  results: ReadonlyArray<readonly [string, PromiseSettledResult<unknown>]>,
+): FailedTarget[] {
+  const failures: FailedTarget[] = [];
+  for (const [target, result] of results) {
+    if (result.status === "rejected") {
+      failures.push({ target, error: describeFailure(result.reason) });
+    } else if (
+      process.env.VERCEL_ENV === "production" &&
+      (result.value as { status?: string } | undefined)?.status === "skipped"
+    ) {
+      failures.push({ target, error: "skipped (API key missing)" });
+    }
+  }
+  return failures;
+}
+
 export async function POST(request: Request) {
   let payload: Payload;
   try {
@@ -211,6 +235,22 @@ export async function POST(request: Request) {
   logFailure("notification", notified);
   logFailure("beehiiv", beehiiv);
   logFailure("pipedrive", pipedrive);
+
+  // Alarm an ZIRI, damit niemand still verloren geht (wirft nie).
+  await sendIntegrationAlert(
+    "training signup",
+    [
+      `Email:    ${email}`,
+      `Training: ${training.title} (${training.slug})`,
+      `Role:     ${signup.roleLabel}`,
+      `Time:     ${submission.submittedAt}`,
+    ],
+    collectFailures([
+      ["notification", notified],
+      ["beehiiv", beehiiv],
+      ["pipedrive", pipedrive],
+    ]),
+  );
 
   // OK, wenn der Lead das Training bekommt (beehiiv) ODER Simon informiert
   // wurde und manuell nachziehen kann.
