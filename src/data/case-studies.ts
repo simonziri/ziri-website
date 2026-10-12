@@ -96,7 +96,7 @@ export const caseStudies: CaseStudy[] = [
     client: "Leapsome",
     clientUrl: "https://www.leapsome.com",
     title: "Highlights from 1.5 years of partnership with Leapsome",
-    sub: "Over 1.5 years as Leapsome's web agency: strategy, messaging and positioning, web design, development, conversion optimization and team enablement.",
+    sub: "Over 1.5 years as Leapsome's web agency: strategy and messaging, web design, development, conversion optimization and team enablement. A recent highlight: the relaunch, five weeks from first asset to live, with 166 static pages, 45 CMS templates and roughly 5,500 indexed URLs, in English and German.",
     seo: {
       title: "Leapsome Website Relaunch & Redesign | ZIRI, B2B Web Agency",
       description:
@@ -109,7 +109,7 @@ export const caseStudies: CaseStudy[] = [
       ],
     },
     summary:
-      "Leapsome sells HR software to companies where a buying decision runs through HR, finance, IT and the exec team. Deals take months. We have been their website partner for over 1.5 years, across strategy, messaging and positioning, design, development, conversion optimization and team enablement. What follows is a collection of highlights from that time, from the ongoing retainer work to the full relaunch.",
+      "Leapsome sells HR software to companies where a buying decision runs through HR, finance, IT and the exec team. Deals take months. We have been their website partner for over 1.5 years, across strategy and messaging, design, development, conversion optimization and team enablement. What follows is a collection of highlights from that time, from the ongoing retainer work to the full relaunch.",
     logo: "/assets/tab-logos/Leapsome.svg",
     thumbnail: {
       src: "/assets/featured/leapsome-thumb-hris.avif",
@@ -145,7 +145,7 @@ export const caseStudies: CaseStudy[] = [
       },
       {
         label: "Highlight 2",
-        heading: "The Leapsome website relaunch, 290 pages in five weeks",
+        heading: "The Leapsome website relaunch, in five weeks",
         paragraphs: [
           "Leapsome decided to rebuild the site on a new design and messaging. Design prep took two weeks, the build took three, and then [www.leapsome.com](https://www.leapsome.com) switched to the new site. Five weeks from first asset to live.",
           "The size of it: 166 static pages, 45 CMS collections with their own templates, and roughly 5,500 URLs Google already indexes, all of it in English and German. Organic search is one of Leapsome's main growth drivers, so the risk sat in the migration, not the design. A relaunch that drops rankings costs more than it earns, and the old site had to keep running untouched until the switch.",
@@ -172,11 +172,10 @@ export const caseStudies: CaseStudy[] = [
       },
       {
         label: "Highlight 5",
-        heading: "Clearing the technical debt",
+        heading: "Making the site easy to change",
         paragraphs: [
-          "When we started, the Leapsome site had years of growth baked in. Hundreds of pages, thousands of classes, and every new page needed a developer. Marketing had ideas faster than the site could take them.",
-          "Dead classes went, page templates got a shared structure, and the pieces marketing touches most became reusable blocks. The measure we cared about was how long it takes a marketer to get a new page live without asking anyone. That time dropped by around 90%.",
-          "This groundwork made everything above possible. You cannot run tests on a site nobody dares to touch, and you cannot relaunch in five weeks on a codebase you do not understand.",
+          "Early in the partnership, we set the site up so marketing could move without waiting on a developer. Page templates got a shared structure, and the pieces marketing touches most became reusable blocks. The measure we cared about was how long it takes a marketer to get a new page live without asking anyone. That time dropped by around 90%.",
+          "This groundwork made everything above possible: the conversion program, the team shipping pages on their own, and a relaunch in five weeks.",
         ],
       },
     ],
@@ -299,7 +298,7 @@ export const caseStudies: CaseStudy[] = [
     title: "Visual Refresh & Homepage Redesign for HockeyStack",
     sub: "A sharper visual language and rebuilt homepage for the revenue analytics platform.",
     summary:
-      "We revamped HockeyStack's colors, typography, and visual language, then redesigned and redeveloped the homepage to match where the product had grown. Along the way, we fixed a broken proxy affecting 100+ pages, protecting hard-earned SEO rankings.",
+      "We revamped HockeyStack's colors, typography, and visual language, then redesigned and redeveloped the homepage to match where the product had grown.",
     note: "Commissioned by Quarter Digital.",
     logo: "/assets/tab-logos/HockeyStack.svg",
     thumbnail: {
@@ -308,7 +307,6 @@ export const caseStudies: CaseStudy[] = [
       width: 1544,
       height: 1544,
     },
-    kpis: [{ value: "100+", label: "pages with rankings protected" }],
     gallery: [
       { layout: "full", image: img("hockeystacktop.avif", "HockeyStack homepage redesign", 2517, 1833) },
       { layout: "full", image: img("hockeystackbottom.avif", "HockeyStack visual language", 2517, 963) },
