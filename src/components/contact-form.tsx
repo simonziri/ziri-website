@@ -206,7 +206,7 @@ export function ContactForm() {
 
       <div className={styles.formFooter}>
         <button
-          className={styles.formSubmit}
+          className={`${styles.formSubmit} ${styles.formSubmitTall}`}
           type="submit"
           disabled={status === "submitting"}
         >

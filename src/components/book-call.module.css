@@ -278,8 +278,9 @@
   padding: 1rem 2.125rem;
   border: 0;
   border-radius: 3px;
-  background: var(--color-dark-neutral-800);
-  color: var(--color-light-neutral-100);
+  /* Gelb wie der Button in den Ads (Simon, 2026-10-12) */
+  background: var(--color-gold-300);
+  color: var(--color-dark-neutral-800);
   cursor: pointer;
   font-family: inherit;
   font-size: var(--font-size-medium);
@@ -291,8 +292,13 @@
     transform 420ms var(--ease-global);
 }
 
+/* Kontaktformular auf der Startseite: 60 % mehr vertikales Padding */
+.formSubmitTall {
+  padding-block: 1.6rem;
+}
+
 .formSubmit:hover:not(:disabled) {
-  background: var(--color-dark-neutral-600);
+  background: var(--color-gold-400);
   transform: scale(0.97);
 }
 
