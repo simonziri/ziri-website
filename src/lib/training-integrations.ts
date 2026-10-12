@@ -16,6 +16,13 @@
 const BEEHIIV_API = "https://api.beehiiv.com/v2";
 /** Not secret. The ZIRI publication in beehiiv. */
 const BEEHIIV_PUBLICATION_ID = "pub_910529e3-bbef-4189-9422-5eb7e794b296";
+/**
+ * Not secret. Automation "Training signup: confirmation + what made you sign
+ * up" (trigger "Add by API"). beehiiv only enrolls API subscribers into
+ * automations listed here, the trigger alone does nothing.
+ */
+const BEEHIIV_TRAINING_AUTOMATION_ID =
+  "aut_78b18800-72f8-4aab-b8b5-7f553f550aff";
 
 const PIPEDRIVE_API = "https://api.pipedrive.com";
 
@@ -87,6 +94,7 @@ export async function subscribeToBeehiiv(
     // Training only: no double opt-in mail. Newsletter: double opt-in required.
     double_opt_override: signup.newsletter ? "on" : "off",
     referring_site: `simonziri.com/training/${signup.slug}`,
+    automation_ids: [BEEHIIV_TRAINING_AUTOMATION_ID],
     // Note: for an existing subscriber, "training" is overwritten with the
     // newest slug (acceptable for now).
     custom_fields: [
