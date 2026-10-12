@@ -385,3 +385,16 @@
     height: 1.5rem;
   }
 }
+
+/* Formular-Buttons gelb wie der Button in den Ads (nur Training-Seiten,
+   das Kontaktformular bleibt dunkel) */
+.formCard button[type="submit"],
+.interestCard button[type="submit"] {
+  background: var(--color-gold-300);
+  color: var(--color-dark-neutral-800);
+}
+
+.formCard button[type="submit"]:hover:not(:disabled),
+.interestCard button[type="submit"]:hover:not(:disabled) {
+  background: var(--color-gold-400);
+}
