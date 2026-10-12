@@ -34,9 +34,9 @@ const asTrimmed = (value: unknown, max: number): string | null =>
 
 async function notifyZiri(interest: TrainingInterest): Promise<void> {
   const text = [
-    `Training input via simonziri.com (thank-you page)`,
+    `Webinar input via simonziri.com (thank-you page)`,
     ``,
-    `Training: ${interest.trainingTitle}`,
+    `Webinar:  ${interest.trainingTitle}`,
     `Email:    ${interest.email}`,
     ``,
     `Burning topic:`,
@@ -59,7 +59,7 @@ async function notifyZiri(interest: TrainingInterest): Promise<void> {
       from: CONTACT_FROM,
       to: [CONTACT_TO],
       reply_to: interest.email,
-      subject: `Training input: ${interest.trainingTitle}`,
+      subject: `Webinar input: ${interest.trainingTitle}`,
       text,
     }),
     signal: AbortSignal.timeout(8000),
@@ -137,7 +137,7 @@ export async function POST(request: Request) {
     "thank-you page input",
     [
       `Email:    ${interest.email}`,
-      `Training: ${interest.trainingTitle} (${interest.slug})`,
+      `Webinar:  ${interest.trainingTitle} (${interest.slug})`,
       `Answer:   ${interest.problem}`,
     ],
     failures,

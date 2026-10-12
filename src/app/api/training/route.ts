@@ -74,9 +74,9 @@ async function notifyZiri(
 ): Promise<void> {
   if (process.env.RESEND_API_KEY) {
     const text = [
-      `New training signup via simonziri.com`,
+      `New webinar signup via simonziri.com`,
       ``,
-      `Training:     ${training.title}`,
+      `Webinar:      ${training.title}`,
       `ID / slug:    ${training.id} / ${training.slug}`,
       ``,
       `Email:        ${submission.email}`,
@@ -100,7 +100,7 @@ async function notifyZiri(
         from: CONTACT_FROM,
         to: [CONTACT_TO],
         reply_to: submission.email,
-        subject: `Training signup: ${training.title}`,
+        subject: `Webinar signup: ${training.title}`,
         text,
       }),
       signal: AbortSignal.timeout(8000),
@@ -238,10 +238,10 @@ export async function POST(request: Request) {
 
   // Alarm an ZIRI, damit niemand still verloren geht (wirft nie).
   await sendIntegrationAlert(
-    "training signup",
+    "webinar signup",
     [
       `Email:    ${email}`,
-      `Training: ${training.title} (${training.slug})`,
+      `Webinar:  ${training.title} (${training.slug})`,
       `Role:     ${signup.roleLabel}`,
       `Time:     ${submission.submittedAt}`,
     ],

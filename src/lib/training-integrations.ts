@@ -95,10 +95,10 @@ export async function subscribeToBeehiiv(
     double_opt_override: signup.newsletter ? "on" : "off",
     referring_site: `simonziri.com/training/${signup.slug}`,
     automation_ids: [BEEHIIV_TRAINING_AUTOMATION_ID],
-    // Note: for an existing subscriber, "training" is overwritten with the
+    // Note: for an existing subscriber, "webinar" is overwritten with the
     // newest slug (acceptable for now).
     custom_fields: [
-      { name: "training", value: signup.slug },
+      { name: "webinar", value: signup.slug },
       { name: "role", value: signup.role },
       { name: "newsletter_optin", value: signup.newsletter },
     ],
@@ -125,8 +125,8 @@ export async function subscribeToBeehiiv(
 
   const subscriptionId = dig(response, "data", "id");
 
-  // Tag pro Training, additiv: wer sich für zwei Trainings anmeldet, hat
-  // beide Tags (das Feld "training" hält nur das letzte). Versand am
+  // Tag "webinar:<slug>" pro Anmeldung, additiv: wer sich für zwei anmeldet, hat
+  // beide Tags (das Feld "webinar" hält nur das letzte). Versand am
   // Release-Tag pro Tag-Segment.
   if (typeof subscriptionId !== "string") {
     throw new Error("beehiiv subscription returned no id (tag not set)");
@@ -140,7 +140,7 @@ export async function subscribeToBeehiiv(
         Authorization: `Bearer ${apiKey}`,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ tags: [`training:${signup.slug}`] }),
+      body: JSON.stringify({ tags: [`webinar:${signup.slug}`] }),
     },
   );
 
@@ -240,7 +240,7 @@ export async function createPipedriveLead(
       method: "POST",
       headers,
       body: JSON.stringify({
-        title: `Training: ${signup.trainingId} - ${signup.slug}`,
+        title: `Webinar: ${signup.trainingId} - ${signup.slug}`,
         person_id: personId,
       }),
     },
@@ -252,8 +252,8 @@ export async function createPipedriveLead(
 
   // c) Note with the sign-up details.
   const lines = [
-    `<b>Training sign-up via simonziri.com</b>`,
-    `Training: ${escapeHtml(signup.trainingTitle)}`,
+    `<b>Webinar sign-up via simonziri.com</b>`,
+    `Webinar: ${escapeHtml(signup.trainingTitle)}`,
     `ID / slug: ${escapeHtml(signup.trainingId)} / ${escapeHtml(signup.slug)}`,
     `Role: ${escapeHtml(signup.roleLabel)}`,
     `Newsletter: ${signup.newsletter ? "yes (double opt-in pending)" : "no"}`,
@@ -309,8 +309,8 @@ export async function addPipedriveInterestNote(
   const { personId } = await findOrCreatePerson(interest.email, headers);
 
   const lines = [
-    `<b>Training input (thank-you page)</b>`,
-    `Training: ${escapeHtml(interest.trainingTitle)}`,
+    `<b>Webinar input (thank-you page)</b>`,
+    `Webinar: ${escapeHtml(interest.trainingTitle)}`,
     `ID / slug: ${escapeHtml(interest.trainingId)} / ${escapeHtml(interest.slug)}`,
     ``,
     `<b>Burning topic:</b>`,
