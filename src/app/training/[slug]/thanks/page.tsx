@@ -53,12 +53,6 @@ export default async function TrainingThanksPage({
             You&rsquo;re in. Your training arrives on {releaseDate}.
           </h1>
           <p>
-            On {releaseDate}{" "}
-            we&rsquo;ll email the recording of &ldquo;
-            {training.title}&rdquo; to the address you signed up with. Nothing
-            else to do until then.
-          </p>
-          <p>
             A confirmation email is on its way. Can&rsquo;t find it in a few
             minutes? Check your spam or promotions folder.
           </p>
