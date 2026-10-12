@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { PixelHatchButton } from "@/components/pixel-hatch-button";
+import { TrainingInterestForm } from "@/components/training-interest-form";
 import { TrainingFooter, TrainingHeader } from "@/components/training-chrome";
 import {
   TRAINING_SENDER_EMAIL,
@@ -62,15 +63,31 @@ export default async function TrainingThanksPage({
             <strong>{TRAINING_SENDER_EMAIL}</strong>{" "}
             to your contacts, so the training doesn&rsquo;t land in spam.
           </p>
+          <div
+            className={styles.interestCard}
+            role="region"
+            aria-labelledby="interest-title"
+            data-theme="light-primary"
+          >
+            <h2 id="interest-title">What topic is burning most right now?</h2>
+            <p>
+              We&rsquo;re still recording this training, so your answer goes
+              straight into it.
+            </p>
+            <TrainingInterestForm
+              slug={training.slug}
+              labelledBy="interest-title"
+            />
+          </div>
           <div className={styles.thanksActions}>
             <PixelHatchButton
               href="https://www.linkedin.com/in/simonziri/"
               external
             >
-              Connect with me on LinkedIn
+              Connect on LinkedIn
             </PixelHatchButton>
             <PixelHatchButton href="/" variant="secondary">
-              Visit my home page
+              Go to homepage
             </PixelHatchButton>
           </div>
         </section>

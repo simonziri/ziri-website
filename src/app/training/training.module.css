@@ -288,10 +288,36 @@
   line-height: 1.2;
 }
 
-.thanks p {
+.thanks > p {
   color: var(--text-secondary);
   font-size: var(--font-size-large);
   line-height: var(--line-height-relaxed);
+}
+
+/* Interessen-Formular auf der Thank-you-Seite, gleiche helle Insel wie das Anmeldeformular */
+.interestCard {
+  margin-top: var(--space-xsmall);
+  padding: var(--padding-card-md);
+  border: 1px solid var(--border-default);
+  border-radius: 4px;
+  background: var(--color-light-neutral-100);
+  color: var(--color-dark-neutral-800);
+}
+
+.interestCard h2 {
+  font-size: var(--font-size-h6);
+  line-height: 1.3;
+}
+
+.interestCard > p {
+  margin-top: var(--space-xxsmall);
+  color: var(--text-secondary);
+  font-size: var(--font-size-small);
+  line-height: var(--line-height-relaxed);
+}
+
+.interestCard form > fieldset:first-of-type {
+  padding-top: var(--space-small);
 }
 
 .thanksActions {
@@ -301,7 +327,7 @@
   margin-top: var(--space-xsmall);
 }
 
-.thanks p strong {
+.thanks > p strong {
   color: var(--text-body);
   font-weight: 420;
 }

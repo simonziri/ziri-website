@@ -2,7 +2,8 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect, useState, type FormEvent } from "react";
-import { TRAINING_ROLES } from "@/data/trainings";
+import { TRAINING_EMAIL_STORAGE_KEY, TRAINING_ROLES } from "@/data/trainings";
+import { isFreeEmail, WORK_EMAIL_MESSAGE } from "@/lib/work-email";
 import styles from "./book-call.module.css";
 
 type Status = "idle" | "submitting" | "error";
@@ -22,11 +23,15 @@ type Utm = Partial<Record<(typeof UTM_KEYS)[number], string>>;
  *   mit { slug } auf window und leiten dann auf die Thank-you-Seite.
  *   Tracking (z. B. Meta Pixel) dort anhängen, nicht hier, und vorher
  *   Privacy Policy + Consent nachziehen.
+ * - Nur Firmen-Adressen (src/lib/work-email.ts), Server prüft erneut.
+ * - Die Adresse wird für die Thank-you-Seite in sessionStorage gelegt
+ *   (Interessen-Formular dort), nie in URL oder Cookie.
  */
 export function TrainingSignupForm({ slug }: { slug: string }) {
   const router = useRouter();
   const [status, setStatus] = useState<Status>("idle");
   const [utm, setUtm] = useState<Utm>({});
+  const [emailError, setEmailError] = useState<string | null>(null);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -41,6 +46,13 @@ export function TrainingSignupForm({ slug }: { slug: string }) {
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.currentTarget;
+    const emailInput = form.elements.namedItem("email") as HTMLInputElement;
+    const workEmailError =
+      emailInput.value && isFreeEmail(emailInput.value)
+        ? WORK_EMAIL_MESSAGE
+        : null;
+    emailInput.setCustomValidity(workEmailError ?? "");
+    setEmailError(workEmailError);
     if (!form.checkValidity()) {
       form.reportValidity();
       return;
@@ -64,7 +76,26 @@ export function TrainingSignupForm({ slug }: { slug: string }) {
           company_website_2: data.get("company_website_2"),
         }),
       });
-      if (!response.ok) throw new Error(String(response.status));
+      if (!response.ok) {
+        const result: { error?: string } = await response
+          .json()
+          .catch(() => ({}));
+        if (result.error === "work_email") {
+          setEmailError(WORK_EMAIL_MESSAGE);
+          setStatus("idle");
+          return;
+        }
+        throw new Error(String(response.status));
+      }
+
+      try {
+        sessionStorage.setItem(
+          TRAINING_EMAIL_STORAGE_KEY,
+          String(data.get("email") ?? ""),
+        );
+      } catch {
+        // Kein Storage (privates Fenster o. ä.): Thank-you-Seite fragt nach.
+      }
 
       window.dispatchEvent(
         new CustomEvent("ziri:training:submitted", { detail: { slug } }),
@@ -101,8 +132,25 @@ export function TrainingSignupForm({ slug }: { slug: string }) {
             autoComplete="email"
             required
             maxLength={320}
+            aria-invalid={emailError ? true : undefined}
+            aria-describedby={emailError ? "training-email-error" : undefined}
+            onChange={(event) => {
+              if (emailError) {
+                event.currentTarget.setCustomValidity("");
+                setEmailError(null);
+              }
+            }}
           />
         </label>
+        {emailError ? (
+          <p
+            className={styles.formError}
+            id="training-email-error"
+            role="alert"
+          >
+            {emailError}
+          </p>
+        ) : null}
       </fieldset>
 
       <fieldset className={styles.formSection}>

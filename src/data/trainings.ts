@@ -14,6 +14,9 @@
 export const TRAINING_RELEASE_DATE = "2026-11-12";
 
 /** Absenderadresse der Trainings-Mails (beehiiv), steht auf der Danke-Seite. */
+/** sessionStorage-Key: Adresse von der Anmeldung an die Thank-you-Seite (nie in der URL). */
+export const TRAINING_EMAIL_STORAGE_KEY = "ziri:training:email";
+
 export const TRAINING_SENDER_EMAIL = "simon@mail.simonziri.com";
 
 export type Training = {

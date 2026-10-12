@@ -5,6 +5,8 @@
  *   can be sent. Newsletter only with separate opt-in + double opt-in.
  * - Pipedrive (CRM): finds or creates the person, creates a lead and adds a
  *   note with the sign-up details.
+ * - Pipedrive (CRM): the thank-you page form ("what should the training
+ *   cover?") adds a note to the person.
  *
  * Secrets come from process.env only and are never logged. If a key is
  * missing (e.g. preview deployments), the integration is skipped.
@@ -134,22 +136,22 @@ const escapeHtml = (value: string) =>
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;");
 
-export async function createPipedriveLead(
-  signup: TrainingSignup,
-): Promise<IntegrationResult> {
-  const token = process.env.PIPEDRIVE_API_TOKEN;
-  if (!token) return { status: "skipped" };
+type PipedriveHeaders = Record<string, string>;
 
-  const headers = {
-    "x-api-token": token,
-    "Content-Type": "application/json",
-  };
+const pipedriveHeaders = (token: string): PipedriveHeaders => ({
+  "x-api-token": token,
+  "Content-Type": "application/json",
+});
 
-  // a) Find person by exact e-mail, otherwise create one.
+/** Find person by exact e-mail, otherwise create one. */
+async function findOrCreatePerson(
+  email: string,
+  headers: PipedriveHeaders,
+): Promise<{ personId: number; personCreated: boolean }> {
   const search = await callJson(
     "pipedrive person search",
     `${PIPEDRIVE_API}/api/v2/persons/search?${new URLSearchParams({
-      term: signup.email,
+      term: email,
       fields: "email",
       exact_match: "true",
       limit: "1",
@@ -174,8 +176,8 @@ export async function createPipedriveLead(
         headers,
         body: JSON.stringify({
           // We do not collect names; the e-mail local part is a placeholder.
-          name: signup.email.split("@")[0],
-          emails: [{ value: signup.email, primary: true, label: "work" }],
+          name: email.split("@")[0],
+          emails: [{ value: email, primary: true, label: "work" }],
         }),
       },
     );
@@ -186,6 +188,21 @@ export async function createPipedriveLead(
     personId = newId;
     personCreated = true;
   }
+  return { personId, personCreated };
+}
+
+export async function createPipedriveLead(
+  signup: TrainingSignup,
+): Promise<IntegrationResult> {
+  const token = process.env.PIPEDRIVE_API_TOKEN;
+  if (!token) return { status: "skipped" };
+  const headers = pipedriveHeaders(token);
+
+  // a) Person
+  const { personId, personCreated } = await findOrCreatePerson(
+    signup.email,
+    headers,
+  );
 
   // b) Lead, owned by the token owner (default owner).
   const lead = await callJson(
@@ -237,6 +254,57 @@ export async function createPipedriveLead(
       leadHttp: lead.status,
       ...(typeof noteId === "number" ? { noteId } : {}),
       noteHttp: note.status,
+    },
+  };
+}
+
+/* ------------------------------------------------------------------ */
+/* Pipedrive: thank-you page input                                    */
+/* ------------------------------------------------------------------ */
+
+export type TrainingInterest = {
+  slug: string;
+  trainingId: string;
+  trainingTitle: string;
+  email: string;
+  problem: string;
+  submittedAt: string;
+};
+
+export async function addPipedriveInterestNote(
+  interest: TrainingInterest,
+): Promise<IntegrationResult> {
+  const token = process.env.PIPEDRIVE_API_TOKEN;
+  if (!token) return { status: "skipped" };
+  const headers = pipedriveHeaders(token);
+
+  const { personId } = await findOrCreatePerson(interest.email, headers);
+
+  const lines = [
+    `<b>Training input (thank-you page)</b>`,
+    `Training: ${escapeHtml(interest.trainingTitle)}`,
+    `ID / slug: ${escapeHtml(interest.trainingId)} / ${escapeHtml(interest.slug)}`,
+    ``,
+    `<b>Burning topic:</b>`,
+    escapeHtml(interest.problem).replace(/\n/g, "<br>"),
+    ``,
+    `Sent at: ${interest.submittedAt}`,
+  ];
+  const note = await callJson(
+    "pipedrive interest note create",
+    `${PIPEDRIVE_API}/v1/notes`,
+    {
+      method: "POST",
+      headers,
+      body: JSON.stringify({ content: lines.join("<br>"), person_id: personId }),
+    },
+  );
+  const noteId = dig(note.body, "data", "id");
+  return {
+    status: "ok",
+    details: {
+      personId,
+      ...(typeof noteId === "number" ? { noteId } : {}),
     },
   };
 }

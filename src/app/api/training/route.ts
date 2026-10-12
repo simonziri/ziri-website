@@ -5,6 +5,7 @@ import {
   subscribeToBeehiiv,
   type TrainingSignup,
 } from "@/lib/training-integrations";
+import { isFreeEmail } from "@/lib/work-email";
 
 /**
  * Training-Sign-up-Endpoint (Webinar-Lead-Magnets, /training/[slug]).
@@ -145,6 +146,14 @@ export async function POST(request: Request) {
 
   if (!valid) {
     return NextResponse.json({ ok: false, error: "invalid" }, { status: 400 });
+  }
+
+  // Nur Firmen-Adressen (gleiche Liste wie im Formular).
+  if (isFreeEmail(email)) {
+    return NextResponse.json(
+      { ok: false, error: "work_email" },
+      { status: 400 },
+    );
   }
 
   const submission: Submission = {
