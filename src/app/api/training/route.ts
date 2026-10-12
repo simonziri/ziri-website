@@ -18,7 +18,7 @@ import {
  *
  * - Speichert nichts. Submissions werden nur weitergeleitet.
  * - Zustellung, env-gesteuert, in dieser Reihenfolge:
- *     1. RESEND_API_KEY      → E-Mail an CONTACT_EMAIL_TO (Benachrichtigung
+ *     1. RESEND_API_KEY      → E-Mail an WEBINAR_EMAIL_TO / media@ (Benachrichtigung
  *                              an ZIRI, KEINE Mail an den Lead)
  *     2. CONTACT_WEBHOOK_URL → JSON-POST (source: "ziri-website/training")
  *     3. nichts gesetzt      → Server-Log (Dev-Fallback)
@@ -34,7 +34,8 @@ import {
  * Pipedrive. Bei Änderungen hier mitziehen.
  */
 
-const CONTACT_TO = process.env.CONTACT_EMAIL_TO ?? "hello@simonziri.com";
+/* Webinar-Mails bewusst NICHT an hello@ (Kontaktformular), sondern media@. */
+const CONTACT_TO = process.env.WEBINAR_EMAIL_TO ?? "media@simonziri.com";
 const CONTACT_FROM =
   process.env.CONTACT_EMAIL_FROM ?? "ZIRI Website <onboarding@resend.dev>";
 

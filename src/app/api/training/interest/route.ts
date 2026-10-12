@@ -23,7 +23,8 @@ import {
  * Formular. Bei Änderungen hier mitziehen.
  */
 
-const CONTACT_TO = process.env.CONTACT_EMAIL_TO ?? "hello@simonziri.com";
+/* Webinar-Mails bewusst NICHT an hello@ (Kontaktformular), sondern media@. */
+const CONTACT_TO = process.env.WEBINAR_EMAIL_TO ?? "media@simonziri.com";
 const CONTACT_FROM =
   process.env.CONTACT_EMAIL_FROM ?? "ZIRI Website <onboarding@resend.dev>";
 

@@ -1,5 +1,5 @@
 /**
- * Alarm-Mail an ZIRI, wenn bei einer Training-Anmeldung eine Integration
+ * Alarm-Mail an ZIRI (media@), wenn bei einer Training-Anmeldung eine Integration
  * (beehiiv, Pipedrive, Benachrichtigung) scheitert. Damit geht niemand still
  * verloren: die Mail sagt, wer betroffen ist und was manuell nachzuziehen ist.
  *
@@ -7,7 +7,8 @@
  * ausfällt: nur Server-Log. Wirft nie.
  */
 
-const CONTACT_TO = process.env.CONTACT_EMAIL_TO ?? "hello@simonziri.com";
+/* Webinar-Mails bewusst NICHT an hello@ (Kontaktformular), sondern media@. */
+const CONTACT_TO = process.env.WEBINAR_EMAIL_TO ?? "media@simonziri.com";
 const CONTACT_FROM =
   process.env.CONTACT_EMAIL_FROM ?? "ZIRI Website <onboarding@resend.dev>";
 
