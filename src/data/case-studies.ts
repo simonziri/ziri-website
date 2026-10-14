@@ -218,9 +218,9 @@ export const caseStudies: CaseStudy[] = [
     slug: "simplesense",
     client: "Simplesense",
     title: "Rebrand & Relaunch for Simplesense",
-    sub: "A full rebrand and relaunch that make complex data infrastructure instantly understandable to a defense audience.",
+    sub: "A full rebrand and relaunch that make critical infrastructure instantly understandable to the people responsible for it.",
     summary:
-      "Simplesense gives military installations one view of the infrastructure underneath their mission: power, water, security and communications, on systems that were never built to talk to each other. The product is complex, the buyers are senior and careful, and the category has a look everyone recognizes. We refreshed the brand around the green dot from their logo, built a visual language, set the visual direction for the product's dashboards so it reads at a glance, and relaunched the website.",
+      "Simplesense gives the people responsible for critical infrastructure one view of the systems underneath their operations: power, water, security and communications, on equipment that was never built to talk to each other. The platform is built for power, utilities, facilities and defense, with its deepest track record on military installations. The product is complex, the buyers are senior and careful, and the category has a look everyone recognizes. We refreshed the brand around the green dot from their logo, built a visual language, set the visual direction for the product's dashboards so it reads at a glance, and relaunched the website.",
     note: "In partnership with TRU VM and Marie Wilda.",
     logo: "/assets/tab-logos/Simplesense.svg",
     thumbnail: {
@@ -245,15 +245,15 @@ export const caseStudies: CaseStudy[] = [
         label: "The brief",
         heading: "Out of the defense-tech corner",
         paragraphs: [
-          "The people Simplesense sells to run military installations: commanders, mission support leaders, facility and security operators. They have sat through a lot of vendor pitches, and the defense-tech sites behind those pitches tend to look alike. Dark mode, full-screen video, threat language, technology first. Simplesense wanted a white, quiet site that makes a complex product simple to grasp, and a company that is visibly about people. Their own line for it is Mission First, People Always.",
-          "Simplesense came to us through TRU VM, a marketing agency we have worked with since our early days. The old site had a clear weak spot: it explained how the technology works long before it said what a commander gets out of it.",
+          "The people Simplesense sells to keep critical infrastructure running: installation leaders, facility and energy managers, security and incident response teams. They have sat through a lot of vendor pitches, and with defense as the strongest reference, the obvious move would have been to look like defense tech. Those sites tend to look alike. Dark mode, full-screen video, threat language, technology first. Simplesense wanted a white, quiet site that makes a complex product simple to grasp, and a company that is visibly about people. Their own line for it is Mission First, People Always.",
+          "Simplesense came to us through TRU VM, a marketing agency we have worked with since our early days. The old site had a clear weak spot: it explained how the technology works long before it said what the person in charge gets out of it.",
         ],
       },
       {
         label: "The audience",
         heading: "Buyers who notice every wrong detail",
         paragraphs: [
-          "Selling into defense infrastructure changes what a website has to do. The person reading is accountable for an entire installation, and a decision like this passes through several layers before anyone signs. A site that feels clever and leaves them unsure what the product does gets closed within seconds. It has to show early that the product is deployed, running and ready to scale, and that Simplesense is a software company, because a lot of defense tech never makes it past the prototype and these buyers know it.",
+          "Selling into critical infrastructure changes what a website has to do. The person reading is accountable for an entire site, and a decision like this passes through several layers before anyone signs. A site that feels clever and leaves them unsure what the product does gets closed within seconds. It has to show early that the product is deployed, running and ready to scale, and that Simplesense is a software company, because a lot of technology in this space never makes it past the prototype and these buyers know it.",
           "The usual ways to build trust are mostly off the table. Customers in this world rarely appear in video testimonials, photos of real users are out, and anything that comes from an operational environment needs care. At this level a screenshot, an image or a number on a public page can reveal more than intended, so every visual gets checked for what it might give away before it goes live. The audience also knows every detail of these systems, so anything inaccurate gets spotted immediately. Accuracy and caution belong in the design brief from day one.",
         ],
       },
@@ -280,8 +280,8 @@ export const caseStudies: CaseStudy[] = [
         label: "The imagery",
         heading: "Accurate, good-looking, or abstract",
         paragraphs: [
-          "Imagery is a familiar problem in the defense and infrastructure space. Pictures have to be accurate, because the audience knows every detail and spots anything wrong immediately. They also have to look good, and real infrastructure is cables, racks and clutter. Photos of actual users are off limits in this world, and stock photography was ruled out early. Sites in the category tend to settle for accurate and pay for it with pages that look like a server room. We went abstract. An image built from the shapes no longer has to document a real installation, so it can be composed and iterated until it carries the message. It also gives the brand room to be more creative and to stand out in a category where everything looks the same.",
-          "Where a real subject has to appear, an aircraft, a ship, a base, the photo dissolves into data points in the same dot language, made with a tool we built for exactly that. The people came back in through words: the roles the product serves, named on the page, and written quotes where a photo would have been impossible. The same system has since carried into their case studies and whitepapers, and into a brand guide and design system their team now uses for its internal rebrand.",
+          "Imagery is a familiar problem in critical infrastructure and defense. Pictures have to be accurate, because the audience knows every detail and spots anything wrong immediately. They also have to look good, and real infrastructure is cables, racks and clutter. Photos of actual users are off limits in this world, and stock photography was ruled out early. Sites in the category tend to settle for accurate and pay for it with pages that look like a server room. We went abstract. An image built from the shapes no longer has to document a real installation, so it can be composed and iterated until it carries the message. It also gives the brand room to be more creative and to stand out in a category where everything looks the same.",
+          "Where a real subject has to appear, an aircraft, a ship, a base, the photo dissolves into data points in the same dot language, made with a tool we built for exactly that. The people came back in through words: the roles the product serves, named on the page, and written quotes where a photo would have been impossible. The same system has since carried into their case studies and whitepapers, and into a brand guide and design system their team uses to carry the new look into all of its own materials.",
         ],
       },
     ],
