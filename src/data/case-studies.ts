@@ -30,11 +30,14 @@ export type GalleryRow =
   | { layout: "bento"; images: CaseStudyImage[] };
 
 /** Long-form body block: mono label (optional) + heading + paragraphs.
- *  Paragraphs may contain markdown-style links `[text](url)`. */
+ *  Paragraphs may contain markdown-style links `[text](url)`.
+ *  `image` renders a gallery row right after the section to break up
+ *  the text; never set it on two sections in a row or on the last one. */
 export type CaseStudySection = {
   label?: string;
   heading: string;
   paragraphs: string[];
+  image?: GalleryRow;
 };
 
 export type CaseStudyTestimonial = {
@@ -214,10 +217,10 @@ export const caseStudies: CaseStudy[] = [
   {
     slug: "simplesense",
     client: "Simplesense",
-    title: "Rebrand, Visual Language & Website Relaunch for Simplesense",
-    sub: "A full rebrand and relaunch that make complex data infrastructure instantly understandable.",
+    title: "Rebrand & Relaunch for Simplesense",
+    sub: "A full rebrand and relaunch that make complex data infrastructure instantly understandable to a defense audience.",
     summary:
-      "Simplesense connects systems that don't talk to each other, and their old site shared the category's problem: complexity nobody could parse quickly. We rebuilt the brand from the ground up, turned that core story into a visual language that carries through the platform, and relaunched the website. The same system has since extended into their case studies and whitepapers.",
+      "Simplesense gives military installations one view of the infrastructure underneath their mission: power, water, security and communications, on systems that were never built to talk to each other. The product is complex, the buyers are senior and careful, and the category has a look everyone recognizes. We refreshed the brand around the green dot from their logo, built a visual language and dashboards that make the product readable at a glance, and relaunched the website.",
     note: "In partnership with TRU VM and Marie Wilda.",
     logo: "/assets/tab-logos/Simplesense.svg",
     thumbnail: {
@@ -228,8 +231,6 @@ export const caseStudies: CaseStudy[] = [
     },
     gallery: [
       { layout: "full", image: img("simplesensetop.avif", "Simplesense rebrand", 2517, 1833) },
-      { layout: "full", image: img("simplesensebottom.avif", "Simplesense visual language", 2517, 963) },
-      { layout: "full", image: img("simplesensedashboards.avif", "Simplesense dashboards: operator view in mission-ready and degraded state, and the command view", 3588, 1222) },
     ],
     testimonial: {
       quote: [
@@ -244,17 +245,25 @@ export const caseStudies: CaseStudy[] = [
         label: "The brief",
         heading: "Out of the defense-tech corner",
         paragraphs: [
-          "Simplesense gives the people who run military installations one view of the infrastructure underneath their mission: power, water, security, communications, all of it on separate, aging systems that were never built to talk to each other. The category they sell into has a look. Dark mode, full-screen video, threat language, technology first. Simplesense wanted a white, quiet site that makes a complex product simple to grasp, and a company that is visibly about people. Their own line for it is Mission First, People Always.",
-          "The messaging strategy came from Marie Wilda and runs on one thread: visibility enables awareness, awareness enables action, action reduces downtime. Simplesense had reached us through TRU VM, a marketing agency we have worked with since our early days. Our part was the brand, the visual language and the website itself.",
+          "The people Simplesense sells to run military installations: commanders, mission support leaders, facility and security operators. They have sat through a lot of vendor pitches, and the defense-tech sites behind those pitches tend to look alike. Dark mode, full-screen video, threat language, technology first. Simplesense wanted a white, quiet site that makes a complex product simple to grasp, and a company that is visibly about people. Their own line for it is Mission First, People Always.",
+          "Simplesense came to us through TRU VM, a marketing agency we have worked with since our early days. The old site had a clear weak spot: it explained how the technology works long before it said what a commander gets out of it.",
+        ],
+      },
+      {
+        label: "The audience",
+        heading: "Buyers who notice every wrong detail",
+        paragraphs: [
+          "Selling into defense infrastructure changes what a website has to do. The person reading is accountable for an entire installation, and a decision like this passes through several layers before anyone signs. A site that feels clever and leaves them unsure what the product does gets closed within seconds. It has to show early that the product is deployed, running and ready to scale, and that Simplesense is a software company, because a lot of defense tech never makes it past the prototype and these buyers know it.",
+          "The usual ways to build trust are mostly off the table. Customers in this world rarely appear in video testimonials, photos of real users are out, and anything that comes from an operational environment needs care. At this level a screenshot, an image or a number on a public page can reveal more than intended, so every visual gets checked for what it might give away before it goes live. The audience also lives inside these facilities and spots an inaccurate detail immediately. Accuracy and caution belong in the design brief from day one.",
         ],
       },
       {
         label: "The process",
-        heading: "Building on research that already existed",
+        heading: "From a lot of input to one direction",
         paragraphs: [
-          "Simplesense came in with the research done. They had interviewed their customers, written a white paper on the problem and worked out positioning and messaging with Marie. Repeating that work would have cost weeks and told us little new, so we built on it. The first step was an async design exercise: the team annotated a set of reference sites with stickers and comments and named the associations they wanted to own and the ones they wanted to avoid.",
-          "Then we went into a workshop with Simplesense's leadership, Marie and TRU VM, traded ideas and challenged them, and came out with a short list of priorities. Order from chaos, above everything. Make it obvious within seconds what the product does and which problems it solves, because a site that feels clever and explains nothing was the failure they feared most. Show that the product is operational and ready to scale, on a site that reads as a software company and never as a consultancy. And keep the people in it: the dispatchers, facility operators and commanders the product exists for. We also settled who the site is for: one buyer, the leaders of installations and their supporting infrastructure, with other markets deliberately left for later.",
-          "From there the work ran in iterations. Explorations, applied to real pages, checked in async, narrowed each round. Each round went back to the team as a single direction built on what the workshop had produced, and the only question was whether it was right yet. It got closer every round.",
+          "A company at this stage brings many voices to a project like this: founders, operations, strategy, marketing, outside advisors, and a white paper still in progress. All of it is good input, and together it can pull a design in five directions. The first step was an async design exercise. The team annotated a set of reference sites with stickers and comments and named the associations they wanted to own and the ones they wanted to avoid. It showed early how aligned they already were, which saves a lot of debate later.",
+          "In the workshop that followed, with Simplesense's leadership, their marketing lead and TRU VM, that became a short list of priorities. Order from chaos, above everything. Make it obvious within seconds what the product does and which problems it solves. Show that it runs today and can scale. And keep the people in it: the dispatchers, facility operators and commanders the product exists for. The site has one buyer, the leaders of installations and their supporting infrastructure, with other markets deliberately left for later.",
+          "From there the work ran in iterations. Each round went back to the team as a single direction applied to real pages, built on what the workshop had produced, and the only question was whether it was right yet. It got closer every round.",
         ],
       },
       {
@@ -270,24 +279,27 @@ export const caseStudies: CaseStudy[] = [
         heading: "The product, redesigned from the ground up",
         paragraphs: [
           "The dashboard is the clearest answer to what Simplesense does, so it had to look like the brand. We redesigned it from the ground up: an operator view and a command view, on the same white ground and with the same restraint as the site. Color does the work. Green means mission ready, terracotta means degraded and action required, and every element on the screen reads that state at a glance.",
-          "The task was to set the visual direction. Simplesense's team builds the detailed dashboards, closer to real use, on that foundation, and they match the site in style and look without depending on us.",
+          "At the top of the platform page, the command view carries the story on its own. It shows the status of an entire installation, electricity, water, security and comms in one combined view, and as you scroll it moves from Degraded back to Online. That transition is what Simplesense delivers, through clarity, awareness and systems that finally talk to each other. The data on every screen is illustrative, and anything that could point to a specific installation stays off the page.",
+          "Our task was to set the visual direction. Simplesense's team builds the detailed dashboards closer to real use on that foundation, further views followed after launch, and the screens on the site and in the product share one look.",
           "Clean visuals are a core part of how we work. Going deep once, into a proper source of truth for the product, makes every visual that follows better and faster, on the website and in everything that comes after it.",
         ],
+        image: { layout: "full", image: img("simplesensedashboards.avif", "Simplesense dashboards: operator view in mission-ready and degraded state, and the command view", 3588, 1222) },
       },
       {
         label: "The visual language",
-        heading: "Three shapes that cannot talk to each other",
+        heading: "Four shapes that cannot talk to each other",
         paragraphs: [
-          "Simplesense connects systems in infrastructure that were never built to communicate. That became the whole language. Every visual starts from three forms, a square, a triangle and a circle, standing in for the systems and the people that have to work together on an installation: leaders, incident response, facility operators. The circle is the green dot from the Simplesense logo, the one element of the old brand everyone wanted to keep. At the start of each visual the shapes sit apart. Then they connect, and the picture comes together. That movement, from scattered forms to one clear image, is the Simplesense effect, and it is the sentence the brand runs on: turn complexity into clarity.",
-          "The rules are deliberately loose. A tighter system would have limited what the images can do. What we cared about is that every visual, on every page, tells the same story.",
+          "Simplesense connects systems in infrastructure that were never built to communicate. That became the whole language. Every visual starts from four forms, a circle, a square, a triangle and a diamond, standing in for the infrastructure domains and the people who have to work together on an installation. The circle is the green dot from the Simplesense logo, the one element of the old brand everyone wanted to keep. At the start of each visual the shapes sit apart. Then they connect, and the picture comes together. That movement, from scattered forms to one clear image, is the Simplesense effect, and it is the sentence the brand runs on: turn complexity into clarity.",
+          "Operators read flowchart symbols every day, so the shapes were checked against what those symbols already mean, to keep a visual from accidentally saying the wrong thing. Beyond that the rules are deliberately loose, and a small generator turns the shapes into patterns, so the system grows past what anyone draws by hand. What we cared about is that every visual, on every page, tells the same story.",
         ],
+        image: { layout: "full", image: img("simplesensebottom.avif", "Simplesense visual language", 2517, 963) },
       },
       {
         label: "The imagery",
         heading: "Accurate, good-looking, or abstract",
         paragraphs: [
-          "Imagery is a familiar problem in the defense and infrastructure space. Pictures have to be accurate, because the audience lives in these facilities and spots a wrong detail immediately. They also have to look good, and real infrastructure is cables, racks and clutter. Photos of actual users are off limits in this world, and stock photography was ruled out early. Sites in the category tend to settle for accurate and pay for it with pages that look like a server room. We went abstract. An image built from the three shapes no longer has to document a real installation, so it can be composed and iterated until it carries the message. It also gives the brand room to be more creative and to stand out in a category where everything looks the same.",
-          "The people came back in through words: the roles the product serves, named on the page, and written quotes where a photo would have been impossible. The client loved it, and from that point the rest of the project moved quickly. The same shapes have since carried into their case studies and whitepapers.",
+          "Imagery is a familiar problem in the defense and infrastructure space. Pictures have to be accurate, because the audience lives in these facilities and spots a wrong detail immediately. They also have to look good, and real infrastructure is cables, racks and clutter. Photos of actual users are off limits in this world, and stock photography was ruled out early. Sites in the category tend to settle for accurate and pay for it with pages that look like a server room. We went abstract. An image built from the shapes no longer has to document a real installation, so it can be composed and iterated until it carries the message. It also gives the brand room to be more creative and to stand out in a category where everything looks the same.",
+          "Where a real subject has to appear, an aircraft, a ship, a base, the photo dissolves into data points in the same dot language, made with a tool we built for exactly that. The people came back in through words: the roles the product serves, named on the page, and written quotes where a photo would have been impossible. The same system has since carried into their case studies and whitepapers, and into a brand guide and design system their team now uses for its internal rebrand.",
         ],
       },
     ],

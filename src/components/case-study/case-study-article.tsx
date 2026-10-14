@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import { Fragment, type ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import type { CaseStudy, CaseStudySection, GalleryRow } from "@/data/case-studies";
@@ -216,9 +216,18 @@ export function CaseStudyArticle({
       ) : null}
 
       {caseStudy.sections && caseStudy.sections.length > 0 ? (
-        <div className={`${styles.narrow} ${styles.sections}`}>
+        <div className={styles.sections}>
           {caseStudy.sections.map((section) => (
-            <SectionView key={section.heading} section={section} />
+            <Fragment key={section.heading}>
+              <div className={styles.narrow}>
+                <SectionView section={section} />
+              </div>
+              {section.image ? (
+                <div className={styles.inset}>
+                  <GalleryRowView row={section.image} />
+                </div>
+              ) : null}
+            </Fragment>
           ))}
         </div>
       ) : null}

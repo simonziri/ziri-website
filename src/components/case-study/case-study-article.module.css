@@ -248,6 +248,12 @@
   padding-block: var(--space-large) var(--space-xlarge);
 }
 
+/* Abschnitte (.narrow) und Bilder dazwischen (.inset) im selben Grid:
+   auto-Margins würden die Items sonst auf Inhaltsbreite schrumpfen */
+.sections > * {
+  width: 100%;
+}
+
 .sectionLabel {
   font-family: ui-monospace, "SFMono-Regular", Consolas, "Liberation Mono", monospace;
   font-size: var(--font-size-small);
