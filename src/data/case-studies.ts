@@ -218,7 +218,7 @@ export const caseStudies: CaseStudy[] = [
     slug: "simplesense",
     client: "Simplesense",
     title: "Rebrand & Relaunch for Simplesense",
-    sub: "A full rebrand and relaunch that make critical infrastructure instantly understandable to the people responsible for it.",
+    sub: "A full rebrand and relaunch that make critical infrastructure instantly understandable to a cautious senior audience.",
     summary:
       "Simplesense gives the people responsible for critical infrastructure one view of the systems underneath their operations: power, water, security and communications, on equipment that was never built to talk to each other. The platform is built for power, utilities, facilities and defense, with its deepest track record on military installations. The product is complex, the buyers are senior and careful, and the category has a look everyone recognizes. We refreshed the brand around the green dot from their logo, built a visual language, set the visual direction for the product's dashboards so it reads at a glance, and relaunched the website.",
     note: "In partnership with TRU VM and Marie Wilda.",
