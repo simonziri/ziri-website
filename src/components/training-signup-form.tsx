@@ -154,7 +154,7 @@ export function TrainingSignupForm({ slug }: { slug: string }) {
       </fieldset>
 
       <fieldset className={styles.formSection}>
-        <p className={styles.formQuestion}>What&rsquo;s your role?</p>
+        <p className={styles.formQuestion}>What describes your role best?</p>
         <div
           className={styles.segmented}
           role="radiogroup"

@@ -84,7 +84,7 @@ export default async function TrainingPage({
             ) : null}
             <div className={styles.learn}>
               <p className={styles.monoLabel} id="learn-title">
-                You will learn
+                After this you&rsquo;ll know
               </p>
               <ul className={styles.bullets} aria-labelledby="learn-title">
                 {training.bullets.map((bullet) => (
