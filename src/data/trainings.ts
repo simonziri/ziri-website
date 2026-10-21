@@ -206,6 +206,7 @@ export const TRAINING_ROLES = [
   { value: "marketing-leader", label: "Marketing leader" },
   { value: "founder-ceo", label: "Founder / CEO" },
   { value: "sales-leader", label: "Sales leader" },
-  { value: "agency-freelancer", label: "Agency / freelancer" },
+  { value: "agency", label: "Agency" },
+  { value: "freelancer", label: "Freelancer" },
   { value: "other", label: "Other" },
 ] as const;
