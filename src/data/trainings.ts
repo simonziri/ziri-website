@@ -45,10 +45,9 @@ export const trainings: readonly Training[] = [
       "The exact steps we used to relaunch a 1,000+ page website in less than 6 weeks. Plus the risks and decisions you’ll face, and how you can use AI to make impossible timelines possible.",
     bullets: [
       "Where the real risks are and where to be pragmatic",
-      "Unique techniques and systems to dramatically save time",
+      "How we built our own tools to systemize the work",
       "How to prioritize pages in a partial relaunch",
       "Which numbers to track before and after launch",
-      "Which ranking and conversion signals matter",
     ],
     releaseDate: TRAINING_RELEASE_DATE,
   },
