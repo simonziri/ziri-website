@@ -147,10 +147,11 @@ export default async function TrainingPage({
               />
               <h2 id="teacher-title">Simon Ziri, founder of ZIRI</h2>
               <p>
-                ZIRI builds websites for B2B companies where each customer is
-                worth 5 to 7 figures. Recent work includes a 1,000+ page
-                relaunch for Leapsome, done in just 5 weeks, and a 200+ page
-                relaunch for Circula, which just got acquired by Personio.
+                For 7 years, Simon has built websites for B2B companies, often
+                on deadlines deemed impossible. Just recently, ZIRI relaunched
+                1,000+ pages for Leapsome in under 6&nbsp;weeks and 200+ pages
+                for Circula (later acquired by Personio). This training shows
+                what he learned along the way.
               </p>
             </div>
             <p className={styles.logosLabel}>Companies ZIRI has worked with</p>
