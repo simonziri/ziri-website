@@ -346,8 +346,29 @@
   display: none;
 }
 
-.formCard {
+.formCard,
+.teacher {
   scroll-margin-top: var(--space-small);
+}
+
+/* Nur mobil/Tablet, neben dem Sprung-Button: führt runter zu "Who's teaching" */
+.byline {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xxsmall);
+  color: var(--text-secondary);
+  font-size: var(--font-size-small);
+  text-decoration: none;
+}
+
+.byline img {
+  width: 1.75rem;
+  height: 1.75rem;
+  object-fit: cover;
+}
+
+.byline:hover {
+  color: var(--text-body);
 }
 
 @media (max-width: 61.9375rem) {
@@ -365,7 +386,10 @@
   }
 
   .jumpToForm {
-    display: block;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-small);
   }
 }
 

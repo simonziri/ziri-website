@@ -84,6 +84,16 @@ export default async function TrainingPage({
             {/* Nur mobil/Tablet sichtbar: dort liegt das Formular weit unten */}
             <div className={styles.jumpToForm}>
               <PixelHatchButton href="#signup">Get the free training</PixelHatchButton>
+              <a className={styles.byline} href="#teacher">
+                <Image
+                  src="/assets/simon-ziri.jpg"
+                  alt=""
+                  width={28}
+                  height={28}
+                  sizes="28px"
+                />
+                by Simon Ziri
+              </a>
             </div>
             {training.image ? (
               <Image
@@ -122,7 +132,11 @@ export default async function TrainingPage({
             <TrainingSignupForm slug={training.slug} />
           </div>
 
-          <section className={styles.teacher} aria-labelledby="teacher-title">
+          <section
+            className={styles.teacher}
+            id="teacher"
+            aria-labelledby="teacher-title"
+          >
             <p className={styles.monoLabel}>Who&rsquo;s teaching</p>
             <div className={styles.teacherBody}>
               <Image
