@@ -62,10 +62,6 @@
   text-wrap: pretty;
 }
 
-.titleSecondary {
-  color: var(--text-secondary);
-}
-
 .outcome {
   max-width: 40rem;
   color: var(--text-secondary);

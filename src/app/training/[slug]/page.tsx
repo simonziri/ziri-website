@@ -65,19 +65,7 @@ export default async function TrainingPage({
         <div className={styles.layout}>
           <section className={styles.hero} aria-labelledby="training-title">
             <SectionTag>Free training</SectionTag>
-            <h1 id="training-title">
-              {training.titleSecondary &&
-              training.title.endsWith(training.titleSecondary) ? (
-                <>
-                  {training.title.slice(0, -training.titleSecondary.length)}
-                  <span className={styles.titleSecondary}>
-                    {training.titleSecondary}
-                  </span>
-                </>
-              ) : (
-                training.title
-              )}
-            </h1>
+            <h1 id="training-title">{training.title}</h1>
             {training.outcome ? (
               <p className={styles.outcome}>{training.outcome}</p>
             ) : null}

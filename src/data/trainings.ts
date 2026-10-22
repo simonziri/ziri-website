@@ -24,8 +24,6 @@ export type Training = {
   /** Gesprochene ID, z. B. "Charlie Two" */
   id: string;
   title: string;
-  /** Ende von `title`, das in der H1 in Sekundärfarbe steht (muss exakt so am Ende von `title` stehen) */
-  titleSecondary?: string;
   /** Eine Zeile unter der H1 (optional, z. B. wenn die H1 schon alles sagt) */
   outcome?: string;
   bullets: readonly string[];
@@ -39,8 +37,7 @@ export const trainings: readonly Training[] = [
     slug: "relaunch-1000-pages",
     id: "Romeo One",
     title:
-      "How to relaunch your 1,000+ page website in 6 weeks without losing rankings or conversions.",
-    titleSecondary: "without losing rankings or conversions.",
+      "How to relaunch your 1,000+ page website in 6 weeks.",
     outcome:
       "The exact steps we used to relaunch a 1,000+ page website in less than 6 weeks. Plus the risks and decisions you’ll face, and how you can use AI to make impossible timelines possible.",
     bullets: [
