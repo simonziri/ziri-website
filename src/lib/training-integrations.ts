@@ -270,7 +270,7 @@ export async function createPipedriveLead(
     `<b>Webinar sign-up via simonziri.com</b>`,
     `Webinar: ${escapeHtml(signup.trainingTitle)}`,
     `ID / slug: ${escapeHtml(signup.trainingId)} / ${escapeHtml(signup.slug)}`,
-    `Role: ${escapeHtml(signup.roleLabel)}`,
+    `Describes them: ${escapeHtml(signup.roleLabel)}`,
     `Newsletter: ${signup.newsletter ? "yes (double opt-in pending)" : "no"}`,
     `utm_source: ${escapeHtml(signup.utmSource ?? "-")}`,
     `utm_campaign: ${escapeHtml(signup.utmCampaign ?? "-")}`,

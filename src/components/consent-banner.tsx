@@ -13,6 +13,7 @@ import {
 } from "@/lib/consent";
 import { applyTrackingConsent, trackEvent } from "@/lib/analytics";
 import styles from "./consent-banner.module.css";
+import { TRAINING_UNQUALIFIED_ROLES } from "@/data/trainings";
 
 /*
  * Consent-Banner + zentrale Analytics-Steuerung (in layout.tsx eingehängt,
@@ -84,8 +85,15 @@ export function ConsentBanner() {
   useEffect(() => {
     const onContact = () => trackEvent("generate_lead", { form_name: "contact" });
     const onTraining = (event: Event) => {
-      const slug = (event as CustomEvent<{ slug?: string }>).detail?.slug;
+      const detail = (event as CustomEvent<{ slug?: string; role?: string }>)
+        .detail;
+      const slug = detail?.slug;
       trackEvent("generate_lead", { form_name: "training", training: slug });
+      // Meta-Lead hängt in GTM an qualified_lead: Agenturen zählen nicht als
+      // Conversion. Die Antwort selbst geht nicht an Meta.
+      if (detail?.role && !TRAINING_UNQUALIFIED_ROLES.includes(detail.role)) {
+        trackEvent("qualified_lead", { form_name: "training", training: slug });
+      }
     };
     window.addEventListener("ziri:contact:submitted", onContact);
     window.addEventListener("ziri:training:submitted", onTraining);

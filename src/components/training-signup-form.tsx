@@ -98,7 +98,9 @@ export function TrainingSignupForm({ slug }: { slug: string }) {
       }
 
       window.dispatchEvent(
-        new CustomEvent("ziri:training:submitted", { detail: { slug } }),
+        new CustomEvent("ziri:training:submitted", {
+          detail: { slug, role: String(data.get("role") ?? "") },
+        }),
       );
       router.push(`/training/${slug}/thanks`);
     } catch {
@@ -154,11 +156,11 @@ export function TrainingSignupForm({ slug }: { slug: string }) {
       </fieldset>
 
       <fieldset className={styles.formSection}>
-        <p className={styles.formQuestion}>What describes your role best?</p>
+        <p className={styles.formQuestion}>What describes you best?</p>
         <div
           className={styles.segmented}
           role="radiogroup"
-          aria-label="Your role"
+          aria-label="What describes you best"
         >
           {TRAINING_ROLES.map((option) => (
             <label key={option.value}>

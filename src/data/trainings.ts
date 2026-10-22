@@ -201,12 +201,21 @@ export const formatTrainingDate = (isoDate: string) =>
     timeZone: "UTC",
   }).format(new Date(`${isoDate}T00:00:00Z`));
 
-/* Qualifizierungsfrage im Training-Formular. */
+/*
+ * Qualifizierungsfrage im Training-Formular (Firmentyp, seit 22.10.).
+ * Feldname bleibt intern "role" (beehiiv-Custom-Field, API), damit nichts
+ * umgebaut werden muss.
+ */
 export const TRAINING_ROLES = [
-  { value: "marketing-leader", label: "Marketing leader" },
-  { value: "founder-ceo", label: "Founder / CEO" },
-  { value: "sales-leader", label: "Sales leader" },
+  { value: "b2b-tech", label: "B2B Tech" },
+  { value: "b2b-services", label: "B2B Services" },
   { value: "agency", label: "Agency" },
-  { value: "freelancer", label: "Freelancer" },
+  { value: "fractional-cmo", label: "Fractional CMO" },
   { value: "other", label: "Other" },
 ] as const;
+
+/**
+ * Antworten, die NICHT als qualified_lead an Meta gehen (Simons Ansage
+ * 22.10.: nur Agenturen ausschließen). generate_lead feuert weiter für alle.
+ */
+export const TRAINING_UNQUALIFIED_ROLES: readonly string[] = ["agency"];

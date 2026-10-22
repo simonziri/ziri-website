@@ -231,6 +231,11 @@
   white-space: normal;
 }
 
+/* Ungerade Anzahl Optionen: letzte Option über volle Breite, kein Leerfeld */
+.formCard [role="radiogroup"] > label:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+}
+
 /* Erste Formular-Sektion braucht keinen Abstand nach oben */
 .formCard form > fieldset:first-of-type {
   padding-top: var(--space-small);

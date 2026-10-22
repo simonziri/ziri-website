@@ -81,7 +81,7 @@ async function notifyZiri(
       `ID / slug:    ${training.id} / ${training.slug}`,
       ``,
       `Email:        ${submission.email}`,
-      `Role:         ${labelFor(TRAINING_ROLES, role)}`,
+      `Describes them: ${labelFor(TRAINING_ROLES, role)}`,
       `Newsletter:   ${submission.newsletter ? "yes (needs double opt-in)" : "no"}`,
       ``,
       `utm_source:   ${submission.utm.source}`,
@@ -243,7 +243,7 @@ export async function POST(request: Request) {
     [
       `Email:    ${email}`,
       `Webinar:  ${training.title} (${training.slug})`,
-      `Role:     ${signup.roleLabel}`,
+      `Describes: ${signup.roleLabel}`,
       `Time:     ${submission.submittedAt}`,
     ],
     collectFailures([

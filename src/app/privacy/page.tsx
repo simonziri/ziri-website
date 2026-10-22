@@ -104,7 +104,7 @@ export default function PrivacyPage() {
           </p>
           <ul>
             <li>your work e-mail address</li>
-            <li>your answer to one short question: your role</li>
+            <li>your answer to one short question: what describes you best (for example B2B tech, B2B services or agency)</li>
             <li>
               whether you also want our newsletter (optional, separate
               checkbox; you only receive it after confirming via a link we
@@ -145,7 +145,7 @@ export default function PrivacyPage() {
               provider. We use it to send you the training and, only if you
               ticked the separate newsletter checkbox and confirmed via the
               link, our newsletter. beehiiv receives your e-mail address, your
-              role, the training, whether you opted in to the newsletter and
+              answer to that question, the training, whether you opted in to the newsletter and
               the campaign parameters. beehiiv may process data in the USA;
               transfers are safeguarded by the EU Standard Contractual
               Clauses.
@@ -347,7 +347,9 @@ export default function PrivacyPage() {
             </li>
             <li>
               pixel events such as PageView (a page was viewed) and Lead (a
-              sign-up happened, without what you entered in the form)
+              sign-up happened, without what you entered in the form). We
+              only send the Lead event for training sign-ups that are not
+              from agencies; your answer itself is not sent to Meta
             </li>
             <li>your IP address</li>
             <li>browser and device information</li>
