@@ -39,7 +39,7 @@ export const trainings: readonly Training[] = [
     title:
       "How to relaunch your 1,000+ page website in 6 weeks without losing rankings or conversions.",
     outcome:
-      "Get the playbook for an impossible deadline: where the risks are, what to systemize, and what to monitor after launch. Learn from 7 years of relaunch experience.",
+      "Get the real process we used to relaunch a 1,000+ page website in less than 6 weeks: where the risks are, what to systemize, and what to monitor after launch.",
     bullets: [
       "Where the real risks are and where to be pragmatic",
       "Unique techniques and systems to dramatically save time",
