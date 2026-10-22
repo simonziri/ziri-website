@@ -88,11 +88,21 @@ export default async function TrainingPage({
                 <Image
                   src="/assets/simon-ziri.jpg"
                   alt=""
-                  width={28}
-                  height={28}
-                  sizes="28px"
+                  width={24}
+                  height={24}
+                  sizes="24px"
                 />
                 by Simon Ziri
+                <svg
+                  className={styles.bylineIcon}
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <circle cx="8" cy="8" r="6.5" stroke="currentColor" />
+                  <path d="M8 7.25V11.5" stroke="currentColor" strokeLinecap="round" />
+                  <circle cx="8" cy="4.9" r="0.75" fill="currentColor" />
+                </svg>
               </a>
             </div>
             {training.image ? (
