@@ -156,11 +156,11 @@ export function TrainingSignupForm({ slug }: { slug: string }) {
       </fieldset>
 
       <fieldset className={styles.formSection}>
-        <p className={styles.formQuestion}>What describes you best?</p>
+        <p className={styles.formQuestion}>Where do you work?</p>
         <div
           className={styles.segmented}
           role="radiogroup"
-          aria-label="What describes you best"
+          aria-label="Where do you work"
         >
           {TRAINING_ROLES.map((option) => (
             <label key={option.value}>

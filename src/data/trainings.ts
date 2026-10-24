@@ -201,20 +201,21 @@ export const formatTrainingDate = (isoDate: string) =>
   }).format(new Date(`${isoDate}T00:00:00Z`));
 
 /*
- * Qualifizierungsfrage im Training-Formular (Firmentyp, seit 22.10.).
+ * Qualifizierungsfrage im Training-Formular ("Where do you work?", seit 24.10.).
+ * Agenturen meiden das Wort "Agency", daher fragt die Option sachlich
+ * "For clients".
  * Feldname bleibt intern "role" (beehiiv-Custom-Field, API), damit nichts
  * umgebaut werden muss.
  */
 export const TRAINING_ROLES = [
-  { value: "b2b-tech", label: "B2B Tech" },
-  { value: "b2b-services", label: "B2B Services" },
-  { value: "agency", label: "Agency" },
+  { value: "in-house-b2b", label: "In-house at a B2B company" },
+  { value: "for-clients", label: "For clients (agency, freelance, consulting)" },
   { value: "fractional-cmo", label: "Fractional CMO" },
   { value: "other", label: "Other" },
 ] as const;
 
 /**
- * Antworten, die NICHT als qualified_lead an Meta gehen (Simons Ansage
- * 22.10.: nur Agenturen ausschließen). generate_lead feuert weiter für alle.
+ * Nur diese Antworten gehen als qualified_lead an Meta (Simons Ansage 24.10.:
+ * nur In-house zählt). generate_lead feuert weiter für alle.
  */
-export const TRAINING_UNQUALIFIED_ROLES: readonly string[] = ["agency"];
+export const TRAINING_QUALIFIED_ROLES: readonly string[] = ["in-house-b2b"];

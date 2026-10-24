@@ -22,7 +22,7 @@
  * beiden Kategorien lädt, braucht jedes Tag eine Consent-Prüfung
  * ("Zusätzliche Einwilligung erforderlich"):
  *   - GA4-Tags + Clarity-Tag: analytics_storage
- *   - Meta-Pixel-Tags (PageView, Lead auf qualified_lead = Training-Anmeldung ohne Agenturen): ad_storage
+ *   - Meta-Pixel-Tags (PageView, Lead auf qualified_lead = nur In-house-Anmeldungen): ad_storage
  * Sonst feuert z. B. GA4 bei nur "Marketing" cookieless Pings.
  *
  * Events:
