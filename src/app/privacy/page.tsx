@@ -131,6 +131,12 @@ export default function PrivacyPage() {
             relationship requires and as statutory retention periods demand.
           </p>
           <p>
+            This follow-up can also happen on LinkedIn: we may look up your
+            public LinkedIn profile (name, role and company) and send you a
+            personal message about the training. We do this by hand, not with
+            automation tools. If you do not want this, tell us and we will stop.
+          </p>
+          <p>
             Legal basis: your consent, Art. 6(1)(a) GDPR, which you give via
             the checkbox before sending. You can withdraw it at any time with
             effect for the future by e-mailing us. As with the contact form, an
