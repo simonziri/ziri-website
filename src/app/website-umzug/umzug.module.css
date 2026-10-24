@@ -1661,3 +1661,11 @@
     display: inline;
   }
 }
+
+/* CTA-Buttons auf Mobil volle Breite (Simon 24.10.) */
+@media (max-width: 47.9375rem) {
+  .fullCta {
+    align-self: stretch;
+    width: 100%;
+  }
+}

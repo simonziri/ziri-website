@@ -481,9 +481,10 @@ function ZiriLogo() {
 function UmzugHeader({ items, active }: { items: typeof navItems; active: string | null }) {
   return (
     <header className={s.navHeader} data-theme="light-primary">
-      <Link href="/" aria-label="ZIRI home" className={s.navLogo}>
+      {/* Bewusst kein Link zur Startseite: das restliche ZIRI-Angebot ist ein anderes */}
+      <a href="#hero" aria-label="Zum Seitenanfang" className={s.navLogo}>
         <ZiriLogo />
-      </Link>
+      </a>
       <nav className={s.navDesktop} aria-label="Seitennavigation">
         {items.map((item) => (
           <a
@@ -573,7 +574,7 @@ function UmzugFooter({ items }: { items: typeof navItems }) {
         </h2>
         <nav className={footer.navigation} aria-label="Footer-Navigation">
           <PixelHatchButton
-            className={`${footer.footerButton} ${footer.footerButtonActive}`}
+            className={`${s.fullCta} ${footer.footerButton} ${footer.footerButtonActive}`}
             href="#check"
             variant="secondary"
           >
@@ -588,7 +589,7 @@ function UmzugFooter({ items }: { items: typeof navItems }) {
         <div className={footer.legal}>
           <Link href="/privacy">Datenschutz</Link>
           <Link href="/imprint">Impressum</Link>
-          <CookieSettingsButton />
+          <CookieSettingsButton label="Cookie-Einstellungen" />
         </div>
       </div>
       <div className={footer.footerArtwork}>
@@ -753,7 +754,7 @@ export function UmzugPage() {
                   Für Marketing-Seiten mit Formularen, Embeds und Tracking. Mit
                   Termin-Garantie, wenn deine Seite unseren Check besteht.
                 </p>
-                <PixelHatchButton href="#check" variant="secondary">
+                <PixelHatchButton className={s.fullCta} href="#check" variant="secondary">
                   {ctaLabel}
                 </PixelHatchButton>
               </article>
@@ -809,7 +810,7 @@ export function UmzugPage() {
               dazugehört, sagen wir dir nach dem Check.
             </p>
             <div>
-              <PixelHatchButton href="#check">{ctaLabel}</PixelHatchButton>
+              <PixelHatchButton className={s.fullCta} href="#check">{ctaLabel}</PixelHatchButton>
             </div>
           </Band>
       </div>

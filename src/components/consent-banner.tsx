@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
 import {
   allChoices,
@@ -42,7 +43,55 @@ function applyChoices(choices: ConsentChoices) {
   });
 }
 
+/* Deutsche Texte für deutschsprachige Landingpages (aktuell /website-umzug) */
+const GERMAN_PATHS = ["/website-umzug"];
+
+const TEXT = {
+  en: {
+    title: "Privacy settings",
+    body: "We would like to use Google Analytics and Microsoft Clarity to see how people use this site, and the Meta Pixel and LinkedIn Insight Tag to measure which of our ads bring sign-ups. They only run if you allow it. You can change your choice any time via Cookie settings in the footer.",
+    policy: "Privacy Policy",
+    legend: "Consent categories",
+    alwaysOn: "Always on",
+    reject: "Reject all",
+    accept: "Accept all",
+    save: "Save my choice",
+    settings: "Settings",
+    categories: {} as Record<string, { label: string; description: string }>,
+  },
+  de: {
+    title: "Datenschutz-Einstellungen",
+    body: "Wir würden gern Google Analytics und Microsoft Clarity nutzen, um zu sehen, wie diese Seite genutzt wird, und das Meta Pixel und den LinkedIn Insight Tag, um zu messen, welche Anzeigen Anfragen bringen. Sie laufen nur, wenn du zustimmst. Du kannst deine Wahl jederzeit über Cookie-Einstellungen im Footer ändern.",
+    policy: "Datenschutzerklärung",
+    legend: "Einwilligungs-Kategorien",
+    alwaysOn: "Immer aktiv",
+    reject: "Alle ablehnen",
+    accept: "Alle akzeptieren",
+    save: "Auswahl speichern",
+    settings: "Einstellungen",
+    categories: {
+      necessary: {
+        label: "Notwendig",
+        description:
+          "Speichert nur deine Einwilligungs-Auswahl in deinem Browser. Kein Cookie, nichts wird an uns gesendet.",
+      },
+      statistics: {
+        label: "Statistik",
+        description:
+          "Google Analytics 4 und Microsoft Clarity. Zeigen uns, wie Besucher die Seite nutzen (inklusive anonymisierter Sitzungsaufzeichnungen und Heatmaps) und welche Kampagnen Besucher und Anfragen bringen. Setzen Cookies und laufen nur mit deiner Zustimmung.",
+      },
+      marketing: {
+        label: "Marketing",
+        description:
+          "Meta Pixel und LinkedIn Insight Tag. Messen, welche Anzeigen Anfragen bringen, und zeigen unsere Anzeigen Menschen, die diese Seite besucht haben. Setzen Cookies und laufen nur mit deiner Zustimmung.",
+      },
+    } as Record<string, { label: string; description: string }>,
+  },
+};
+
 export function ConsentBanner() {
+  const pathname = usePathname();
+  const t = GERMAN_PATHS.some((path) => pathname?.startsWith(path)) ? TEXT.de : TEXT.en;
   const [open, setOpen] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
   const [hasStoredChoice, setHasStoredChoice] = useState(false);
@@ -152,32 +201,28 @@ export function ConsentBanner() {
       tabIndex={-1}
     >
       <p className={styles.title} id={titleId}>
-        Privacy settings
+        {t.title}
       </p>
       <p className={styles.text} id={descriptionId}>
-        We would like to use Google Analytics and Microsoft Clarity to see how
-        people use this site, and the Meta Pixel and LinkedIn Insight Tag to
-        measure which of our ads bring sign-ups. They only run if you allow it. You can change your
-        choice any time via Cookie settings in the footer.{" "}
-        <Link href="/privacy#analytics">Privacy Policy</Link>
+        {t.body} <Link href="/privacy#analytics">{t.policy}</Link>
       </p>
 
       {showSettings && (
         <fieldset className={styles.settings} id={settingsId}>
-          <legend className={styles.srOnly}>Consent categories</legend>
+          <legend className={styles.srOnly}>{t.legend}</legend>
           {CONSENT_CATEGORIES.map((category) => {
             const checked = category.required ? true : !!draft[category.id];
             return (
               <label className={styles.category} key={category.id}>
                 <span className={styles.categoryText}>
                   <span className={styles.categoryLabel}>
-                    {category.label}
+                    {t.categories[category.id]?.label ?? category.label}
                     {category.required && (
-                      <span className={styles.categoryBadge}>Always on</span>
+                      <span className={styles.categoryBadge}>{t.alwaysOn}</span>
                     )}
                   </span>
                   <span className={styles.categoryDescription}>
-                    {category.description}
+                    {t.categories[category.id]?.description ?? category.description}
                   </span>
                 </span>
                 <input
@@ -206,14 +251,14 @@ export function ConsentBanner() {
           type="button"
           onClick={() => save(allChoices(false))}
         >
-          Reject all
+          {t.reject}
         </button>
         <button
           className={styles.choice}
           type="button"
           onClick={() => save(allChoices(true))}
         >
-          Accept all
+          {t.accept}
         </button>
       </div>
       <div className={styles.secondary}>
@@ -223,7 +268,7 @@ export function ConsentBanner() {
             type="button"
             onClick={() => save(draft)}
           >
-            Save my choice
+            {t.save}
           </button>
         ) : (
           <button
@@ -241,7 +286,7 @@ export function ConsentBanner() {
               );
             }}
           >
-            Settings
+            {t.settings}
           </button>
         )}
       </div>
