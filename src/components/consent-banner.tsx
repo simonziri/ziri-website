@@ -13,7 +13,7 @@ import {
 } from "@/lib/consent";
 import { applyTrackingConsent, trackEvent } from "@/lib/analytics";
 import styles from "./consent-banner.module.css";
-import { TRAINING_UNQUALIFIED_ROLES } from "@/data/trainings";
+import { TRAINING_QUALIFIED_ROLES } from "@/data/trainings";
 
 /*
  * Consent-Banner + zentrale Analytics-Steuerung (in layout.tsx eingehängt,
@@ -89,17 +89,24 @@ export function ConsentBanner() {
         .detail;
       const slug = detail?.slug;
       trackEvent("generate_lead", { form_name: "training", training: slug });
-      // Meta-Lead hängt in GTM an qualified_lead: Agenturen zählen nicht als
-      // Conversion. Die Antwort selbst geht nicht an Meta.
-      if (detail?.role && !TRAINING_UNQUALIFIED_ROLES.includes(detail.role)) {
+      // Meta-Lead hängt in GTM an qualified_lead: nur In-house-Anmeldungen
+      // zählen als Conversion. Die Antwort selbst geht nicht an Meta.
+      if (detail?.role && TRAINING_QUALIFIED_ROLES.includes(detail.role)) {
         trackEvent("qualified_lead", { form_name: "training", training: slug });
       }
     };
+    // Website-Umzug-Anfragen sind direkte Anfragen: zählen auch als Meta-Lead
+    const onWebsiteUmzug = () => {
+      trackEvent("generate_lead", { form_name: "website_umzug" });
+      trackEvent("qualified_lead", { form_name: "website_umzug" });
+    };
     window.addEventListener("ziri:contact:submitted", onContact);
     window.addEventListener("ziri:training:submitted", onTraining);
+    window.addEventListener("ziri:website-umzug:submitted", onWebsiteUmzug);
     return () => {
       window.removeEventListener("ziri:contact:submitted", onContact);
       window.removeEventListener("ziri:training:submitted", onTraining);
+      window.removeEventListener("ziri:website-umzug:submitted", onWebsiteUmzug);
     };
   }, []);
 

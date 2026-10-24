@@ -302,6 +302,89 @@ export async function createPipedriveLead(
 }
 
 /* ------------------------------------------------------------------ */
+/* Pipedrive: website migration requests (/website-umzug)            */
+/* ------------------------------------------------------------------ */
+
+export type UmzugRequest = {
+  email: string;
+  url: string;
+  phone: string;
+  pagesLabel: string;
+  start: string;
+  budgetConfirmed: boolean;
+  utmSource: string | null;
+  utmCampaign: string | null;
+  utmContent: string | null;
+  submittedAt: string;
+};
+
+/** Person (find/create) + lead + note, same pattern as the training sign-ups. */
+export async function createPipedriveUmzugLead(
+  request: UmzugRequest,
+): Promise<IntegrationResult> {
+  const token = process.env.PIPEDRIVE_API_TOKEN;
+  if (!token) return { status: "skipped" };
+  const headers = pipedriveHeaders(token);
+
+  const { personId, personCreated } = await findOrCreatePerson(
+    request.email,
+    headers,
+  );
+
+  const label = `Website-Umzug: ${request.url}`;
+  const lead = await callJson(
+    "pipedrive lead create",
+    `${PIPEDRIVE_API}/v1/leads`,
+    {
+      method: "POST",
+      headers,
+      body: JSON.stringify({
+        title: label,
+        person_id: personId,
+        [PIPEDRIVE_SOURCE_DESCRIPTION_KEY]: label,
+      }),
+    },
+  );
+  const leadId = dig(lead.body, "data", "id");
+  if (typeof leadId !== "string") {
+    throw new Error("pipedrive lead create returned no id");
+  }
+
+  const lines = [
+    `<b>Website-Umzug request via simonziri.com/website-umzug</b>`,
+    `Website: ${escapeHtml(request.url)}`,
+    `Pages: ${escapeHtml(request.pagesLabel)}`,
+    `Phone: ${escapeHtml(request.phone)}`,
+    `Start: ${escapeHtml(request.start)}`,
+    `Budget confirmed: ${request.budgetConfirmed ? "yes" : "no"}`,
+    `utm_source: ${escapeHtml(request.utmSource ?? "-")}`,
+    `utm_campaign: ${escapeHtml(request.utmCampaign ?? "-")}`,
+    `utm_content: ${escapeHtml(request.utmContent ?? "-")}`,
+    `Submitted at: ${request.submittedAt}`,
+  ];
+  const note = await callJson(
+    "pipedrive note create",
+    `${PIPEDRIVE_API}/v1/notes`,
+    {
+      method: "POST",
+      headers,
+      body: JSON.stringify({ content: lines.join("<br>"), lead_id: leadId }),
+    },
+  );
+
+  return {
+    status: "ok",
+    details: {
+      personId,
+      personCreated: personCreated ? "yes" : "no",
+      leadId,
+      leadHttp: lead.status,
+      noteHttp: note.status,
+    },
+  };
+}
+
+/* ------------------------------------------------------------------ */
 /* Pipedrive: thank-you page input                                    */
 /* ------------------------------------------------------------------ */
 

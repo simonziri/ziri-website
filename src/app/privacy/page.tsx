@@ -24,7 +24,7 @@ export default function PrivacyPage() {
         <SiteHeader />
         <article className={legal.article}>
           <h1>Privacy Policy</h1>
-          <p className={legal.updated}>Last updated: October 12, 2026</p>
+          <p className={legal.updated}>Last updated: October 24, 2026</p>
 
           <p>
             This website is intentionally light on data. No third-party fonts,
@@ -104,7 +104,7 @@ export default function PrivacyPage() {
           </p>
           <ul>
             <li>your work e-mail address</li>
-            <li>your answer to one short question: what describes you best (for example B2B tech, B2B services or agency)</li>
+            <li>your answer to one short question: where you work (in-house at a B2B company, for clients, as a fractional CMO, or other)</li>
             <li>
               whether you also want our newsletter (optional, separate
               checkbox; you only receive it after confirming via a link we
@@ -177,9 +177,45 @@ export default function PrivacyPage() {
             agreement.
           </p>
 
+          <h2 id="website-umzug">4a. Website migration request form</h2>
+          <p>
+            On our German landing page for website migrations
+            (simonziri.com/website-umzug) you can ask us to check whether your
+            website qualifies for our fixed-price migration. We process:
+          </p>
+          <ul>
+            <li>how many pages your website has (up to 15, more than 15, or not sure)</li>
+            <li>the address (URL) of the website you want to move</li>
+            <li>your work e-mail address and your phone number</li>
+            <li>when you would like to start</li>
+            <li>your confirmation of the budget shown on the page</li>
+            <li>
+              the campaign parameters in the page address (utm_source,
+              utm_campaign, utm_content), if you arrived via one of our ads
+            </li>
+          </ul>
+          <p>
+            We use this data exclusively to look at your website, tell you
+            whether it qualifies for the fixed price and guarantee, send you a
+            quote, and contact you about it by e-mail or phone. Submissions are
+            <strong> not stored on the web server</strong>. They are forwarded
+            to our e-mail inbox via Resend (see section 5) and to our CRM
+            Pipedrive (Pipedrive OÜ, see section 4), and kept there for as long
+            as the conversation and any resulting project require, at most
+            until the statutory retention periods expire.
+          </p>
+          <p>
+            Legal basis: Art. 6(1)(b) GDPR (steps prior to entering into a
+            contract, taken at your request). Before sending you also confirm
+            via a checkbox that we may use your details for this. An invisible
+            technical field filters out automated spam; no captcha service is
+            involved.
+          </p>
+
           <h2>5. E-mail delivery (Resend)</h2>
           <p>
-            Submissions from the contact form and the training sign-up form are
+            Submissions from the contact form, the training sign-up form and
+            the website migration request form are
             delivered to our inbox via Resend (Resend, Inc., 2261 Market Street
             #5039, San Francisco, CA 94114, USA), which processes the
             submitted data on our behalf under a data processing agreement.
@@ -230,7 +266,8 @@ export default function PrivacyPage() {
           <p>
             Purpose: we want to understand how visitors use this site, which
             pages are read, and which campaigns bring visitors and sign-ups.
-            When you send the contact form or sign up for a training, we record
+            When you send the contact form, sign up for a training or send a
+            website migration request, we record
             that a sign-up happened (and for which training), not what you
             entered.
           </p>
@@ -348,8 +385,9 @@ export default function PrivacyPage() {
             <li>
               pixel events such as PageView (a page was viewed) and Lead (a
               sign-up happened, without what you entered in the form). We
-              only send the Lead event for training sign-ups that are not
-              from agencies; your answer itself is not sent to Meta
+              only send the Lead event for training sign-ups from people who
+              work in-house at a B2B company and for website migration
+              requests; your answers themselves are not sent to Meta
             </li>
             <li>your IP address</li>
             <li>browser and device information</li>

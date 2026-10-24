@@ -1,0 +1,264 @@
+/* Landingpage /website-umzug. Baut auf training.module.css auf (Chrome,
+   Formular-Karte, Mono-Label, Bullets) und ergänzt die Sektionen. */
+
+.main {
+  flex: 1 0 auto;
+}
+
+/* Hero: Copy links, Formular-Karte rechts (mobil darunter) */
+.hero {
+  display: grid;
+  padding: var(--space-xlarge) var(--content-inset) var(--space-huge);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 30rem);
+  gap: var(--space-large) var(--space-xlarge);
+  align-items: start;
+}
+
+.heroCopy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-medium);
+  padding-top: var(--space-xxsmall);
+}
+
+.kicker {
+  margin-bottom: calc(var(--space-small) * -1);
+  color: var(--text-highlight);
+  font-size: var(--font-size-large);
+  line-height: var(--line-height-default);
+}
+
+.heroCopy h1 {
+  max-width: 16ch;
+  font-size: var(--font-size-h1);
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+  text-wrap: pretty;
+}
+
+.subline {
+  max-width: 38rem;
+  color: var(--text-secondary);
+  font-size: var(--font-size-large);
+  line-height: var(--line-height-relaxed);
+}
+
+/* training.formCard bringt grid-area "form" + sticky mit: hier neutralisieren */
+.hero .formCard {
+  grid-area: auto;
+  position: static;
+}
+
+.formCard h2 {
+  text-wrap: pretty;
+}
+
+.formNote {
+  margin-top: var(--space-xsmall);
+  color: var(--color-dark-neutral-200);
+  font-size: var(--font-size-small);
+  line-height: var(--line-height-relaxed);
+  text-align: center;
+}
+
+/* Sektionen */
+.band {
+  padding: var(--section-padding-block) var(--content-inset);
+  background: var(--surface-base);
+  color: var(--text-body);
+}
+
+.inner {
+  display: flex;
+  max-width: var(--content-max-width);
+  margin-inline: auto;
+  flex-direction: column;
+  gap: var(--space-medium);
+}
+
+.band h2 {
+  font-size: var(--font-size-h3);
+  letter-spacing: -0.022em;
+  line-height: 1.14;
+}
+
+/* So läuft's */
+.stepList {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-large);
+  margin: var(--space-small) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.stepList li {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xsmall);
+  padding-top: var(--space-small);
+  border-top: 1px solid var(--border-default);
+}
+
+.stepNumber {
+  color: var(--text-highlight);
+  font-size: var(--font-size-h1);
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  line-height: var(--line-height-tight);
+}
+
+.stepList h3 {
+  margin-top: var(--space-xsmall);
+  font-size: var(--font-size-h5);
+}
+
+.stepList p {
+  max-width: 26rem;
+  color: var(--text-secondary);
+  font-size: var(--font-size-medium);
+  line-height: var(--line-height-relaxed);
+}
+
+/* Preis */
+.price {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--space-xlarge);
+  align-items: start;
+}
+
+.priceMain {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xsmall);
+}
+
+.priceValue {
+  color: var(--text-heading);
+  font-size: calc(var(--font-size-h1) * 1.6);
+  font-weight: 420;
+  letter-spacing: -0.04em;
+  line-height: var(--line-height-tight);
+  white-space: nowrap;
+}
+
+.priceText {
+  max-width: 30rem;
+  color: var(--text-secondary);
+  font-size: var(--font-size-medium);
+  line-height: var(--line-height-relaxed);
+}
+
+.included {
+  padding-top: var(--space-small);
+  border-top: 1px solid var(--border-default);
+}
+
+/* Garantie */
+.guarantee .inner {
+  gap: var(--space-small);
+}
+
+.guaranteeGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-small);
+  margin-top: var(--space-xsmall);
+}
+
+.guaranteeCard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xsmall);
+  padding: var(--padding-card-lg);
+  border: 1px solid var(--border-default);
+  border-radius: 4px;
+  background: var(--surface-raised);
+}
+
+.guaranteeCard h3 {
+  font-size: var(--font-size-h5);
+}
+
+.guaranteeCard p {
+  color: var(--text-secondary);
+  font-size: var(--font-size-medium);
+  line-height: var(--line-height-relaxed);
+}
+
+.guaranteeNote {
+  color: var(--text-secondary);
+  font-size: var(--font-size-small);
+  line-height: var(--line-height-relaxed);
+}
+
+/* FAQ */
+.faqLayout {
+  display: grid;
+  grid-template-columns: minmax(0, 20rem) minmax(0, 1fr);
+  gap: var(--space-xlarge);
+  align-items: start;
+}
+
+.faqIntro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-medium);
+}
+
+/* Final CTA */
+.final {
+  align-items: center;
+  gap: var(--space-medium);
+  text-align: center;
+}
+
+.final h2 {
+  font-size: var(--font-size-h2);
+}
+
+@media (max-width: 61.9375rem) {
+  .hero {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-large);
+  }
+
+  .stepList {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-medium);
+  }
+
+  .price,
+  .faqLayout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-large);
+  }
+}
+
+@media (max-width: 47.9375rem) {
+  .hero {
+    padding-top: var(--space-medium);
+  }
+
+  .heroCopy {
+    gap: var(--space-small);
+  }
+
+  .kicker {
+    margin-bottom: calc(var(--space-xsmall) * -1);
+    font-size: var(--font-size-medium);
+  }
+
+  .subline {
+    font-size: var(--font-size-medium);
+  }
+
+  .guaranteeGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .guaranteeCard {
+    padding: var(--padding-card-md);
+  }
+}
