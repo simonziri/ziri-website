@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   // Lead-Magnet-Seiten nie indexieren, unabhängig von der Umgebung
   robots: { index: false, follow: false },
   openGraph: {
-    title: "Umzug zu einem modernen System in 72 Stunden garantiert.",
+    title: "Website-Umzug in 72 Stunden. Garantiert.",
     description: DESCRIPTION,
     locale: "de_DE",
   },

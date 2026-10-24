@@ -639,7 +639,7 @@ export function UmzugPage() {
       <div id="hero" className={s.sectionWrap}>
           <div className={s.heroCenter}>
             <SectionTag>PHP-Warnung von deinem Hoster?</SectionTag>
-            <h1>Umzug zu einem modernen System in 72 Stunden garantiert.</h1>
+            <h1>Website-Umzug in 72 Stunden. Garantiert.</h1>
             <p className={base.subline}>
               Wir ziehen deine Marketing-Seite von WordPress, TYPO3 &amp; Co. auf
               ein modernes System um. Gleiches Design, gleiche Links,
