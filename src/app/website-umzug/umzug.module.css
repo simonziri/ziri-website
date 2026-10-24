@@ -1646,3 +1646,18 @@
 .msFieldset[hidden] {
   display: none;
 }
+
+/* Pixel-Button-Label: lang auf Desktop, kurz auf Mobil */
+.ctaShort {
+  display: none;
+}
+
+@media (max-width: 47.9375rem) {
+  .ctaLong {
+    display: none;
+  }
+
+  .ctaShort {
+    display: inline;
+  }
+}

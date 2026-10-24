@@ -57,6 +57,14 @@ function CheckDot() {
 
 const CTA = "Prüfen, ob du die Garantie bekommst";
 
+/** Pixel-Buttons haben feste Höhe ohne Umbruch: mobil die Kurzform */
+const ctaLabel = (
+  <>
+    <span className={s.ctaLong}>{CTA}</span>
+    <span className={s.ctaShort}>Garantie prüfen</span>
+  </>
+);
+
 const logos = [
   { name: "Leapsome", src: "/assets/tab-logos/Leapsome.svg" },
   { name: "Circula", src: "/assets/tab-logos/Circula.svg" },
@@ -569,7 +577,7 @@ function UmzugFooter({ items }: { items: typeof navItems }) {
             href="#check"
             variant="secondary"
           >
-            {CTA}
+            {ctaLabel}
           </PixelHatchButton>
           {items.slice(0, 3).map((item) => (
             <PixelHatchButton className={footer.footerButton} href={`#${item.id}`} key={item.id}>
@@ -746,7 +754,7 @@ export function UmzugPage() {
                   Termin-Garantie, wenn deine Seite unseren Check besteht.
                 </p>
                 <PixelHatchButton href="#check" variant="secondary">
-                  {CTA}
+                  {ctaLabel}
                 </PixelHatchButton>
               </article>
               <article className={s.planPlain}>
@@ -801,7 +809,7 @@ export function UmzugPage() {
               dazugehört, sagen wir dir nach dem Check.
             </p>
             <div>
-              <PixelHatchButton href="#check">{CTA}</PixelHatchButton>
+              <PixelHatchButton href="#check">{ctaLabel}</PixelHatchButton>
             </div>
           </Band>
       </div>
