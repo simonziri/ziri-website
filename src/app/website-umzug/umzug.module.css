@@ -1669,3 +1669,17 @@
     width: 100%;
   }
 }
+
+/* Haken-Hinweis: Punkt bleibt beim Umbruch am Textanfang */
+@media (max-width: 47.9375rem) {
+  .noteWithDot {
+    display: block;
+    text-align: center;
+  }
+
+  .noteWithDot .checkDot {
+    display: inline-grid;
+    margin-right: 6px;
+    vertical-align: -3px;
+  }
+}
