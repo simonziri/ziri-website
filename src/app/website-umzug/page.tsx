@@ -9,7 +9,7 @@ import { UmzugPage } from "./umzug-page";
 
 const TITLE = "Website-Umzug in 72 Stunden, garantiert | ZIRI";
 const DESCRIPTION =
-  "Wir ziehen deine Marketing-Seite von WordPress, TYPO3 & Co. auf ein modernes System um. Gleiches Design, gleiche Links, Festpreis.";
+  "Wir ziehen deine Marketing-Seite von deinem alten CMS auf ein modernes System um. Gleiches Design, gleiche Links, Festpreis.";
 
 export const metadata: Metadata = {
   title: TITLE,

@@ -16,33 +16,6 @@ import s from "./umzug.module.css";
 /* Inhalte (deutsch, du). Copy-Regeln: keine Em-Dashes, keine AI-Floskeln. */
 /* ------------------------------------------------------------------ */
 
-const CMS = ["WordPress", "TYPO3", "Joomla", "Drupal", "Contao"] as const;
-
-const cmsIcons = [
-  { name: "WordPress", src: "/assets/cms/wordpress.svg" },
-  { name: "TYPO3", src: "/assets/cms/typo3.svg" },
-  { name: "Joomla", src: "/assets/cms/joomla.svg" },
-  { name: "Drupal", src: "/assets/cms/drupal.svg" },
-  { name: "Contao", src: "/assets/cms/contao.svg" },
-];
-
-/** Langsamer Logo-Marquee (rechts nach links), Liste doppelt für den nahtlosen Loop */
-function CmsMarquee() {
-  const items = [...cmsIcons, ...cmsIcons];
-  return (
-    <div className={s.marquee} aria-label={`Zum Beispiel ${CMS.join(", ")}`}>
-      <div className={s.marqueeTrack}>
-        {items.map((icon, index) => (
-          <span className={s.marqueeTile} key={`${icon.name}-${index}`} aria-hidden={index >= cmsIcons.length}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={icon.src} alt={index < cmsIcons.length ? icon.name : ""} />
-          </span>
-        ))}
-      </div>
-    </div>
-  );
-}
-
 /** Grüner Kreis mit weißem Haken */
 function CheckDot() {
   return (
@@ -65,61 +38,41 @@ const ctaLabel = (
   </>
 );
 
-const logos = [
-  { name: "Leapsome", src: "/assets/tab-logos/Leapsome.svg" },
-  { name: "Circula", src: "/assets/tab-logos/Circula.svg" },
-  { name: "HockeyStack", src: "/assets/tab-logos/HockeyStack.svg" },
-  { name: "Simplesense", src: "/assets/tab-logos/Simplesense.svg" },
-  { name: "Instaffo", src: "/assets/tab-logos/Instaffo.svg" },
-  { name: "Notus", src: "/assets/tab-logos/Notus.svg" },
-];
-
-
 const BIO =
-  "Seit 7 Jahren baut Simon mit ZIRI Websites für B2B-Unternehmen, oft mit Deadlines, die als unmöglich galten. Zuletzt hat ZIRI über 1.000 Seiten für Leapsome in unter 6 Wochen relauncht und über 200 Seiten für Circula.";
+  "Seit 7 Jahren baut Simon mit ZIRI Websites für B2B-Unternehmen, oft mit Deadlines, die als unmöglich galten. Zuletzt hat ZIRI über 1.000 Seiten für ein Software-Unternehmen in unter 6 Wochen relauncht und über 200 Seiten für ein Fintech.";
 
 const testimonialsDe = [
   {
     quote:
       "„DANKE. Ich würde für immer mit euch an Webprojekten arbeiten, weil Feedback und Umsetzung so reibungslos und präzise laufen. Ein echter Glücksgriff.“",
-    author: "Shuya Gong",
-    role: "Co-Founder, onebio",
-    avatar: "/assets/testimonials/shuya-gong.avif",
+    role: "Co-Founder, Biotech-Startup",
   },
   {
     quote:
       "„Sie haben sich in kürzester Zeit in unser Problem und unsere Lösung eingearbeitet und ein Design gebaut, das unsere Geschichte klar erzählt.“",
-    author: "Eric Kanagy",
-    role: "CEO & Founder, Simplesense",
-    avatar: "/assets/eric-kanagy.png",
+    role: "CEO & Founder, B2B-Software",
   },
   {
     quote:
       "„Wollte nur kurz sagen: ZIRI ist großartig. Absolut herausragende Arbeit. Danke für die Empfehlung!“",
-    author: "Claudia Ring",
-    role: "VP of Marketing, HockeyStack",
-    avatar: "/assets/testimonials/claudia-ring.avif",
+    role: "VP of Marketing, B2B-SaaS",
   },
   {
     quote: "„Wir sind super happy mit dem Ergebnis. Danke für eure Arbeit.“",
-    author: "Christoph Zoeller",
-    role: "CEO, Instaffo",
-    avatar: "/assets/testimonials/christoph-zoeller.avif",
+    role: "CEO, HR-Tech",
   },
   {
     quote:
       "„Danke euch, ZIRI. Wirklich happy mit den Ergebnissen und der Zusammenarbeit.“",
-    author: "Marvin Sanginés",
-    role: "Founder, Notus",
-    avatar: "/assets/testimonials/marvin-sangines.avif",
+    role: "Founder, Software-Startup",
   },
 ];
 
 
 const dream = [
   {
-    title: "Neue Seiten mit Claude",
-    text: "Du beschreibst, was du brauchst. Claude baut die Seite aus euren fertigen Bausteinen, im Design, das schon passt.",
+    title: "Neue Seiten mit KI",
+    text: "Du beschreibst, was du brauchst. Die KI baut die Seite aus euren fertigen Bausteinen, im Design, das schon passt.",
   },
   {
     title: "Backups ohne Nachdenken",
@@ -142,7 +95,7 @@ const steps = [
   },
   {
     title: "Umzug",
-    text: "Wir bauen deine Seite 1:1 auf Sanity und Astro nach und prüfen jede Unterseite, jedes Formular und jeden Link. Die alte Seite läuft so lange weiter.",
+    text: "Wir bauen deine Seite 1:1 auf einem modernen System nach und prüfen jede Unterseite, jedes Formular und jeden Link. Die alte Seite läuft so lange weiter.",
   },
   {
     title: "Freigabe",
@@ -167,7 +120,7 @@ const rows = [
     today: "Jede neue Seite ist ein Projekt",
     todayText: "Ticket, Entwickler, Abstimmung. Eine Woche für eine Landingpage.",
     after: "Neue Seiten selbst bauen",
-    afterText: "Aus euren Bausteinen in Sanity, auf Wunsch per Beschreibung mit Claude.",
+    afterText: "Aus euren Bausteinen im Editor, auf Wunsch per Beschreibung mit KI.",
   },
   {
     today: "Ein Fehler, und es ist weg",
@@ -184,12 +137,12 @@ const faq = [
     a: "Alle URLs bleiben gleich. Wo sich etwas ändert, setzen wir Weiterleitungen. Nach dem Go-live prüfen wir die Seite in der Search Console.",
   },
   {
-    q: "Was sind Sanity und Astro?",
-    a: "Sanity ist der Editor, in dem dein Team Texte, Bilder und Seiten pflegt. Astro baut daraus eine schnelle Website ohne PHP und ohne Plugins. Beides nutzen große Marken wie kleine Teams.",
+    q: "Auf welches System zieht meine Seite um?",
+    a: "Auf ein modernes Headless-System: einen Editor, in dem dein Team Texte, Bilder und Seiten pflegt, und daraus gebaut eine schnelle Website ohne PHP und ohne Plugins. Welche Tools wir genau einsetzen, erklären wir dir im Erstgespräch.",
   },
   {
     q: "Kann mein Team danach noch selbst Texte ändern?",
-    a: "Ja, im Sanity-Editor, ohne Entwickler. Neue Seiten baut ihr aus euren Bausteinen, auf Wunsch mit Claude.",
+    a: "Ja, im Editor, ohne Entwickler. Neue Seiten baut ihr aus euren Bausteinen, auf Wunsch mit KI.",
   },
   {
     q: "Was kostet der Betrieb danach?",
@@ -641,8 +594,8 @@ export function UmzugPage() {
             <SectionTag>PHP-Warnung von deinem Hoster?</SectionTag>
             <h1>Website-Umzug in 72 Stunden. Garantiert.</h1>
             <p className={base.subline}>
-              Wir ziehen deine Marketing-Seite von WordPress, TYPO3 &amp; Co. auf
-              ein modernes System um. Gleiches Design, gleiche Links,
+              Wir ziehen deine Marketing-Seite von deinem alten CMS auf ein
+              modernes System um. Gleiches Design, gleiche Links,
               Festpreis.
             </p>
             <div className={s.heroFormCard} id="check" data-theme="light-primary">
@@ -667,25 +620,18 @@ export function UmzugPage() {
               />
               <p>{BIO}</p>
             </div>
-            <div className={s.logos}>
-              {logos.map((logo) => (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img key={logo.name} src={logo.src} alt={logo.name} />
-              ))}
-            </div>
           </div>
       </div>
       <div id="pain" className={s.sectionWrap}>
           <Band>
             <div className={s.centerHead}>
               <h2>Deine Website heute. Und nach dem Umzug.</h2>
-              <CmsMarquee />
             </div>
             <div className={s.table} role="table">
               <div className={s.tableHead} role="row">
                 <span role="columnheader">Heute</span>
                 <span className={s.tableArrow} aria-hidden="true">→</span>
-                <span role="columnheader">Auf Sanity + Astro</span>
+                <span role="columnheader">Nach dem Umzug</span>
               </div>
               {rows.map((row) => (
                 <div className={s.tableRow} role="row" key={row.today}>
@@ -778,7 +724,7 @@ export function UmzugPage() {
                 <li>Gleiche URLs und Weiterleitungen</li>
                 <li>Formulare und Embeds übernommen</li>
                 <li>Tracking und Cookie-Banner übernommen</li>
-                <li>Sanity-Editor inkl. Einweisung</li>
+                <li>Editor inkl. Einweisung</li>
                 <li>Kein PHP, keine Plugins</li>
               </ul>
             </div>
@@ -822,19 +768,11 @@ export function UmzugPage() {
             </div>
             <div className={s.testimonialGrid}>
               {testimonialsDe.map((t) => (
-                <figure key={t.author} className={s.testimonial}>
+                <figure key={t.quote} className={s.testimonial}>
                   <blockquote>{t.quote}</blockquote>
                   <figcaption>
-                    <Image
-                      className={s.avatarRound}
-                      src={t.avatar}
-                      alt={t.author}
-                      width={44}
-                      height={44}
-                    />
                     <span>
-                      <strong>{t.author}</strong>
-                      {t.role}
+                      <strong>{t.role}</strong>
                     </span>
                   </figcaption>
                 </figure>
