@@ -2,7 +2,7 @@
  * Server-only integrations for the training sign-up (/api/training):
  *
  * - beehiiv (e-mail tool): creates/updates the subscriber so the training
- *   can be sent. Newsletter only with separate opt-in + double opt-in.
+ *   can be sent. Newsletter consent is part of the one required checkbox.
  * - Pipedrive (CRM): finds or creates the person, creates a lead and adds a
  *   note with the sign-up details.
  * - Pipedrive (CRM): the thank-you page form ("what should the training
@@ -39,6 +39,9 @@ export type TrainingSignup = {
   slug: string;
   trainingId: string;
   trainingTitle: string;
+  firstName: string;
+  lastName: string;
+  company: string;
   email: string;
   role: string;
   roleLabel: string;
@@ -98,13 +101,17 @@ export async function subscribeToBeehiiv(
     email: signup.email,
     reactivate_existing: true,
     send_welcome_email: false,
-    // Training only: no double opt-in mail. Newsletter: double opt-in required.
-    double_opt_override: signup.newsletter ? "on" : "off",
+    // No double opt-in mail: it would hold back the training e-mails until
+    // the link is clicked. Consent comes from the required checkbox.
+    double_opt_override: "off",
     referring_site: `simonziri.com/training/${signup.slug}`,
     automation_ids: [BEEHIIV_TRAINING_AUTOMATION_ID],
     // Note: for an existing subscriber, "webinar" is overwritten with the
     // newest slug (acceptable for now).
     custom_fields: [
+      { name: "first_name", value: signup.firstName },
+      { name: "last_name", value: signup.lastName },
+      { name: "company", value: signup.company },
       { name: "webinar", value: signup.slug },
       { name: "role", value: signup.role },
       { name: "newsletter_optin", value: signup.newsletter },
@@ -189,6 +196,7 @@ const pipedriveHeaders = (token: string): PipedriveHeaders => ({
 async function findOrCreatePerson(
   email: string,
   headers: PipedriveHeaders,
+  details?: { name: string; orgId: number | null },
 ): Promise<{ personId: number; personCreated: boolean }> {
   const search = await callJson(
     "pipedrive person search",
@@ -217,9 +225,10 @@ async function findOrCreatePerson(
         method: "POST",
         headers,
         body: JSON.stringify({
-          // We do not collect names; the e-mail local part is a placeholder.
-          name: email.split("@")[0],
+          // Forms without a name field: the e-mail local part is a placeholder.
+          name: details?.name ?? email.split("@")[0],
           emails: [{ value: email, primary: true, label: "work" }],
+          ...(details?.orgId ? { org_id: details.orgId } : {}),
         }),
       },
     );
@@ -233,6 +242,39 @@ async function findOrCreatePerson(
   return { personId, personCreated };
 }
 
+/** Find organization by exact name, otherwise create one. */
+async function findOrCreateOrganization(
+  name: string,
+  headers: PipedriveHeaders,
+): Promise<number> {
+  const search = await callJson(
+    "pipedrive organization search",
+    `${PIPEDRIVE_API}/api/v2/organizations/search?${new URLSearchParams({
+      term: name,
+      fields: "name",
+      exact_match: "true",
+      limit: "1",
+    })}`,
+    { method: "GET", headers },
+  );
+  const items = dig(search.body, "data", "items");
+  const existingId = Array.isArray(items)
+    ? dig(items[0], "item", "id")
+    : undefined;
+  if (typeof existingId === "number") return existingId;
+
+  const created = await callJson(
+    "pipedrive organization create",
+    `${PIPEDRIVE_API}/api/v2/organizations`,
+    { method: "POST", headers, body: JSON.stringify({ name }) },
+  );
+  const newId = dig(created.body, "data", "id");
+  if (typeof newId !== "number") {
+    throw new Error("pipedrive organization create returned no id");
+  }
+  return newId;
+}
+
 export async function createPipedriveLead(
   signup: TrainingSignup,
 ): Promise<IntegrationResult> {
@@ -240,10 +282,12 @@ export async function createPipedriveLead(
   if (!token) return { status: "skipped" };
   const headers = pipedriveHeaders(token);
 
-  // a) Person
+  // a) Organization + person (existing persons keep their data).
+  const orgId = await findOrCreateOrganization(signup.company, headers);
   const { personId, personCreated } = await findOrCreatePerson(
     signup.email,
     headers,
+    { name: `${signup.firstName} ${signup.lastName}`, orgId },
   );
 
   // b) Lead, owned by the token owner (default owner).
@@ -256,6 +300,7 @@ export async function createPipedriveLead(
       body: JSON.stringify({
         title: `Webinar: ${signup.trainingId} - ${signup.slug}`,
         person_id: personId,
+        organization_id: orgId,
         [PIPEDRIVE_SOURCE_DESCRIPTION_KEY]: `Webinar: ${signup.trainingId} - ${signup.slug}`,
       }),
     },
@@ -268,10 +313,12 @@ export async function createPipedriveLead(
   // c) Note with the sign-up details.
   const lines = [
     `<b>Webinar sign-up via simonziri.com</b>`,
+    `Name: ${escapeHtml(`${signup.firstName} ${signup.lastName}`)}`,
+    `Company: ${escapeHtml(signup.company)}`,
     `Webinar: ${escapeHtml(signup.trainingTitle)}`,
     `ID / slug: ${escapeHtml(signup.trainingId)} / ${escapeHtml(signup.slug)}`,
     `Describes them: ${escapeHtml(signup.roleLabel)}`,
-    `Newsletter: ${signup.newsletter ? "yes (double opt-in pending)" : "no"}`,
+    `Newsletter: ${signup.newsletter ? "yes (checkbox)" : "no"}`,
     `utm_source: ${escapeHtml(signup.utmSource ?? "-")}`,
     `utm_campaign: ${escapeHtml(signup.utmCampaign ?? "-")}`,
     `utm_content: ${escapeHtml(signup.utmContent ?? "-")}`,
@@ -293,6 +340,7 @@ export async function createPipedriveLead(
     details: {
       personId,
       personCreated: personCreated ? "yes" : "no",
+      orgId,
       leadId,
       leadHttp: lead.status,
       ...(typeof noteId === "number" ? { noteId } : {}),

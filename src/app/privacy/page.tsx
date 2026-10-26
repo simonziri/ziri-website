@@ -103,12 +103,12 @@ export default function PrivacyPage() {
             process:
           </p>
           <ul>
-            <li>your work e-mail address</li>
+            <li>your first and last name, your company and your work e-mail address</li>
             <li>your answer to one short question: where you work (in-house at a B2B company, for clients, as a fractional CMO, or other)</li>
             <li>
-              whether you also want our newsletter (optional, separate
-              checkbox; you only receive it after confirming via a link we
-              e-mail you, and you can unsubscribe at any time)
+              your consent to receive our newsletter, which comes with the
+              free training (one checkbox; you can unsubscribe at any time
+              via the link in every e-mail)
             </li>
             <li>
               which training you signed up for and, if the link you arrived
@@ -126,7 +126,7 @@ export default function PrivacyPage() {
             (see below). We keep them for as long as needed to deliver the
             training and follow up on it. If no further exchange with you follows, we delete
             them no later than 12 months after our last contact with you, or
-            earlier if you withdraw your consent. If a business conversation
+            earlier if you object. If a business conversation
             develops from it, we keep your details for as long as that
             relationship requires and as statutory retention periods demand.
           </p>
@@ -137,9 +137,15 @@ export default function PrivacyPage() {
             automation tools. If you do not want this, tell us and we will stop.
           </p>
           <p>
-            Legal basis: your consent, Art. 6(1)(a) GDPR, which you give via
-            the checkbox before sending. You can withdraw it at any time with
-            effect for the future by e-mailing us. As with the contact form, an
+            Legal basis: sending you the training you requested, Art. 6(1)(b)
+            GDPR, and our legitimate interest in following up with you about
+            it, Art. 6(1)(f) GDPR. You can object to the follow-up at any time
+            by replying to any of our e-mails or e-mailing us. The newsletter
+            is sent based on your consent, Art. 6(1)(a) GDPR, given via the
+            checkbox; receiving the newsletter is part of what you get in
+            return for the free training. You can withdraw it at any time
+            with effect for the future via the unsubscribe link in every
+            e-mail. As with the contact form, an
             invisible technical field filters out automated spam; no captcha
             service is involved.
           </p>
@@ -148,10 +154,9 @@ export default function PrivacyPage() {
             {/* TODO(Simon): verify addresses and transfer mechanism (SCCs / EU-U.S. Data Privacy Framework) against the signed DPAs. */}
             <li>
               <strong>beehiiv</strong> (beehiiv Inc., USA), our e-mail service
-              provider. We use it to send you the training and, only if you
-              ticked the separate newsletter checkbox and confirmed via the
-              link, our newsletter. beehiiv receives your e-mail address, your
-              answer to that question, the training, whether you opted in to the newsletter and
+              provider. We use it to send you the training and our
+              newsletter. beehiiv receives your name, company and
+              e-mail address, your answer to that question, the training, your newsletter consent and
               the campaign parameters. beehiiv may process data in the USA;
               transfers are safeguarded by the EU Standard Contractual
               Clauses.

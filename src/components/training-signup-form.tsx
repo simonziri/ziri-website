@@ -13,9 +13,10 @@ type Utm = Partial<Record<(typeof UTM_KEYS)[number], string>>;
 
 /**
  * Sign-up-Formular für die Webinar-Lead-Magnets (/training/[slug]).
- * Gleiche GDPR-Invarianten wie das Kontaktformular (siehe CLAUDE.md):
- * Datenminimierung, Pflicht-Consent, Honeypot statt Captcha, keine
- * Cookies, keine Third-Party-Embeds.
+ * GDPR: Honeypot statt Captcha, keine Cookies, keine Third-Party-Embeds.
+ * Eine Pflicht-Checkbox: Training + Newsletter (Einwilligung, Simons
+ * Entscheidung 2026-10-26, Newsletter ist Bedingung für das Gratis-Training).
+ * Follow-up zum Training über Art. 6(1)(f) DSGVO (Hinweis unter dem Button).
  *
  * - UTM-Parameter (utm_source/campaign/content) werden aus der URL
  *   gelesen und mitgeschickt, für spätere Ad-Auswertung.
@@ -66,12 +67,14 @@ export function TrainingSignupForm({ slug }: { slug: string }) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           training: data.get("training"),
+          first_name: data.get("first_name"),
+          last_name: data.get("last_name"),
+          company: data.get("company"),
           email: data.get("email"),
           role: data.get("role"),
           utm_source: data.get("utm_source"),
           utm_campaign: data.get("utm_campaign"),
           utm_content: data.get("utm_content"),
-          consent: data.get("consent") === "on",
           newsletter: data.get("newsletter") === "on",
           company_website_2: data.get("company_website_2"),
         }),
@@ -125,8 +128,38 @@ export function TrainingSignupForm({ slug }: { slug: string }) {
         <input type="hidden" name={key} value={utm[key] ?? ""} key={key} />
       ))}
 
-      <fieldset className={styles.formSection}>
+      <fieldset className={`${styles.formSection} ${styles.formGrid}`}>
         <label className={styles.formField}>
+          <span>First name</span>
+          <input
+            name="first_name"
+            type="text"
+            autoComplete="given-name"
+            required
+            maxLength={100}
+          />
+        </label>
+        <label className={styles.formField}>
+          <span>Last name</span>
+          <input
+            name="last_name"
+            type="text"
+            autoComplete="family-name"
+            required
+            maxLength={100}
+          />
+        </label>
+        <label className={`${styles.formField} ${styles.formFieldFull}`}>
+          <span>Company</span>
+          <input
+            name="company"
+            type="text"
+            autoComplete="organization"
+            required
+            maxLength={200}
+          />
+        </label>
+        <label className={`${styles.formField} ${styles.formFieldFull}`}>
           <span>Work email</span>
           <input
             name="email"
@@ -146,7 +179,7 @@ export function TrainingSignupForm({ slug }: { slug: string }) {
         </label>
         {emailError ? (
           <p
-            className={styles.formError}
+            className={`${styles.formError} ${styles.formFieldFull}`}
             id="training-email-error"
             role="alert"
           >
@@ -172,19 +205,10 @@ export function TrainingSignupForm({ slug }: { slug: string }) {
       </fieldset>
 
       <label className={styles.formConsent}>
-        <input name="consent" type="checkbox" required />
+        <input name="newsletter" type="checkbox" required />
         <span>
-          I agree that ZIRI may use my details to send me this training and
-          follow up with me about it. Details in the{" "}
-          <a href="/privacy#training">privacy policy</a>.
-        </span>
-      </label>
-
-      <label className={styles.formConsent}>
-        <input name="newsletter" type="checkbox" />
-        <span>
-          Optional: also send me ZIRI&rsquo;s newsletter. You&rsquo;ll get a
-          confirmation e-mail first. Unsubscribe any time.
+          Send me the training and ZIRI&rsquo;s newsletter. Unsubscribe any
+          time.
         </span>
       </label>
 
@@ -203,6 +227,10 @@ export function TrainingSignupForm({ slug }: { slug: string }) {
           </p>
         ) : null}
       </div>
+      <p className={styles.formDisclaimer}>
+        We&rsquo;ll also follow up with you about the training. See our{" "}
+        <a href="/privacy#training">privacy policy</a>.
+      </p>
     </form>
   );
 }

@@ -265,6 +265,19 @@
   text-underline-offset: 0.18em;
 }
 
+.formDisclaimer {
+  padding-top: 1rem;
+  font-size: var(--font-size-small);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-dark-neutral-400);
+}
+
+.formDisclaimer a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
 .formFooter {
   display: flex;
   align-items: center;

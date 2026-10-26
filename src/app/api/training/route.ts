@@ -59,6 +59,9 @@ type Submission = {
   training: string;
   trainingId: string;
   trainingTitle: string;
+  firstName: string;
+  lastName: string;
+  company: string;
   email: string;
   role: string;
   newsletter: boolean;
@@ -80,9 +83,11 @@ async function notifyZiri(
       `Webinar:      ${training.title}`,
       `ID / slug:    ${training.id} / ${training.slug}`,
       ``,
+      `Name:         ${submission.firstName} ${submission.lastName}`,
+      `Company:      ${submission.company}`,
       `Email:        ${submission.email}`,
       `Describes them: ${labelFor(TRAINING_ROLES, role)}`,
-      `Newsletter:   ${submission.newsletter ? "yes (needs double opt-in)" : "no"}`,
+      `Newsletter:   ${submission.newsletter ? "yes" : "no"}`,
       ``,
       `utm_source:   ${submission.utm.source}`,
       `utm_campaign: ${submission.utm.campaign}`,
@@ -155,6 +160,9 @@ export async function POST(request: Request) {
 
   const slug = asTrimmed(payload.training, 200);
   const training = slug ? getTraining(slug) : undefined;
+  const firstName = asTrimmed(payload.first_name, 100);
+  const lastName = asTrimmed(payload.last_name, 100);
+  const company = asTrimmed(payload.company, 200);
   const email = asTrimmed(payload.email, 320);
   const role = asTrimmed(payload.role, 100);
   const utmSource = asTrimmed(payload.utm_source, 200);
@@ -163,11 +171,15 @@ export async function POST(request: Request) {
 
   const valid =
     training !== undefined &&
+    firstName !== null &&
+    lastName !== null &&
+    company !== null &&
     email !== null &&
     /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) &&
     role !== null &&
     ROLE_VALUES.includes(role) &&
-    payload.consent === true;
+    // Pflicht-Checkbox "Training + Newsletter".
+    payload.newsletter === true;
 
   if (!valid) {
     return NextResponse.json({ ok: false, error: "invalid" }, { status: 400 });
@@ -185,6 +197,9 @@ export async function POST(request: Request) {
     training: training.slug,
     trainingId: training.id,
     trainingTitle: training.title,
+    firstName,
+    lastName,
+    company,
     email,
     role,
     newsletter: payload.newsletter === true,
@@ -201,6 +216,9 @@ export async function POST(request: Request) {
     slug: training.slug,
     trainingId: training.id,
     trainingTitle: training.title,
+    firstName,
+    lastName,
+    company,
     email,
     role,
     roleLabel: labelFor(TRAINING_ROLES, role),
@@ -241,6 +259,7 @@ export async function POST(request: Request) {
   await sendIntegrationAlert(
     "webinar signup",
     [
+      `Name:     ${firstName} ${lastName} (${company})`,
       `Email:    ${email}`,
       `Webinar:  ${training.title} (${training.slug})`,
       `Describes: ${signup.roleLabel}`,
