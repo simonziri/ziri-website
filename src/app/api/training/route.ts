@@ -1,5 +1,11 @@
 import { NextResponse } from "next/server";
-import { getTraining, TRAINING_ROLES, type Training } from "@/data/trainings";
+import {
+  getTraining,
+  TRAINING_QUALIFIED_ROLES,
+  TRAINING_ROLES,
+  type Training,
+} from "@/data/trainings";
+import { sendMetaLead } from "@/lib/meta-capi";
 import {
   createPipedriveLead,
   subscribeToBeehiiv,
@@ -26,7 +32,9 @@ import {
  *     - beehiiv   (BEEHIIV_API_KEY)     → Subscriber anlegen/aktualisieren;
  *                                          Double-Opt-in nur bei Newsletter
  *     - Pipedrive (PIPEDRIVE_API_TOKEN) → Person finden/anlegen, Lead + Notiz
- *   Alle drei laufen unabhängig (Promise.allSettled). Antwort 200, wenn
+ *     - Meta CAPI (META_CAPI_TOKEN)     → Lead-Event, nur In-house-Anmeldungen
+ *                                          (TRAINING_QUALIFIED_ROLES), ohne Cookie
+ *   Alle laufen unabhängig (Promise.allSettled). Antwort 200, wenn
  *   beehiiv ODER die Benachrichtigung geklappt hat.
  * - Honeypot "company_website_2" verwirft Bots still.
  *
@@ -168,6 +176,7 @@ export async function POST(request: Request) {
   const utmSource = asTrimmed(payload.utm_source, 200);
   const utmCampaign = asTrimmed(payload.utm_campaign, 200);
   const utmContent = asTrimmed(payload.utm_content, 200);
+  const fbclid = asTrimmed(payload.fbclid, 500);
 
   const valid =
     training !== undefined &&
@@ -229,11 +238,21 @@ export async function POST(request: Request) {
     submittedAt: submission.submittedAt,
   };
 
-  // Alle drei Ziele unabhängig voneinander; eins darf ausfallen.
-  const [notified, beehiiv, pipedrive] = await Promise.allSettled([
+  // Alle Ziele unabhängig voneinander; eins darf ausfallen.
+  const [notified, beehiiv, pipedrive, meta] = await Promise.allSettled([
     notifyZiri(submission, training, role),
     subscribeToBeehiiv(signup),
     createPipedriveLead(signup),
+    TRAINING_QUALIFIED_ROLES.includes(role)
+      ? sendMetaLead({
+          request,
+          email,
+          firstName,
+          lastName,
+          fbclid,
+          contentName: training.slug,
+        })
+      : Promise.resolve({ status: "skipped" as const }),
   ]);
 
   const logFailure = (
@@ -254,6 +273,7 @@ export async function POST(request: Request) {
   logFailure("notification", notified);
   logFailure("beehiiv", beehiiv);
   logFailure("pipedrive", pipedrive);
+  logFailure("meta", meta);
 
   // Alarm an ZIRI, damit niemand still verloren geht (wirft nie).
   await sendIntegrationAlert(
@@ -269,6 +289,7 @@ export async function POST(request: Request) {
       ["notification", notified],
       ["beehiiv", beehiiv],
       ["pipedrive", pipedrive],
+      ...(meta.status === "rejected" ? [["meta", meta] as const] : []),
     ]),
   );
 

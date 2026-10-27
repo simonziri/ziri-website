@@ -8,7 +8,7 @@ import styles from "./book-call.module.css";
 
 type Status = "idle" | "submitting" | "error";
 
-const UTM_KEYS = ["utm_source", "utm_campaign", "utm_content"] as const;
+const UTM_KEYS = ["utm_source", "utm_campaign", "utm_content", "fbclid"] as const;
 type Utm = Partial<Record<(typeof UTM_KEYS)[number], string>>;
 
 /**
@@ -18,8 +18,9 @@ type Utm = Partial<Record<(typeof UTM_KEYS)[number], string>>;
  * Entscheidung 2026-10-26, Newsletter ist Bedingung für das Gratis-Training).
  * Follow-up zum Training über Art. 6(1)(f) DSGVO (Hinweis unter dem Button).
  *
- * - UTM-Parameter (utm_source/campaign/content) werden aus der URL
- *   gelesen und mitgeschickt, für spätere Ad-Auswertung.
+ * - UTM-Parameter (utm_source/campaign/content) und fbclid werden aus der
+ *   URL gelesen und mitgeschickt, für Ad-Auswertung. fbclid nutzt der Server
+ *   für das Meta-Lead-Event (src/lib/meta-capi.ts), ohne Cookie.
  * - Erfolgreiche Submits feuern das CustomEvent "ziri:training:submitted"
  *   mit { slug } auf window und leiten dann auf die Thank-you-Seite.
  *   Tracking (z. B. Meta Pixel) dort anhängen, nicht hier, und vorher
@@ -39,7 +40,7 @@ export function TrainingSignupForm({ slug }: { slug: string }) {
     const found: Utm = {};
     for (const key of UTM_KEYS) {
       const value = params.get(key);
-      if (value) found[key] = value.slice(0, 200);
+      if (value) found[key] = value.slice(0, 500);
     }
     setUtm(found);
   }, []);
@@ -75,6 +76,7 @@ export function TrainingSignupForm({ slug }: { slug: string }) {
           utm_source: data.get("utm_source"),
           utm_campaign: data.get("utm_campaign"),
           utm_content: data.get("utm_content"),
+          fbclid: data.get("fbclid"),
           newsletter: data.get("newsletter") === "on",
           company_website_2: data.get("company_website_2"),
         }),
