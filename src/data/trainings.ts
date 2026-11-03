@@ -19,6 +19,16 @@ export const TRAINING_EMAIL_STORAGE_KEY = "ziri:training:email";
 
 export const TRAINING_SENDER_EMAIL = "simon@mail.simonziri.com";
 
+/**
+ * Kalender-Slot auf der Thank-you-Seite (Simons Ansage 03.11.: 18 Uhr New
+ * York am Release-Tag). UTC, Kalender zeigen es in der Zeitzone des Users.
+ * 12.11. = EST (UTC-5), also 23:00 UTC.
+ */
+export const TRAINING_CALENDAR_SLOT = {
+  start: "2026-11-12T23:00:00Z",
+  end: "2026-11-12T23:45:00Z",
+} as const;
+
 export type Training = {
   slug: string;
   /** Gesprochene ID, z. B. "Charlie Two" */
@@ -219,3 +229,70 @@ export const TRAINING_ROLES = [
  * nur In-house zählt). generate_lead feuert weiter für alle.
  */
 export const TRAINING_QUALIFIED_ROLES: readonly string[] = ["in-house-b2b"];
+
+/*
+ * Kalender-Eintrag auf der Thank-you-Seite. Das Training kommt per Mail,
+ * der Termin erinnert nur daran (kein Link, den wir am 12.11. noch nicht haben).
+ */
+const calendarDescription = (training: Training) =>
+  `Your free training "${training.title}" arrives by email from ${TRAINING_SENDER_EMAIL} today. Search your inbox for it and block this slot to watch it.`;
+
+/* Bewusst neutral: die Trainingstitel sind Hooks, im Kalender wirken sie seltsam. */
+const calendarTitle = () => "Watch your free training from Simon Ziri (ZIRI)";
+
+/** "2026-11-12T23:00:00Z" -> "20261112T230000Z" (Google + ICS-Format) */
+const compactUtc = (iso: string) => iso.replace(/[-:]/g, "").replace(/\.\d+/, "");
+
+export const getCalendarLinks = (training: Training) => {
+  const { start, end } = TRAINING_CALENDAR_SLOT;
+  // encodeURIComponent statt URLSearchParams: Outlook zeigt "+" sonst wörtlich
+  const query = (params: Record<string, string>) =>
+    Object.entries(params)
+      .map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
+      .join("&");
+
+  const google = `https://calendar.google.com/calendar/render?${query({
+    action: "TEMPLATE",
+    text: calendarTitle(),
+    dates: `${compactUtc(start)}/${compactUtc(end)}`,
+    details: calendarDescription(training),
+  })}`;
+
+  const outlook = `https://outlook.office.com/calendar/0/action/compose?${query({
+    subject: calendarTitle(),
+    startdt: start,
+    enddt: end,
+    body: calendarDescription(training),
+  })}`;
+
+  return {
+    google,
+    outlook,
+    ics: `/training/${training.slug}/calendar.ics`,
+  };
+};
+
+/** ICS-Text-Escaping nach RFC 5545 (Backslash, Komma, Semikolon, Umbruch). */
+const icsEscape = (value: string) =>
+  value.replace(/\\/g, "\\\\").replace(/([,;])/g, "\\$1").replace(/\n/g, "\\n");
+
+export const buildCalendarIcs = (training: Training) => {
+  const { start, end } = TRAINING_CALENDAR_SLOT;
+  return [
+    "BEGIN:VCALENDAR",
+    "VERSION:2.0",
+    "PRODID:-//ZIRI//Training//EN",
+    "CALSCALE:GREGORIAN",
+    "METHOD:PUBLISH",
+    "BEGIN:VEVENT",
+    `UID:training-${training.slug}@simonziri.com`,
+    `DTSTAMP:${compactUtc(start)}`,
+    `DTSTART:${compactUtc(start)}`,
+    `DTEND:${compactUtc(end)}`,
+    `SUMMARY:${icsEscape(calendarTitle())}`,
+    `DESCRIPTION:${icsEscape(calendarDescription(training))}`,
+    "END:VEVENT",
+    "END:VCALENDAR",
+    "",
+  ].join("\r\n");
+};

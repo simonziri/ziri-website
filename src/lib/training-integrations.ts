@@ -443,6 +443,8 @@ export type TrainingInterest = {
   email: string;
   problem: string;
   submittedAt: string;
+  /** "topic" = Interessen-Frage (alt), "loom" = Loom-Review-Anfrage */
+  kind?: "topic" | "loom";
 };
 
 export async function addPipedriveInterestNote(
@@ -455,11 +457,13 @@ export async function addPipedriveInterestNote(
   const { personId } = await findOrCreatePerson(interest.email, headers);
 
   const lines = [
-    `<b>Webinar input (thank-you page)</b>`,
+    interest.kind === "loom"
+      ? `<b>Loom page review request (thank-you page)</b>`
+      : `<b>Webinar input (thank-you page)</b>`,
     `Webinar: ${escapeHtml(interest.trainingTitle)}`,
     `ID / slug: ${escapeHtml(interest.trainingId)} / ${escapeHtml(interest.slug)}`,
     ``,
-    `<b>Burning topic:</b>`,
+    interest.kind === "loom" ? `<b>Request:</b>` : `<b>Burning topic:</b>`,
     escapeHtml(interest.problem).replace(/\n/g, "<br>"),
     ``,
     `Sent at: ${interest.submittedAt}`,

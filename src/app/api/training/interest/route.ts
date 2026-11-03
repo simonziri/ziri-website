@@ -11,9 +11,12 @@ import {
 } from "@/lib/ziri-alert";
 
 /**
- * Formular auf der Thank-you-Seite (/training/[slug]/thanks):
- * "What topic is burning most right now?" (ein Textfeld). Wir nehmen das
- * Training gerade erst auf, die Antworten fließen ins Skript.
+ * Formulare auf der Thank-you-Seite (/training/[slug]/thanks):
+ * - kind "loom" (aktuell auf der Seite, seit 03.11.): Anfrage für einen
+ *   Gratis-Loom-Review einer Seite. Feld page_url (keine Qualifizierung,
+ *   erstmal für alle).
+ * - ohne kind: alte Frage "What topic is burning most right now?"
+ *   (Komponente TrainingInterestForm, derzeit nicht eingebunden).
  *
  * - Speichert nichts selbst. Ziel: Notiz an der Person in Pipedrive
  *   (PIPEDRIVE_API_TOKEN) + Benachrichtigung an ZIRI (Resend, sonst Log).
@@ -34,13 +37,16 @@ const asTrimmed = (value: unknown, max: number): string | null =>
     : null;
 
 async function notifyZiri(interest: TrainingInterest): Promise<void> {
+  const isLoom = interest.kind === "loom";
   const text = [
-    `Webinar input via simonziri.com (thank-you page)`,
+    isLoom
+      ? `Loom page review request via simonziri.com (thank-you page)`
+      : `Webinar input via simonziri.com (thank-you page)`,
     ``,
     `Webinar:  ${interest.trainingTitle}`,
     `Email:    ${interest.email}`,
     ``,
-    `Burning topic:`,
+    isLoom ? `Request:` : `Burning topic:`,
     interest.problem,
     ``,
     `Sent at: ${interest.submittedAt}`,
@@ -60,7 +66,9 @@ async function notifyZiri(interest: TrainingInterest): Promise<void> {
       from: CONTACT_FROM,
       to: [CONTACT_TO],
       reply_to: interest.email,
-      subject: `Webinar input: ${interest.trainingTitle}`,
+      subject: isLoom
+        ? `Loom review request: ${interest.email}`
+        : `Webinar input: ${interest.trainingTitle}`,
       text,
     }),
     signal: AbortSignal.timeout(8000),
@@ -68,6 +76,20 @@ async function notifyZiri(interest: TrainingInterest): Promise<void> {
   if (!response.ok) throw new Error(`resend ${response.status}`);
 }
 
+
+/** Loom-Anfrage als lesbarer Text (Mail + Pipedrive-Notiz), null wenn ungültig. */
+function describeLoomRequest(payload: Record<string, unknown>): string | null {
+  const pageUrl = asTrimmed(payload.page_url, 500);
+  if (!pageUrl) return null;
+  let url: URL;
+  try {
+    url = new URL(/^https?:\/\//i.test(pageUrl) ? pageUrl : `https://${pageUrl}`);
+  } catch {
+    return null;
+  }
+  if (!url.hostname.includes(".")) return null;
+  return `Page: ${url.toString()}`;
+}
 
 /** Gescheiterte Ziele sammeln. In Production gilt "skipped" (Key fehlt) auch als Fehler. */
 function collectFailures(
@@ -102,7 +124,8 @@ export async function POST(request: Request) {
   const slug = asTrimmed(payload.training, 200);
   const training = slug ? getTraining(slug) : undefined;
   const email = asTrimmed(payload.email, 320);
-  const problem = asTrimmed(payload.problem, 2000);
+  const isLoom = payload.kind === "loom";
+  const problem = isLoom ? describeLoomRequest(payload) : asTrimmed(payload.problem, 2000);
 
   if (
     !training ||
@@ -120,6 +143,7 @@ export async function POST(request: Request) {
     email,
     problem,
     submittedAt: new Date().toISOString(),
+    kind: isLoom ? "loom" : "topic",
   };
 
   const [notified, pipedrive] = await Promise.allSettled([
@@ -135,7 +159,7 @@ export async function POST(request: Request) {
     console.error(`[training-interest] ${target} failed:`, error);
   }
   await sendIntegrationAlert(
-    "thank-you page input",
+    isLoom ? "thank-you page Loom request" : "thank-you page input",
     [
       `Email:    ${interest.email}`,
       `Webinar:  ${interest.trainingTitle} (${interest.slug})`,

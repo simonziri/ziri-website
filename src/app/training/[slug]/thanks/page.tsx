@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { PixelHatchButton } from "@/components/pixel-hatch-button";
-import { TrainingInterestForm } from "@/components/training-interest-form";
+import { TrainingThanksFlow } from "@/components/training-thanks-flow";
 import { TrainingFooter, TrainingHeader } from "@/components/training-chrome";
 import {
   TRAINING_SENDER_EMAIL,
   formatTrainingDate,
+  getCalendarLinks,
   getTraining,
   trainings,
 } from "@/data/trainings";
@@ -28,7 +28,7 @@ export async function generateMetadata({
   const training = getTraining(slug);
   if (!training) return {};
   return {
-    title: `You're in | ${training.title}`,
+    title: `Almost done | ${training.title}`,
     robots: { index: false, follow: false },
   };
 }
@@ -43,51 +43,19 @@ export default async function TrainingThanksPage({
   if (!training) notFound();
 
   const releaseDate = formatTrainingDate(training.releaseDate);
+  const calendar = getCalendarLinks(training);
 
   return (
     <div className={styles.page}>
       <TrainingHeader />
       <main className={styles.main}>
         <section className={styles.thanks} aria-labelledby="thanks-title">
-          <h1 id="thanks-title">
-            You&rsquo;re in. Your training arrives on {releaseDate}.
-          </h1>
-          <p>
-            A confirmation email is on its way. Can&rsquo;t find it in a few
-            minutes? Check your spam or promotions folder.
-          </p>
-          <p>
-            One small thing: add{" "}
-            <strong>{TRAINING_SENDER_EMAIL}</strong>{" "}
-            to your contacts, so the training doesn&rsquo;t land in spam.
-          </p>
-          <div
-            className={styles.interestCard}
-            role="region"
-            aria-labelledby="interest-title"
-            data-theme="light-primary"
-          >
-            <h2 id="interest-title">What topic is burning most right now?</h2>
-            <p>
-              We&rsquo;re still recording this training, so your answer goes
-              straight into it.
-            </p>
-            <TrainingInterestForm
-              slug={training.slug}
-              labelledBy="interest-title"
-            />
-          </div>
-          <div className={styles.thanksActions}>
-            <PixelHatchButton
-              href="https://www.linkedin.com/in/simonziri/"
-              external
-            >
-              Connect on LinkedIn
-            </PixelHatchButton>
-            <PixelHatchButton href="/" variant="secondary">
-              Go to homepage
-            </PixelHatchButton>
-          </div>
+          <TrainingThanksFlow
+            slug={training.slug}
+            releaseDate={releaseDate}
+            senderEmail={TRAINING_SENDER_EMAIL}
+            calendar={calendar}
+          />
         </section>
       </main>
       <TrainingFooter />
