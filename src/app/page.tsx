@@ -5,7 +5,6 @@ import { FeaturedWork } from "@/components/featured-work";
 import { Hero } from "@/components/hero";
 import { HeroDots } from "@/components/hero-dots";
 import { OurWay } from "@/components/our-way";
-import { Paradox } from "@/components/paradox";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { Testimonials } from "@/components/testimonials";
@@ -22,7 +21,7 @@ export default function HomePage() {
           <Hero />
           <FeaturedWork />
         </div>
-        <Paradox />
+        {/* Paradox (Problem-Section) vorerst ausgeblendet (Simons Ansage 04.11.) */}
         <OurWay />
         <CustomerJourney />
         <Testimonials />
