@@ -45,29 +45,27 @@ const iterationCells = new Set([
 const phases: Phase[] = [
   {
     number: "01",
-    label: "Diagnosis",
+    label: "Differentiation",
     accent: "#fac167",
     cells: foundationCells,
-    heading:
-      "We go deep on your market and buyers to build one recommended playbook.",
-    body: "Reviews, communities, and your sales insights show why buyers chose you, why they chose competitors, and what every vendor claims. We check how AI models describe you against named competitors. Then we form our assumptions from the data and our experience, and bring them to you to be challenged. The winner is pressure-tested in real sales conversations before anything ships.",
+    heading: "A clear reason to choose you.",
+    body: "We make the differences your buyers care about obvious through messaging and design—so they understand what sets you apart and can explain it to others.",
   },
   {
     number: "02",
-    label: "Rebuild",
+    label: "Buyer Understanding",
     accent: "#d69cd5",
     cells: executionCells,
-    heading:
-      "Once validated, we translate the playbook into messaging, brand and website.",
-    body: "The playbook dictates the messaging system, the brand, and the website. Built to answer three questions that get you considered: is this legit, what is this, and why you. Before the website goes live, we validate again, both in front of your audience and the AI models they’ll consult.",
+    heading: "Built around how your buyers decide.",
+    body: "We shape your website around their questions, concerns and buying process, including the people they need to convince. When we need answers, we investigate sales conversations, customer feedback, analytics and the market.",
   },
   {
     number: "03",
-    label: "Compounding",
+    label: "Continuous Improvement",
     accent: "#ff765a",
     cells: iterationCells,
-    heading: "Then we challenge our own assumptions on a regular cadence.",
-    body: "Every Wave closes with a readout: our hypotheses against reality, KPIs, what sales hears on calls, how AI models describe you now. Where we were right, we double down. Where we were wrong, we say so and revise. Each round adds to a private research dataset.",
+    heading: "A website that keeps learning with you.",
+    body: "We review the numbers and feedback, agree on the next challenge and make the changes. Positioning, messaging, design and development evolve together, with systems and training that help your team iterate too.",
   },
 ];
 
@@ -172,9 +170,9 @@ export function CustomerJourney() {
   return (
     <section className={styles.section} id="customer" aria-labelledby="customer-title">
       <div className={styles.heading}>
-        <SectionTag>The Ziri Method</SectionTag>
+        <SectionTag>Our Approach</SectionTag>
         <h2 className={styles.title} id="customer-title" data-reveal="sweep">
-          Before we design anything, we find out why you actually lose deals.
+          A strong website stands on three legs.
         </h2>
       </div>
 

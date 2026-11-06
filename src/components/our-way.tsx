@@ -7,22 +7,23 @@ export function OurWay() {
       <div className={styles.heading}>
         <SectionTag>Our Point of View</SectionTag>
         <h2 className={styles.title} id="our-way-title">
-        <span data-reveal="sweep">Most websites are built on opinions, not on why your buyers actually choose you.</span>
+        <span data-reveal="sweep">Most web agencies treat strategy as a one-time thing.</span>{" "}
+        <span data-reveal="sweep">We keep questioning, designing, building and improving.</span>
         </h2>
       </div>
 
       <div className={styles.cardGrid}>
         <article className={`${styles.card} ${styles.oldWay}`} data-reveal="rise">
           <div className={styles.cardHeading}>
-            <p className={styles.cardLabel}>TYPICAL WEBSITE PROJECTS</p>
-            <h3>Typical agencies design based on your brief and copy.</h3>
+            <p className={styles.cardLabel}>TYPICAL AGENCY RETAINER</p>
+            <h3>Strategy at the start. Design and development tickets from there.</h3>
           </div>
           <div className={styles.cardBody}>
             <p>
-              Critical decisions are made from opinions and best practices borrowed from companies in completely different phases and industries.
+              After launch, the relationship becomes about briefs, requests and available capacity.
             </p>
             <p>
-              And everyone copies the same three competitors, so instead of standing out, you blend in. When your contracts are worth five to seven figures, this approach doesn’t cut it.
+              But companies keep changing. New buyers, new positioning, new priorities. Executing the next task is only part of the job.
             </p>
           </div>
         </article>
@@ -33,17 +34,17 @@ export function OurWay() {
           style={{ "--reveal-delay": "140ms" } as React.CSSProperties}
         >
           <div className={styles.cardHeading}>
-            <p className={styles.cardLabel}>ZIRI&rsquo;S APPROACH</p>
+            <p className={styles.cardLabel}>THE ZIRI PARTNERSHIP</p>
             <h3>
-              We diagnose why you win or lose deals first.
+              Strategic sparring, design and development. Together, ongoing.
             </h3>
           </div>
           <div className={styles.cardBody}>
             <p>
-              By studying your market and sales insights, we build assumptions on what actually matters to make you the obvious choice.
+              Work directly with our founder and in-house design and development leads to sharpen the direction and put it live.
             </p>
             <p>
-              We bring those assumptions to you to challenge them. Whatever survives gets validated in front of your ideal customer. Once we’ve found a winner, we build your messaging, brand and website exactly on that discovered edge.
+              Regular leadership sessions keep the bigger picture moving, while reserved capacity keeps everyday requests on track.
             </p>
           </div>
         </article>

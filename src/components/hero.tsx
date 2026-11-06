@@ -8,16 +8,10 @@ export function Hero() {
     <header className={styles.hero} aria-labelledby="hero-title">
       <div className={styles.heroCopy}>
         <div className={styles.heroIntro}>
-          <p
-            className={styles.kicker}
-            data-reveal="fade"
-            style={{ "--reveal-duration": "1650ms" } as React.CSSProperties}
-          >
-            B2B websites built on your market and sales intel 
-          </p>
+          {/* Tagline vorerst ausgeblendet (Simons Ansage 06.11.): "B2B websites built on your market and sales intel" */}
           <h1 className={styles.heroTitle} id="hero-title">
-            <span data-reveal="sweep">Pretty websites</span>{" "}
-            <span data-reveal="sweep">don’t win large deals.</span>
+            <span data-reveal="sweep">Website Partner and Advisory</span>{" "}
+            <span data-reveal="sweep">for B2B Growth Companies</span>
           </h1>
         </div>
 
@@ -26,7 +20,8 @@ export function Hero() {
           data-reveal="fade"
           style={{ "--reveal-delay": "200ms", "--reveal-duration": "1650ms" } as React.CSSProperties}
         >
-            Our websites make you the obvious choice for the buyers you want most. Even when deals take months and many stakeholders have a say. We dig into your market, customer journeys and sales intel, before we write or design anything.</p>
+          An ongoing team for design and development and strategy. We help you think through shifts, like moving upmarket or sharpening your positioning, with the design and development team to put them live, fast.
+        </p>
       </div>
 
       <div className={styles.heroFooter}>
