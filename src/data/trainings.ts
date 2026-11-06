@@ -29,6 +29,14 @@ export const TRAINING_CALENDAR_SLOT = {
   end: "2026-11-12T23:45:00Z",
 } as const;
 
+/**
+ * Seiten, auf denen das Training läuft (/watch/<key>, Simons Ansage 06.11.:
+ * erst CRO). Bis zum Release steht dort "kommt am 12.11." + Themen-Formular.
+ */
+export const TRAINING_LIVE_PAGES: Readonly<Record<string, string>> = {
+  "cro-training": "cro-for-high-ticket-b2b",
+};
+
 export type Training = {
   slug: string;
   /** Gesprochene ID, z. B. "Charlie Two" */
@@ -231,11 +239,25 @@ export const TRAINING_ROLES = [
 export const TRAINING_QUALIFIED_ROLES: readonly string[] = ["in-house-b2b"];
 
 /*
- * Kalender-Eintrag auf der Thank-you-Seite. Das Training kommt per Mail,
- * der Termin erinnert nur daran (kein Link, den wir am 12.11. noch nicht haben).
+ * Kalender-Eintrag auf der Thank-you-Seite. Das Training kommt per Mail;
+ * hat es schon eine /watch-Seite (TRAINING_LIVE_PAGES), steht deren Link drin.
+ * Bereits gespeicherte Einträge ändern sich dadurch nicht.
  */
-const calendarDescription = (training: Training) =>
-  `Your free training "${training.title}" arrives by email from ${TRAINING_SENDER_EMAIL} today. Search your inbox for it and block this slot to watch it.`;
+const SITE_URL = "https://simonziri.com";
+
+export const getLivePageUrl = (training: Training) => {
+  const key = Object.keys(TRAINING_LIVE_PAGES).find(
+    (k) => TRAINING_LIVE_PAGES[k] === training.slug,
+  );
+  return key ? `${SITE_URL}/watch/${key}` : undefined;
+};
+
+const calendarDescription = (training: Training) => {
+  const livePage = getLivePageUrl(training);
+  return livePage
+    ? `Your free training "${training.title}" goes live here today: ${livePage}\n\nWe also send you a reminder email from ${TRAINING_SENDER_EMAIL}.`
+    : `Your free training "${training.title}" arrives by email from ${TRAINING_SENDER_EMAIL} today. Search your inbox for it and block this slot to watch it.`;
+};
 
 /* Bewusst neutral: die Trainingstitel sind Hooks, im Kalender wirken sie seltsam. */
 const calendarTitle = () => "Watch your free training from Simon Ziri (ZIRI)";

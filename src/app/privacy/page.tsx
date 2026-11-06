@@ -24,7 +24,7 @@ export default function PrivacyPage() {
         <SiteHeader />
         <article className={legal.article}>
           <h1>Privacy Policy</h1>
-          <p className={legal.updated}>Last updated: November 3, 2026</p>
+          <p className={legal.updated}>Last updated: November 6, 2026</p>
 
           <p>
             This website is intentionally light on data. No third-party fonts,
@@ -185,6 +185,16 @@ export default function PrivacyPage() {
             is not placed in the page address or in a cookie, is not shared with
             analytics or advertising services, and is deleted when you close the
             tab.
+          </p>
+          <p>
+            <strong>Optional question on the training page.</strong> On the
+            page where a training is shown, you can tell us which question the
+            training should cover. For this we process your answer and your
+            e-mail address. This form is voluntary. We use the data to shape
+            the training and for our follow-up. It is forwarded to our e-mail
+            inbox and stored as a note in Pipedrive, with the same retention as
+            above. Legal basis: our legitimate interest in improving the
+            training and following up with you, Art. 6(1)(f) GDPR.
           </p>
           <p>
             Both process the data on our behalf under a data processing

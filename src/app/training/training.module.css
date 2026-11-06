@@ -590,3 +590,8 @@ a.calendarPrimary {
     height: 1.5rem;
   }
 }
+
+/* Platzhalter-Seite /watch/<key>: Abstand Hero → Formular-Karte */
+.watchCard {
+  margin-top: var(--space-medium);
+}
