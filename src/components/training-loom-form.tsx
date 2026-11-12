@@ -20,7 +20,16 @@ const domainFromEmail = (email: string | null) =>
  *   vorbelegt (editierbar). Fehlt sie, wird das E-Mail-Feld eingeblendet.
  * - Ziel: /api/training/interest mit kind "loom".
  */
-export function TrainingLoomForm({ slug }: { slug: string }) {
+export function TrainingLoomForm({
+  slug,
+  revealEmail = false,
+}: {
+  slug: string;
+  /** Watch-Seite (Simon 12.11.): erst nur das URL-Feld, das E-Mail-Feld blendet
+   *  darunter ein, sobald jemand tippt. Spart Platz, die Karten bleiben ausgewogen. */
+  revealEmail?: boolean;
+}) {
+  const [urlTyped, setUrlTyped] = useState(false);
   const [storedEmail, setStoredEmail] = useState<string | null>(null);
   const [checkedStorage, setCheckedStorage] = useState(false);
   const [status, setStatus] = useState<Status>("idle");
@@ -53,6 +62,7 @@ export function TrainingLoomForm({ slug }: { slug: string }) {
           training: slug,
           email: storedEmail ?? data.get("email"),
           page_url: data.get("page_url"),
+          context: revealEmail ? data.get("context") : undefined,
           company_website_2: data.get("company_website_2"),
         }),
       });
@@ -67,13 +77,35 @@ export function TrainingLoomForm({ slug }: { slug: string }) {
     return (
       <div className={styles.formSuccess} role="status">
         <h3>Got it, thank you.</h3>
-        <p>
-          We&rsquo;ll take a look and get back to you by email, usually within
-          a few working days.
-        </p>
+        {revealEmail ? (
+          <p>
+            We&rsquo;ll send you the video by email, usually within a few
+            working days.
+          </p>
+        ) : (
+          <p>
+            We&rsquo;ll take a look and get back to you by email, usually within
+            a few working days.
+          </p>
+        )}
       </div>
     );
   }
+
+  const emailField = (
+        <fieldset className={styles.formSection}>
+          <label className={styles.formField}>
+            <span>Work email you signed up with</span>
+            <input
+              name="email"
+              type="email"
+              autoComplete="email"
+              required
+              maxLength={320}
+            />
+          </label>
+        </fieldset>
+  );
 
   // Vor dem Storage-Check nichts rendern, sonst blitzt das E-Mail-Feld auf.
   if (!checkedStorage) return null;
@@ -90,20 +122,7 @@ export function TrainingLoomForm({ slug }: { slug: string }) {
         />
       </label>
 
-      {storedEmail ? null : (
-        <fieldset className={styles.formSection}>
-          <label className={styles.formField}>
-            <span>Work email you signed up with</span>
-            <input
-              name="email"
-              type="email"
-              autoComplete="email"
-              required
-              maxLength={320}
-            />
-          </label>
-        </fieldset>
-      )}
+      {storedEmail || revealEmail ? null : emailField}
 
       <fieldset className={styles.formSection}>
         <label className={styles.formField}>
@@ -117,13 +136,29 @@ export function TrainingLoomForm({ slug }: { slug: string }) {
             defaultValue={domainFromEmail(storedEmail)}
             required
             maxLength={500}
+            onChange={(event) => {
+              if (event.currentTarget.value.trim()) setUrlTyped(true);
+            }}
           />
         </label>
       </fieldset>
 
+      {!storedEmail && revealEmail && urlTyped ? (
+        <div className={styles.formReveal}>{emailField}</div>
+      ) : null}
+
+      {revealEmail && urlTyped ? (
+        <fieldset className={`${styles.formSection} ${styles.formReveal}`}>
+          <label className={styles.formField}>
+            <span>Anything we should know? (optional)</span>
+            <textarea name="context" rows={3} maxLength={2000} />
+          </label>
+        </fieldset>
+      ) : null}
+
       <div className={styles.formFooter}>
         <button
-          className={styles.formSubmit}
+          className={`${styles.formSubmit} ${revealEmail ? styles.formSubmitDark : ""}`}
           type="submit"
           disabled={status === "submitting"}
         >

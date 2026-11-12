@@ -88,7 +88,9 @@ function describeLoomRequest(payload: Record<string, unknown>): string | null {
     return null;
   }
   if (!url.hostname.includes(".")) return null;
-  return `Page: ${url.toString()}`;
+  // optional (nur Watch-Seite): mehr Kontext zur Anfrage
+  const context = asTrimmed(payload.context, 2000);
+  return context ? `Page: ${url.toString()}\n\nContext:\n${context}` : `Page: ${url.toString()}`;
 }
 
 /** Gescheiterte Ziele sammeln. In Production gilt "skipped" (Key fehlt) auch als Fehler. */

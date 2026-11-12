@@ -105,7 +105,8 @@ export function CaseStudyArticle({
       <div className={styles.inset}>
         <nav className={styles.crumb} aria-label="Breadcrumb">
           <BackLink className={styles.crumbBack} inPanel={inPanel}>
-            ← Back to Homepage
+            {/* Im Slide-over nur "Back": es öffnet auch von /watch aus */}
+            {inPanel ? "← Back" : "← Back to Homepage"}
           </BackLink>
         </nav>
 

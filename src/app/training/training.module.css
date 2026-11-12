@@ -351,7 +351,8 @@
 
 /* Schritt-Tag "2/3": kräftiger als .monoLabel (Simons Ansage 03.11.) */
 .thanks p.stepTag,
-.stepTwo p.stepTag {
+.stepTwo p.stepTag,
+.watchIntro p.stepTag {
   align-self: flex-start;
   padding: 0.375rem 0.625rem;
   border-radius: 3px;
@@ -594,4 +595,75 @@ a.calendarPrimary {
 /* Platzhalter-Seite /watch/<key>: Abstand Hero → Formular-Karte */
 .watchCard {
   margin-top: var(--space-medium);
+}
+
+/* /watch mit Video (Player: components/training-player) */
+.watch {
+  max-width: var(--content-max-width);
+  margin-inline: auto;
+}
+
+.watchIntro {
+  display: flex;
+  max-width: 52rem;
+  flex-direction: column;
+  gap: var(--space-xsmall);
+  padding-bottom: var(--space-large);
+}
+
+.watchIntro h1 {
+  font-size: var(--font-size-h2);
+  letter-spacing: -0.022em;
+  line-height: 1.2;
+  text-wrap: pretty;
+}
+
+.watchIntro > p {
+  max-width: 40rem;
+  color: var(--text-secondary);
+  font-size: var(--font-size-large);
+  line-height: var(--line-height-relaxed);
+}
+
+.watchIntro > p.watchMeta {
+  font-size: var(--font-size-small);
+}
+
+.watchQuestions {
+  display: flex;
+  margin-top: var(--space-xlarge);
+  padding-top: var(--space-small);
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-xxsmall) var(--space-medium);
+  border-top: 1px solid var(--border-default);
+}
+
+/* Startseiten-Sektionen (Cases, Testimonials, Kontakt) unter dem Training */
+.watchProof {
+  border-top: 1px solid var(--border-default);
+}
+
+.watchQuestions h2 {
+  font-size: var(--font-size-h6);
+  line-height: 1.3;
+}
+
+.watchQuestions p {
+  max-width: 38rem;
+  color: var(--text-secondary);
+}
+
+@media (max-width: 767px) {
+  .watchIntro h1 {
+    font-size: var(--font-size-h4);
+  }
+}
+
+/* Watch-Seite: Case-Slides ohne Rise-Animation, stehen sofort da (Simon 13.11.) */
+.watchProof :global(#featured-work) [data-reveal="rise"] {
+  transform: none !important;
+  animation: none !important;
+  opacity: 1 !important;
 }

@@ -315,6 +315,16 @@
   transform: scale(0.97);
 }
 
+.formSubmitDark {
+  /* Watch-Seite: "Book a call" ist gelb, der Review-Button schwarz (Simon 13.11.) */
+  background: var(--color-dark-neutral-900);
+  color: var(--color-light-neutral-100);
+}
+
+.formSubmitDark:hover:not(:disabled) {
+  background: var(--color-dark-neutral-700);
+}
+
 .formSubmit:disabled {
   opacity: 0.55;
   cursor: default;
@@ -406,5 +416,23 @@
 
   .formSubmit {
     width: 100%;
+  }
+}
+
+/* Watch-Seite: E-Mail-Feld blendet ein, sobald die URL getippt wird */
+.formReveal {
+  animation: form-reveal 450ms var(--ease-soft, ease) both;
+}
+
+@keyframes form-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(-0.4rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .formReveal {
+    animation: none;
   }
 }

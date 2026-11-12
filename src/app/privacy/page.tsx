@@ -169,10 +169,11 @@ export default function PrivacyPage() {
             </li>
           </ul>
           <p>
-            <strong>Optional form on the thank-you page.</strong> After signing
+            <strong>Optional page review form (thank-you page and training page).</strong> After signing
             up you can ask us for a recorded review of one of your web pages.
             For this we process the page address you enter, together with your
-            e-mail address so we know who the request comes from. This form is
+            e-mail address so we know who the request comes from, and on the
+            training page any additional context you choose to add. This form is
             voluntary. We use the data to decide whether a review fits, to
             record and send it, and for our follow-up. It is forwarded to our
             e-mail inbox and stored as a note in Pipedrive, with the same

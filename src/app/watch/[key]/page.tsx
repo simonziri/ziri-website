@@ -1,8 +1,13 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { BookCall } from "@/components/book-call";
+import { FeaturedWork } from "@/components/featured-work";
 import { PixelHatchButton } from "@/components/pixel-hatch-button";
+import { Testimonials } from "@/components/testimonials";
 import { TrainingFooter, TrainingHeader } from "@/components/training-chrome";
 import { TrainingInterestForm } from "@/components/training-interest-form";
+import { TrainingPlayer } from "@/components/training-player";
+import { getTrainingVideo } from "@/data/training-videos";
 import {
   TRAINING_SENDER_EMAIL,
   TRAINING_LIVE_PAGES,
@@ -39,6 +44,9 @@ export async function generateMetadata({
   const { key } = await params;
   const training = trainingForKey(key);
   if (!training) return {};
+  if (getTrainingVideo(training.slug)) {
+    return { title: training.title, robots: { index: false, follow: false } };
+  }
   return {
     title: `Live on ${formatTrainingDate(training.releaseDate)} | ${training.title}`,
     robots: { index: false, follow: false },
@@ -53,6 +61,46 @@ export default async function TrainingLivePage({
   const { key } = await params;
   const training = trainingForKey(key);
   if (!training) notFound();
+
+  const video = getTrainingVideo(training.slug);
+  if (video) {
+    return (
+      <div className={styles.page}>
+        <TrainingHeader />
+        <main className={styles.main}>
+          <div className={styles.watch}>
+            <section className={styles.watchIntro} aria-labelledby="watch-title">
+              <p className={styles.stepTag}>Free training</p>
+              <h1 id="watch-title">{training.title}</h1>
+              <p>
+                What we changed in how we do CRO for companies that sell five-
+                to seven-figure deals, with few conversions and long sales
+                cycles.
+              </p>
+              <p className={styles.watchMeta}>
+                With Simon Ziri, founder of ZIRI &middot; Chapters and
+                transcript below
+              </p>
+            </section>
+            <TrainingPlayer video={video} slug={training.slug} title={training.title} />
+            {/* "Questions?"-Zeile entfernt (Simon 12.11.) */}
+          </div>
+        </main>
+        {/* Proof + Formular wie auf der Startseite (Simon 12.11.): Cases öffnen
+            im Slide-over (@modal/(.)work), "Book a call" springt zu #contact
+            hier statt auf die Startseite. */}
+        <div className={styles.watchProof}>
+          <FeaturedWork />
+          <Testimonials />
+          {/* Formular-Section fest schwarz, ohne Theme-Flip (Simon 12.11.): Zitat weiß über --text-heading */}
+          <div data-theme="dark-primary">
+            <BookCall />
+          </div>
+        </div>
+        <TrainingFooter />
+      </div>
+    );
+  }
 
   const releaseDate = formatTrainingDate(training.releaseDate);
 
