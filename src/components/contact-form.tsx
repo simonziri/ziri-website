@@ -5,6 +5,9 @@ import styles from "./book-call.module.css";
 
 type Status = "idle" | "submitting" | "error";
 
+/** Fragen nach Engpass + Vertragswert, vorerst aus (Simon 13.11.) */
+const SHOW_QUALIFIERS = false;
+
 const bottlenecks = [
   { value: "deals-go-quiet", label: "Deals stall, then “we went another direction.”" },
   { value: "sales-re-explains", label: "Sales re-explains what we do on every call." },
@@ -95,6 +98,10 @@ export function ContactForm() {
         />
       </label>
 
+      {/* Vorerst ausgeblendet (Simon 13.11.): "What's costing you the most" und
+          "Typical contract value". Zurückholen: SHOW_QUALIFIERS = true. */}
+      {SHOW_QUALIFIERS ? (
+        <>
       <fieldset className={styles.formSection}>
         <p className={styles.formQuestion}>
           What&rsquo;s costing you the most right now?
@@ -135,6 +142,9 @@ export function ContactForm() {
           ))}
         </div>
       </fieldset>
+
+        </>
+      ) : null}
 
       <fieldset className={styles.formSection}>
         <p className={styles.formQuestion}>When do you want to start?</p>

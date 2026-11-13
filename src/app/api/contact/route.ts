@@ -46,8 +46,6 @@ export async function POST(request: Request) {
   const valid =
     email !== null &&
     /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) &&
-    bottleneck !== null &&
-    dealSize !== null &&
     timeline !== null &&
     payload.consent === true;
 
@@ -57,8 +55,8 @@ export async function POST(request: Request) {
 
   const submission = {
     email,
-    bottleneck,
-    dealSize,
+    bottleneck: bottleneck ?? "—",   // Frage vorerst ausgeblendet (13.11.)
+    dealSize: dealSize ?? "—",       // Frage vorerst ausgeblendet (13.11.)
     timeline,
     website: website ?? "—",
     message: message ?? "—",

@@ -29,7 +29,14 @@ type Utm = Partial<Record<(typeof UTM_KEYS)[number], string>>;
  * - Die Adresse wird für die Thank-you-Seite in sessionStorage gelegt
  *   (Interessen-Formular dort), nie in URL oder Cookie.
  */
-export function TrainingSignupForm({ slug }: { slug: string }) {
+export function TrainingSignupForm({
+  slug,
+  nextHref,
+}: {
+  slug: string;
+  /** Training schon online: nach der Anmeldung direkt dorthin statt Thank-you-Seite */
+  nextHref?: string;
+}) {
   const router = useRouter();
   const [status, setStatus] = useState<Status>("idle");
   const [utm, setUtm] = useState<Utm>({});
@@ -107,7 +114,7 @@ export function TrainingSignupForm({ slug }: { slug: string }) {
           detail: { slug, role: String(data.get("role") ?? "") },
         }),
       );
-      router.push(`/training/${slug}/thanks`);
+      router.push(nextHref ?? `/training/${slug}/thanks`);
     } catch {
       setStatus("error");
     }

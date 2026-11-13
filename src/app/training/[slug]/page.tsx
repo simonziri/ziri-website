@@ -5,7 +5,13 @@ import { PixelHatchButton } from "@/components/pixel-hatch-button";
 import { SectionTag } from "@/components/section-tag";
 import { TrainingFooter, TrainingHeader } from "@/components/training-chrome";
 import { TrainingSignupForm } from "@/components/training-signup-form";
-import { formatTrainingDate, getTraining, trainings } from "@/data/trainings";
+import { getTrainingVideo } from "@/data/training-videos";
+import {
+  TRAINING_LIVE_PAGES,
+  formatTrainingDate,
+  getTraining,
+  trainings,
+} from "@/data/trainings";
 import styles from "../training.module.css";
 
 type Params = { slug: string };
@@ -57,6 +63,11 @@ export default async function TrainingPage({
   if (!training) notFound();
 
   const releaseDate = formatTrainingDate(training.releaseDate);
+  // Training schon online (Video da + /watch-Key): "watch now" statt Datum,
+  // nach der Anmeldung direkt auf die Watch-Seite (Simon 13.11.)
+  const watchKey = getTrainingVideo(training.slug)
+    ? Object.keys(TRAINING_LIVE_PAGES).find((key) => TRAINING_LIVE_PAGES[key] === training.slug)
+    : undefined;
 
   return (
     <div className={styles.page}>
@@ -113,8 +124,16 @@ export default async function TrainingPage({
               </ul>
             </div>
             <p className={styles.release}>
-              Free recorded training. Sent to your inbox on{" "}
-              <strong>{releaseDate}</strong>.
+              {watchKey ? (
+                <>
+                  Free recorded training. <strong>Watch it right after you sign up.</strong>
+                </>
+              ) : (
+                <>
+                  Free recorded training. Sent to your inbox on{" "}
+                  <strong>{releaseDate}</strong>.
+                </>
+              )}
             </p>
           </section>
 
@@ -126,8 +145,15 @@ export default async function TrainingPage({
             data-theme="light-primary"
           >
             <h2 id="training-form-title">Get the free training</h2>
-            <p>We&rsquo;ll email you the recording on {releaseDate}.</p>
-            <TrainingSignupForm slug={training.slug} />
+            <p>
+              {watchKey
+                ? "You can watch it right after you sign up. We\u2019ll also email you the link."
+                : `We\u2019ll email you the recording on ${releaseDate}.`}
+            </p>
+            <TrainingSignupForm
+              slug={training.slug}
+              nextHref={watchKey ? `/watch/${watchKey}` : undefined}
+            />
           </div>
 
           <section
