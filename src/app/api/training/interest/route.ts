@@ -40,7 +40,7 @@ async function notifyZiri(interest: TrainingInterest): Promise<void> {
   const isLoom = interest.kind === "loom";
   const text = [
     isLoom
-      ? `Loom page review request via simonziri.com (thank-you page)`
+      ? `Loom page review request via simonziri.com (${interest.source === "watch" ? "watch page" : "thank-you page"})`
       : `Webinar input via simonziri.com (thank-you page)`,
     ``,
     `Webinar:  ${interest.trainingTitle}`,
@@ -146,6 +146,7 @@ export async function POST(request: Request) {
     problem,
     submittedAt: new Date().toISOString(),
     kind: isLoom ? "loom" : "topic",
+    source: payload.source === "watch" ? "watch" : "thanks",
   };
 
   const [notified, pipedrive] = await Promise.allSettled([

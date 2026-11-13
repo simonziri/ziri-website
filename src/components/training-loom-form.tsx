@@ -63,6 +63,7 @@ export function TrainingLoomForm({
           email: storedEmail ?? data.get("email"),
           page_url: data.get("page_url"),
           context: revealEmail ? data.get("context") : undefined,
+          source: revealEmail ? "watch" : "thanks",
           company_website_2: data.get("company_website_2"),
         }),
       });

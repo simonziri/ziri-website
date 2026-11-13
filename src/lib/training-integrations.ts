@@ -445,6 +445,8 @@ export type TrainingInterest = {
   submittedAt: string;
   /** "topic" = Interessen-Frage (alt), "loom" = Loom-Review-Anfrage */
   kind?: "topic" | "loom";
+  /** Wo das Formular abgeschickt wurde (Mail + Notiz), Standard Thank-you-Seite */
+  source?: "thanks" | "watch";
 };
 
 export async function addPipedriveInterestNote(
@@ -458,7 +460,7 @@ export async function addPipedriveInterestNote(
 
   const lines = [
     interest.kind === "loom"
-      ? `<b>Loom page review request (thank-you page)</b>`
+      ? `<b>Loom page review request (${interest.source === "watch" ? "watch page" : "thank-you page"})</b>`
       : `<b>Webinar input (thank-you page)</b>`,
     `Webinar: ${escapeHtml(interest.trainingTitle)}`,
     `ID / slug: ${escapeHtml(interest.trainingId)} / ${escapeHtml(interest.slug)}`,
