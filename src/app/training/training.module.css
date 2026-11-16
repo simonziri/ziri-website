@@ -667,3 +667,90 @@ a.calendarPrimary {
   animation: none !important;
   opacity: 1 !important;
 }
+
+/* Fragen nach der Anmeldung (TrainingSignupSteps, Simon 14.11.) */
+.signupStep {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-small);
+  animation: stepIn 240ms ease-out;
+}
+
+.signupStep > p {
+  color: var(--text-secondary);
+  font-size: var(--font-size-large);
+  line-height: var(--line-height-relaxed);
+}
+
+@keyframes stepIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .signupStep { animation: none; }
+}
+
+.choiceList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xxsmall);
+  margin-top: var(--space-xsmall);
+}
+
+.choice {
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--border-default);
+  border-radius: 4px;
+  background: var(--color-light-neutral-100);
+  color: var(--color-dark-neutral-900);
+  cursor: pointer;
+  font: inherit;
+  font-size: var(--font-size-large);
+  text-align: left;
+  transition: border-color 150ms, background-color 150ms;
+}
+
+.choice:hover,
+.choice[aria-pressed="true"] {
+  border-color: var(--color-dark-neutral-900);
+  background: var(--color-gold-300);
+}
+
+.choice:focus-visible {
+  outline: 2px solid var(--color-dark-neutral-900);
+  outline-offset: 2px;
+}
+
+.stepBack {
+  align-self: flex-start;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  font: inherit;
+  font-size: var(--font-size-tiny);
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+.auditActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-small);
+}
+
+.auditActions .calendarSkip {
+  margin-top: 0;
+}
+
+.visuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}

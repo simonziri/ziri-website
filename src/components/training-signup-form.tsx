@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { isFormSimulation, submitOrSimulate } from "@/lib/form-simulation";
 import { useEffect, useState, type FormEvent } from "react";
 import { TRAINING_EMAIL_STORAGE_KEY, TRAINING_ROLES } from "@/data/trainings";
 import { isFreeEmail, WORK_EMAIL_MESSAGE } from "@/lib/work-email";
@@ -70,7 +71,7 @@ export function TrainingSignupForm({
 
     setStatus("submitting");
     try {
-      const response = await fetch("/api/training", {
+      const response = await submitOrSimulate("/api/training", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -109,12 +110,15 @@ export function TrainingSignupForm({
         // Kein Storage (privates Fenster o. ä.): Thank-you-Seite fragt nach.
       }
 
-      window.dispatchEvent(
+      // Im Simulator kein Lead-Event (Meta-Pixel etc.)
+      if (!isFormSimulation()) window.dispatchEvent(
         new CustomEvent("ziri:training:submitted", {
           detail: { slug, role: String(data.get("role") ?? "") },
         }),
       );
-      router.push(nextHref ?? `/training/${slug}/thanks`);
+      const next = nextHref ?? `/training/${slug}/thanks`;
+      // Simulator-Modus mitnehmen, damit auch die Folgeschritte nichts abschicken
+      router.push(isFormSimulation() ? `${next}?simulate=1` : next);
     } catch {
       setStatus("error");
     }

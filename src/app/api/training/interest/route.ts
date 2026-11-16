@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { getTraining } from "@/data/trainings";
 import {
   addPipedriveInterestNote,
+  interestHeadline,
   type TrainingInterest,
 } from "@/lib/training-integrations";
 import {
@@ -15,6 +16,9 @@ import {
  * - kind "loom" (aktuell auf der Seite, seit 03.11.): Anfrage für einen
  *   Gratis-Loom-Review einer Seite. Feld page_url (keine Qualifizierung,
  *   erstmal für alle).
+ * - kind "survey" (seit 14.11., TrainingSignupSteps): Firmengröße, Umsatz,
+ *   Freitext "warum / was nervt", Audit ja/nein. kind "audit-context": optionaler
+ *   Kontext nach "ja".
  * - ohne kind: alte Frage "What topic is burning most right now?"
  *   (Komponente TrainingInterestForm, derzeit nicht eingebunden).
  *
@@ -38,15 +42,14 @@ const asTrimmed = (value: unknown, max: number): string | null =>
 
 async function notifyZiri(interest: TrainingInterest): Promise<void> {
   const isLoom = interest.kind === "loom";
+  const headline = interestHeadline(interest);
   const text = [
-    isLoom
-      ? `Loom page review request via simonziri.com (${interest.source === "watch" ? "watch page" : "thank-you page"})`
-      : `Webinar input via simonziri.com (thank-you page)`,
+    `${headline} via simonziri.com`,
     ``,
     `Webinar:  ${interest.trainingTitle}`,
     `Email:    ${interest.email}`,
     ``,
-    isLoom ? `Request:` : `Burning topic:`,
+    isLoom ? `Request:` : interest.kind === "topic" ? `Burning topic:` : `Answers:`,
     interest.problem,
     ``,
     `Sent at: ${interest.submittedAt}`,
@@ -68,7 +71,9 @@ async function notifyZiri(interest: TrainingInterest): Promise<void> {
       reply_to: interest.email,
       subject: isLoom
         ? `Loom review request: ${interest.email}`
-        : `Webinar input: ${interest.trainingTitle}`,
+        : interest.kind === "topic"
+          ? `Webinar input: ${interest.trainingTitle}`
+          : `${headline}: ${interest.email}`,
       text,
     }),
     signal: AbortSignal.timeout(8000),
@@ -91,6 +96,20 @@ function describeLoomRequest(payload: Record<string, unknown>): string | null {
   // optional (nur Watch-Seite): mehr Kontext zur Anfrage
   const context = asTrimmed(payload.context, 2000);
   return context ? `Page: ${url.toString()}\n\nContext:\n${context}` : `Page: ${url.toString()}`;
+}
+
+/** Fragen nach der Anmeldung (TrainingSignupSteps) als lesbarer Text, null wenn leer. */
+function describeSurvey(payload: Record<string, unknown>): string | null {
+  const audit = payload.audit === "yes" ? "YES" : payload.audit === "no" ? "no" : null;
+  if (!audit) return null;
+  return [
+    `Free audit: ${audit}`,
+    `Company size: ${asTrimmed(payload.company_size, 100) ?? "—"}`,
+    `Annual revenue: ${asTrimmed(payload.revenue, 100) ?? "—"}`,
+    ``,
+    `Why they signed up / what's bugging them:`,
+    asTrimmed(payload.pain, 3000) ?? "—",
+  ].join("\n");
 }
 
 /** Gescheiterte Ziele sammeln. In Production gilt "skipped" (Key fehlt) auch als Fehler. */
@@ -126,8 +145,18 @@ export async function POST(request: Request) {
   const slug = asTrimmed(payload.training, 200);
   const training = slug ? getTraining(slug) : undefined;
   const email = asTrimmed(payload.email, 320);
-  const isLoom = payload.kind === "loom";
-  const problem = isLoom ? describeLoomRequest(payload) : asTrimmed(payload.problem, 2000);
+  const kind: TrainingInterest["kind"] =
+    payload.kind === "loom" || payload.kind === "survey" || payload.kind === "audit-context"
+      ? payload.kind
+      : "topic";
+  const problem =
+    kind === "loom"
+      ? describeLoomRequest(payload)
+      : kind === "survey"
+        ? describeSurvey(payload)
+        : kind === "audit-context"
+          ? asTrimmed(payload.context, 3000)
+          : asTrimmed(payload.problem, 2000);
 
   if (
     !training ||
@@ -145,7 +174,7 @@ export async function POST(request: Request) {
     email,
     problem,
     submittedAt: new Date().toISOString(),
-    kind: isLoom ? "loom" : "topic",
+    kind,
     source: payload.source === "watch" ? "watch" : "thanks",
   };
 
@@ -162,7 +191,7 @@ export async function POST(request: Request) {
     console.error(`[training-interest] ${target} failed:`, error);
   }
   await sendIntegrationAlert(
-    isLoom ? "thank-you page Loom request" : "thank-you page input",
+    interestHeadline(interest),
     [
       `Email:    ${interest.email}`,
       `Webinar:  ${interest.trainingTitle} (${interest.slug})`,

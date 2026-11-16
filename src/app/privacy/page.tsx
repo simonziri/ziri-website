@@ -24,7 +24,7 @@ export default function PrivacyPage() {
         <SiteHeader />
         <article className={legal.article}>
           <h1>Privacy Policy</h1>
-          <p className={legal.updated}>Last updated: November 6, 2026</p>
+          <p className={legal.updated}>Last updated: November 14, 2026</p>
 
           <p>
             This website is intentionally light on data. No third-party fonts,
@@ -168,6 +168,22 @@ export default function PrivacyPage() {
               above.
             </li>
           </ul>
+          <p>
+            <strong>Optional questions after signing up (thank-you page).</strong> After
+            signing up you can answer a few voluntary questions: the size of
+            your company, a rough range of its annual revenue, in your own words
+            why you signed up and what is bothering you right now, and whether
+            you would like a free audit of your website. If you say yes, you can
+            add more context in a free-text field. We process your answers
+            together with your e-mail address so we know who they come from. We
+            use them to understand who watches our trainings, to prepare and
+            follow up on an audit you asked for, and to decide which content to
+            make next. They are forwarded to our e-mail inbox and stored as a
+            note in Pipedrive, with the same retention as above. Legal basis:
+            steps at your request before a possible contract, Art. 6(1)(b) GDPR
+            (audit), and our legitimate interest in understanding our audience
+            and following up, Art. 6(1)(f) GDPR. Answering is voluntary; you can leave the page at any time and still get the training by e-mail.
+          </p>
           <p>
             <strong>Optional page review form (thank-you page and training page).</strong> After signing
             up you can ask us for a recorded review of one of your web pages.

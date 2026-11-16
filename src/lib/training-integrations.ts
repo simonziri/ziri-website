@@ -444,10 +444,27 @@ export type TrainingInterest = {
   problem: string;
   submittedAt: string;
   /** "topic" = Interessen-Frage (alt), "loom" = Loom-Review-Anfrage */
-  kind?: "topic" | "loom";
+  kind?: "topic" | "loom" | "survey" | "audit-context";
   /** Wo das Formular abgeschickt wurde (Mail + Notiz), Standard Thank-you-Seite */
   source?: "thanks" | "watch";
 };
+
+/** Überschrift für Mail + Pipedrive-Notiz */
+export function interestHeadline(interest: TrainingInterest): string {
+  const page = interest.source === "watch" ? "watch page" : "thank-you page";
+  switch (interest.kind) {
+    case "loom":
+      return `Loom page review request (${page})`;
+    case "survey":
+      return interest.problem.includes("Free audit: YES")
+        ? `AUDIT REQUEST + sign-up answers (${page})`
+        : `Sign-up answers, no audit (${page})`;
+    case "audit-context":
+      return `Audit request: extra context (${page})`;
+    default:
+      return `Webinar input (${page})`;
+  }
+}
 
 export async function addPipedriveInterestNote(
   interest: TrainingInterest,
@@ -459,13 +476,11 @@ export async function addPipedriveInterestNote(
   const { personId } = await findOrCreatePerson(interest.email, headers);
 
   const lines = [
-    interest.kind === "loom"
-      ? `<b>Loom page review request (${interest.source === "watch" ? "watch page" : "thank-you page"})</b>`
-      : `<b>Webinar input (thank-you page)</b>`,
+    `<b>${escapeHtml(interestHeadline(interest))}</b>`,
     `Webinar: ${escapeHtml(interest.trainingTitle)}`,
     `ID / slug: ${escapeHtml(interest.trainingId)} / ${escapeHtml(interest.slug)}`,
     ``,
-    interest.kind === "loom" ? `<b>Request:</b>` : `<b>Burning topic:</b>`,
+    `<b>${interest.kind === "loom" ? "Request" : interest.kind === "topic" || !interest.kind ? "Burning topic" : "Answers"}:</b>`,
     escapeHtml(interest.problem).replace(/\n/g, "<br>"),
     ``,
     `Sent at: ${interest.submittedAt}`,

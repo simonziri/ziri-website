@@ -2,6 +2,7 @@
 
 import { useEffect, useState, type FormEvent } from "react";
 import { TRAINING_EMAIL_STORAGE_KEY } from "@/data/trainings";
+import { submitOrSimulate } from "@/lib/form-simulation";
 import styles from "./book-call.module.css";
 
 type Status = "idle" | "submitting" | "sent" | "error";
@@ -23,11 +24,14 @@ const domainFromEmail = (email: string | null) =>
 export function TrainingLoomForm({
   slug,
   revealEmail = false,
+  source,
 }: {
   slug: string;
   /** Watch-Seite (Simon 12.11.): erst nur das URL-Feld, das E-Mail-Feld blendet
    *  darunter ein, sobald jemand tippt. Spart Platz, die Karten bleiben ausgewogen. */
   revealEmail?: boolean;
+  /** Wo das Formular steht (Mail + Pipedrive-Notiz). Standard: watch bei revealEmail, sonst thanks */
+  source?: "thanks" | "watch";
 }) {
   const [urlTyped, setUrlTyped] = useState(false);
   const [storedEmail, setStoredEmail] = useState<string | null>(null);
@@ -54,7 +58,7 @@ export function TrainingLoomForm({
 
     setStatus("submitting");
     try {
-      const response = await fetch("/api/training/interest", {
+      const response = await submitOrSimulate("/api/training/interest", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -63,7 +67,7 @@ export function TrainingLoomForm({
           email: storedEmail ?? data.get("email"),
           page_url: data.get("page_url"),
           context: revealEmail ? data.get("context") : undefined,
-          source: revealEmail ? "watch" : "thanks",
+          source: source ?? (revealEmail ? "watch" : "thanks"),
           company_website_2: data.get("company_website_2"),
         }),
       });

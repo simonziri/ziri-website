@@ -55,16 +55,23 @@ const clientLogos = [
 
 export default async function TrainingPage({
   params,
+  searchParams,
 }: {
   params: Promise<Params>;
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
   const { slug } = await params;
   const training = getTraining(slug);
   if (!training) notFound();
 
+  // H1 passend zur Anzeige, über die jemand kommt (utm_content), sonst der Titel
+  const { utm_content: utmContent } = await searchParams;
+  const adKey = typeof utmContent === "string" ? utmContent : undefined;
+  const headline = (adKey && training.adHeadlines?.[adKey]) || training.title;
+
   const releaseDate = formatTrainingDate(training.releaseDate);
-  // Training schon online (Video da + /watch-Key): "watch now" statt Datum,
-  // nach der Anmeldung direkt auf die Watch-Seite (Simon 13.11.)
+  // Training schon online (Video da + /watch-Key): kommt sofort per Mail statt
+  // an einem Datum; danach Thank-you-Seite mit Fragen + Audit (Simon 14.11.)
   const watchKey = getTrainingVideo(training.slug)
     ? Object.keys(TRAINING_LIVE_PAGES).find((key) => TRAINING_LIVE_PAGES[key] === training.slug)
     : undefined;
@@ -76,7 +83,7 @@ export default async function TrainingPage({
         <div className={styles.layout}>
           <section className={styles.hero} aria-labelledby="training-title">
             <SectionTag>Free training</SectionTag>
-            <h1 id="training-title">{training.title}</h1>
+            <h1 id="training-title">{headline}</h1>
             {training.outcome ? (
               <p className={styles.outcome}>{training.outcome}</p>
             ) : null}
@@ -126,7 +133,7 @@ export default async function TrainingPage({
             <p className={styles.release}>
               {watchKey ? (
                 <>
-                  Free recorded training. <strong>Watch it right after you sign up.</strong>
+                  Free recorded training. <strong>Sent to your inbox right after you sign up.</strong>
                 </>
               ) : (
                 <>
@@ -147,12 +154,11 @@ export default async function TrainingPage({
             <h2 id="training-form-title">Get the free training</h2>
             <p>
               {watchKey
-                ? "You can watch it right after you sign up. We\u2019ll also email you the link."
+                ? "We\u2019ll email you the training right after you sign up."
                 : `We\u2019ll email you the recording on ${releaseDate}.`}
             </p>
             <TrainingSignupForm
               slug={training.slug}
-              nextHref={watchKey ? `/watch/${watchKey}` : undefined}
             />
           </div>
 

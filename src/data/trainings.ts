@@ -45,6 +45,11 @@ export type Training = {
   /** Eine Zeile unter der H1 (optional, z. B. wenn die H1 schon alles sagt) */
   outcome?: string;
   bullets: readonly string[];
+  /**
+   * H1 passend zur Meta-Anzeige (utm_content -> Headline der Anzeige), damit
+   * Anzeige und Seite dasselbe sagen. Ohne Treffer gilt `title`. (Simon 14.11.)
+   */
+  adHeadlines?: Readonly<Record<string, string>>;
   /** ISO-Datum (YYYY-MM-DD) */
   releaseDate: string;
   image?: { src: string; alt: string; width: number; height: number };
@@ -107,15 +112,19 @@ export const trainings: readonly Training[] = [
     id: "Charlie One",
     title:
       "Most CRO advice was written for online shops and low-ticket.",
+    // Bullets + Outcome am fertigen Video ausgerichtet (Kapitel 1–5), Simon 14.11.
     outcome:
-      "Get the B2B approach to CRO when each deal is worth $10k+ and you see a few leads a week: research, big changes you can measure, and how to read the results.",
+      "Our approach for B2B companies that sell five- to seven-figure deals, with few conversions, long sales cycles and a whole buying group deciding.",
     bullets: [
-      "Why the CRO you know doesn't work for high-ticket B2B",
-      "How to win in long sales cycles using your website",
-      "How to use research and messaging to pick changes worth making",
-      "How to run impactful tests that you can validate",
-      "How to work with data when traffic and conversions are low",
+      "What to track when there are too few conversions to test",
+      "How to find leaks in your website through research",
+      "How we get a site ready for the whole buying committee and AI models",
     ],
+    adHeadlines: {
+      "cro-1b-how-we-do-cro": "How we do CRO for 5–7-figure deals",
+      "cro-3b-sales-calls": "From sales calls to a website that sells",
+      "cro-4b-how-wed-fix": "How we'd fix a high-ticket B2B website",
+    },
     releaseDate: TRAINING_RELEASE_DATE,
   },
   {

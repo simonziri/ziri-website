@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { getTrainingVideo } from "@/data/training-videos";
+import { TrainingSignupSteps } from "@/components/training-signup-steps";
 import { TrainingThanksFlow } from "@/components/training-thanks-flow";
 import { TrainingFooter, TrainingHeader } from "@/components/training-chrome";
 import {
@@ -28,7 +30,9 @@ export async function generateMetadata({
   const training = getTraining(slug);
   if (!training) return {};
   return {
-    title: `Almost done | ${training.title}`,
+    title: getTrainingVideo(training.slug)
+      ? `One last step | ${training.title}`
+      : `Almost done | ${training.title}`,
     robots: { index: false, follow: false },
   };
 }
@@ -42,6 +46,10 @@ export default async function TrainingThanksPage({
   const training = getTraining(slug);
   if (!training) notFound();
 
+  // Training schon online: Video kommt per Mail, hier statt Kalender die
+  // Fragen + Audit-Angebot (Simon 14.11.)
+  const isLive = Boolean(getTrainingVideo(training.slug));
+
   const releaseDate = formatTrainingDate(training.releaseDate);
   const calendar = getCalendarLinks(training);
 
@@ -50,12 +58,16 @@ export default async function TrainingThanksPage({
       <TrainingHeader />
       <main className={styles.main}>
         <section className={styles.thanks} aria-labelledby="thanks-title">
-          <TrainingThanksFlow
-            slug={training.slug}
-            releaseDate={releaseDate}
-            senderEmail={TRAINING_SENDER_EMAIL}
-            calendar={calendar}
-          />
+          {isLive ? (
+            <TrainingSignupSteps slug={training.slug} senderEmail={TRAINING_SENDER_EMAIL} />
+          ) : (
+            <TrainingThanksFlow
+              slug={training.slug}
+              releaseDate={releaseDate}
+              senderEmail={TRAINING_SENDER_EMAIL}
+              calendar={calendar}
+            />
+          )}
         </section>
       </main>
       <TrainingFooter />
