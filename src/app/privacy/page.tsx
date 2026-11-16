@@ -24,7 +24,7 @@ export default function PrivacyPage() {
         <SiteHeader />
         <article className={legal.article}>
           <h1>Privacy Policy</h1>
-          <p className={legal.updated}>Last updated: November 14, 2026</p>
+          <p className={legal.updated}>Last updated: November 16, 2026</p>
 
           <p>
             This website is intentionally light on data. No third-party fonts,
@@ -179,7 +179,9 @@ export default function PrivacyPage() {
             use them to understand who watches our trainings, to prepare and
             follow up on an audit you asked for, and to decide which content to
             make next. They are forwarded to our e-mail inbox and stored as a
-            note in Pipedrive, with the same retention as above. Legal basis:
+            note in Pipedrive, with the same retention as above. In our e-mail
+            tool (beehiiv) we only note that you answered, so our follow-up
+            e-mail doesn&rsquo;t ask you the same question again. Legal basis:
             steps at your request before a possible contract, Art. 6(1)(b) GDPR
             (audit), and our legitimate interest in understanding our audience
             and following up, Art. 6(1)(f) GDPR. Answering is voluntary; you can leave the page at any time and still get the training by e-mail.

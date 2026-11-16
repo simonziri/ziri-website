@@ -174,6 +174,40 @@ export async function subscribeToBeehiiv(
   };
 }
 
+/**
+ * Tag an einen bestehenden beehiiv-Kontakt (per E-Mail gesucht). Für die
+ * Fragen nach der Anmeldung: Tag "answered:signup-questions", dann überspringt
+ * Mail 2 der Automation die Person (Bedingung in beehiiv, Simon 16.11.).
+ */
+export const BEEHIIV_ANSWERED_TAG = "answered:signup-questions";
+
+export async function tagBeehiivSubscriber(
+  email: string,
+  tag: string,
+): Promise<IntegrationResult> {
+  const apiKey = process.env.BEEHIIV_API_KEY;
+  if (!apiKey) return { status: "skipped" };
+  const headers = {
+    Authorization: `Bearer ${apiKey}`,
+    "Content-Type": "application/json",
+  };
+  const { body } = await callJson(
+    "beehiiv lookup",
+    `${BEEHIIV_API}/publications/${BEEHIIV_PUBLICATION_ID}/subscriptions/by_email/${encodeURIComponent(email)}`,
+    { method: "GET", headers },
+  );
+  const subscriptionId = dig(body, "data", "id");
+  if (typeof subscriptionId !== "string") {
+    throw new Error("beehiiv lookup returned no id (tag not set)");
+  }
+  await callJson(
+    "beehiiv tag",
+    `${BEEHIIV_API}/publications/${BEEHIIV_PUBLICATION_ID}/subscriptions/${subscriptionId}/tags`,
+    { method: "POST", headers, body: JSON.stringify({ tags: [tag] }) },
+  );
+  return { status: "ok", details: { subscriptionId } };
+}
+
 /* ------------------------------------------------------------------ */
 /* Pipedrive                                                          */
 /* ------------------------------------------------------------------ */

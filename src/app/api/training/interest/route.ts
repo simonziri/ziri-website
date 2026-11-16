@@ -1,8 +1,10 @@
 import { NextResponse } from "next/server";
 import { getTraining } from "@/data/trainings";
 import {
+  BEEHIIV_ANSWERED_TAG,
   addPipedriveInterestNote,
   interestHeadline,
+  tagBeehiivSubscriber,
   type TrainingInterest,
 } from "@/lib/training-integrations";
 import {
@@ -178,14 +180,19 @@ export async function POST(request: Request) {
     source: payload.source === "watch" ? "watch" : "thanks",
   };
 
-  const [notified, pipedrive] = await Promise.allSettled([
+  const [notified, pipedrive, tagged] = await Promise.allSettled([
     notifyZiri(interest),
     addPipedriveInterestNote(interest),
+    // Fragen beantwortet: Mail 2 ("what made you sign up?") überspringt sie
+    kind === "survey"
+      ? tagBeehiivSubscriber(email, BEEHIIV_ANSWERED_TAG)
+      : Promise.resolve({ status: "skipped" as const }),
   ]);
 
   const failures = collectFailures([
     ["notification", notified],
     ["pipedrive", pipedrive],
+    ...(kind === "survey" ? ([["beehiiv tag", tagged]] as const) : []),
   ]);
   for (const { target, error } of failures) {
     console.error(`[training-interest] ${target} failed:`, error);
