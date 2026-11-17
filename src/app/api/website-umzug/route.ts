@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { honeypotValue, sendHoneypotNotice } from "@/lib/honeypot";
 import { sendMetaLead } from "@/lib/meta-capi";
 import { createPipedriveUmzugLead } from "@/lib/training-integrations";
 
@@ -10,7 +11,7 @@ import { createPipedriveUmzugLead } from "@/lib/training-integrations";
  *        CONTACT_WEBHOOK_URL, sonst Server-Log (Dev-Fallback)
  *     2. Pipedrive: Person + Lead + Notiz (PIPEDRIVE_API_TOKEN, sonst übersprungen)
  *     3. Meta CAPI: Lead-Event vom Server (META_CAPI_TOKEN, sonst übersprungen)
- * - Honeypot "company_website_2" verwirft Bots still.
+ * - Honeypot (lib/honeypot.ts): gefüllt -> nichts anlegen, Prüf-Mail an ZIRI.
  * - Felder: Seitenanzahl, URL, E-Mail, Telefon, Startzeitpunkt,
  *   Budget-Bestätigung, Einwilligung, UTM-Parameter.
  *
@@ -50,8 +51,10 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false, error: "invalid" }, { status: 400 });
   }
 
-  // Honeypot gefüllt → Bot. Stilles OK, kein Hinweis an den Absender.
-  if (asTrimmed(payload.company_website_2, 1000)) {
+  // Honeypot gefüllt -> nichts anlegen, aber Prüf-Mail an ZIRI (siehe lib/honeypot.ts).
+  const honeypot = honeypotValue(payload);
+  if (honeypot) {
+    await sendHoneypotNotice("website-umzug form", CONTACT_TO, payload, honeypot);
     return NextResponse.json({ ok: true });
   }
 

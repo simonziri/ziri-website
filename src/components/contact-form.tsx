@@ -2,6 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 import styles from "./book-call.module.css";
+import { HONEYPOT_FIELD, HONEYPOT_INPUT_PROPS } from "@/lib/honeypot";
 
 type Status = "idle" | "submitting" | "error";
 
@@ -65,7 +66,7 @@ export function ContactForm() {
           website: data.get("website"),
           message: data.get("message"),
           consent: data.get("consent") === "on",
-          company_website_2: data.get("company_website_2"),
+          [HONEYPOT_FIELD]: data.get(HONEYPOT_FIELD),
         }),
       });
       if (!response.ok) throw new Error(String(response.status));
@@ -80,7 +81,7 @@ export function ContactForm() {
   if (done) {
     return (
       <div className={styles.formSuccess} role="status">
-        <h3>Received.</h3>
+        <h3>Thanks! I&rsquo;ll get back to you shortly, usually on the same business day.</h3>
       </div>
     );
   }
@@ -90,12 +91,7 @@ export function ContactForm() {
       {/* Honeypot — für Menschen unsichtbar */}
       <label className={styles.honeypot} aria-hidden="true">
         Leave this empty
-        <input
-          name="company_website_2"
-          type="text"
-          tabIndex={-1}
-          autoComplete="off"
-        />
+        <input {...HONEYPOT_INPUT_PROPS} />
       </label>
 
       {/* Vorerst ausgeblendet (Simon 13.11.): "What's costing you the most" und

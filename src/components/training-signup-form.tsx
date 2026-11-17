@@ -6,6 +6,7 @@ import { useEffect, useState, type FormEvent } from "react";
 import { TRAINING_EMAIL_STORAGE_KEY, TRAINING_ROLES } from "@/data/trainings";
 import { isFreeEmail, WORK_EMAIL_MESSAGE } from "@/lib/work-email";
 import styles from "./book-call.module.css";
+import { HONEYPOT_FIELD, HONEYPOT_INPUT_PROPS } from "@/lib/honeypot";
 
 type Status = "idle" | "submitting" | "error";
 
@@ -86,7 +87,7 @@ export function TrainingSignupForm({
           utm_content: data.get("utm_content"),
           fbclid: data.get("fbclid"),
           newsletter: data.get("newsletter") === "on",
-          company_website_2: data.get("company_website_2"),
+          [HONEYPOT_FIELD]: data.get(HONEYPOT_FIELD),
         }),
       });
       if (!response.ok) {
@@ -129,12 +130,7 @@ export function TrainingSignupForm({
       {/* Honeypot, für Menschen unsichtbar */}
       <label className={styles.honeypot} aria-hidden="true">
         Leave this empty
-        <input
-          name="company_website_2"
-          type="text"
-          tabIndex={-1}
-          autoComplete="off"
-        />
+        <input {...HONEYPOT_INPUT_PROPS} />
       </label>
       <input type="hidden" name="training" value={slug} />
       {UTM_KEYS.map((key) => (

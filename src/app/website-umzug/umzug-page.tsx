@@ -11,6 +11,7 @@ import { WebsiteUmzugFaq } from "@/components/website-umzug-faq";
 import training from "../training/training.module.css";
 import base from "./website-umzug.module.css";
 import s from "./umzug.module.css";
+import { HONEYPOT_FIELD, HONEYPOT_INPUT_PROPS } from "@/lib/honeypot";
 
 /* ------------------------------------------------------------------ */
 /* Inhalte (deutsch, du). Copy-Regeln: keine Em-Dashes, keine AI-Floskeln. */
@@ -219,7 +220,7 @@ function MultiStepForm() {
           start: data.get("start"),
           budget: data.get("budget") === "on",
           consent: data.get("consent") === "on",
-          company_website_2: data.get("company_website_2"),
+          [HONEYPOT_FIELD]: data.get(HONEYPOT_FIELD),
           utm_source: params.get("utm_source"),
           utm_campaign: params.get("utm_campaign"),
           utm_content: params.get("utm_content"),
@@ -267,7 +268,7 @@ function MultiStepForm() {
       {/* Honeypot, für Menschen unsichtbar */}
       <label className={s.honeypot} aria-hidden="true">
         Bitte leer lassen
-        <input name="company_website_2" type="text" tabIndex={-1} autoComplete="off" />
+        <input {...HONEYPOT_INPUT_PROPS} />
       </label>
 
       <div className={s.msProgress} aria-hidden="true">

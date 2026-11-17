@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { honeypotValue, sendHoneypotNotice } from "@/lib/honeypot";
 import { getTraining } from "@/data/trainings";
 import {
   BEEHIIV_ANSWERED_TAG,
@@ -26,7 +27,7 @@ import {
  *
  * - Speichert nichts selbst. Ziel: Notiz an der Person in Pipedrive
  *   (PIPEDRIVE_API_TOKEN) + Benachrichtigung an ZIRI (Resend, sonst Log).
- * - Honeypot "company_website_2" wie bei der Anmeldung.
+ * - Honeypot (lib/honeypot.ts) wie bei der Anmeldung.
  *
  * Privacy Policy (Abschnitt 4 "Training sign-up") beschreibt dieses
  * Formular. Bei Änderungen hier mitziehen.
@@ -140,7 +141,10 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false, error: "invalid" }, { status: 400 });
   }
 
-  if (asTrimmed(payload.company_website_2, 1000)) {
+  // Honeypot gefüllt -> nichts anlegen, aber Prüf-Mail an ZIRI (siehe lib/honeypot.ts).
+  const honeypot = honeypotValue(payload);
+  if (honeypot) {
+    await sendHoneypotNotice("training follow-up form", CONTACT_TO, payload, honeypot);
     return NextResponse.json({ ok: true });
   }
 

@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { honeypotValue, sendHoneypotNotice } from "@/lib/honeypot";
 import {
   getTraining,
   TRAINING_QUALIFIED_ROLES,
@@ -36,7 +37,7 @@ import {
  *                                          (TRAINING_QUALIFIED_ROLES), ohne Cookie
  *   Alle laufen unabhängig (Promise.allSettled). Antwort 200, wenn
  *   beehiiv ODER die Benachrichtigung geklappt hat.
- * - Honeypot "company_website_2" verwirft Bots still.
+ * - Honeypot (lib/honeypot.ts): gefüllt -> nichts anlegen, Prüf-Mail an ZIRI.
  *
  * Privacy Policy (Abschnitt 4 "Training sign-up") beschreibt beehiiv und
  * Pipedrive. Bei Änderungen hier mitziehen.
@@ -161,8 +162,10 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false, error: "invalid" }, { status: 400 });
   }
 
-  // Honeypot gefüllt → Bot. Stilles OK, kein Hinweis an den Absender.
-  if (asTrimmed(payload.company_website_2, 1000)) {
+  // Honeypot gefüllt -> nichts anlegen, aber Prüf-Mail an ZIRI (siehe lib/honeypot.ts).
+  const honeypot = honeypotValue(payload);
+  if (honeypot) {
+    await sendHoneypotNotice("training sign-up", CONTACT_TO, payload, honeypot);
     return NextResponse.json({ ok: true });
   }
 

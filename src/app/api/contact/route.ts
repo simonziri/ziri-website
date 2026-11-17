@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { honeypotValue, sendHoneypotNotice } from "@/lib/honeypot";
 
 /**
  * Contact/qualification form endpoint — GDPR-minded by design:
@@ -9,7 +10,7 @@ import { NextResponse } from "next/server";
  *                           (default: simon+contact@simonziri.com)
  *     2. CONTACT_WEBHOOK_URL → JSON POST to any endpoint you control
  *     3. neither set      → server console log (dev fallback)
- * - The honeypot field ("company_website_2") silently discards bots.
+ * - Honeypot (lib/honeypot.ts): if filled, nothing is sent on; ZIRI gets a check mail.
  */
 
 const CONTACT_TO = process.env.CONTACT_EMAIL_TO ?? "hello@simonziri.com";
@@ -31,8 +32,10 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false, error: "invalid" }, { status: 400 });
   }
 
-  // Honeypot gefüllt → Bot. Stilles OK, kein Hinweis an den Absender.
-  if (asTrimmed(payload.company_website_2, 1000)) {
+  // Honeypot gefüllt -> nichts anlegen, aber Prüf-Mail an ZIRI (siehe lib/honeypot.ts).
+  const honeypot = honeypotValue(payload);
+  if (honeypot) {
+    await sendHoneypotNotice("contact form", CONTACT_TO, payload, honeypot);
     return NextResponse.json({ ok: true });
   }
 

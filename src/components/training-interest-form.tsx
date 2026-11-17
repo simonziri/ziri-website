@@ -3,6 +3,7 @@
 import { useEffect, useState, type FormEvent } from "react";
 import { TRAINING_EMAIL_STORAGE_KEY } from "@/data/trainings";
 import styles from "./book-call.module.css";
+import { HONEYPOT_FIELD, HONEYPOT_INPUT_PROPS } from "@/lib/honeypot";
 
 type Status = "idle" | "submitting" | "sent" | "error";
 
@@ -53,7 +54,7 @@ export function TrainingInterestForm({
           training: slug,
           email: storedEmail ?? data.get("email"),
           problem: data.get("problem"),
-          company_website_2: data.get("company_website_2"),
+          [HONEYPOT_FIELD]: data.get(HONEYPOT_FIELD),
         }),
       });
       if (!response.ok) throw new Error(String(response.status));
@@ -79,12 +80,7 @@ export function TrainingInterestForm({
     <form className={styles.form} onSubmit={handleSubmit} noValidate>
       <label className={styles.honeypot} aria-hidden="true">
         Leave this empty
-        <input
-          name="company_website_2"
-          type="text"
-          tabIndex={-1}
-          autoComplete="off"
-        />
+        <input {...HONEYPOT_INPUT_PROPS} />
       </label>
 
       {storedEmail ? null : (

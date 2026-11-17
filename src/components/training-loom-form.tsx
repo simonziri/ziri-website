@@ -4,6 +4,7 @@ import { useEffect, useState, type FormEvent } from "react";
 import { TRAINING_EMAIL_STORAGE_KEY } from "@/data/trainings";
 import { submitOrSimulate } from "@/lib/form-simulation";
 import styles from "./book-call.module.css";
+import { HONEYPOT_FIELD, HONEYPOT_INPUT_PROPS } from "@/lib/honeypot";
 
 type Status = "idle" | "submitting" | "sent" | "error";
 
@@ -68,7 +69,7 @@ export function TrainingLoomForm({
           page_url: data.get("page_url"),
           context: revealEmail ? data.get("context") : undefined,
           source: source ?? (revealEmail ? "watch" : "thanks"),
-          company_website_2: data.get("company_website_2"),
+          [HONEYPOT_FIELD]: data.get(HONEYPOT_FIELD),
         }),
       });
       if (!response.ok) throw new Error(String(response.status));
@@ -119,12 +120,7 @@ export function TrainingLoomForm({
     <form className={styles.form} onSubmit={handleSubmit} noValidate>
       <label className={styles.honeypot} aria-hidden="true">
         Leave this empty
-        <input
-          name="company_website_2"
-          type="text"
-          tabIndex={-1}
-          autoComplete="off"
-        />
+        <input {...HONEYPOT_INPUT_PROPS} />
       </label>
 
       {storedEmail || revealEmail ? null : emailField}
