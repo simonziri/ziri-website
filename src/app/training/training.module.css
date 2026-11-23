@@ -754,3 +754,239 @@ a.calendarPrimary {
   clip: rect(0 0 0 0);
   white-space: nowrap;
 }
+
+/* Cal.com-Kalender fürs Gratis-Audit (AuditCalendar, Schritt "book") */
+.calCard {
+  margin-top: var(--space-xsmall);
+  border-radius: 16px;
+  background: #fff;
+  box-shadow:
+    0 1px 2px rgb(24 22 14 / 0.06),
+    0 12px 32px -8px rgb(24 22 14 / 0.14);
+  overflow: hidden;
+}
+
+.calHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 24px 24px 20px;
+  border-bottom: 1px solid var(--color-light-neutral-500);
+}
+
+.calHost {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--color-dark-neutral-200);
+  font-size: 15px;
+}
+
+.calHost img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.calHeader h2 {
+  margin: 0;
+  font-size: 22px;
+  line-height: 1.3;
+  color: var(--color-dark-neutral-900);
+}
+
+.calMeta {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px 24px;
+  margin: 0;
+}
+
+.calMeta dt {
+  font-size: 13px;
+  color: var(--color-dark-neutral-100);
+}
+
+.calMeta dd {
+  margin: 2px 0 0;
+  font-size: 15px;
+  color: var(--color-dark-neutral-900);
+  overflow-wrap: anywhere;
+}
+
+.calBody {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 180px;
+  gap: 24px;
+  padding: 20px 24px 24px;
+}
+
+.calMonthNav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  font-size: 16px;
+  color: var(--color-dark-neutral-900);
+}
+
+.calMonthNav div {
+  display: flex;
+  gap: 4px;
+}
+
+.calMonthNav button {
+  width: 32px;
+  height: 32px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--color-dark-neutral-900);
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.calMonthNav button:hover:not(:disabled) {
+  background: var(--color-light-neutral-300);
+}
+
+.calMonthNav button:disabled {
+  color: var(--color-light-neutral-800);
+  cursor: default;
+}
+
+.calGrid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 4px;
+}
+
+.calWeekday {
+  padding-bottom: 4px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--color-dark-neutral-100);
+}
+
+.calDay {
+  aspect-ratio: 1;
+  border: 0;
+  border-radius: 8px;
+  background: var(--color-light-neutral-300);
+  color: var(--color-dark-neutral-900);
+  font: inherit;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.calDay:hover:not(:disabled) {
+  background: var(--color-light-neutral-600);
+}
+
+.calDay:disabled {
+  background: transparent;
+  color: var(--color-light-neutral-900);
+  cursor: default;
+}
+
+.calDay[aria-pressed="true"] {
+  background: var(--color-dark-neutral-900);
+  color: #fff;
+}
+
+.calTimes {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.calTimesTitle {
+  margin: 0 0 12px;
+  font-size: 16px;
+  line-height: 32px;
+  color: var(--color-dark-neutral-900);
+}
+
+.calSlotList {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-height: 340px;
+  overflow-y: auto;
+}
+
+.calSlot {
+  flex-shrink: 0;
+  padding: 10px 12px;
+  border: 1px solid var(--color-light-neutral-700);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--color-dark-neutral-900);
+  font: inherit;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.calSlot:hover {
+  border-color: var(--color-dark-neutral-900);
+}
+
+.calHint {
+  margin: 0;
+  font-size: 14px;
+  color: var(--color-dark-neutral-200);
+}
+
+.calForm {
+  gap: 20px;
+  padding: 20px 24px 24px;
+}
+
+.calForm .calFormActions {
+  margin-top: 4px;
+}
+
+.calFormActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+}
+
+.calDone {
+  padding: 20px 24px 24px;
+}
+
+.calDone h3 {
+  margin: 0 0 8px;
+  font-size: 18px;
+  color: var(--color-dark-neutral-900);
+}
+
+.calDone p {
+  margin: 0 0 8px;
+  color: var(--color-dark-neutral-300);
+}
+
+@media (max-width: 640px) {
+  .calHeader,
+  .calBody,
+  .calForm,
+  .calDone {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .calBody {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .calSlotList {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    max-height: none;
+  }
+}

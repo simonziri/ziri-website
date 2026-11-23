@@ -17,6 +17,21 @@ export const TRAINING_RELEASE_DATE = "2026-11-12";
 /** sessionStorage-Key: Adresse von der Anmeldung an die Thank-you-Seite (nie in der URL). */
 export const TRAINING_EMAIL_STORAGE_KEY = "ziri:training:email";
 
+/**
+ * sessionStorage-Key: Name, Firma und "Where do you work?" von der Anmeldung,
+ * damit der Audit-Kalender auf der Thank-you-Seite vorausgefüllt ist und wir
+ * Agenturen erkennen. Wie die Adresse: nur dieser Tab, nie in URL oder Cookie.
+ */
+export const TRAINING_PROFILE_STORAGE_KEY = "ziri:training:profile";
+
+/**
+ * Cal.com-Event für das Gratis-Audit (Simon 23.11.): Kalender erscheint nach
+ * "Yes, I want my free audit" nur für Nicht-Agenturen mit Umsatz ab $1M,
+ * alle anderen sehen weiter "I'll get back to you by email".
+ * Format "<cal.com-username>/<event-slug>". Bei Änderung in Cal.com hier mitziehen.
+ */
+export const AUDIT_CAL_LINK = "simon-ziri/free-audit";
+
 export const TRAINING_SENDER_EMAIL = "simon@mail.simonziri.com";
 
 /**
@@ -124,6 +139,12 @@ export const trainings: readonly Training[] = [
       "cro-1b-how-we-do-cro": "How we do CRO for 5–7-figure deals",
       "cro-3b-sales-calls": "From sales calls to a website that sells",
       "cro-4b-how-wed-fix": "How we'd fix a high-ticket B2B website",
+      // Video ads round 3, Simon 18.11.
+      "cro-vid-a-high-stakes": "Learn how CRO changes when deals are worth 5–7 figures",
+      "cro-vid-b-conversion-rate": "Learn how to optimize high-ticket B2B websites for sales",
+      "cro-vid-c-too-few-conversions": "Learn how to improve a site when conversions are low",
+      "cro-vid-d-sales-calls": "Learn where the best website improvements come from",
+      "cro-vid-e-buying-committee": "Learn how to structure sites that sell to buying committees",
     },
     releaseDate: TRAINING_RELEASE_DATE,
   },

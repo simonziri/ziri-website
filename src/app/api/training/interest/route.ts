@@ -105,8 +105,17 @@ function describeLoomRequest(payload: Record<string, unknown>): string | null {
 function describeSurvey(payload: Record<string, unknown>): string | null {
   const audit = payload.audit === "yes" ? "YES" : payload.audit === "no" ? "no" : null;
   if (!audit) return null;
+  const role = asTrimmed(payload.role, 100);
+  const calendar =
+    payload.calendar === "shown"
+      ? "shown (non-agency, $1M+). Check Cal.com for a booking; if none, follow up."
+      : payload.calendar === "not shown"
+        ? "not shown (agency, under $1M or no sign-up data). Follow up by email."
+        : null;
   return [
     `Free audit: ${audit}`,
+    ...(calendar ? [`Booking calendar: ${calendar}`] : []),
+    `Where they work: ${role ?? "—"}`,
     `Company size: ${asTrimmed(payload.company_size, 100) ?? "—"}`,
     `Annual revenue: ${asTrimmed(payload.revenue, 100) ?? "—"}`,
     ``,

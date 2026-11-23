@@ -1,8 +1,12 @@
 "use client";
 
 import { useEffect, useState, type FormEvent } from "react";
+import { AuditCalendar } from "@/components/audit-calendar";
 import { TrainingLoomForm } from "@/components/training-loom-form";
-import { TRAINING_EMAIL_STORAGE_KEY } from "@/data/trainings";
+import {
+  TRAINING_EMAIL_STORAGE_KEY,
+  TRAINING_PROFILE_STORAGE_KEY,
+} from "@/data/trainings";
 import { submitOrSimulate } from "@/lib/form-simulation";
 import formStyles from "./book-call.module.css";
 import styles from "@/app/training/training.module.css";
@@ -22,7 +26,49 @@ import styles from "@/app/training/training.module.css";
  * - Antworten gehen erst bei Schritt 4 raus (/api/training/interest, kind
  *   "survey"), der Kontext danach als kind "audit-context".
  * - Privacy Policy Abschnitt 4 beschreibt diese Fragen. Bei Änderungen mitziehen.
+ *
+ * Audit-Kalender (Simon 23.11.): Nach "ja" sehen Nicht-Agenturen (Anmeldung
+ * "Where do you work?" != "For clients") mit Umsatz ab $1M direkt den
+ * Cal.com-Kalender (AUDIT_CAL_LINK), vorausgefüllt mit Name, Adresse und
+ * ihren Antworten. Alle anderen (und wer ohne Anmeldedaten im Tab kommt)
+ * bekommen wie bisher "I'll get back to you by email". Die Benachrichtigung
+ * an ZIRI geht in beiden Fällen schon beim Klick auf "ja" raus, also auch
+ * wenn danach niemand bucht.
  */
+
+type Profile = {
+  first_name?: string;
+  last_name?: string;
+  company?: string;
+  role?: string;
+};
+
+/** Kalender nur für Nicht-Agenturen ab $1M Umsatz. Ohne Rolle (kein Storage): nein. */
+function qualifiesForCalendar(profile: Profile | null, revenue: string | null): boolean {
+  if (!profile?.role || profile.role === "for-clients") return false;
+  return Boolean(revenue) && revenue !== "Under $1M";
+}
+
+function calendarPrefill(
+  profile: Profile | null,
+  email: string | null,
+  answers: { size: string | null; revenue: string | null; pain: string },
+): { name?: string; email?: string; notes?: string } {
+  const name = [profile?.first_name, profile?.last_name].filter(Boolean).join(" ");
+  const notes = [
+    profile?.company ? `Company: ${profile.company}` : null,
+    answers.size ? `Company size: ${answers.size}` : null,
+    answers.revenue ? `Annual revenue: ${answers.revenue}` : null,
+    answers.pain.trim() ? `What's bugging them: ${answers.pain.trim()}` : null,
+  ]
+    .filter(Boolean)
+    .join("\n");
+  return {
+    name: name || undefined,
+    email: email || undefined,
+    notes: notes ? notes.slice(0, 1500) : undefined,
+  };
+}
 
 const COMPANY_SIZES = ["1–10", "11–50", "51–200", "201–1,000", "1,000+"] as const;
 
@@ -34,13 +80,14 @@ const REVENUE = [
   "$250M+",
 ] as const;
 
-type Step = "size" | "revenue" | "pain" | "audit" | "yes" | "no";
+type Step = "size" | "revenue" | "pain" | "audit" | "book" | "yes" | "no";
 
 const STEP_NUMBER: Record<Step, number> = {
   size: 1,
   revenue: 2,
   pain: 3,
   audit: 4,
+  book: 4,
   yes: 4,
   no: 4,
 };
@@ -57,6 +104,7 @@ export function TrainingSignupSteps({
   const [revenue, setRevenue] = useState<string | null>(null);
   const [pain, setPain] = useState("");
   const [email, setEmail] = useState<string | null>(null);
+  const [profile, setProfile] = useState<Profile | null>(null);
   const [checkedStorage, setCheckedStorage] = useState(false);
   const [sending, setSending] = useState(false);
   const [error, setError] = useState(false);
@@ -67,6 +115,14 @@ export function TrainingSignupSteps({
       setEmail(sessionStorage.getItem(TRAINING_EMAIL_STORAGE_KEY));
     } catch {
       setEmail(null);
+    }
+    try {
+      // Eigener try: kaputtes JSON darf die Adresse nicht mitreißen
+      const stored = sessionStorage.getItem(TRAINING_PROFILE_STORAGE_KEY);
+      const parsed: unknown = stored ? JSON.parse(stored) : null;
+      setProfile(parsed && typeof parsed === "object" ? (parsed as Profile) : null);
+    } catch {
+      setProfile(null);
     }
     setCheckedStorage(true);
   }, []);
@@ -90,6 +146,7 @@ export function TrainingSignupSteps({
       address = String(new FormData(form).get("email") ?? "");
       setEmail(address);
     }
+    const showCalendar = wantsAudit && qualifiesForCalendar(profile, revenue);
     setSending(true);
     setError(false);
     try {
@@ -99,9 +156,11 @@ export function TrainingSignupSteps({
         company_size: size,
         revenue,
         pain,
+        role: profile?.role ?? null,
         audit: wantsAudit ? "yes" : "no",
+        calendar: wantsAudit ? (showCalendar ? "shown" : "not shown") : null,
       });
-      setStep(wantsAudit ? "yes" : "no");
+      setStep(wantsAudit ? (showCalendar ? "book" : "yes") : "no");
     } catch {
       setError(true);
     } finally {
@@ -266,6 +325,24 @@ export function TrainingSignupSteps({
               </p>
             ) : null}
           </form>
+        </section>
+      ) : null}
+
+      {step === "book" ? (
+        <section className={styles.signupStep} aria-labelledby="step-title">
+          <h1 id="step-title">Great. Pick a time that works for you.</h1>
+          <p>
+            The audit starts with a call to discuss your situation. From
+            there, I&rsquo;ll dig into your site on my own and put together the
+            audit with clear recommendations on what to improve.
+          </p>
+          <AuditCalendar prefill={calendarPrefill(profile, email, { size, revenue, pain })} />
+          <p className={styles.thanksNote}>
+            None of the times work? Just reply to the training email and
+            we&rsquo;ll find one. Calendar by Cal.com, see our{" "}
+            <a href="/privacy">privacy policy</a>.
+          </p>
+          <p className={styles.thanksNote}>— Simon</p>
         </section>
       ) : null}
 

@@ -187,6 +187,25 @@ export default function PrivacyPage() {
             and following up, Art. 6(1)(f) GDPR. Answering is voluntary; you can leave the page at any time and still get the training by e-mail.
           </p>
           <p>
+            <strong>Audit booking calendar (Cal.com).</strong> If you ask for
+            the free audit and your answers fit, the thank-you page shows a
+            booking calendar. The free times come from Cal.com (Cal.com, Inc.,
+            USA) via our server; your browser does not connect to Cal.com and
+            no personal data is sent to look up times. The booking form is
+            filled in with your name, e-mail address and your answers from the
+            sign-up and the questions above, so you don&rsquo;t have to type
+            them again; you can change them. Only when you click &ldquo;Confirm
+            booking&rdquo; do we send your name, e-mail address, time zone, the
+            chosen time and your notes to Cal.com, which stores the booking and
+            sends the calendar invitation with a Google Meet link (Google
+            Ireland Ltd.). Data transfers to the USA rely on the EU-U.S. Data
+            Privacy Framework or the EU standard contractual clauses. Your
+            details are kept in your browser&rsquo;s session storage for this
+            tab only, never in the page address or in a cookie. Legal basis:
+            steps at your request before a possible contract, Art. 6(1)(b)
+            GDPR. Booking is voluntary; we follow up by e-mail either way.
+          </p>
+          <p>
             <strong>Optional page review form (thank-you page and training page).</strong> After signing
             up you can ask us for a recorded review of one of your web pages.
             For this we process the page address you enter, together with your
