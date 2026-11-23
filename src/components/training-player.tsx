@@ -520,7 +520,7 @@ export function TrainingPlayer({
         {/* Projekt mit uns: weiß, führt zum Kontaktformular unten */}
         <div className={`${styles.cta} ${belowLive ? styles.isLive : ""}`}>
           <LiveTag />
-          <p className={styles.eyebrow}>Playbook Sprint &middot; 1&ndash;2 weeks</p>
+          <p className={styles.eyebrow}>Work with us</p>
           <h2>Want us to do this with you?</h2>
           <p>
             We talk to your customers and your sales team, look at your page
@@ -608,7 +608,7 @@ function EndCard({
             </div>
           </div>
           <div className={styles.vcard}>
-            <p className={styles.eyebrow}>Playbook Sprint &middot; 1&ndash;2 weeks</p>
+            <p className={styles.eyebrow}>Work with us</p>
             <h4>We do this with you</h4>
             <p>
               We talk to your customers and sales team. You get the playbook:
