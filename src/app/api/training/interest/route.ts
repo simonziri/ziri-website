@@ -98,7 +98,18 @@ function describeLoomRequest(payload: Record<string, unknown>): string | null {
   if (!url.hostname.includes(".")) return null;
   // optional (nur Watch-Seite): mehr Kontext zur Anfrage
   const context = asTrimmed(payload.context, 2000);
-  return context ? `Page: ${url.toString()}\n\nContext:\n${context}` : `Page: ${url.toString()}`;
+  // optional (AuditOfferFlow, Simon 23.11.): Antworten aus den Fragen davor
+  const answers = [
+    ["Where they work", asTrimmed(payload.role, 100)],
+    ["Company size", asTrimmed(payload.company_size, 100)],
+    ["Annual revenue", asTrimmed(payload.revenue, 100)],
+    ["What's bugging them", asTrimmed(payload.pain, 3000)],
+  ].filter(([, value]) => value).map(([label, value]) => `${label}: ${value}`);
+  return [
+    `Page: ${url.toString()}`,
+    ...(context ? [``, `Context:`, context] : []),
+    ...(answers.length ? [``, ...answers] : []),
+  ].join("\n");
 }
 
 /** Fragen nach der Anmeldung (TrainingSignupSteps) als lesbarer Text, null wenn leer. */
@@ -193,11 +204,13 @@ export async function POST(request: Request) {
     source: payload.source === "watch" ? "watch" : "thanks",
   };
 
+  // Fragen beantwortet (Survey, oder Video-Anfrage mit Antworten aus AuditOfferFlow)
+  const answered = kind === "survey" || (kind === "loom" && Boolean(asTrimmed(payload.pain, 3000)));
   const [notified, pipedrive, tagged] = await Promise.allSettled([
     notifyZiri(interest),
     addPipedriveInterestNote(interest),
     // Fragen beantwortet: Mail 2 ("what made you sign up?") überspringt sie
-    kind === "survey"
+    answered
       ? tagBeehiivSubscriber(email, BEEHIIV_ANSWERED_TAG)
       : Promise.resolve({ status: "skipped" as const }),
   ]);
@@ -205,7 +218,7 @@ export async function POST(request: Request) {
   const failures = collectFailures([
     ["notification", notified],
     ["pipedrive", pipedrive],
-    ...(kind === "survey" ? ([["beehiiv tag", tagged]] as const) : []),
+    ...(answered ? ([["beehiiv tag", tagged]] as const) : []),
   ]);
   for (const { target, error } of failures) {
     console.error(`[training-interest] ${target} failed:`, error);

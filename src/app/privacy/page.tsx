@@ -24,7 +24,7 @@ export default function PrivacyPage() {
         <SiteHeader />
         <article className={legal.article}>
           <h1>Privacy Policy</h1>
-          <p className={legal.updated}>Last updated: November 16, 2026</p>
+          <p className={legal.updated}>Last updated: November 23, 2026</p>
 
           <p>
             This website is intentionally light on data. No third-party fonts,
@@ -169,8 +169,12 @@ export default function PrivacyPage() {
             </li>
           </ul>
           <p>
-            <strong>Optional questions after signing up (thank-you page).</strong> After
-            signing up you can answer a few voluntary questions: the size of
+            <strong>Optional questions after signing up (thank-you page and training page).</strong> After
+            signing up, and on the training page when you ask for a free audit,
+            you can answer a few voluntary questions
+            (on the training page also your work e-mail address and where you
+            work, unless we already know them, see &ldquo;Remember my
+            answers&rdquo; below): the size of
             your company, a rough range of its annual revenue, in your own words
             why you signed up and what is bothering you right now, and whether
             you would like a free audit of your website. If you say yes, you can
@@ -200,17 +204,16 @@ export default function PrivacyPage() {
             sends the calendar invitation with a Google Meet link (Google
             Ireland Ltd.). Data transfers to the USA rely on the EU-U.S. Data
             Privacy Framework or the EU standard contractual clauses. Your
-            details are kept in your browser&rsquo;s session storage for this
-            tab only, never in the page address or in a cookie. Legal basis:
+            details are kept in your browser as described under &ldquo;Remember
+            my answers&rdquo; below, never in the page address or in a cookie. Legal basis:
             steps at your request before a possible contract, Art. 6(1)(b)
             GDPR. Booking is voluntary; we follow up by e-mail either way.
           </p>
           <p>
-            <strong>Optional page review form (thank-you page and training page).</strong> After signing
+            <strong>Optional page review form (thank-you page).</strong> After signing
             up you can ask us for a recorded review of one of your web pages.
             For this we process the page address you enter, together with your
-            e-mail address so we know who the request comes from, and on the
-            training page any additional context you choose to add. This form is
+            e-mail address so we know who the request comes from. This form is
             voluntary. We use the data to decide whether a review fits, to
             record and send it, and for our follow-up. It is forwarded to our
             e-mail inbox and stored as a note in Pipedrive, with the same
@@ -222,7 +225,26 @@ export default function PrivacyPage() {
             your browser keeps it in its session storage for this tab only. It
             is not placed in the page address or in a cookie, is not shared with
             analytics or advertising services, and is deleted when you close the
-            tab.
+            tab. If you ask for a video review after the questions above, your
+            answers are sent along with it.
+          </p>
+          <p>
+            <strong>Remember my answers.</strong> So you don&rsquo;t have to
+            type the same things twice, your browser keeps what you entered in
+            our training forms (name, e-mail address, company, where you work,
+            your answers to the questions above) in its session storage for
+            this tab. This is strictly necessary for the multi-step forms you
+            asked to use, § 25(2) no. 2 TDDDG, and is deleted when you close
+            the tab. Only if you allow &ldquo;Remember my answers&rdquo; in our
+            privacy banner do we also keep them in your browser&rsquo;s local
+            storage, so they are filled in on your next visit, for example on
+            the training page you open from our e-mail. Legal basis for that:
+            your consent, § 25(1) TDDDG and Art. 6(1)(a) GDPR. You can withdraw
+            it at any time via &ldquo;Cookie settings&rdquo; in the footer; the
+            stored entry is then deleted. In both cases the data stays in your
+            browser: it is not placed in the page address or in a cookie, not
+            shared with analytics or advertising services, and only reaches us
+            when you submit a form.
           </p>
           <p>
             <strong>Optional question on the training page.</strong> On the
@@ -555,8 +577,10 @@ export default function PrivacyPage() {
 
           <h2 id="consent">8. Consent management</h2>
           <p>
-            Our privacy banner offers three categories: &ldquo;Necessary&rdquo;
-            (always on, only stores your choice), &ldquo;Statistics&rdquo;
+            Our privacy banner offers four categories: &ldquo;Necessary&rdquo;
+            (always on, only stores your choice), &ldquo;Remember my
+            answers&rdquo; (keeps your form entries in your browser, see
+            section 4), &ldquo;Statistics&rdquo;
             (Google Analytics and Microsoft Clarity, see sections 7 and 7a) and
             &ldquo;Marketing&rdquo; (Meta Pixel and LinkedIn Insight Tag, see
             sections 7b and 7c). Google Tag

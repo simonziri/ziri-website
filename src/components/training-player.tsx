@@ -11,7 +11,7 @@ import {
   type PointerEvent as ReactPointerEvent,
 } from "react";
 import { PixelHatchButton } from "@/components/pixel-hatch-button";
-import { TrainingLoomForm } from "@/components/training-loom-form";
+import { OfferDialog } from "@/components/offer-dialog";
 import type { TrainingVideo } from "@/data/training-videos";
 import styles from "./training-player.module.css";
 import formStyles from "./book-call.module.css";
@@ -30,7 +30,6 @@ import formStyles from "./book-call.module.css";
 
 const SPEEDS = [0.75, 1, 1.25, 1.5, 1.75, 2] as const;
 const COMPACT_WIDTH = 640;
-const LOOM_BOX_ID = "training-loom";
 /** Kontaktformular unten auf der Watch-Seite (BookCall, id="contact") */
 const CONTACT_ID = "contact";
 
@@ -257,8 +256,21 @@ export function TrainingPlayer({
     }
   };
 
-  const goToLoom = () => goTo(LOOM_BOX_ID, "center");
   const goToContact = () => goTo(CONTACT_ID, "start");
+
+  /* Gratis-Audit / Video-Breakdown: eigenes Modal mit denselben Fragen (Simon 23.11.) */
+  // Video-Breakdown hier raus (Simon 23.11.: zwei Angebote reichen, das Audit wird gefragt)
+  const [offer, setOffer] = useState<"audit" | null>(null);
+  const openOffer = (kind: "audit") => {
+    videoRef.current?.pause();
+    const show = () => setOffer(kind);
+    if (document.fullscreenElement) document.exitFullscreen().then(show, show);
+    else {
+      setPseudoFs(false);
+      show();
+    }
+  };
+  const closeOffer = useCallback(() => setOffer(null), []);
 
   const onKeyDown = (e: ReactKeyboardEvent<HTMLDivElement>) => {
     if ((e.target as HTMLElement).closest("input, a, [data-player-ignore-keys]")) return;
@@ -361,7 +373,7 @@ export function TrainingPlayer({
         <EndCard
           on={showEndCard}
           live={endLive}
-          onLoom={goToLoom}
+          onAudit={() => openOffer("audit")}
           onBook={goToContact}
           onReplay={() => seekAndPlay(0)}
         />
@@ -490,7 +502,23 @@ export function TrainingPlayer({
 
       {/* Unter dem Video: immer da */}
       <section className={styles.below} aria-label="Next steps">
+        {/* Hauptangebot: Gratis-Audit, schwarz (Simon 23.11.), Text wie auf der Thank-you-Seite */}
         <div className={`${styles.cta} ${styles.ctaDark} ${belowLive ? styles.isLive : ""}`}>
+          <LiveTag />
+          <p className={styles.eyebrow}>Free audit</p>
+          <h2>Want us to look at your site?</h2>
+          <p>A plan for your site, walked through with you on a short call:</p>
+          <ul className={styles.ctaList}>
+            <li>Where your site loses buyers, and which people in the buying group it doesn&rsquo;t speak to</li>
+            <li>What your competitors say that you don&rsquo;t, and where you all sound the same</li>
+            <li>Clear next steps, lowest effort and highest impact first</li>
+          </ul>
+          <button type="button" className={formStyles.formSubmit} onClick={() => openOffer("audit")}>
+            Get my free audit
+          </button>
+        </div>
+        {/* Projekt mit uns: weiß, führt zum Kontaktformular unten */}
+        <div className={`${styles.cta} ${belowLive ? styles.isLive : ""}`}>
           <LiveTag />
           <p className={styles.eyebrow}>Playbook Sprint &middot; 1&ndash;2 weeks</p>
           <h2>Want us to do this with you?</h2>
@@ -499,23 +527,13 @@ export function TrainingPlayer({
             and your messaging. You get the playbook: what you&rsquo;re doing
             now, why it isn&rsquo;t working, and what we&rsquo;d do instead.
           </p>
-          {/* gleicher Button wie "Request my page review", gelb (Simon 13.11.) */}
-          <button type="button" className={formStyles.formSubmit} onClick={goToContact}>
+          <button
+            type="button"
+            className={`${formStyles.formSubmit} ${formStyles.formSubmitDark}`}
+            onClick={goToContact}
+          >
             Book a call
           </button>
-        </div>
-        <div
-          id={LOOM_BOX_ID}
-          className={`${styles.cta} ${belowLive ? styles.isLive : ""}`}
-          data-theme="light-primary"
-        >
-          <LiveTag />
-          <h2>Send us your URL</h2>
-          <p>
-            We record a short video for you: where our alarm bells go off, and
-            where they don&rsquo;t.
-          </p>
-          <TrainingLoomForm slug={slug} revealEmail />
         </div>
       </section>
 
@@ -539,6 +557,8 @@ export function TrainingPlayer({
           />
         </div>
       </section>
+
+      <OfferDialog slug={slug} variant="audit" open={offer === "audit"} onClose={closeOffer} />
     </>
   );
 }
@@ -555,13 +575,13 @@ function LiveTag() {
 function EndCard({
   on,
   live,
-  onLoom,
+  onAudit,
   onBook,
   onReplay,
 }: {
   on: boolean;
   live: boolean;
-  onLoom: () => void;
+  onAudit: () => void;
   onBook: () => void;
   onReplay: () => void;
 }) {
@@ -576,6 +596,18 @@ function EndCard({
         <h3>Two ways to take this further.</h3>
         <div className={styles.endGrid}>
           <div className={styles.vcard}>
+            <p className={styles.eyebrow}>Free audit</p>
+            <h4>We look at your site</h4>
+            <p>
+              A plan for your site, walked through with you on a short call:
+              where it loses buyers, what competitors say that you don&rsquo;t,
+              and clear next steps.
+            </p>
+            <div>
+              <PixelHatchButton onClick={onAudit}>Get my free audit</PixelHatchButton>
+            </div>
+          </div>
+          <div className={styles.vcard}>
             <p className={styles.eyebrow}>Playbook Sprint &middot; 1&ndash;2 weeks</p>
             <h4>We do this with you</h4>
             <p>
@@ -584,18 +616,8 @@ function EndCard({
               we&rsquo;d do instead.
             </p>
             <div>
-              <PixelHatchButton onClick={onBook}>Book a call</PixelHatchButton>
-            </div>
-          </div>
-          <div className={styles.vcard}>
-              <h4>Send us your URL</h4>
-            <p>
-              We record a short video: where our alarm bells go off, and where
-              they don&rsquo;t.
-            </p>
-            <div>
-              <PixelHatchButton variant="secondary" onClick={onLoom}>
-                Send us your URL
+              <PixelHatchButton variant="secondary" onClick={onBook}>
+                Book a call
               </PixelHatchButton>
             </div>
           </div>

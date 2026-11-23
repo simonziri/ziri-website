@@ -3,11 +3,8 @@
 import { useRouter } from "next/navigation";
 import { isFormSimulation, submitOrSimulate } from "@/lib/form-simulation";
 import { useEffect, useState, type FormEvent } from "react";
-import {
-  TRAINING_EMAIL_STORAGE_KEY,
-  TRAINING_PROFILE_STORAGE_KEY,
-  TRAINING_ROLES,
-} from "@/data/trainings";
+import { TRAINING_ROLES } from "@/data/trainings";
+import { saveProfile } from "@/lib/visitor-profile";
 import { isFreeEmail, WORK_EMAIL_MESSAGE } from "@/lib/work-email";
 import styles from "./book-call.module.css";
 import { HONEYPOT_FIELD, HONEYPOT_INPUT_PROPS } from "@/lib/honeypot";
@@ -106,24 +103,14 @@ export function TrainingSignupForm({
         throw new Error(String(response.status));
       }
 
-      try {
-        sessionStorage.setItem(
-          TRAINING_EMAIL_STORAGE_KEY,
-          String(data.get("email") ?? ""),
-        );
-        // Für den vorausgefüllten Audit-Kalender auf der Thank-you-Seite
-        sessionStorage.setItem(
-          TRAINING_PROFILE_STORAGE_KEY,
-          JSON.stringify({
-            first_name: String(data.get("first_name") ?? ""),
-            last_name: String(data.get("last_name") ?? ""),
-            company: String(data.get("company") ?? ""),
-            role: String(data.get("role") ?? ""),
-          }),
-        );
-      } catch {
-        // Kein Storage (privates Fenster o. ä.): Thank-you-Seite fragt nach.
-      }
+      // Für die Thank-you-Seite und die Watch-Seite (vorausgefüllt, weniger Fragen)
+      saveProfile({
+        email: String(data.get("email") ?? ""),
+        first_name: String(data.get("first_name") ?? ""),
+        last_name: String(data.get("last_name") ?? ""),
+        company: String(data.get("company") ?? ""),
+        role: String(data.get("role") ?? ""),
+      });
 
       // Im Simulator kein Lead-Event (Meta-Pixel etc.)
       if (!isFormSimulation()) window.dispatchEvent(

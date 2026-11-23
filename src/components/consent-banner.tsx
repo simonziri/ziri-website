@@ -13,6 +13,7 @@ import {
   writeConsent,
 } from "@/lib/consent";
 import { applyTrackingConsent, trackEvent } from "@/lib/analytics";
+import { applyRememberConsent } from "@/lib/visitor-profile";
 import styles from "./consent-banner.module.css";
 import { TRAINING_QUALIFIED_ROLES } from "@/data/trainings";
 
@@ -37,6 +38,7 @@ import { TRAINING_QUALIFIED_ROLES } from "@/data/trainings";
  */
 
 function applyChoices(choices: ConsentChoices) {
+  applyRememberConsent(choices.preferences === true);
   applyTrackingConsent({
     statistics: !!choices.statistics,
     marketing: !!choices.marketing,
@@ -49,7 +51,7 @@ const GERMAN_PATHS = ["/website-umzug"];
 const TEXT = {
   en: {
     title: "Privacy settings",
-    body: "We would like to use Google Analytics and Microsoft Clarity to see how people use this site, and the Meta Pixel and LinkedIn Insight Tag to measure which of our ads bring sign-ups. They only run if you allow it. You can change your choice any time via Cookie settings in the footer.",
+    body: "We would like to use Google Analytics and Microsoft Clarity to see how people use this site, and the Meta Pixel and LinkedIn Insight Tag to measure which of our ads bring sign-ups. We can also remember what you type into our forms, so you don’t have to type it again. All of this only happens if you allow it. You can change your choice any time via Cookie settings in the footer.",
     policy: "Privacy Policy",
     legend: "Consent categories",
     alwaysOn: "Always on",
@@ -70,6 +72,11 @@ const TEXT = {
     save: "Auswahl speichern",
     settings: "Einstellungen",
     categories: {
+      preferences: {
+        label: "Eingaben merken",
+        description:
+          "Speichert, was du in unsere Trainings-Formulare eingibst (Name, E-Mail, Firma, Antworten), in deinem Browser, damit du es nicht erneut tippen musst. Nichts wird an uns gesendet, bevor du ein Formular abschickst.",
+      },
       necessary: {
         label: "Notwendig",
         description:

@@ -4,6 +4,8 @@
  * - Gespeichert wird NUR die Wahl selbst, in localStorage unter
  *   CONSENT_STORAGE_KEY ({ version, timestamp, choices }). Kein Cookie,
  *   keine Übertragung an einen Server.
+ * - "preferences" (Simon 23.11.) ohne Versionssprung: wer schon gewählt hat,
+ *   hat sie aus (Standard), kann sie über Cookie settings anschalten.
  * - Neue Kategorie: einen Eintrag in CONSENT_CATEGORIES ergänzen UND
  *   CONSENT_VERSION hochzählen, damit alle Besucher neu gefragt werden
  *   (Version 2 = Marketing/Meta Pixel dazu; LinkedIn Insight Tag in derselben Kategorie, kein Versionssprung nötig, da noch nicht live).
@@ -12,7 +14,7 @@
  *   Storage): dann gilt "keine Wahl getroffen" und es lädt nichts.
  */
 
-export type ConsentCategoryId = "necessary" | "statistics" | "marketing";
+export type ConsentCategoryId = "necessary" | "preferences" | "statistics" | "marketing";
 
 export type ConsentCategory = {
   id: ConsentCategoryId;
@@ -29,6 +31,12 @@ export const CONSENT_CATEGORIES: ReadonlyArray<ConsentCategory> = [
     description:
       "Stores only your consent choice in your browser. No cookie, nothing is sent to us.",
     required: true,
+  },
+  {
+    id: "preferences",
+    label: "Remember my answers",
+    description:
+      "Keeps what you typed into our training forms (name, email, company, your answers) in your browser, so you don't have to type it again next time. Nothing is sent to us until you submit a form.",
   },
   {
     id: "statistics",

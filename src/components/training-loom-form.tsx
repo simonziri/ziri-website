@@ -26,6 +26,9 @@ export function TrainingLoomForm({
   slug,
   revealEmail = false,
   source,
+  email,
+  answers,
+  onSent,
 }: {
   slug: string;
   /** Watch-Seite (Simon 12.11.): erst nur das URL-Feld, das E-Mail-Feld blendet
@@ -33,6 +36,12 @@ export function TrainingLoomForm({
   revealEmail?: boolean;
   /** Wo das Formular steht (Mail + Pipedrive-Notiz). Standard: watch bei revealEmail, sonst thanks */
   source?: "thanks" | "watch";
+  /** Schon bekannte Adresse (AuditOfferFlow): kein E-Mail-Feld. */
+  email?: string;
+  /** Antworten aus den Fragen davor, gehen als Kontext mit (Mail + Pipedrive). */
+  answers?: Record<string, string | undefined>;
+  /** Nach dem Absenden: Aufrufer zeigt selbst den nächsten Schritt. */
+  onSent?: () => void;
 }) {
   const [urlTyped, setUrlTyped] = useState(false);
   const [storedEmail, setStoredEmail] = useState<string | null>(null);
@@ -40,13 +49,16 @@ export function TrainingLoomForm({
   const [status, setStatus] = useState<Status>("idle");
 
   useEffect(() => {
-    try {
-      setStoredEmail(sessionStorage.getItem(TRAINING_EMAIL_STORAGE_KEY));
-    } catch {
-      setStoredEmail(null);
+    if (email) setStoredEmail(email);
+    else {
+      try {
+        setStoredEmail(sessionStorage.getItem(TRAINING_EMAIL_STORAGE_KEY));
+      } catch {
+        setStoredEmail(null);
+      }
     }
     setCheckedStorage(true);
-  }, []);
+  }, [email]);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -69,10 +81,15 @@ export function TrainingLoomForm({
           page_url: data.get("page_url"),
           context: revealEmail ? data.get("context") : undefined,
           source: source ?? (revealEmail ? "watch" : "thanks"),
+          ...(answers ?? {}),
           [HONEYPOT_FIELD]: data.get(HONEYPOT_FIELD),
         }),
       });
       if (!response.ok) throw new Error(String(response.status));
+      if (onSent) {
+        onSent();
+        return;
+      }
       setStatus("sent");
     } catch {
       setStatus("error");
