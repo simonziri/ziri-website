@@ -12,6 +12,7 @@ import {
 } from "react";
 import { PixelHatchButton } from "@/components/pixel-hatch-button";
 import { OfferDialog } from "@/components/offer-dialog";
+import { startWatchTracking } from "@/lib/watch-tracking";
 import type { TrainingVideo } from "@/data/training-videos";
 import styles from "./training-player.module.css";
 import formStyles from "./book-call.module.css";
@@ -25,7 +26,8 @@ import formStyles from "./book-call.module.css";
  * - Player schmaler als 640 px (Handy): keine Karte im Video, stattdessen
  *   leuchten die Boxen unter dem Video auf (iPhone-Vollbild zeigt nur das
  *   nackte Video).
- * - Kein Tracking (sonst Consent + Privacy Policy nachziehen).
+ * - Zuschau-Messung über lib/watch-tracking.ts (anonym, E-Mail nur mit
+ *   Statistik-Einwilligung). Änderungen dort: Privacy Policy mitziehen.
  */
 
 const SPEEDS = [0.75, 1, 1.25, 1.5, 1.75, 2] as const;
@@ -156,6 +158,19 @@ export function TrainingPlayer({
     };
   }, []);
 
+  /* ---------- Zuschau-Messung ---------- */
+  const tracker = useRef<ReturnType<typeof startWatchTracking>>(null);
+  useEffect(() => {
+    const el = videoRef.current;
+    if (!el) return;
+    const t = startWatchTracking(el, slug);
+    tracker.current = t;
+    return () => {
+      t.stop();
+      tracker.current = null;
+    };
+  }, [slug]);
+
   /* ---------- size + fullscreen ---------- */
   useEffect(() => {
     const el = playerRef.current;
@@ -256,12 +271,16 @@ export function TrainingPlayer({
     }
   };
 
-  const goToContact = () => goTo(CONTACT_ID, "start");
+  const goToContact = () => {
+    tracker.current?.mark("book-call");
+    goTo(CONTACT_ID, "start");
+  };
 
   /* Gratis-Audit / Video-Breakdown: eigenes Modal mit denselben Fragen (Simon 23.11.) */
   // Video-Breakdown hier raus (Simon 23.11.: zwei Angebote reichen, das Audit wird gefragt)
   const [offer, setOffer] = useState<"audit" | null>(null);
   const openOffer = (kind: "audit") => {
+    tracker.current?.mark(kind);
     videoRef.current?.pause();
     const show = () => setOffer(kind);
     if (document.fullscreenElement) document.exitFullscreen().then(show, show);

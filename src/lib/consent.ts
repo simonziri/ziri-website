@@ -42,7 +42,8 @@ export const CONSENT_CATEGORIES: ReadonlyArray<ConsentCategory> = [
     id: "statistics",
     label: "Statistics",
     description:
-      "Google Analytics 4 and Microsoft Clarity. Show us how visitors use the site (including anonymized session recordings and heatmaps) and which campaigns bring visitors and sign-ups. Set cookies and only run if you allow it.",
+      // Satz zu Trainingsvideos seit 24.11. (lib/watch-tracking.ts STATS_EMAIL_SINCE): ältere Einwilligungen gelten dafür nicht
+      "Google Analytics 4 and Microsoft Clarity. Show us how visitors use the site (including anonymized session recordings and heatmaps) and which campaigns bring visitors and sign-ups. Set cookies and only run if you allow it. On our training videos, also links how much you watched to the email you signed up with.",
   },
   {
     id: "marketing",
