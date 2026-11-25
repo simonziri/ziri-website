@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef } from "react";
 import { AuditOfferFlow, type OfferVariant } from "@/components/audit-offer-flow";
+import type { CalendarEvent } from "@/components/audit-calendar";
 import styles from "@/app/training/training.module.css";
 
 /**
@@ -15,11 +16,13 @@ export function OfferDialog({
   variant,
   open,
   onClose,
+  onCalendarEvent,
 }: {
   slug: string;
   variant: Exclude<OfferVariant, "thanks">;
   open: boolean;
   onClose: () => void;
+  onCalendarEvent?: (name: CalendarEvent) => void;
 }) {
   const ref = useRef<HTMLDialogElement>(null);
   const bodyRef = useRef<HTMLDivElement>(null);
@@ -51,7 +54,7 @@ export function OfferDialog({
             <path d="M5 5l10 10M15 5L5 15" />
           </svg>
         </button>
-        {open ? <AuditOfferFlow slug={slug} variant={variant} onStepChange={onStepChange} /> : null}
+        {open ? <AuditOfferFlow slug={slug} variant={variant} onStepChange={onStepChange} onCalendarEvent={onCalendarEvent} /> : null}
       </div>
     </dialog>
   );

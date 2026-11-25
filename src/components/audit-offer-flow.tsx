@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState, type FormEvent } from "react";
-import { AuditCalendar } from "@/components/audit-calendar";
+import { AuditCalendar, type CalendarEvent } from "@/components/audit-calendar";
 import { TrainingLoomForm } from "@/components/training-loom-form";
 import { TRAINING_ROLES } from "@/data/trainings";
 import { submitOrSimulate } from "@/lib/form-simulation";
@@ -51,7 +51,7 @@ const COMPANY_SIZES = ["1–10", "11–50", "51–200", "201–1,000", "1,000+"]
 
 const REVENUE = ["Under $1M", "$1M–$10M", "$10M–$50M", "$50M–$250M", "$250M+"] as const;
 
-function calendarPrefill(p: VisitorProfile) {
+export function calendarPrefill(p: VisitorProfile) {
   const name = [p.first_name, p.last_name].filter(Boolean).join(" ");
   const notes = [
     p.company ? `Company: ${p.company}` : null,
@@ -72,10 +72,12 @@ export function AuditOfferFlow({
   slug,
   variant,
   onStepChange,
+  onCalendarEvent,
 }: {
   slug: string;
   variant: OfferVariant;
   onStepChange?: () => void;
+  onCalendarEvent?: (name: CalendarEvent) => void;
 }) {
   const [profile, setProfile] = useState<VisitorProfile | null>(null);
   const [step, setStep] = useState<Step | null>(null);
@@ -475,7 +477,7 @@ export function AuditOfferFlow({
             your site on my own and put together the audit with clear recommendations on what to
             improve.
           </p>
-          <AuditCalendar prefill={calendarPrefill(profile)} />
+          <AuditCalendar prefill={calendarPrefill(profile)} onEvent={onCalendarEvent} />
           <p className={styles.thanksNote}>
             None of the times work? Just reply to the training email and we&rsquo;ll find one.
             Calendar by Cal.com, see our <a href="/privacy">privacy policy</a>.

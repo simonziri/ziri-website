@@ -1,9 +1,9 @@
 import { NextResponse } from "next/server";
-import { getTrainingVideo } from "@/data/training-videos";
+import { getWatchVideo } from "@/data/client-videos";
 import { readSession, saveSession, storageReady, type WatchSession } from "@/lib/watch-store";
 
 /**
- * Pings vom Player auf /watch/<key> (lib/watch-tracking.ts): wie viel jemand
+ * Pings vom Player auf /watch/<key> und /v/<id> (lib/watch-tracking.ts): wie viel jemand
  * vom Training geschaut hat. Speichert pro Seitenaufruf eine Datei
  * (lib/watch-store.ts). Liest bewusst keine IP und keinen User-Agent aus.
  * Privacy Policy Abschnitt "Training videos" beschreibt das.
@@ -29,7 +29,7 @@ export async function POST(request: Request) {
   const slug = typeof body.slug === "string" ? body.slug : "";
   const sid = typeof body.sid === "string" ? body.sid : "";
   const dur = num(body.dur);
-  if (!getTrainingVideo(slug) || !SID.test(sid) || dur === null || dur <= 0 || dur > 6 * 3600) {
+  if (!getWatchVideo(slug) || !SID.test(sid) || dur === null || dur <= 0 || dur > 6 * 3600) {
     return new NextResponse(null, { status: 400 });
   }
   if (!storageReady()) return new NextResponse(null, { status: 204 });

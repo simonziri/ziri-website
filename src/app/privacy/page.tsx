@@ -24,7 +24,7 @@ export default function PrivacyPage() {
         <SiteHeader />
         <article className={legal.article}>
           <h1>Privacy Policy</h1>
-          <p className={legal.updated}>Last updated: November 24, 2026</p>
+          <p className={legal.updated}>Last updated: November 25, 2026</p>
 
           <p>
             This website is intentionally light on data. No third-party fonts,
@@ -330,30 +330,33 @@ export default function PrivacyPage() {
             presenting our work; playback only happens on your initiative.
           </p>
 
-          <h2 id="training-videos">6a. Training videos (how much is watched)</h2>
+          <h2 id="training-videos">6a. Video pages (how much is watched)</h2>
           <p>
-            On our training video pages (/watch/&hellip;) the video player
+            On our training video pages (/watch/&hellip;) and on the personal
+            video pages we send to individual contacts (/v/&hellip;), the video player
             reports which parts of the video were played, how long the video
-            is, whether you clicked one of the offers in the player, and the
+            is, whether you clicked one of the offers or &ldquo;Book a call&rdquo;,
+            whether you copied the video link, whether you picked a time in
+            the booking calendar on that page and whether you booked it, and the
             campaign tags in the page address (utm_source, utm_campaign,
             utm_content). It uses a random ID that exists only while the page
             is open: no cookie is set, nothing is stored on or read from your
             device, and we do not store your IP address or browser details with
             it. Reloading the page starts a new, unrelated record. We use this
-            to see which parts of a training are useful and where people stop
+            to see which parts of our videos are useful and where people stop
             watching.
           </p>
           <p>
             Only if you allowed &ldquo;Statistics&rdquo; in our privacy
             banner and your browser still has the email address you signed up
             with (see section 4), that email address is added to the record,
-            so we can see how much of the training you watched. Without that
+            so we can see how much of the video you watched. Without that
             consent the record stays anonymous.
           </p>
           <p>
             The records are stored in a private storage area at our host
             Vercel (see section 2). Legal basis: Art. 6(1)(f) GDPR, our
-            legitimate interest in improving our trainings, for the anonymous
+            legitimate interest in improving our videos, for the anonymous
             record; Art. 6(1)(a) GDPR, your consent, for the record with your
             email address. You can withdraw that consent at any time under
             &ldquo;Cookie settings&rdquo; in the footer. We delete the records
@@ -612,7 +615,7 @@ export default function PrivacyPage() {
             answers&rdquo; (keeps your form entries in your browser, see
             section 4), &ldquo;Statistics&rdquo;
             (Google Analytics and Microsoft Clarity, see sections 7 and 7a,
-            and your email address on training video records, see section 6a) and
+            and your email address on video records, see section 6a) and
             &ldquo;Marketing&rdquo; (Meta Pixel and LinkedIn Insight Tag, see
             sections 7b and 7c). Google Tag
             Manager is loaded as soon as you allow at least one of Statistics
@@ -640,7 +643,7 @@ export default function PrivacyPage() {
               No analytics tools without your consent: Google Analytics and
               Microsoft Clarity only run after you allow it (see sections 7
               and 7a). The only measurement without consent is the anonymous
-              count of which parts of our training videos are played, without
+              count of which parts of our videos are played, without
               cookies or stored IP addresses (see section 6a).
             </li>
             <li>

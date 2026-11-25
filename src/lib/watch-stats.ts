@@ -5,6 +5,8 @@ import type { WatchSession } from "@/lib/watch-store";
 export const BUCKET = 10;
 /** Ab so viel Zuschauen zählt ein Seitenaufruf als Zuschauer */
 export const MIN_WATCH = 30;
+/** Klicks, die als "Angebot geklickt" zählen (Rest: Link kopiert, Kalender) */
+const OFFER_CLICKS = new Set(["audit", "book-call", "end-audit"]);
 
 export type SessionRow = {
   sid: string;
@@ -16,6 +18,8 @@ export type SessionRow = {
   reachedPitch: boolean;
   finished: boolean;
   ctas: [string, number][];
+  /** Uhrzeit im Kalender gewählt, aber nicht gebucht */
+  pickedNoBook: boolean;
 };
 
 export type WatchStats = {
@@ -28,6 +32,9 @@ export type WatchStats = {
   reachedPitch: number;
   finished: number;
   ctaClicks: number;
+  copiedLink: number;
+  pickedNoBook: number;
+  booked: number;
   /** pro 10-s-Stück: Anteil der Zuschauer, die es gesehen haben (0–1) */
   retention: number[];
   /** pro 10-s-Stück: zusätzliche Abspielungen je Zuschauer, der es gesehen hat */
@@ -72,6 +79,7 @@ export function computeStats(
     const merged = union(s.segs);
     const watched = merged.reduce((sum, [a, b]) => sum + (b - a), 0);
     if (watched < MIN_WATCH && !s.ctas.length) continue;
+    const has = (n: string) => s.ctas.some(([c]) => c === n);
     const furthest = merged.length ? merged[merged.length - 1][1] : 0;
     const sawAt = (t: number, need = 3) =>
       merged.some(([a, b]) => overlap(a, b, t, t + BUCKET) >= need);
@@ -98,6 +106,7 @@ export function computeStats(
       reachedPitch: sawAt(pitchStart + 5),
       finished: sawAt(Math.max(0, dur - 40)),
       ctas: s.ctas,
+      pickedNoBook: has("time-picked") && !has("booked"),
     });
   }
 
@@ -113,7 +122,10 @@ export function computeStats(
     medianWatched: median(rows.map((r) => r.watched)),
     reachedPitch: rows.filter((r) => r.reachedPitch).length,
     finished: rows.filter((r) => r.finished).length,
-    ctaClicks: rows.filter((r) => r.ctas.length).length,
+    ctaClicks: rows.filter((r) => r.ctas.some(([c]) => OFFER_CLICKS.has(c))).length,
+    copiedLink: rows.filter((r) => r.ctas.some(([c]) => c === "copy-link")).length,
+    pickedNoBook: rows.filter((r) => r.pickedNoBook).length,
+    booked: rows.filter((r) => r.ctas.some(([c]) => c === "booked")).length,
     retention: seen.map((n) => (viewers ? n / viewers : 0)),
     rewatch: extra.map((n, i) => (seen[i] ? n / seen[i] : 0)),
     chapters: chapters.map(([t, name], i) => ({

@@ -26,7 +26,7 @@ export function WatchChart({
   rewatch: number[];
   bucket: number;
   dur: number;
-  pitchStart: number;
+  pitchStart?: number;
   chapters: { t: number; name: string }[];
 }) {
   const [hover, setHover] = useState<number | null>(null);
@@ -70,8 +70,12 @@ export function WatchChart({
         role="img"
         aria-label="Share of viewers still watching at each point of the video"
       >
-        <rect x={x(pitchStart)} y={PAD.t} width={x(dur) - x(pitchStart)} height={IH} className={styles.pitchBand} />
-        <text x={x(pitchStart) + 6} y={PAD.t + 14} className={styles.axisText}>Pitch</text>
+        {pitchStart !== undefined && (
+          <>
+            <rect x={x(pitchStart)} y={PAD.t} width={x(dur) - x(pitchStart)} height={IH} className={styles.pitchBand} />
+            <text x={x(pitchStart) + 6} y={PAD.t + 14} className={styles.axisText}>Pitch</text>
+          </>
+        )}
         {[0, 0.25, 0.5, 0.75, 1].map((v) => (
           <g key={v}>
             <line x1={PAD.l} x2={W - PAD.r} y1={y(v)} y2={y(v)} className={styles.grid} />
@@ -129,12 +133,12 @@ export function WatchChart({
         {hover !== null ? (
           <>
             <strong>{fmt(hover * bucket)}–{fmt(Math.min(dur, (hover + 1) * bucket))}</strong>
-            <span>{chapterAt(hover * bucket)}</span>
+            {chapters.length > 0 && <span>{chapterAt(hover * bucket)}</span>}
             <span>{Math.round(retention[hover] * 100)}% still watching</span>
             <span>{rewatch[hover].toFixed(2)} extra plays</span>
           </>
         ) : (
-          <span>Hover the chart for details. Numbers on the curve = chapter starts.</span>
+          <span>Hover the chart for details.{chapters.length > 1 && " Numbers on the curve = chapter starts."}</span>
         )}
       </div>
     </div>

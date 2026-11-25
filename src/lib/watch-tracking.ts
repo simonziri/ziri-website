@@ -2,7 +2,7 @@ import { readConsent } from "@/lib/consent";
 import { readProfile } from "@/lib/visitor-profile";
 
 /*
- * Zuschau-Messung auf /watch/<key> (Simon 24.11.): welche Stellen des
+ * Zuschau-Messung auf /watch/<key> und /v/<id> (Simon 24./25.11.): welche Stellen des
  * Trainings abgespielt werden, ob jemand den Pitch erreicht, welche
  * Angebote geklickt werden. Auswertung: /watch-stats.
  *
@@ -18,7 +18,8 @@ import { readProfile } from "@/lib/visitor-profile";
  * dann geht die E-Mail aus der Anmeldung mit (sofern der Browser sie hat).
  */
 
-export const STATS_EMAIL_SINCE = "2026-11-24T00:00:00.000Z";
+// 25.11.: Banner-Text nennt jetzt alle Video-Seiten (/watch + /v), daher ab diesem Tag
+export const STATS_EMAIL_SINCE = "2026-11-25T00:00:00.000Z";
 
 const PING_MS = 15_000;
 /** Sprung über mehr als das (Videosekunden) = neues Stück, kein Weiterlaufen */

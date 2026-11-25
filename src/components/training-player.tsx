@@ -577,7 +577,13 @@ export function TrainingPlayer({
         </div>
       </section>
 
-      <OfferDialog slug={slug} variant="audit" open={offer === "audit"} onClose={closeOffer} />
+      <OfferDialog
+        slug={slug}
+        variant="audit"
+        open={offer === "audit"}
+        onClose={closeOffer}
+        onCalendarEvent={(name) => tracker.current?.mark(name)}
+      />
     </>
   );
 }

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getTrainingVideo } from "@/data/training-videos";
+import Link from "next/link";
+import { WATCH_SLUGS, getWatchVideo } from "@/data/client-videos";
 import { loadSessions, storageReady } from "@/lib/watch-store";
 import { BUCKET, MIN_WATCH, computeStats } from "@/lib/watch-stats";
 import { WatchChart } from "./watch-chart";
@@ -42,7 +43,7 @@ export default async function WatchStatsPage({
   if (process.env.VERCEL ? !key || k !== key : key && k !== key) notFound();
 
   const slug = v || DEFAULT_SLUG;
-  const video = getTrainingVideo(slug);
+  const video = getWatchVideo(slug);
   if (!video) notFound();
 
   const sessions = await loadSessions(slug);
@@ -59,7 +60,18 @@ export default async function WatchStatsPage({
     <main className={styles.page} data-theme="light-primary">
       <header className={styles.head}>
         <p className={styles.kicker}>Internal · not linked anywhere</p>
-        <h1>Watch stats: CRO training</h1>
+        <h1>Watch stats: {video.label}</h1>
+        <nav className={styles.switcher} aria-label="Videos">
+          {WATCH_SLUGS.map((w) => (
+            <Link
+              key={w}
+              href={`/watch-stats?${new URLSearchParams({ ...(k ? { k } : {}), v: w })}`}
+              aria-current={w === slug ? "page" : undefined}
+            >
+              {getWatchVideo(w)?.label ?? w}
+            </Link>
+          ))}
+        </nav>
         <p className={styles.note}>
           One row = one page view where the video was played for at least {MIN_WATCH} seconds
           (or an offer was clicked). Email only shows when the viewer allowed statistics.
@@ -70,9 +82,13 @@ export default async function WatchStatsPage({
       <section className={styles.tiles} aria-label="Totals">
         <Tile label="Viewers" value={String(s.viewers)} sub={`${s.pageViews} page views with play`} />
         <Tile label="Median watch time" value={mins(s.medianWatched)} sub={`of ${mins(s.dur)}`} />
-        <Tile label="Reached the pitch" value={pct(s.reachedPitch, s.viewers)} sub={`${people(s.reachedPitch)} · starts ${mins(s.pitchStart)}`} />
+        {video.hasPitch && (
+          <Tile label="Reached the pitch" value={pct(s.reachedPitch, s.viewers)} sub={`${people(s.reachedPitch)} · starts ${mins(s.pitchStart)}`} />
+        )}
         <Tile label="Watched to the end" value={pct(s.finished, s.viewers)} sub={people(s.finished)} />
-        <Tile label="Clicked an offer" value={pct(s.ctaClicks, s.viewers)} sub={people(s.ctaClicks)} />
+        <Tile label={video.hasPitch ? "Clicked an offer" : "Clicked “Pick a time”"} value={pct(s.ctaClicks, s.viewers)} sub={people(s.ctaClicks)} />
+        <Tile label="Picked a time, didn't book" value={String(s.pickedNoBook)} sub={`${people(s.booked)} booked`} />
+        <Tile label="Copied the link" value={String(s.copiedLink)} sub="shared views show as source “shared”" />
         <Tile label="Known by email" value={String(s.identified)} sub="allowed statistics" />
       </section>
 
@@ -82,13 +98,14 @@ export default async function WatchStatsPage({
           rewatch={s.rewatch}
           bucket={BUCKET}
           dur={s.dur}
-          pitchStart={s.pitchStart}
+          pitchStart={video.hasPitch ? s.pitchStart : undefined}
           chapters={s.chapters}
         />
       ) : (
         <p className={styles.empty}>No viewers yet.</p>
       )}
 
+      {s.chapters.length > 0 && (
       <section aria-labelledby="ch-title">
         <h2 id="ch-title" className={styles.h2}>Chapters</h2>
         <table className={styles.table}>
@@ -107,6 +124,7 @@ export default async function WatchStatsPage({
           </tbody>
         </table>
       </section>
+      )}
 
       <section aria-labelledby="ppl-title">
         <h2 id="ppl-title" className={styles.h2}>Viewers</h2>
@@ -114,7 +132,7 @@ export default async function WatchStatsPage({
           <thead>
             <tr>
               <th>When (Berlin)</th><th>Who</th><th>Watched</th><th>Furthest</th>
-              <th>Pitch</th><th>Offers clicked</th><th>Source</th>
+              {video.hasPitch && <th>Pitch</th>}<th>Clicks</th><th>Source</th>
             </tr>
           </thead>
           <tbody>
@@ -123,8 +141,8 @@ export default async function WatchStatsPage({
                 <td>{when(r.startedAt)}</td>
                 <td>{r.email ?? <span className={styles.muted}>anonymous</span>}</td>
                 <td>{mins(r.watched)} ({pct(r.watched, s.dur)})</td>
-                <td>{mins(r.furthest)} · ch. {chapterOf(r.furthest)}</td>
-                <td>{r.finished ? "to the end" : r.reachedPitch ? "reached" : "–"}</td>
+                <td>{mins(r.furthest)}{s.chapters.length > 0 && ` · ch. ${chapterOf(r.furthest)}`}</td>
+                {video.hasPitch && <td>{r.finished ? "to the end" : r.reachedPitch ? "reached" : "–"}</td>}
                 <td>{r.ctas.length ? r.ctas.map(([n, t]) => `${n} @ ${mins(t)}`).join(", ") : "–"}</td>
                 <td className={styles.muted}>{r.source ?? "–"}</td>
               </tr>

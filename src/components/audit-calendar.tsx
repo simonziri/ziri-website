@@ -55,7 +55,16 @@ function monthGrid(month: Date): (Date | null)[] {
   return cells;
 }
 
-export function AuditCalendar({ prefill }: { prefill: Prefill }) {
+/** Für die Zuschau-Messung (Simon 25.11.): Uhrzeit gewählt / gebucht */
+export type CalendarEvent = "time-picked" | "booked";
+
+export function AuditCalendar({
+  prefill,
+  onEvent,
+}: {
+  prefill: Prefill;
+  onEvent?: (name: CalendarEvent) => void;
+}) {
   const [timeZone, setTimeZone] = useState<string | null>(null);
   const [month, setMonth] = useState(() => {
     const now = new Date();
@@ -144,6 +153,7 @@ export function AuditCalendar({ prefill }: { prefill: Prefill }) {
       }
       setMeetingUrl(json.meetingUrl ?? null);
       setView("booked");
+      onEvent?.("booked");
     } catch {
       setBookError("error");
     } finally {
@@ -257,6 +267,7 @@ export function AuditCalendar({ prefill }: { prefill: Prefill }) {
                         setSlot(start);
                         setBookError(null);
                         setView("details");
+                        onEvent?.("time-picked");
                       }}
                     >
                       {formatTime(start, tz)}
