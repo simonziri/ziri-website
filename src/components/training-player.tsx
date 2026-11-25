@@ -582,7 +582,9 @@ export function TrainingPlayer({
         variant="audit"
         open={offer === "audit"}
         onClose={closeOffer}
-        onCalendarEvent={(name) => tracker.current?.mark(name)}
+        onCalendarEvent={(name) => {
+          if (name !== "shown") tracker.current?.mark(name);
+        }}
       />
     </>
   );

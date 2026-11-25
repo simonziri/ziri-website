@@ -60,19 +60,30 @@ export const getClientVideo = (id: string) => CLIENT_VIDEOS[id];
 export const clientWatchSlug = (id: string) => `v-${id}`;
 
 /** Alle Videos, die /api/watch annimmt und /watch-stats auswertet */
-export function getWatchVideo(
-  slug: string,
-): { label: string; chapters: readonly (readonly [number, string])[]; hasPitch: boolean } | undefined {
+/** Thank-you-Seite: nur Kalender-Klicks, kein Video (Simon 25.11.) */
+export const THANKS_CALENDAR_SLUG = "thanks-calendar";
+
+export function getWatchVideo(slug: string):
+  | {
+      label: string;
+      chapters: readonly (readonly [number, string])[];
+      hasPitch: boolean;
+      kind: "video" | "calendar";
+    }
+  | undefined {
+  if (slug === THANKS_CALENDAR_SLUG)
+    return { label: "Thank-you page calendar", chapters: [], hasPitch: false, kind: "calendar" };
   const training = getTrainingVideo(slug);
-  if (training) return { label: "CRO training", chapters: training.chapters, hasPitch: true };
+  if (training) return { label: "CRO training", chapters: training.chapters, hasPitch: true, kind: "video" };
   if (slug.startsWith("v-")) {
     const v = getClientVideo(slug.slice(2));
-    if (v) return { label: `${v.client} video`, chapters: v.chapters, hasPitch: false };
+    if (v) return { label: `${v.client} video`, chapters: v.chapters, hasPitch: false, kind: "video" };
   }
   return undefined;
 }
 
 export const WATCH_SLUGS = [
   "cro-for-high-ticket-b2b",
+  THANKS_CALENDAR_SLUG,
   ...Object.keys(CLIENT_VIDEOS).map(clientWatchSlug),
 ];

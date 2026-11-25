@@ -51,6 +51,19 @@
   color: var(--color-light-neutral-100);
   text-align: center;
   z-index: 2;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.8s var(--ease-global, ease),
+    visibility 0s linear 0.8s;
+}
+
+.endCard.on {
+  opacity: 1;
+  visibility: visible;
+  transition:
+    opacity 0.8s var(--ease-global, ease),
+    visibility 0s;
 }
 
 .endCard h3 {

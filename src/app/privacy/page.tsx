@@ -330,7 +330,7 @@ export default function PrivacyPage() {
             presenting our work; playback only happens on your initiative.
           </p>
 
-          <h2 id="training-videos">6a. Video pages (how much is watched)</h2>
+          <h2 id="training-videos">6a. Video pages and booking calendar (what is used)</h2>
           <p>
             On our training video pages (/watch/&hellip;) and on the personal
             video pages we send to individual contacts (/v/&hellip;), the video player
@@ -345,6 +345,13 @@ export default function PrivacyPage() {
             it. Reloading the page starts a new, unrelated record. We use this
             to see which parts of our videos are useful and where people stop
             watching.
+          </p>
+          <p>
+            On the thank-you page after you sign up for a training, the same
+            kind of anonymous record only notes whether the booking calendar
+            was shown to you, whether you picked a time and whether you booked
+            it, plus the campaign tags in the page address. We use this to see
+            where people stop before booking.
           </p>
           <p>
             Only if you allowed &ldquo;Statistics&rdquo; in our privacy

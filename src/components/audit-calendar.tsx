@@ -56,7 +56,7 @@ function monthGrid(month: Date): (Date | null)[] {
 }
 
 /** Für die Zuschau-Messung (Simon 25.11.): Uhrzeit gewählt / gebucht */
-export type CalendarEvent = "time-picked" | "booked";
+export type CalendarEvent = "shown" | "time-picked" | "booked";
 
 export function AuditCalendar({
   prefill,
@@ -81,7 +81,9 @@ export function AuditCalendar({
 
   useEffect(() => {
     setTimeZone(Intl.DateTimeFormat().resolvedOptions().timeZone || "UTC");
-  }, []);
+    onEvent?.("shown");
+    // nur beim ersten Anzeigen (onEvent absichtlich nicht in den Abhängigkeiten)
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const thisMonth = useMemo(() => {
     const now = new Date();

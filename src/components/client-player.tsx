@@ -25,6 +25,8 @@ import styles from "./client-player.module.css";
  */
 
 const AUDIT_ID = "audit";
+/** Sekunden vor Schluss, ab denen der Hinweis einblendet */
+const END_LEAD = 5;
 
 const fmt = (s: number) => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, "0")}`;
 
@@ -49,6 +51,7 @@ export function ClientPlayer({
   const tracker = useRef<ReturnType<typeof startWatchTracking> | null>(null);
   const [time, setTime] = useState(0);
   const [ended, setEnded] = useState(false);
+  const [dur, setDur] = useState<number | null>(null);
   const [copied, setCopied] = useState(false);
   const [profile, setProfile] = useState<VisitorProfile | null>(null);
 
@@ -62,22 +65,35 @@ export function ClientPlayer({
     const t = startWatchTracking(el, slug);
     tracker.current = t;
     const onTime = () => setTime(el.currentTime);
+    const onMeta = () => setDur(Number.isFinite(el.duration) ? el.duration : null);
+    onMeta();
     const onEnded = () => setEnded(true);
     const onPlay = () => setEnded(false);
+    // Zurückspulen nach dem Ende blendet den Hinweis wieder aus
+    const onSeeked = () => {
+      setEnded(el.ended);
+      setTime(el.currentTime);
+    };
     el.addEventListener("timeupdate", onTime);
+    el.addEventListener("loadedmetadata", onMeta);
     el.addEventListener("ended", onEnded);
     el.addEventListener("play", onPlay);
+    el.addEventListener("seeked", onSeeked);
     return () => {
       t.stop();
       tracker.current = null;
       el.removeEventListener("timeupdate", onTime);
+      el.removeEventListener("loadedmetadata", onMeta);
       el.removeEventListener("ended", onEnded);
       el.removeEventListener("play", onPlay);
+      el.removeEventListener("seeked", onSeeked);
     };
   }, [slug]);
 
   const mark = (name: string) => tracker.current?.mark(name);
-  const onCalendar = (name: CalendarEvent) => mark(name);
+  const onCalendar = (name: CalendarEvent) => {
+    if (name !== "shown") mark(name);
+  };
 
   const seek = (t: number) => {
     const el = videoRef.current;
@@ -119,7 +135,8 @@ export function ClientPlayer({
 
   const active = chapters.reduce((acc, [t], i) => (time >= t ? i : acc), 0);
   const unqualified = profile ? knownUnqualified(profile) : false;
-  const dur = videoRef.current?.duration;
+  // Hinweis blendet in den letzten 5 Sekunden ein (Simon 25.11.) und bleibt nach dem Ende
+  const showEnd = ended || (dur !== null && time >= dur - END_LEAD);
 
   return (
     <div className={styles.wrap}>
@@ -134,8 +151,12 @@ export function ClientPlayer({
           preload="metadata"
           aria-label={title}
         />
-        {ended && (
-          <div className={styles.endCard} data-theme="dark-primary">
+        <div
+          className={`${styles.endCard} ${showEnd ? styles.on : ""}`}
+          data-theme="dark-primary"
+          aria-hidden={!showEnd}
+          inert={!showEnd}
+        >
             <p className={styles.eyebrow}>Thanks for watching</p>
             {unqualified ? (
               <h3>Questions about any of this? Just reply to my email.</h3>
@@ -155,8 +176,7 @@ export function ClientPlayer({
                 Watch again
               </button>
             </div>
-          </div>
-        )}
+        </div>
       </div>
 
       <div className={styles.bar}>

@@ -44,6 +44,34 @@ function sourceFromUrl(): string | undefined {
   }
 }
 
+/** Seiten ohne Video (Thank-you-Seite, Simon 25.11.): nur Kalender-Klicks
+ *  ("shown", "time-picked", "booked"). Gleiches Format wie eine Watch-Session
+ *  (dur = Obergrenze, Zeit = Sekunden seit Seitenaufruf), gleiche Regeln:
+ *  anonym, E-Mail nur mit Statistik-Einwilligung. */
+export const CALENDAR_DUR = 3600;
+
+export function calendarTracker(slug: string) {
+  const sid = crypto.randomUUID();
+  const source = sourceFromUrl();
+  const t0 = performance.now();
+  const events: [string, number][] = [];
+  return (name: string) => {
+    if (events.length >= 30) return;
+    if (name === "shown" && events.some(([n]) => n === "shown")) return;
+    events.push([name, Math.min(CALENDAR_DUR, Math.round((performance.now() - t0) / 1000))]);
+    try {
+      fetch("/api/watch", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ slug, sid, dur: CALENDAR_DUR, segs: [], ctas: events, email: allowedEmail(), source }),
+        keepalive: true,
+      }).catch(() => {});
+    } catch {
+      // Messung darf nie stören
+    }
+  };
+}
+
 export function startWatchTracking(el: HTMLVideoElement, slug: string) {
   const sid = crypto.randomUUID();
   const source = sourceFromUrl();
