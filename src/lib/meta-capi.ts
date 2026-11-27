@@ -52,7 +52,11 @@ export async function sendMetaLead(lead: MetaLead): Promise<MetaResult> {
 
   const { request } = lead;
   const now = Date.now();
-  const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim();
+  // Behind the Cloudflare Worker, x-forwarded-for is Cloudflare's IP. The Worker
+  // sets x-ziri-client-ip from CF-Connecting-IP (always overwritten, never passed through).
+  const ip =
+    request.headers.get("x-ziri-client-ip")?.trim() ||
+    request.headers.get("x-forwarded-for")?.split(",")[0]?.trim();
   const userAgent = request.headers.get("user-agent");
   const pageUrl = request.headers.get("referer");
 
